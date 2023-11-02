@@ -1,0 +1,1162 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Starting with Azure Resource Templates - Microsoft Playground</title>
+<meta name="description" content="Since that Azure uses the Azure Resource Manager you have the ability to setup your own templates for deploying your applications. This can be handy because the infrastructure for your application is typically made up of many components – maybe a virtual machine, storage account, and virtual network, or a web app, database, database server, and 3rd party services. You do not see these components as separate entities, instead you see them as related and interdependent parts of a single entity. These components can be deployed and managed as a group using the Azure Resource Manager.&nbsp;  With the Resource Manager, you can create a simple template (in JSON format) that defines deployment and configuration of your application. This template is known as a Resource Manager template and provides a declarative way to define deployment. By using a template, you can repeatedly deploy your application throughout the app lifecycle and have confidence your resources are deployed in a consistent state.">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Starting with Azure Resource Templates">
+<meta property="og:url" content="http://localhost:4000/2016/06/starting-azure-resource-templates/">
+
+
+  <meta property="og:description" content="Since that Azure uses the Azure Resource Manager you have the ability to setup your own templates for deploying your applications. This can be handy because the infrastructure for your application is typically made up of many components – maybe a virtual machine, storage account, and virtual network, or a web app, database, database server, and 3rd party services. You do not see these components as separate entities, instead you see them as related and interdependent parts of a single entity. These components can be deployed and managed as a group using the Azure Resource Manager.&nbsp;  With the Resource Manager, you can create a simple template (in JSON format) that defines deployment and configuration of your application. This template is known as a Resource Manager template and provides a declarative way to define deployment. By using a template, you can repeatedly deploy your application throughout the app lifecycle and have confidence your resources are deployed in a consistent state.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Starting with Azure Resource Templates">
+  <meta name="twitter:description" content="Since that Azure uses the Azure Resource Manager you have the ability to setup your own templates for deploying your applications. This can be handy because the infrastructure for your application is typically made up of many components – maybe a virtual machine, storage account, and virtual network, or a web app, database, database server, and 3rd party services. You do not see these components as separate entities, instead you see them as related and interdependent parts of a single entity. These components can be deployed and managed as a group using the Azure Resource Manager.&nbsp;  With the Resource Manager, you can create a simple template (in JSON format) that defines deployment and configuration of your application. This template is known as a Resource Manager template and provides a declarative way to define deployment. By using a template, you can repeatedly deploy your application throughout the app lifecycle and have confidence your resources are deployed in a consistent state.">
+  <meta name="twitter:url" content="http://localhost:4000/2016/06/starting-azure-resource-templates/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2016-06-29T23:59:05+02:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2016/06/starting-azure-resource-templates/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Starting with Azure Resource Templates">
+    <meta itemprop="description" content="Since that Azure uses the Azure Resource Manager you have the ability to setup your own templates for deploying your applications. This can be handy because the infrastructure for your application is typically made up of many components – maybe a virtual machine, storage account, and virtual network, or a web app, database, database server, and 3rd party services. You do not see these components as separate entities, instead you see them as related and interdependent parts of a single entity. These components can be deployed and managed as a group using the Azure Resource Manager.  With the Resource Manager, you can create a simple template (in JSON format) that defines deployment and configuration of your application. This template is known as a Resource Manager template and provides a declarative way to define deployment. By using a template, you can repeatedly deploy your application throughout the app lifecycle and have confidence your resources are deployed in a consistent state.">
+    <meta itemprop="datePublished" content="2016-06-29T23:59:05+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Starting with Azure Resource Templates
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          14 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Since that Azure uses the Azure Resource Manager you have the ability to setup your own templates for deploying your applications. This can be handy because the infrastructure for your application is typically made up of many components – maybe a virtual machine, storage account, and virtual network, or a web app, database, database server, and 3rd party services. You do not see these components as separate entities, instead you see them as related and interdependent parts of a single entity. These components can be deployed and managed as a group using the Azure Resource Manager.  </p>
+<p>With the Resource Manager, you can create a simple template (in JSON format) that defines deployment and configuration of your application. This template is known as a Resource Manager template and provides a declarative way to define deployment. By using a template, you can repeatedly deploy your application throughout the app lifecycle and have confidence your resources are deployed in a consistent state.</p>
+
+<h3>Creating the Azure Resource Template</h3>
+<p>To start with a Azure Resource Template a new project of the template “Azure Resource Group” needs to be added to your Visual Studio Solution. </p>
+<p><a href="/assets/archive/2016/06/image-8.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/06/image_thumb-8.png" width="453" height="308"></a></p>
+<p>When clicking “Ok” a dialog will appear that allows you to pick a kind of resource for deployment. When the resource is chosen the project will be created. This will give a project with three folders:</p>
+<ul>
+<li>
+<strong>Scripts: </strong>Folder for PowerShell scripts that are needed for the deployment. By default it will contain a default script for deploying your resource.  </li>
+<li>
+<strong>Templates: </strong>Folder for the Azure Resource Manager templates. By default it will contain the Resource Template it self and a parameters file.  </li>
+<li>
+<strong>Tools: </strong>Folder that contains tools that are needed for the deployment. By default it contains AzCopy.exe</li>
+</ul>
+<h3>Editing the Resource Template</h3>
+<p>Within Visual Studio there is a text editor for editing the resource template that basically is a large JSON file. This combined with the JSON Outline viewer gives you the flexibility to do many actions. Which actions you can perform depend on the API versions you use within the Resource Template and what actions are available. It could be possible that JSON Outline viewer does not container actions that the ARM API supports. When this occurs the actions need to be added manually. </p>
+<p>From the JSON Outline viewer you can add additional resources to your template by clicking the right mouse button on the resources node.</p>
+<p><a href="/assets/archive/2016/06/image-9.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/06/image_thumb-9.png" width="316" height="145"></a></p>
+<p>Adding resources can also be done on another level. This will give you different options for example adding a a Web Deploy or Application Settings element to a Web Application.</p>
+<p><a href="/assets/archive/2016/06/image-10.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/06/image_thumb-10.png" width="607" height="302"></a></p>
+
+<h3>Deploying a Azure API Application</h3>
+<p>Most of the time when building a Azure API Application it will not only consists of Azure App Services but also Application Insights and a Azure Storage account for example. To deploy these resources all at once the Azure Resource Manager is the way to go. But to get there you will have to keep a couple things in mind.</p>
+<p> To help you with building templates make use of the Azure Resource Explorer:</p>
+<ul>
+<li><a title="https://resources.azure.com/" href="https://resources.azure.com/" target="_blank" rel="noopener noreferrer">Azure Resource Explorer</a></li>
+</ul>
+<p>In the Azure Resource Explorer you will find all your resources you have created within the portal all in JSON representations.</p>
+
+<h3>Setting the Web App Type</h3>
+<p>When selecting a resource for the ARM template there is no option for a API application. The way to create a API Application is by adding a “Web App” resource and setting a specific property to “api” within the template. This property is called “kind”.</p>
+<pre class="highlight">"apiVersion": "2015-08-01",
+"name": "[parameters('apiName')]",
+"kind" :  "api",
+"type": "Microsoft.Web/sites",
+"location": "[resourceGroup().location]",
+"tags": {
+  "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "Resource",
+  "displayName": "Website"
+},
+</pre>
+<h3>Adding application settings</h3>
+<p>When developing web applications there will be a need for saving settings within the web.config. These settings can be overridden within Azure via the Application Settings blade. Example for settings are:</p>
+<h4>AlwaysOn en Client Certificates (not possible trough the interface)</h4>
+<pre class="highlight">"properties": {
+  "name": "[parameters('apiName')]",
+  "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
+  "clientCertEnabled": true,
+  "siteConfig": {
+    "AlwaysOn" :  true
+  }
+}
+</pre>
+<p>Many other settings are depended on other resources like: Application Insights and Azure Storage Accounts. To reference specific values from other resources you can use a specific string concatenation but the resource needs to be created first. When the template is setup in the correct way Azure Resource Manager will handle this dependencies to other resources. </p>
+
+<h4>Storage Account Connection String</h4>
+<p>The storage account connection string can be created with the default endpoint and a key from the Storage Account. These properties can be retrieved and set as connection string by using the below JSON.</p>
+<pre class="highlight">"properties": {
+  "StorageConnectionString": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(variables('storageAccountName'),'2016-01-01').keys[0].value)]"
+}
+</pre>
+<h4>Application Insights Instrumentation Key</h4>
+<p>When making use of application insights the application has to know the instrumentation key in order to log the resources. An option for this is to register the instrumentation key in the web.config and register is it in the Application_Start event as you can read here: <a title="https://msftplayground.com/2015/12/application-insights-configurable-instrumentation-key/" href="https://msftplayground.com/2015/12/application-insights-configurable-instrumentation-key/" target="_blank" rel="noopener noreferrer">Application Insights configurable instrumentation key</a>.</p>
+<p>The instrumentation key is added to the web.config by setting the correct reference.</p>
+<pre class="highlight">"properties": {
+  "InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('insightsName'))).InstrumentationKey]"
+}
+</pre>
+<h3>Deploying your Web Application</h3>
+<p>With Azure Resource Management templates there is also the option to deploy your application. This can be added to the template by adding the project you created as a reference and adding a “Web Deploy for Web Apps” resource.</p>
+<p>To complete this option the PowerShell script and the template need to be altered. What you need to understand is that the zip file containing your sources has to be present within Azure in order to be able to deploy it to your web application. So you have to create a Storage account within Azure and add your zip package to the blob container. </p>
+<p>With the package uploaded you need to add the ‘_artifactsLocation’ and ‘_artifactsLocationSasToken’ parameters to the resource provider in order for it to know where the deployment package is saved. I also altered the default PowerShell to append the date and time to the package name in order to save old deployment packages within the storage container.</p>
+<p>The file name is specified in the ‘_packageFileName’ parameter that is also send to the resource provider by the use of the OptionalParameters. The complete files can be viewed in the following sections.</p>
+<h4>PowerShell deployment file</h4>
+<pre class="highlight">#Requires -Version 3.0
+#Requires -Module AzureRM.Resources
+#Requires -Module Azure.Storage
+
+Param(
+    [string] $ResourceGroupLocation = '[Location]',
+    [string] $ResourceGroupName = '[Resource Group Name',
+    [string] $WebApiPackage = '[Full path to pacakge]',
+    [string] $TemplateFile = '[Path to the template]',
+    [string] $TemplateParametersFile = 'Path to the parameters file]',
+    [string] $DeployContainer = 'deployment' 
+)
+
+Import-Module Azure -ErrorAction SilentlyContinue
+Set-StrictMode -Version 3   
+
+#Login to the Azure Resource Management Account
+Login-AzureRmAccount
+
+#Construct Azure Resource Manager parameters
+$OptionalParameters = New-Object -TypeName Hashtable
+$DateFormat = Get-Date -Format "yyyyMMdd-HHmm"
+$FileName = "package-" + $dateFormat + ".zip"
+$TemplateFile = [System.IO.Path]::Combine($PSScriptRoot, $TemplateFile)
+$TemplateParametersFile = [System.IO.Path]::Combine($PSScriptRoot, $TemplateParametersFile)
+
+#Construct deployment parameters
+$DeployStorageAccountName = $ResourceGroupName.ToLowerInvariant() + 'deployment'
+$DeployStorageAccountName = $DeployStorageAccountName -replace '-'
+
+
+#Create Azure Resource Group
+Write-Host "Creating Azure Resource Group: " $ResourceGroupName " in " $ResourceGroupLocation -ForegroundColor Green
+New-AzureRmResourceGroup -Name $ResourceGroupName -Location $ResourceGroupLocation -Force -ErrorAction Stop 
+
+#Create Azure Storage Account for the deployment of the resources
+Write-Host "Creating Azure Storage Account in Resource Group : " $ResourceGroupName " named " $DeployStorageAccountName -ForegroundColor Green
+New-AzureRmStorageAccount -ResourceGroupName $ResourceGroupName -Name $DeployStorageAccountName -Type "Standard_LRS" -Location $ResourceGroupLocation
+
+#Create storage container for the deployment files
+Write-Host "Creating storage container for the deployment files named: "  $DeployContainer -ForegroundColor Green
+$StorageAccountContext = (Get-AzureRmStorageAccount | Where-Object{$_.StorageAccountName -eq $DeployStorageAccountName }).Context
+$StorageContainer = Get-AzureStorageContainer -Name $DeployContainer -Context $StorageAccountContext -ErrorAction SilentlyContinue
+if($StorageContainer -eq $null){
+    New-AzureStorageContainer -Name $DeployContainer -Context $StorageAccountContext
+}
+
+#Adding the package to the container
+Write-Host "Adding the deployment package to the container with the name: " $FileName -ForegroundColor Green
+Set-AzureStorageBlobContent -File $WebApiPackage -Blob $FileName -Container 'deployment' -Context $StorageAccountContext -Force
+
+#Setting the optional parameters for the deployment file
+$ArtifactsLocation = $StorageAccountContext.BlobEndPoint + $DeployContainer
+$ArtifactsLocationSasToken = New-AzureStorageContainerSASToken -Container $DeployContainer -Context $StorageAccountContext -Permission r -ExpiryTime (Get-Date).AddHours(4)
+$ArtifactsLocationSasToken = ConvertTo-SecureString $ArtifactsLocationSasToken -AsPlainText -Force
+
+$OptionalParameters = New-Object -TypeName Hashtable
+$OptionalParameters['_artifactsLocation'] = $ArtifactsLocation
+$OptionalParameters['_artifactsLocationSasToken'] = $ArtifactsLocationSasToken
+$OptionalParameters['_packageFileName'] = $FileName
+
+#Deploying resources with the resource management file
+Write-Host "Deploying resources to the Resource Group: " $ResourceGroupName -ForegroundColor Green
+New-AzureRmResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName + '-' + ((Get-Date).ToUniversalTime()).ToString('MMdd-HHmm')) `
+                                   -ResourceGroupName $ResourceGroupName `
+                                   -TemplateFile $TemplateFile `
+                                   -TemplateParameterFile $TemplateParametersFile `
+                                   @OptionalParameters `
+                                   -Force
+
+</pre>
+<h4>Parameters File</h4>
+<pre class="highlight">{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "hostingPlanName": { "value": "[Service Plan Name]" },
+    "skuName": { "value": "[Resource Level]" },
+    "skuCapacity": { "value": [Capacity] },
+    "resourceLocation": { "value": "[Resource Location]" },
+    "storageName": { "value": "[Storage Name]" },
+    "storageType": { "value": "[Storage Type]" },
+    "apiName": { "value": "[API Application Name]" },
+    "insightsName": { "value": "[Insights Name]" },
+  }
+}
+</pre>
+<h4>Azure Resource Template</h4>
+<pre class="highlight">{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "hostingPlanName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resourceLocation": {
+      "type": "string",
+      "defaultValue": "West Europe"
+    },
+    "skuName": {
+      "type": "string",
+      "defaultValue": "F1",
+      "allowedValues": [ "F1", "D1", "B1", "B2", "B3", "S1", "S2", "S3", "P1", "P2", "P3", "P4" ]
+    },
+    "skuCapacity": {
+      "type": "int",
+      "defaultValue": 1,
+      "minValue": 1
+    },
+    "storageType": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [ "Standard_LRS", "Standard_ZRS", "Standard_GRS", "Standard_RAGRS", "Premium_LRS" ]
+    },
+    "storageName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "apiName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "insightsName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "_artifactsLocation": {
+      "type": "string"
+    },
+    "_artifactsLocationSasToken": {
+      "type": "securestring"
+    },
+    "_packageFileName": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "storageAccountName": "[parameters('storageName')]",
+    "storageid": "[resourceId('Microsoft.Storage/storageAccounts',variables('storageAccountName'))]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2015-08-01",
+      "name": "[parameters('hostingPlanName')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[parameters('resourceLocation')]",
+      "tags": {
+        "displayName": "HostingPlan"
+      },
+      "sku": {
+        "name": "[parameters('skuName')]",
+        "capacity": "[parameters('skuCapacity')]"
+      },
+      "properties": {
+        "name": "[parameters('hostingPlanName')]"
+      }
+    },
+    {
+      "apiVersion": "2015-08-01",
+      "name": "[parameters('apiName')]",
+      "kind" :  "api",
+      "type": "Microsoft.Web/sites",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "Resource",
+        "displayName": "Website"
+      },
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+      ],
+      "properties": {
+        "name": "[parameters('apiName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
+        "clientCertEnabled": true,
+        "siteConfig": {
+          "AlwaysOn" :  true
+        }
+      },
+      "resources": [
+        {
+          "name": "appsettings",
+          "type": "config",
+          "apiVersion": "2015-08-01",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', parameters('apiName'))]",
+            "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
+          ],
+          "tags": {
+            "displayName": "AppSettings"
+          },
+          "properties": {
+            "StorageConnectionString": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(variables('storageAccountName'),'2016-01-01').keys[0].value)]",
+            "InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('insightsName'))).InstrumentationKey]"
+          }
+        },
+          {
+              "name": "MSDeploy",
+              "type": "extensions",
+              "location": "[resourceGroup().location]",
+              "apiVersion": "2015-08-01",
+              "dependsOn": [
+                  "[concat('Microsoft.Web/sites/', parameters('apiName'))]"
+              ],
+              "tags": {
+                  "displayName": "Deploy"
+              },
+            "properties": {
+              "packageUri": "[concat(parameters('_artifactsLocation'), '/', parameters('_packageFileName'), parameters('_artifactsLocationSasToken'))]",
+              "dbType": "None",
+              "connectionString": "",
+              "setParameters": {
+                "IIS Web Application Name": "[parameters('apiName')]"
+              }
+            }
+          }
+      ]
+    },
+    {
+      "apiVersion": "2014-04-01",
+      "name": "[concat(parameters('hostingPlanName'), '-', resourceGroup().name)]",
+      "type": "Microsoft.Insights/autoscalesettings",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "Resource",
+        "displayName": "AutoScaleSettings"
+      },
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+      ],
+      "properties": {
+        "profiles": [
+          {
+            "name": "Default",
+            "capacity": {
+              "minimum": 1,
+              "maximum": 2,
+              "default": 1
+            },
+            "rules": [
+              {
+                "metricTrigger": {
+                  "metricName": "CpuPercentage",
+                  "metricResourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                  "timeGrain": "PT1M",
+                  "statistic": "Average",
+                  "timeWindow": "PT10M",
+                  "timeAggregation": "Average",
+                  "operator": "GreaterThan",
+                  "threshold": 80.0
+                },
+                "scaleAction": {
+                  "direction": "Increase",
+                  "type": "ChangeCount",
+                  "value": 1,
+                  "cooldown": "PT10M"
+                }
+              },
+              {
+                "metricTrigger": {
+                  "metricName": "CpuPercentage",
+                  "metricResourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                  "timeGrain": "PT1M",
+                  "statistic": "Average",
+                  "timeWindow": "PT1H",
+                  "timeAggregation": "Average",
+                  "operator": "LessThan",
+                  "threshold": 60.0
+                },
+                "scaleAction": {
+                  "direction": "Decrease",
+                  "type": "ChangeCount",
+                  "value": 1,
+                  "cooldown": "PT1H"
+                }
+              }
+            ]
+          }
+        ],
+        "enabled": false,
+        "name": "[concat(parameters('hostingPlanName'), '-', resourceGroup().name)]",
+        "targetResourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+      }
+    },
+    {
+      "apiVersion": "2014-04-01",
+      "name": "[concat('ServerErrors ', parameters('apiName'))]",
+      "type": "Microsoft.Insights/alertrules",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Web/sites/', parameters('apiName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('apiName'))]": "Resource",
+        "displayName": "ServerErrorsAlertRule"
+      },
+      "properties": {
+        "name": "[concat('ServerErrors ', parameters('apiName'))]",
+        "description": "[concat(parameters('apiName'), ' has some server errors, status code 5xx.')]",
+        "isEnabled": false,
+        "condition": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+          "dataSource": {
+            "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+            "resourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('apiName'))]",
+            "metricName": "Http5xx"
+          },
+          "operator": "GreaterThan",
+          "threshold": 0.0,
+          "windowSize": "PT5M"
+        },
+        "action": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+          "sendToServiceOwners": true,
+          "customEmails": [ ]
+        }
+      }
+    },
+    {
+      "apiVersion": "2014-04-01",
+      "name": "[concat('ForbiddenRequests ', parameters('apiName'))]",
+      "type": "Microsoft.Insights/alertrules",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Web/sites/', parameters('apiName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('apiName'))]": "Resource",
+        "displayName": "ForbiddenRequestsAlertRule"
+      },
+      "properties": {
+        "name": "[concat('ForbiddenRequests ', parameters('apiName'))]",
+        "description": "[concat(parameters('apiName'), ' has some requests that are forbidden, status code 403.')]",
+        "isEnabled": false,
+        "condition": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+          "dataSource": {
+            "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+            "resourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('apiName'))]",
+            "metricName": "Http403"
+          },
+          "operator": "GreaterThan",
+          "threshold": 0,
+          "windowSize": "PT5M"
+        },
+        "action": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+          "sendToServiceOwners": true,
+          "customEmails": [ ]
+        }
+      }
+    },
+    {
+      "apiVersion": "2014-04-01",
+      "name": "[concat('CPUHigh ', parameters('hostingPlanName'))]",
+      "type": "Microsoft.Insights/alertrules",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "Resource",
+        "displayName": "CPUHighAlertRule"
+      },
+      "properties": {
+        "name": "[concat('CPUHigh ', parameters('hostingPlanName'))]",
+        "description": "[concat('The average CPU is high across all the instances of ', parameters('hostingPlanName'))]",
+        "isEnabled": false,
+        "condition": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+          "dataSource": {
+            "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+            "resourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+            "metricName": "CpuPercentage"
+          },
+          "operator": "GreaterThan",
+          "threshold": 90,
+          "windowSize": "PT15M"
+        },
+        "action": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+          "sendToServiceOwners": true,
+          "customEmails": [ ]
+        }
+      }
+    },
+    {
+      "apiVersion": "2014-04-01",
+      "name": "[concat('LongHttpQueue ', parameters('hostingPlanName'))]",
+      "type": "Microsoft.Insights/alertrules",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]": "Resource",
+        "displayName": "LongHttpQueueAlertRule"
+      },
+      "properties": {
+        "name": "[concat('LongHttpQueue ', parameters('hostingPlanName'))]",
+        "description": "[concat('The HTTP queue for the instances of ', parameters('hostingPlanName'), ' has a large number of pending requests.')]",
+        "isEnabled": false,
+        "condition": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+          "dataSource": {
+            "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+            "resourceUri": "[concat(resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+            "metricName": "HttpQueueLength"
+          },
+          "operator": "GreaterThan",
+          "threshold": 100.0,
+          "windowSize": "PT5M"
+        },
+        "action": {
+          "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+          "sendToServiceOwners": true,
+          "customEmails": [ ]
+        }
+      }
+    },
+    {
+      "apiVersion": "2014-04-01",
+      "name": "[parameters('insightsName')]",
+      "type": "Microsoft.Insights/components",
+      "location": "Central US",
+      "dependsOn": [
+        "[concat('Microsoft.Web/sites/', parameters('apiName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('apiName'))]": "Resource",
+        "displayName": "AppInsightsComponent"
+      },
+      "properties": {
+        "applicationId": "[parameters('apiName')]"
+      }
+    },
+    {
+      "name": "[variables('storageAccountName')]",
+      "type": "Microsoft.Storage/storageAccounts",
+
+        
+      </pre></section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#arm" class="page__taxonomy-item" rel="tag">ARM</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      <a href="/tags/#deployment" class="page__taxonomy-item" rel="tag">Deployment</a><span class="sep">, </span>
+    
+      <a href="/tags/#json" class="page__taxonomy-item" rel="tag">JSON</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#azure" class="page__taxonomy-item" rel="tag">Azure</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-06-29T23:59:05+02:00">June 29, 2016</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Starting+with+Azure+Resource+Templates%20http%3A%2F%2Flocalhost%3A4000%2F2016%2F06%2Fstarting-azure-resource-templates%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2016%2F06%2Fstarting-azure-resource-templates%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2016%2F06%2Fstarting-azure-resource-templates%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2016/06/azure-app-service-and-client-certificate-authentication/" class="pagination--pager" title="Azure App Service and Client Certificate Authentication
+">Previous</a>
+    
+    
+      <a href="/2016/07/sharepoint-rest-api-handler/" class="pagination--pager" title="SharePoint Rest API Handler
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

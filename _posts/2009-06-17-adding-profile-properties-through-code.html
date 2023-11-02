@@ -1,45 +1,21 @@
 ---
-layout: post
 title: Adding profile properties through code
-date: 2009-06-17 09:45:00.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
-- SharePoint
 tags:
 - Properties
 - SharePoint
 - User Profiles
-meta:
-  _yoast_wpseo_title: Adding profile properties through code
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: Profile
-  _yoast_wpseo_focuskw: Profile
-  _yoast_wpseo_linkdex: '73'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Profile
-  _wds_title: Adding profile properties through code
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2009/06/adding-profile-properties-through-code/"
+date: 2009-06-17 09:45:00.000000000 +02:00
+permalink: /2009/06/adding-profile-properties-through-code/
+categories:
+- Development
+- SharePoint
+status: publish
 ---
 <div class="ExternalClass48DD5880B0ED4C6E9C0D297811DBC726">
 <p>It can occur that you want to add a property to the property collection of the user profile store by using a feature. <br />If you want to use a feature you would have to create a feature with a FeatureReceiver. In the FeatureReceiver you would have to implement the FeatureActivated and FeatureDeactivating.</p>
 <p>The feature.xml file will look like the following:</p>
-<pre class="brush: xml;"> &lt;Feature  Id="b6300381-00fe-446a-b6b0-6962344b5d6f"
+<pre class="highlight"> &lt;Feature  Id="b6300381-00fe-446a-b6b0-6962344b5d6f"
            Title="UserProfile CV Property"
            Description="Feature that adds a user profile property to the user profile store"
            Version="12.0.0.0"
@@ -54,7 +30,7 @@ permalink: "/2009/06/adding-profile-properties-through-code/"
            xmlns="http://schemas.microsoft.com/sharepoint/"&gt;
  &lt;/Feature&gt; </pre>
 <p>In the FeatureActivated we will add the property when it isn’t already added and in the FeatureDeactivating we will delete the property when it is available in the user profile store.</p>
-<pre class="brush: csharp;"> public override void FeatureActivated(SPFeatureReceiverProperties properties) {
+<pre class="highlight"> public override void FeatureActivated(SPFeatureReceiverProperties properties) {
     //get the userprofile manager
     ServerContext context = ServerContext.Current;
     UserProfileManager manager = new UserProfileManager(context);
@@ -93,10 +69,3 @@ permalink: "/2009/06/adding-profile-properties-through-code/"
  if (query.Count() &gt; 0) {
     exists = true;
  }
-
- return exists;
- }</pre>
-<p>In the code above you can see that we retrieve the UserProfileManager by using the current ServerContext. On the UserProfileManager you have a PropertyCollection where in we would like to add or delete our property. To create a new property we have to use the Create method on the property collection to create a new property. On the create method you have to give a property whether you would like to add a section or a property. In our example we don’t want to add a section so we choice false.</p>
-<p>If you would want to add a property with a section you have to retrieve the property collection with section:</p>
-<pre class="brush: csharp;">PropertyCollection col = manager.GetPropertiesWithSection();</pre>
-<p>I hope this article gives you a good insight how to add and remove properties trough code </p></div>

@@ -1,0 +1,851 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>SharePoint Rest API Handler - Microsoft Playground</title>
+<meta name="description" content="SharePoint contains a lot of Rest API’s that can be used for many scenario’s. You could use them for example in desktop and windows phone applications. When using these API’s you need to make sure authentication is handled before calling the API. For authenticating to these API’s there a couple of options:  Authenticate as a User. This is a registered user with a license within your Office 365 tenant or your on-premise AD.   Authenticate as a Application. You can register a application within an SharePoint site by using the “AppRegNew.aspx” page and perform actions on behalf of a application.  Register SharePoint Add-ins 2013     The token that is received from the authentication request needs to be supplied in the header of the API call. In order to retrieve the token you can make use of the “TokenHelper” class that is added by default to SharePoint App projects. With the token the API call can be made, this needs do be done in different ways. In the following paragraphs there are examples for Getting Items, Uploading documents, Updating, Getting documents by Id. Getting Items from a SharePoint List Getting items from a SharePoint list can be achieved by using a Http Get to the “GetItems” API method and supplying a Caml query in the URL.  [siteurl]/_api/web/lists/GetByTitle(&#39;[listname]&#39;)/GetItems(query=@v1)?@v1={&quot;ViewXml&quot;:&quot;[camlquery]&quot;}   Example for a Caml query is displayed below. Make sure you supply a query with the “View” and “Query” tag included. &lt;View&gt;  &lt;ViewFields&gt;   &lt;FieldRef Name=&#39;LinkFilename&#39; /&gt;  &lt;/ViewFields&gt;  &lt;Query&gt;   &lt;OrderBy&gt;    &lt;FieldRef Name=&#39;Created&#39; /&gt;   &lt;/OrderBy&gt;  &lt;/Query&gt; &lt;/View&gt;  &nbsp; In C# the API call can be made in the following way: public string GetItems(string siteUrl, string list, string camlQuery) {     string retVal = string.Empty;">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="SharePoint Rest API Handler">
+<meta property="og:url" content="http://localhost:4000/2016/07/sharepoint-rest-api-handler/">
+
+
+  <meta property="og:description" content="SharePoint contains a lot of Rest API’s that can be used for many scenario’s. You could use them for example in desktop and windows phone applications. When using these API’s you need to make sure authentication is handled before calling the API. For authenticating to these API’s there a couple of options:  Authenticate as a User. This is a registered user with a license within your Office 365 tenant or your on-premise AD.   Authenticate as a Application. You can register a application within an SharePoint site by using the “AppRegNew.aspx” page and perform actions on behalf of a application.  Register SharePoint Add-ins 2013     The token that is received from the authentication request needs to be supplied in the header of the API call. In order to retrieve the token you can make use of the “TokenHelper” class that is added by default to SharePoint App projects. With the token the API call can be made, this needs do be done in different ways. In the following paragraphs there are examples for Getting Items, Uploading documents, Updating, Getting documents by Id. Getting Items from a SharePoint List Getting items from a SharePoint list can be achieved by using a Http Get to the “GetItems” API method and supplying a Caml query in the URL.  [siteurl]/_api/web/lists/GetByTitle(&#39;[listname]&#39;)/GetItems(query=@v1)?@v1={&quot;ViewXml&quot;:&quot;[camlquery]&quot;}   Example for a Caml query is displayed below. Make sure you supply a query with the “View” and “Query” tag included. &lt;View&gt;  &lt;ViewFields&gt;   &lt;FieldRef Name=&#39;LinkFilename&#39; /&gt;  &lt;/ViewFields&gt;  &lt;Query&gt;   &lt;OrderBy&gt;    &lt;FieldRef Name=&#39;Created&#39; /&gt;   &lt;/OrderBy&gt;  &lt;/Query&gt; &lt;/View&gt;  &nbsp; In C# the API call can be made in the following way: public string GetItems(string siteUrl, string list, string camlQuery) {     string retVal = string.Empty;">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="SharePoint Rest API Handler">
+  <meta name="twitter:description" content="SharePoint contains a lot of Rest API’s that can be used for many scenario’s. You could use them for example in desktop and windows phone applications. When using these API’s you need to make sure authentication is handled before calling the API. For authenticating to these API’s there a couple of options:  Authenticate as a User. This is a registered user with a license within your Office 365 tenant or your on-premise AD.   Authenticate as a Application. You can register a application within an SharePoint site by using the “AppRegNew.aspx” page and perform actions on behalf of a application.  Register SharePoint Add-ins 2013     The token that is received from the authentication request needs to be supplied in the header of the API call. In order to retrieve the token you can make use of the “TokenHelper” class that is added by default to SharePoint App projects. With the token the API call can be made, this needs do be done in different ways. In the following paragraphs there are examples for Getting Items, Uploading documents, Updating, Getting documents by Id. Getting Items from a SharePoint List Getting items from a SharePoint list can be achieved by using a Http Get to the “GetItems” API method and supplying a Caml query in the URL.  [siteurl]/_api/web/lists/GetByTitle(&#39;[listname]&#39;)/GetItems(query=@v1)?@v1={&quot;ViewXml&quot;:&quot;[camlquery]&quot;}   Example for a Caml query is displayed below. Make sure you supply a query with the “View” and “Query” tag included. &lt;View&gt;  &lt;ViewFields&gt;   &lt;FieldRef Name=&#39;LinkFilename&#39; /&gt;  &lt;/ViewFields&gt;  &lt;Query&gt;   &lt;OrderBy&gt;    &lt;FieldRef Name=&#39;Created&#39; /&gt;   &lt;/OrderBy&gt;  &lt;/Query&gt; &lt;/View&gt;  &nbsp; In C# the API call can be made in the following way: public string GetItems(string siteUrl, string list, string camlQuery) {     string retVal = string.Empty;">
+  <meta name="twitter:url" content="http://localhost:4000/2016/07/sharepoint-rest-api-handler/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2016-07-06T23:01:54+02:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2016/07/sharepoint-rest-api-handler/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="SharePoint Rest API Handler">
+    <meta itemprop="description" content="SharePoint contains a lot of Rest API’s that can be used for many scenario’s. You could use them for example in desktop and windows phone applications. When using these API’s you need to make sure authentication is handled before calling the API. For authenticating to these API’s there a couple of options:Authenticate as a User. This is a registered user with a license within your Office 365 tenant or your on-premise AD.  Authenticate as a Application. You can register a application within an SharePoint site by using the “AppRegNew.aspx” page and perform actions on behalf of a application.Register SharePoint Add-ins 2013 The token that is received from the authentication request needs to be supplied in the header of the API call. In order to retrieve the token you can make use of the “TokenHelper” class that is added by default to SharePoint App projects.With the token the API call can be made, this needs do be done in different ways. In the following paragraphs there are examples for Getting Items, Uploading documents, Updating, Getting documents by Id.Getting Items from a SharePoint ListGetting items from a SharePoint list can be achieved by using a Http Get to the “GetItems” API method and supplying a Caml query in the URL.[siteurl]/_api/web/lists/GetByTitle('[listname]')/GetItems(query=@v1)?@v1={&quot;ViewXml&quot;:&quot;[camlquery]&quot;} Example for a Caml query is displayed below. Make sure you supply a query with the “View” and “Query” tag included.&lt;View&gt; &lt;ViewFields&gt;  &lt;FieldRef Name='LinkFilename' /&gt; &lt;/ViewFields&gt; &lt;Query&gt;  &lt;OrderBy&gt;   &lt;FieldRef Name='Created' /&gt;  &lt;/OrderBy&gt; &lt;/Query&gt;&lt;/View&gt; In C# the API call can be made in the following way:public string GetItems(string siteUrl, string list, string camlQuery) {    string retVal = string.Empty;">
+    <meta itemprop="datePublished" content="2016-07-06T23:01:54+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">SharePoint Rest API Handler
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>SharePoint contains a lot of Rest API’s that can be used for many scenario’s. You could use them for example in desktop and windows phone applications. When using these API’s you need to make sure authentication is handled before calling the API. For authenticating to these API’s there a couple of options:</p>
+<ul>
+<li>Authenticate as a User. This is a registered user with a license within your Office 365 tenant or your on-premise AD.  </li>
+<li>Authenticate as a Application. You can register a application within an SharePoint site by using the “AppRegNew.aspx” page and perform actions on behalf of a application.
+<ul>
+<li>
+<a title="https://msdn.microsoft.com/en-us/library/office/jj687469.aspx" href="https://msdn.microsoft.com/en-us/library/office/jj687469.aspx" target="_blank" rel="noopener noreferrer">Register SharePoint Add-ins 2013</a> </li>
+</ul>
+</li>
+</ul>
+<p>The token that is received from the authentication request needs to be supplied in the header of the API call. In order to retrieve the token you can make use of the “TokenHelper” class that is added by default to SharePoint App projects.</p>
+<p>With the token the API call can be made, this needs do be done in different ways. In the following paragraphs there are examples for Getting Items, Uploading documents, Updating, Getting documents by Id.</p>
+<h3>Getting Items from a SharePoint List</h3>
+<p>Getting items from a SharePoint list can be achieved by using a Http Get to the “GetItems” API method and supplying a Caml query in the URL.</p>
+<ul>
+<li>[siteurl]/_api/web/lists/GetByTitle('[listname]')/GetItems(<a href='mailto:query=@v1)?@v1={"ViewXml":"[camlquery'>query=@v1)?@v1={"ViewXml":"[camlquery</a>]"} </li>
+</ul>
+<p>Example for a Caml query is displayed below. Make sure you supply a query with the “View” and “Query” tag included.</p>
+<pre class="highlight">&lt;View&gt;
+ &lt;ViewFields&gt;
+  &lt;FieldRef Name='LinkFilename' /&gt;
+ &lt;/ViewFields&gt;
+ &lt;Query&gt;
+  &lt;OrderBy&gt;
+   &lt;FieldRef Name='Created' /&gt;
+  &lt;/OrderBy&gt;
+ &lt;/Query&gt;
+&lt;/View&gt;
+</pre>
+<p> </p>
+<p>In C# the API call can be made in the following way:</p>
+<pre class="highlight">public string GetItems(string siteUrl, string list, string camlQuery) {
+    string retVal = string.Empty;
+
+    string data = camlJson.Replace("{0}", camlQuery);
+    camlQuery = "(query=@v1)?@v1={\"ViewXml\":\"{2}\"}".Replace("{2}", camlQuery);
+    string url =string.Format(CultureInfo.InvariantCulture, "{0}/_api/web/lists/GetByTitle('{1}')/GetItems{2}", siteUrl, list, camlQuery);
+
+    SPAPIHandler handler = new SPAPIHandler(ClientId, ClientSecret);
+    retVal = handler.Post(url);
+
+    return retVal;
+}
+
+</pre>
+<h3>Getting a Document by Id</h3>
+<p>Getting a specific item from a SharePoint list can be achieved by using a Http Get to the “Items” API method and supplying with specific select and filter string.</p>
+<ul>
+<li>[siteurl]/_api/web/lists/getByTitle('[listname]')/items?$select=EncodedAbsUrl&amp;$filter=Id eq [Id] </li>
+</ul>
+<p>The select query in the above method retrieves the “EncodedAbsUrl” this is the URL to the specific document. Within C# you can use the following method to retrieve the specific document.</p>
+<pre class="highlight">public string GetDocument(string siteUrl, string list, string Id) {
+    
+    string retVal = string.Empty;
+    string url = string.Format(CultureInfo.InvariantCulture, "{0}/_api/web/lists/getByTitle('{1}')/items?$select=EncodedAbsUrl&amp;$filter=Id eq {2}", siteUrl, list, Id);
+
+    SPAPIHandler handler = new SPAPIHandler(ClientId, ClientSecret);
+    retVal = handler.Get(url);
+
+    return retVal;
+}
+
+</pre>
+<h3>Uploading a Document</h3>
+<p>Uploading documents to a SharePoint library can be achieved by using a Http Post to the “Add” API method. When uploading a document it is not possible to also add metadata directly. This needs to be done within a separate call.</p>
+<ul>
+<li>[siteurl]/_api/web/lists/getByTitle('[listname]')/RootFolder/Files/Add(url='[filename]', overwrite=true) </li>
+</ul>
+<p>The document itself needs to be added to the content of the post message. In C# the complete method looks like this:</p>
+<pre class="highlight">public string PostDocument(string siteUrl, string list, Document document) {
+    string retVal = string.Empty;
+
+    string url = string.Format(CultureInfo.InvariantCulture, "{0}/_api/web/lists/getByTitle('{1}')/RootFolder/Files/Add(url='{2}', overwrite=true)", siteUrl, list, document.FileName);
+    SPAPIHandler handler = new SPAPIHandler(ClientId, ClientSecret);
+    retVal = handler.PostDocument(url, document.DocumentByteArray);
+
+    JavaScriptSerializer serializer = new JavaScriptSerializer();
+    dynamic item = serializer.Deserialize&lt;object&gt;(retVal);
+    string relativeUrl = item["d"]["ServerRelativeUrl"];
+
+    UpdateDocument(siteUrl, relativeUrl, document);
+
+    return retVal;
+}
+</pre>
+<h3>Updating a Document</h3>
+<p>As mentioned in the above paragraph updating a document is done in a separate Http method that also needs some additional headers.</p>
+<ul>
+<li>[siteurl]/_api/web/GetFileByServerRelativeUrl('[file relative url]')/ListItemAllFields </li>
+</ul>
+<p>The relative URL of the file can be retrieved from the result of the upload request. This can be seen in the paragraph above where the result message is serialized in a dynamic object and the “ServerRelativeUrl” property is retrieved.</p>
+<p>The complete C# method for updating a document is:</p>
+<pre class="highlight">public string UpdateDocument(string siteUrl, string relativeUrl, Document document) {
+    string retVal = string.Empty;
+    
+    string url = string.Format(CultureInfo.InvariantCulture, "{0}/_api/web/GetFileByServerRelativeUrl('{1}')/ListItemAllFields", siteUrl, relativeUrl);
+    SPAPIHandler handler = new SPAPIHandler(ClientId, ClientSecret);
+
+        retVal = handler.Merge(url, document);
+
+    return retVal;
+}
+
+</pre>
+
+<h3>SharePoint API Handler</h3>
+<p>As you can see in the examples above they all make use of the “SPAPIHandler” class. This class takes care of the HTTP calls and authenticates the requests.</p>
+<pre class="highlight">public class SPAPIHandler {
+
+    private string contenttype = "application/json;odata=verbose";
+
+    private string acceptHeader = "application/json;odata=verbose";
+
+    /// &lt;summary&gt;
+    /// Gets or sets the client identifier.
+    /// &lt;/summary&gt;
+    /// &lt;value&gt;
+    /// The client identifier.
+    /// &lt;/value&gt;
+    private string ClientId { get; set; }
+
+    /// &lt;summary&gt;
+    /// Gets or sets the client secret.
+    /// &lt;/summary&gt;
+    /// &lt;value&gt;
+    /// The client secret.
+    /// &lt;/value&gt;
+    private string ClientSecret { get; set; }
+
+    public SPAPIHandler(string clientId, string clientSecret) {
+        ClientId = clientId;
+        ClientSecret = clientSecret;
+    }
+
+    public string Get(string url) {
+        var accessToken = GetAccessTokenResponse(url);
+
+        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+        request.Method = "GET";
+        request.Accept = acceptHeader;
+        request.Headers.Add("Authorization", accessToken.TokenType + " " + accessToken.AccessToken);
+
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+
+        if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.NoContent) {
+            using (var reader = new System.IO.StreamReader(response.GetResponseStream())) {
+                return reader.ReadToEnd();
+            }
+        }
+
+        return null;
+    }
+
+    public string Post(string url) {
+        var accessToken = GetAccessTokenResponse(url);
+
+        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+        request.Method = "POST";
+        request.ContentLength = 0;
+        request.Accept = acceptHeader;
+        request.Headers.Add("Authorization", accessToken.TokenType + " " + accessToken.AccessToken);
+
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+
+        if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.NoContent) {
+            using (var reader = new System.IO.StreamReader(response.GetResponseStream())) {
+                return reader.ReadToEnd();
+            }
+        }
+
+        return (null);
+    }
+
+    public string Merge(string url, Document doc) {
+
+        var accessToken = GetAccessTokenResponse(url);
+
+        var postData = new JObject {
+            ["__metadata"] = new JObject { ["type"] = "SP.File" }
+        };
+
+        foreach(string key in doc.MetaData.Keys) {
+            postData.Add(key, doc.MetaData[key]);
+        }
+
+        byte[] listPostData = Encoding.ASCII.GetBytes(postData.ToString());
+
+        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+        request.Method = "POST";
+        request.ContentLength = postData.ToString().Length;
+        request.ContentType = contenttype;
+        request.Accept = acceptHeader;
+        request.Headers.Add("Authorization", accessToken.TokenType + " " + accessToken.AccessToken);
+        request.Headers.Add("If-Match", "*");
+        request.Headers.Add("X-Http-Method", "MERGE");
+
+        Stream listRequestStream = request.GetRequestStream();
+        listRequestStream.Write(listPostData, 0, listPostData.Length);
+        listRequestStream.Close();
+
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+        
+      </pre></section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#api" class="page__taxonomy-item" rel="tag">API</a><span class="sep">, </span>
+    
+      <a href="/tags/#rest" class="page__taxonomy-item" rel="tag">Rest</a><span class="sep">, </span>
+    
+      <a href="/tags/#samples" class="page__taxonomy-item" rel="tag">Samples</a><span class="sep">, </span>
+    
+      <a href="/tags/#sharepoint" class="page__taxonomy-item" rel="tag">SharePoint</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#development" class="page__taxonomy-item" rel="tag">Development</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-07-06T23:01:54+02:00">July 6, 2016</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=SharePoint+Rest+API+Handler%20http%3A%2F%2Flocalhost%3A4000%2F2016%2F07%2Fsharepoint-rest-api-handler%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2016%2F07%2Fsharepoint-rest-api-handler%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2016%2F07%2Fsharepoint-rest-api-handler%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2016/06/starting-azure-resource-templates/" class="pagination--pager" title="Starting with Azure Resource Templates
+">Previous</a>
+    
+    
+      <a href="/2016/08/esp8266-based-temperature-monitor-azure-iot/" class="pagination--pager" title="ESP8266 based temperature monitor with Azure IOT
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

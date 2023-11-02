@@ -1,58 +1,19 @@
 ---
-layout: post
 title: Setting up navigation based on search for Site collections
-date: 2013-12-03 13:18:18.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- SharePoint
 tags:
 - Host Named Site Collections
 - Search
 - SharePoint 2013
-meta:
-  _wpas_done_all: '1'
-  _wp_jd_bitly: http://bit.ly/1bFUaMc
-  _wp_jd_target: ''
-  _jd_wp_twitter: 'a:3:{i:0;s:90:"New post: Setting up navigation based on search
-    for Site collections http://bit.ly/1bFUaMc";i:1;s:93:"Post Edited: Setting up
-    navigation based on search for Site collections http://bit.ly/1bFUaMc";i:2;s:93:"Post
-    Edited: Setting up navigation based on search for Site collections http://bit.ly/1bFUaMc";}'
-  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:90:"New post: Setting up navigation
-    based on search for Site collections http://bit.ly/1bFUaMc";s:5:"error";s:71:"This
-    tweet is identical to another Tweet recently sent to this account.";s:4:"code";i:403;s:9:"timestamp";i:1386076705;}'
-  _edit_last: '1'
-  _jd_tweet_this: 'yes'
-  snapLI: s:248:"a:1:{i:0;a:4:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:123:"http://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=5813637501696770048&amp;type=U&amp;a=1N1R";s:5:"pDate";s:19:"2013-12-03
-    13:59:52";}}";
-  _wpt_status_message: Tweet sent successfully.
-  _yoast_wpseo_focuskw_text_input: Navigation
-  _yoast_wpseo_focuskw: Navigation
-  _yoast_wpseo_linkdex: '72'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Navigation
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2013/12/setting-up-navigation-based-on-search-for-site-collections/"
+date: 2013-12-03 13:18:18.000000000 +01:00
+permalink: /2013/12/setting-up-navigation-based-on-search-for-site-collections/
+categories:
+- SharePoint
+status: publish
 ---
 <p>At the moment we are creating a portal based on host named site collections. The root site collection needs to display the sub site collections you have access to.</p>
 <p>To give you a better understanding of what we created take a look at the following image:</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/blogstructure.png"><img title="blog-structure" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; display: inline; border-top-width: 0px" border="0" alt="blog-structure" src="{{ site.baseurl }}/assets/archive/2013/12/blogstructure_thumb.png" width="152" height="289" /></a> </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/blogstructure.png"><img title="blog-structure" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; display: inline; border-top-width: 0px" border="0" alt="blog-structure" src="/assets/archive/2013/12/blogstructure_thumb.png" width="152" height="289" /></a> </p>
 <p>Every site in the above image is a host named site collection. We are using separate site collections to be able to move sites between databases because the sites them selves will contain a large amount of data. </p>
 <p>For the creation of the sub site collection we have created a custom provisioning method. How to do this provisioning can be read in my other article:</p>
 <ul>
@@ -61,13 +22,13 @@ permalink: "/2013/12/setting-up-navigation-based-on-search-for-site-collections/
 <p>But now we had the challenge to display all the sites the current user has access to on the root site.</p>
 <p>When we had setup the environment with the host named site collection it was time to create the representation of the sites on the root site (http://root).</p>
 <p>First of all we started by adding the “Content Search” web part to the page that can be found in the “Content Rollup” category.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/image.png"><img title="image" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2013/12/image_thumb.png" width="621" height="137" /></a> </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/image.png"><img title="image" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="image" src="/assets/archive/2013/12/image_thumb.png" width="621" height="137" /></a> </p>
 <p>This web part will display several results already based on a empty search query. By editing the web part you will be able to define your own query. </p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/image1.png"><img title="image" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2013/12/image_thumb1.png" width="127" height="295" /></a> </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/image1.png"><img title="image" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="image" src="/assets/archive/2013/12/image_thumb1.png" width="127" height="295" /></a> </p>
 <p>Select the “Change Query” button to start defining your own query. Right away click on the “Switch to Advanced Mode” to start writing your own query. In the advanced window you will have a textbox to define a custom query. </p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/image2.png"><img title="image" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2013/12/image_thumb2.png" width="481" height="347" /></a> </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/image2.png"><img title="image" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="image" src="/assets/archive/2013/12/image_thumb2.png" width="481" height="347" /></a> </p>
 <p>Take a look at the following query we defined:</p>
-<pre class="brush: sql;">contentclass:STS_Site Path:{Site.Url}* Site&lt;&gt;{Site.Url}
+<pre class="highlight">contentclass:STS_Site Path:{Site.Url}* Site&lt;&gt;{Site.Url}
 </pre>
 <p>The explanation of the query is the following:</p>
 <ul>
@@ -77,9 +38,9 @@ permalink: "/2013/12/setting-up-navigation-based-on-search-for-site-collections/
 </ul>
 <p>So by using this query you will retrieve every site collection under (URLwise) the current site collection that you have access to (Because search results are security trimmed).</p>
 <p>For displaying these sites you can use several out of the box managed properties. Save the query by clicking “OK”. Then in the edit properties window extend the “Property Mappings” section.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/image3.png"><img title="image" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2013/12/image_thumb3.png" width="157" height="478" /></a> </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/image3.png"><img title="image" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="image" src="/assets/archive/2013/12/image_thumb3.png" width="157" height="478" /></a> </p>
 <p>In the screen shot above you can see several properties of a site that then result in the following:</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/image4.png"><img title="image" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2013/12/image_thumb4.png" width="279" height="304" /></a> </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/12/image4.png"><img title="image" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="image" src="/assets/archive/2013/12/image_thumb4.png" width="279" height="304" /></a> </p>
 <p>The title’s links to the correct site. The logo’s of the sites are displayed when they have a custom logo attached. The description is also displayed and because we do not have any owners specified in this demo you can not see the result of this.</p>
 <p>Within a custom portal you also have the option of using property bag properties within your search queries or your results, how this can be accomplished can be read here:</p>
 <ul>

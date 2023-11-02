@@ -1,0 +1,749 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Access SharePoint Data from the Database - Microsoft Playground</title>
+<meta name="description" content="When you are developing web parts or other kind of solutions for SharePoint it is possible you work yourself in a situation where you use the SharePoint API for your solutions but you do not want to use it because it is insufficient. When you are in a situation like this you can choose to connect to the content database of your site collection. When you choose to connect to the database you have to remember you should not alter the database directly but use the API for changing properties. A few days ago I was in a situation like this. One of my colleges asked me if there was a web part in SharePoint were in he could see all the alerts you are subscripted to. The answer was no so I started looking if I could develop a web part. I started with retrieving the alerts for the current user like this: SPAlertCollection alertCollection = SPContext.Current.Web.CurrentUser.Alerts;  I thought I would get all off the alerts off the current user for the entire farm but that wasn’t it. The CurrentUser.Alerts only retrieves the alerts for the user within the context you are in, so I received all off the user alerts that were made in that particular SPWeb. So I thought lets iterate trough all the site collections and then retrieve the alert like this:  List&lt;SPAlert&gt; Alerts = new List&lt;SPAlert&gt;();">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Access SharePoint Data from the Database">
+<meta property="og:url" content="http://localhost:4000/2009/04/access-sharepoint-data-from-the-database/">
+
+
+  <meta property="og:description" content="When you are developing web parts or other kind of solutions for SharePoint it is possible you work yourself in a situation where you use the SharePoint API for your solutions but you do not want to use it because it is insufficient. When you are in a situation like this you can choose to connect to the content database of your site collection. When you choose to connect to the database you have to remember you should not alter the database directly but use the API for changing properties. A few days ago I was in a situation like this. One of my colleges asked me if there was a web part in SharePoint were in he could see all the alerts you are subscripted to. The answer was no so I started looking if I could develop a web part. I started with retrieving the alerts for the current user like this: SPAlertCollection alertCollection = SPContext.Current.Web.CurrentUser.Alerts;  I thought I would get all off the alerts off the current user for the entire farm but that wasn’t it. The CurrentUser.Alerts only retrieves the alerts for the user within the context you are in, so I received all off the user alerts that were made in that particular SPWeb. So I thought lets iterate trough all the site collections and then retrieve the alert like this:  List&lt;SPAlert&gt; Alerts = new List&lt;SPAlert&gt;();">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Access SharePoint Data from the Database">
+  <meta name="twitter:description" content="When you are developing web parts or other kind of solutions for SharePoint it is possible you work yourself in a situation where you use the SharePoint API for your solutions but you do not want to use it because it is insufficient. When you are in a situation like this you can choose to connect to the content database of your site collection. When you choose to connect to the database you have to remember you should not alter the database directly but use the API for changing properties. A few days ago I was in a situation like this. One of my colleges asked me if there was a web part in SharePoint were in he could see all the alerts you are subscripted to. The answer was no so I started looking if I could develop a web part. I started with retrieving the alerts for the current user like this: SPAlertCollection alertCollection = SPContext.Current.Web.CurrentUser.Alerts;  I thought I would get all off the alerts off the current user for the entire farm but that wasn’t it. The CurrentUser.Alerts only retrieves the alerts for the user within the context you are in, so I received all off the user alerts that were made in that particular SPWeb. So I thought lets iterate trough all the site collections and then retrieve the alert like this:  List&lt;SPAlert&gt; Alerts = new List&lt;SPAlert&gt;();">
+  <meta name="twitter:url" content="http://localhost:4000/2009/04/access-sharepoint-data-from-the-database/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2009-04-16T06:15:00+02:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2009/04/access-sharepoint-data-from-the-database/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Access SharePoint Data from the Database">
+    <meta itemprop="description" content="When you are developing web parts or other kind of solutions for SharePoint it is possible you work yourself in a situation where you use the SharePoint API for your solutions but you do not want to use it because it is insufficient.When you are in a situation like this you can choose to connect to the content database of your site collection. When you choose to connect to the database you have to remember you should not alter the database directly but use the API for changing properties.A few days ago I was in a situation like this. One of my colleges asked me if there was a web part in SharePoint were in he could see all the alerts you are subscripted to. The answer was no so I started looking if I could develop a web part.I started with retrieving the alerts for the current user like this:SPAlertCollection alertCollection = SPContext.Current.Web.CurrentUser.Alerts; I thought I would get all off the alerts off the current user for the entire farm but that wasn’t it. The CurrentUser.Alerts only retrieves the alerts for the user within the context you are in, so I received all off the user alerts that were made in that particular SPWeb.So I thought lets iterate trough all the site collections and then retrieve the alert like this: List&lt;SPAlert&gt; Alerts = new List&lt;SPAlert&gt;();">
+    <meta itemprop="datePublished" content="2009-04-16T06:15:00+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Access SharePoint Data from the Database
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <div class="ExternalClass06B31F5438394555B1FE5B0C4E2EE7EC">
+<p>When you are developing web parts or other kind of solutions for SharePoint it is possible you work yourself in a situation where you use the SharePoint API for your solutions but you do not want to use it because it is insufficient.</p>
+<p>When you are in a situation like this you can choose to connect to the content database of your site collection. When you choose to connect to the database you have to remember you should not alter the database directly but use the API for changing properties.</p>
+<p>A few days ago I was in a situation like this. One of my colleges asked me if there was a web part in SharePoint were in he could see all the alerts you are subscripted to. The answer was no so I started looking if I could develop a web part.</p>
+<p>I started with retrieving the alerts for the current user like this:</p>
+<pre class="highlight">SPAlertCollection alertCollection = SPContext.Current.Web.CurrentUser.Alerts; </pre>
+<p>I thought I would get all off the alerts off the current user for the entire farm but that wasn’t it. The CurrentUser.Alerts only retrieves the alerts for the user within the context you are in, so I received all off the user alerts that were made in that particular SPWeb.</p>
+<p>So I thought lets iterate trough all the site collections and then retrieve the alert like this:</p>
+<pre class="highlight"> List&lt;SPAlert&gt; Alerts = new List&lt;SPAlert&gt;();
+
+ SPWebApplication webApp = SPContext.Current.Site.WebApplication;
+
+ foreach (SPSite site in webApp.Sites)
+ {
+    using (site)
+    {
+       foreach (SPWeb web in site.AllWebs)
+       {
+          using (web)
+          {
+             SPAlertCollection alerts = web.CurrentUser.Alerts;
+
+             foreach (SPAlert alert in alerts)
+             {
+                Alerts.Add(alert);
+             }
+          }
+       }
+    }
+ }</pre>
+<p>The solution works but the problem with this solution is when you get to a site you don’t have access to you will get a access denied and besides that if you have a large collection of SPWebs or SPSites it will take forever to perform this piece of code.</p>
+<p>So my next solution was to retrieve the alerts from the database. You can do this by retrieving the content databases from your web application and connect to them. You can use a query like below to retrieve all the alerts for the user you want.</p>
+<pre class="highlight">SELECT SchedSubscriptions.Id, SchedSubscriptions.NotifyFreq, SchedSubscriptions.WebId, SchedSubscriptions.SiteId, (SchedSubscriptions.SiteUrl+SchedSubscriptions.WebUrl) AS URL, SchedSubscriptions.ListTitle, SchedSubscriptions.AlertTitle, SchedSubscriptions.AlertType, SchedSubscriptions.Status
+ FROM  SchedSubscriptions
+ WITH  (NOLOCK)
+ Where  SchedSubscriptions.UserId = 1 AND  SchedSubscriptions.Deleted = 0
+ UNION 
+ SELECT  ImmedSubscriptions.Id, NotifyFreq = 0, ImmedSubscriptions.WebId, ImmedSubscriptions.SiteId, (ImmedSubscriptions.SiteUrl+ImmedSubscriptions.WebUrl) AS  URL, ImmedSubscriptions.ListTitle, ImmedSubscriptions.AlertTitle, ImmedSubscriptions.AlertType, ImmedSubscriptions.Status
+ FROM  ImmedSubscriptions
+ WITH  (NOLOCK)
+ Where  ImmedSubscriptions.UserId = 1 AND  ImmedSubscriptions.Deleted = 0</pre>
+<p>This is a simple query that queries the content database for all the alerts. The alerts are saved in two tables:</p>
+<ul>
+<li>ImmedSubscriptions
+</li>
+<li>SchedSubscriptions</li>
+</ul>
+<p>The WITH (NOLOCK) we use in the query is for making sure the tables will not get locked will retrieving the values.</p>
+<p>My code for retrieving all off the alerts for a user within a web application looked something like this:</p>
+<pre class="highlight"> private const string getAlertCommand = "SELECT SchedSubscriptions.Id, SchedSubscriptions.NotifyFreq, SchedSubscriptions.WebId, SchedSubscriptions.SiteId, (SchedSubscriptions.SiteUrl+SchedSubscriptions.WebUrl) AS URL, SchedSubscriptions.ListTitle, SchedSubscriptions.AlertTitle, SchedSubscriptions.AlertType, SchedSubscriptions.Status FROM SchedSubscriptions WITH (NOLOCK) Where SchedSubscriptions.UserId = {0} AND SchedSubscriptions.Deleted = 0 UNION SELECT ImmedSubscriptions.Id, NotifyFreq = 0, ImmedSubscriptions.WebId, ImmedSubscriptions.SiteId, (ImmedSubscriptions.SiteUrl+ImmedSubscriptions.WebUrl) AS URL, ImmedSubscriptions.ListTitle, ImmedSubscriptions.AlertTitle, ImmedSubscriptions.AlertType, ImmedSubscriptions.Status FROM ImmedSubscriptions WITH (NOLOCK) Where ImmedSubscriptions.UserId = {0} AND ImmedSubscriptions.Deleted = 0";
+
+ protected override void CreateChildControls()
+ {
+    base.CreateChildControls();
+
+    List&lt;SPContentDatabase&gt; contentdatabases = new List&lt;SPContentDatabase&gt;();
+
+    Guid siteID = SPContext.Current.Site.ID;
+    int UserID = SPContext.Current.Web.CurrentUser.ID;
+
+    SPSecurity.RunWithElevatedPrivileges(delegate()
+    {
+       SPWebApplication webAPP = null;
+
+       using (SPSite site = new SPSite(siteID))
+       {
+          webAPP = site.WebApplication;
+
+          if (webAPP != null)
+          {
+             contentdatabases = RetrieveContentDatabases(webAPP);
+
+             foreach (SPContentDatabase database in contentdatabases)
+             {
+
+                //use the sql connection so that it will be disposed when we are done
+                using (SqlConnection con = new SqlConnection(database.DatabaseConnectionString))
+                {
+                   //open the database connection
+                   con.Open();
+
+                   //Use the command. It will be disposed when we are done using it
+                   using (SqlCommand com = con.CreateCommand())
+                   {
+                      com.CommandText = string.Format(getAlertCommand, UserID.ToString());
+
+                      //read the informtion from the from the database                
+                      using (SqlDataReader reader = com.ExecuteReader())
+                      {
+                          while (reader.Read())
+                          {
+                             //do what you like to do with the information you retrieved
+                          }
+                       }
+                    }
+                 }
+              }
+           }
+        }
+     });
+ }
+
+
+        
+      
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#database" class="page__taxonomy-item" rel="tag">Database</a><span class="sep">, </span>
+    
+      <a href="/tags/#sharepoint-data" class="page__taxonomy-item" rel="tag">SharePoint Data</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#development" class="page__taxonomy-item" rel="tag">Development</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2009-04-16T06:15:00+02:00">April 16, 2009</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Access+SharePoint+Data+from+the+Database%20http%3A%2F%2Flocalhost%3A4000%2F2009%2F04%2Faccess-sharepoint-data-from-the-database%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2009%2F04%2Faccess-sharepoint-data-from-the-database%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2009%2F04%2Faccess-sharepoint-data-from-the-database%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2009/04/office-service-pack-will-be-available-on-28-april/" class="pagination--pager" title="Office Service Pack will be available on 28 April
+">Previous</a>
+    
+    
+      <a href="/2009/04/search-results-on-a-internet-facing-sharepoint-site/" class="pagination--pager" title="Search Results on a Internet Facing SharePoint Site
+">Next</a>
+    
+  </nav>
+
+    </pre>
+</div>
+
+    
+  
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</section>
+</div>
+
+    </article>
+</div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </div></body>
+</html>

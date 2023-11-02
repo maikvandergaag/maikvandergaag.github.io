@@ -1,0 +1,840 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Starting a Workflow with CSOM - Microsoft Playground</title>
+<meta name="description" content="There are situations were you would like to start a workflow by using  code. In one of my last projects there was that kind of situation, in that project we needed to start a workflow on every item in the SharePoint list. In the past I had done this kind of work many times with the server object model but since this was a SharePoint Online instance I was not able to use the server object model. As you are unable to use the server object model you need to use the Client Side Object Model (CSOM).  In the upcoming article I will walk you trough the code step by step. Make sure that before you start that you add the OfficeDevPpPCore16 nuget package to your application. &nbsp; First thing you need to do when using the client side object model is getting the client context for the site. The URL that you use for the context will need to be the absolute URL of the site on which you want to start the Workflow.  In order to build the client context you need the login name of the user, his password and the site URL. &nbsp; Console.WriteLine(&quot;Enter the Office 365 Login Name&quot;); string loginId = Console.ReadLine(); string pwd = GetInput(&quot;Password&quot;, true);">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Starting a Workflow with CSOM">
+<meta property="og:url" content="http://localhost:4000/2015/08/starting-a-workflow-with-csom/">
+
+
+  <meta property="og:description" content="There are situations were you would like to start a workflow by using  code. In one of my last projects there was that kind of situation, in that project we needed to start a workflow on every item in the SharePoint list. In the past I had done this kind of work many times with the server object model but since this was a SharePoint Online instance I was not able to use the server object model. As you are unable to use the server object model you need to use the Client Side Object Model (CSOM).  In the upcoming article I will walk you trough the code step by step. Make sure that before you start that you add the OfficeDevPpPCore16 nuget package to your application. &nbsp; First thing you need to do when using the client side object model is getting the client context for the site. The URL that you use for the context will need to be the absolute URL of the site on which you want to start the Workflow.  In order to build the client context you need the login name of the user, his password and the site URL. &nbsp; Console.WriteLine(&quot;Enter the Office 365 Login Name&quot;); string loginId = Console.ReadLine(); string pwd = GetInput(&quot;Password&quot;, true);">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Starting a Workflow with CSOM">
+  <meta name="twitter:description" content="There are situations were you would like to start a workflow by using  code. In one of my last projects there was that kind of situation, in that project we needed to start a workflow on every item in the SharePoint list. In the past I had done this kind of work many times with the server object model but since this was a SharePoint Online instance I was not able to use the server object model. As you are unable to use the server object model you need to use the Client Side Object Model (CSOM).  In the upcoming article I will walk you trough the code step by step. Make sure that before you start that you add the OfficeDevPpPCore16 nuget package to your application. &nbsp; First thing you need to do when using the client side object model is getting the client context for the site. The URL that you use for the context will need to be the absolute URL of the site on which you want to start the Workflow.  In order to build the client context you need the login name of the user, his password and the site URL. &nbsp; Console.WriteLine(&quot;Enter the Office 365 Login Name&quot;); string loginId = Console.ReadLine(); string pwd = GetInput(&quot;Password&quot;, true);">
+  <meta name="twitter:url" content="http://localhost:4000/2015/08/starting-a-workflow-with-csom/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2015-08-25T14:44:46+02:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2015/08/starting-a-workflow-with-csom/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Starting a Workflow with CSOM">
+    <meta itemprop="description" content='There are situations were you would like to start a workflow by using  code. In one of my last projects there was that kind of situation, in that project we needed to start a workflow on every item in the SharePoint list. In the past I had done this kind of work many times with the server object model but since this was a SharePoint Online instance I was not able to use the server object model.As you are unable to use the server object model you need to use the Client Side Object Model (CSOM).  In the upcoming article I will walk you trough the code step by step. Make sure that before you start that you add the OfficeDevPpPCore16 nuget package to your application. First thing you need to do when using the client side object model is getting the client context for the site. The URL that you use for the context will need to be the absolute URL of the site on which you want to start the Workflow.  In order to build the client context you need the login name of the user, his password and the site URL. Console.WriteLine("Enter the Office 365 Login Name");string loginId = Console.ReadLine();string pwd = GetInput("Password", true);'>
+    <meta itemprop="datePublished" content="2015-08-25T14:44:46+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Starting a Workflow with CSOM
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>There are situations were you would like to start a workflow by using  code. In one of my last projects there was that kind of situation, in that project we needed to start a workflow on every item in the SharePoint list. In the past I had done this kind of work many times with the server object model but since this was a SharePoint Online instance I was not able to use the server object model.</p>
+<p>As you are unable to use the server object model you need to use the Client Side Object Model (CSOM).  In the upcoming article I will walk you trough the code step by step. Make sure that before you start that you add the OfficeDevPpPCore16 nuget package to your application.</p>
+<p> </p>
+<p>First thing you need to do when using the client side object model is getting the client context for the site. The URL that you use for the context will need to be the absolute URL of the site on which you want to start the Workflow.  In order to build the client context you need the login name of the user, his password and the site URL.</p>
+<p> </p>
+<pre class="highlight">Console.WriteLine("Enter the Office 365 Login Name");
+string loginId = Console.ReadLine();
+string pwd = GetInput("Password", true);
+
+Console.WriteLine("Web Url:");
+string webUrl = Console.ReadLine();
+
+Console.WriteLine("List Name:");
+string listName = Console.ReadLine();
+
+Console.WriteLine("Workflow Name");
+string workflowName = Console.ReadLine();
+
+var passWord = new SecureString();
+foreach (char c in pwd.ToCharArray()) passWord.AppendChar(c);
+
+using (var ctx = new ClientContext(webUrl)) {
+    ctx.Credentials = new SharePointOnlineCredentials(loginId, passWord);
+}
+
+
+</pre>
+<p>In the above code the is a reference to a method called “GetInput” We use this method for getting the password of the user without seeing what the user is typing in the console window.</p>
+<p> </p>
+<pre class="highlight">private static string GetInput(string label, bool isPassword) {
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.Write("{0} : ", label);
+    Console.ForegroundColor = ConsoleColor.Gray;
+
+    string strPwd = "";
+
+    for (ConsoleKeyInfo keyInfo = Console.ReadKey(true); keyInfo.Key != ConsoleKey.Enter; keyInfo = Console.ReadKey(true)) {
+        if (keyInfo.Key == ConsoleKey.Backspace) {
+            if (strPwd.Length &gt; 0) {
+                strPwd = strPwd.Remove(strPwd.Length - 1);
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                Console.Write(" ");
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+            }
+        } else if (keyInfo.Key != ConsoleKey.Enter) {
+            if (isPassword) {
+                Console.Write("*");
+            } else {
+                Console.Write(keyInfo.KeyChar);
+            }
+            strPwd += keyInfo.KeyChar;
+
+        }
+
+    }
+    Console.WriteLine("");
+
+    return strPwd;
+}
+</pre>
+<p>When the client context is setup we can start with the actions we need to perform. The first action we will perform is getting a reference to all required workflow components.components</p>
+<pre class="highlight">var workflowServicesManager = new WorkflowServicesManager(ctx, ctx.Web);
+var workflowInteropService = workflowServicesManager.GetWorkflowInteropService();
+var workflowSubscriptionService = workflowServicesManager.GetWorkflowSubscriptionService();
+var workflowDeploymentService = workflowServicesManager.GetWorkflowDeploymentService();
+var workflowInstanceService = workflowServicesManager.GetWorkflowInstanceService();
+</pre>
+<p> </p>
+<p>This above components are all needed in order to start a workflow. The component we will use first is the deployment service, this service will be used to get all published workflow definitions on the site.</p>
+<pre class="highlight">var publishedWorkflowDefinitions = workflowDeploymentService.EnumerateDefinitions(true);
+ctx.Load(publishedWorkflowDefinitions);
+ctx.ExecuteQuery();
+
+var def = from defs in publishedWorkflowDefinitions
+          where defs.DisplayName == workflowName
+          select defs;
+
+WorkflowDefinition workflow = def.FirstOrDefault();
+
+if(workflow != null) {
+
+}
+</pre>
+<p>As you can see in the above code the workflow definitions are retrieved from the site. In this collection we try to find our workflow definition we need by using the workflow name.</p>
+<p> </p>
+<pre class="highlight">// get all workflow associations
+var workflowAssociations = workflowSubscriptionService.EnumerateSubscriptionsByDefinition(workflow.Id);
+ctx.Load(workflowAssociations);
+ctx.ExecuteQuery();
+
+// find the first association
+var firstWorkflowAssociation = workflowAssociations.First();
+
+// start the workflow
+var startParameters = new Dictionary&lt;string, object&gt;();
+
+if (ctx.Web.ListExists(listName)) {
+    List list = ctx.Web.GetListByTitle(listName);
+
+    CamlQuery query = CamlQuery.CreateAllItemsQuery();
+    ListItemCollection items = list.GetItems(query);
+
+    // Retrieve all items in the ListItemCollection from List.GetItems(Query).
+    ctx.Load(items);
+    ctx.ExecuteQuery();
+    foreach (ListItem listItem in items) {
+        Console.WriteLine("Starting workflow for item: " + listItem.Id);
+        workflowInstanceService.StartWorkflowOnListItem(firstWorkflowAssociation, listItem.Id, startParameters);
+        ctx.ExecuteQuery();
+    }
+}
+
+</pre>
+<p>When the correct definition is loaded we need to association  to be able to start the workflow. Together with the association you also need start parameters to start the workflow, because in our situation we do not have any start parameters we pass in a empty dictionary.  If the list exists we create a CAML query to retrieve all the items in the list.</p>
+<p>As last step we can iterate trough the list items and start the workflow for each item by calling the “StartWorkflowOnListItem” method.</p>
+<p> </p>
+<p>Below you can find the complete reference for the source code.</p>
+<p> </p>
+<pre class="highlight">using Microsoft.SharePoint.Client;
+using Microsoft.SharePoint.Client.WorkflowServices;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CSOMStartWorkflow {
+    class Program {
+        static void Main(string[] args) {
+
+            Console.WriteLine("Enter the Office 365 Login Name");
+            string loginId = Console.ReadLine();
+            string pwd = GetInput("Password", true);
+
+            Console.WriteLine("Web Url:");
+            string webUrl = Console.ReadLine();
+
+            Console.WriteLine("List Name:");
+            string listName = Console.ReadLine();
+
+            Console.WriteLine("Workflow Name");
+            string workflowName = Console.ReadLine();
+
+            var passWord = new SecureString();
+            foreach (char c in pwd.ToCharArray()) passWord.AppendChar(c);
+
+            using (var ctx = new ClientContext(webUrl)) {
+                ctx.Credentials = new SharePointOnlineCredentials(loginId, passWord);
+
+                var workflowServicesManager = new WorkflowServicesManager(ctx, ctx.Web);
+                var workflowInteropService = workflowServicesManager.GetWorkflowInteropService();
+                var workflowSubscriptionService = workflowServicesManager.GetWorkflowSubscriptionService();
+                var workflowDeploymentService = workflowServicesManager.GetWorkflowDeploymentService();
+                var workflowInstanceService = workflowServicesManager.GetWorkflowInstanceService();
+
+                var publishedWorkflowDefinitions = workflowDeploymentService.EnumerateDefinitions(true);
+                ctx.Load(publishedWorkflowDefinitions);
+                ctx.ExecuteQuery();
+
+                var def = from defs in publishedWorkflowDefinitions
+                          where defs.DisplayName == workflowName
+                          select defs;
+
+                WorkflowDefinition workflow = def.FirstOrDefault();
+
+                if(workflow != null) {
+
+
+                    // get all workflow associations
+                    var workflowAssociations = workflowSubscriptionService.EnumerateSubscriptionsByDefinition(workflow.Id);
+                    ctx.Load(workflowAssociations);
+                    ctx.ExecuteQuery();
+
+                    // find the first association
+                    var firstWorkflowAssociation = workflowAssociations.First();
+                    
+                    // start the workflow
+                    var startParameters = new Dictionary&lt;string, object&gt;();
+
+                    if (ctx.Web.ListExists(listName)) {
+                        List list = ctx.Web.GetListByTitle(listName);
+
+                        CamlQuery query = CamlQuery.CreateAllItemsQuery();
+                        ListItemCollection items = list.GetItems(query);
+
+                        // Retrieve all items in the ListItemCollection from List.GetItems(Query).
+                        ctx.Load(items);
+                        ctx.ExecuteQuery();
+                        foreach (ListItem listItem in items) {
+                            Console.WriteLine("Starting workflow for item: " + listItem.Id);
+                            workflowInstanceService.StartWorkflowOnListItem(firstWorkflowAssociation, listItem.Id, startParameters);
+
+        
+      </pre></section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#c" class="page__taxonomy-item" rel="tag">C#</a><span class="sep">, </span>
+    
+      <a href="/tags/#csom" class="page__taxonomy-item" rel="tag">CSOM</a><span class="sep">, </span>
+    
+      <a href="/tags/#sharepoint-online" class="page__taxonomy-item" rel="tag">SharePoint Online</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#office-365" class="page__taxonomy-item" rel="tag">Office 365</a><span class="sep">, </span>
+    
+      <a href="/categories/#sharepoint" class="page__taxonomy-item" rel="tag">SharePoint</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-08-25T14:44:46+02:00">August 25, 2015</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Starting+a+Workflow+with+CSOM%20http%3A%2F%2Flocalhost%3A4000%2F2015%2F08%2Fstarting-a-workflow-with-csom%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2015%2F08%2Fstarting-a-workflow-with-csom%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2015%2F08%2Fstarting-a-workflow-with-csom%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/01/creating-the-release-template-that-runs-after-the-build-part-3/" class="pagination--pager" title="Creating the Release Template that runs after the Build – Part 3
+">Previous</a>
+    
+    
+      <a href="/2015/10/video-on-custom-list-view-by-using-the-js-link-property/" class="pagination--pager" title="Video on ‘Custom List View by Using the JS Link Property’
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

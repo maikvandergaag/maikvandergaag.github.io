@@ -1,19 +1,12 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your entire site, values
-# which you are expected to set up once and rarely need to edit after that.
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# `jekyll serve`. If you change this file, please restart the server process.
 remote_theme: "mmistakes/minimal-mistakes@4.24.0"
 plugins:
-  - jekyll-remote-theme # add this line to the plugins list if you already have one
+  - jekyll-remote-theme
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist
   - jekyll-feed
   - jekyll-include-cache
   - jekyll-redirect-from
-# mimic GitHub Pages with --safe
 whitelist:
   - jekyll-paginate
   - jekyll-sitemap
@@ -21,47 +14,20 @@ whitelist:
   - jekyll-feed
   - jekyll-include-cache
   - jekyll-redirect-from
-minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin: "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 # Site Settings
 locale: "en-US"
-title: "Chris's Tech ADHD"
+title: "Microsoft Playground"
 title_separator: "-"
-subtitle: ""
-name: "Chris Ayers"
-description: "This will be a place where I occasionally blog about things that interest me. I play around with lots of tech, from apps to containers, devops to iot."
-url: # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+subtitle: "debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');"
+name: "Maik van der Gaag"
+description: ""
+url: "https://msftplayground.com"
 baseurl: "/"
-repository: "codebytes/codebytes.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
-teaser: # path of fallback teaser image, e.g. "/assets/images/500x300.png"
-# logo                     : "/assets/images/apple-touch-icon.png" # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
-# masthead_title           : "Chris's Blog" # overrides the website title displayed in the masthead, use " " for no title
-# breadcrumbs            : false # true, false (default)
+repository: "maikvandergaag/maikvandergaag.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+breadcrumbs: false
 future: true
-words_per_minute: 200
-comments:
-  provider: # false (default), "disqus", "discourse", "facebook", "staticman", "utterances", "giscus", "custom"
-  disqus:
-    shortname: # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
-  discourse:
-    server: # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
-  facebook:
-    # https://developers.facebook.com/docs/plugins/comments
-    appid:
-    num_posts: # 5 (default)
-    colorscheme: # "light" (default), "dark"
-  utterances:
-    theme: # "github-light" (default), "github-dark"
-    issue_term: # "pathname" (default)
-  giscus:
-    repo_id: # Shown during giscus setup at https://giscus.app
-    category_name: # Full text name of the category
-    category_id: # Shown during giscus setup at https://giscus.app
-    discussion_term: # "pathname" (default), "url", "title", "og:title"
-    reactions_enabled: # '1' for enabled (default), '0' for disabled
-    theme: # "light" (default), "dark", "dark_dimmed", "transparent_dark", "preferred_color_scheme"
-  staticman:
-    branch: # "master"
-    endpoint: # "https://{your Staticman v3 API}/v3/entry/github/"
+words_per_minute: 150
 atom_feed:
   path: # blank (default) uses feed.xml
 search: true # true, false (default)
@@ -69,72 +35,44 @@ search_full_content: true # true, false (default)
 search_provider: "lunr"
 lunr:
   search_within_pages: true
-algolia:
-  application_id: "K4SQKA6GLC"
-  index_name: "codebytes"
-  search_only_api_key: "1091922810703fa1af45c321d1710e4e"
-  powered_by: true
-# SEO Related
-google_site_verification:
-bing_site_verification:
-yandex_site_verification:
 # Social Sharing
 twitter:
-  username: "chris_l_ayers"
-facebook:
-  username:
-  app_id:
-  publisher:
-og_image: "/assets/images/bio-photo.jpg"
-# For specifying social profiles
-# - https://developers.google.com/structured-data/customize/social-profiles
+  username: "maikvandergaag"
+og_image: "/assets/profile/profile.png"
 social:
-  type: # Person or Organization (defaults to Person)
-  name: # If the user or organization name differs from the site's name
+  type: Person
+  name: Maik van der Gaag
   links: # An array of links to social media profiles
-    - https://twitter.com/
-    - https://github.com/
-# Analytics
-analytics:
-  provider: false # false (default), "google", "google-universal", "google-gtag", "custom"
-  google:
-    tracking_id:
-appinsights:
-clarity: 
+    - https://twitter.com/maikvandergaag
+    - https://github.com/maikvandergaag
 # Site Author
 author:
-  name: "Chris Ayers"
-  avatar: "/assets/headshot/floating-head.png"
-  bio: "I am a **father**, **nerd**, **gamer**, and **speaker**."
-  location: "Tampa, FL"
+  name: "Maik van der Gaag"
+  avatar: "/assets/profile/profile.png"
+  bio: "I am **Microsoft Azure MVP**, **Speaker** and **Father**."
+  location: "Schiedam, The Netherlands"
   links:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/chris_l_ayers"
+      url: "https://twitter.com/maikvandergaag"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/codebytes"
+      url: "https://github.com/maikvandergaag"
     - label: "Linkedin"
       icon: "fab fa-fw fa-linkedin"
-      url: "https://www.linkedin.com/in/chris-l-ayers/"
-    - label: "Mastodon"
-      icon: "fab fa-brands fa-mastodon"
-      url: "https://hachyderm.io/@Chrisayers"
+      url: "https://www.linkedin.com/in/maikvandergaag/"
 # Site Footer
 footer:
   links:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/chris_l_ayers"
+      url: "https://twitter.com/maikvandergaag"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/codebytes"
+      url: "https://github.com/maikvandergaag"
     - label: "Linkedin"
       icon: "fab fa-fw fa-linkedin"
-      url: "https://www.linkedin.com/in/chris-l-ayers/"
-    - label: "Mastodon"
-      icon: "fab fa-brands fa-mastodon"
-      url: "https://hachyderm.io/@Chrisayers"
+      url: "https://www.linkedin.com/in/maikvandergaag/"
 # Reading Files
 include:
   - .htaccess

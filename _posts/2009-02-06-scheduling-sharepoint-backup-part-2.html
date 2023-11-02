@@ -1,41 +1,16 @@
 ---
-layout: post
 title: 'Scheduling SharePoint Backup : Part 2'
-date: 2009-02-06 06:38:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
 tags:
 - Backup
 - Schedule
 - SharePoint 2007
 - VBScript
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: Scheduling
-  _yoast_wpseo_focuskw: Scheduling
-  _yoast_wpseo_linkdex: '75'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Scheduling
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2009/02/scheduling-sharepoint-backup-part-2/"
+date: 2009-02-06 06:38:00.000000000 +01:00
+permalink: /2009/02/scheduling-sharepoint-backup-part-2/
+categories:
+- Administration
+status: publish
 ---
 <div class="ExternalClass73FC825636C64EF596B832A67662238B">A while ago I posted a <a href="/2008/12/scheduling-sharepoint-backup/">SharePoint Backup script</a> so that it is possible to schedule a SharePoint Backup. I had to make some adjustments to the script because it contains small errors. The adjustments I had to make were:
 <ul>
@@ -44,7 +19,7 @@ permalink: "/2009/02/scheduling-sharepoint-backup-part-2/"
 <li>You do not have to delete a method when you choose the differential backup method  </li>
 <li>I cleaned the script up a little bit.</li>
 </ul>
-<pre class="brush: powershell;"> ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+<pre class="highlight"> ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
  ''SharePoint Backup Script
  ''
  ''This is a VBScript for scheduling the SharePoint backup.
@@ -222,40 +197,3 @@ permalink: "/2009/02/scheduling-sharepoint-backup-part-2/"
  Call WriteEvent(subject,body)
  End Sub
 
- ''Method for Logging the outcome off the backup to the application event log
- ''&lt;subject&gt;The subject off the event&lt;/subject&gt;
- ''&lt;body&gt;The Body text off the event&lt;/body&gt;
- Sub WriteEvent(subject,body)
- If subject = "SharePoint Backup Process Completed Successfully" Then
- objShell.LogEvent 0, body
- Else
- objShell.LogEvent 1, body
- end If
- End Sub</pre>
-<p>If you want to change the settings off this VBScript you only have to change the values at the top off the file: </p>
-<ul>
-<li><strong>strFrom:</strong> The e-mail address off the person where you would like to send the e-mail.
-</li>
-<li><strong>strTo:</strong> The e-mail address of the person where the e-mail comes from.
-</li>
-<li><strong>strMailserver:</strong>The mail server for sending the e-mail.
-</li>
-<li><strong>strBackUpDir:</strong>Backup location.
-</li>
-<li><strong>BackUpMethod:</strong>The Backup method you can choose full or differential.
-</li>
-<li><strong>strEnviroment:</strong>The environment where you run the backup script. If you use multiple environments and send it to one address you can see about witch environment the message is about.
-</li>
-<li><strong>strSucceededMessage:</strong>The message when the backup is succeeded.
-</li>
-<li><strong>strSubjectTimeOut:</strong>The subject for the timeout email.
-</li>
-<li><strong>strTimeOutMessage:</strong>The message for the timeout email.
-</li>
-<li><strong>strSubjectFailes:</strong>The subject for the failed email.
-</li>
-<li><strong>strFailedMessage:</strong>The message for the failed email.
-</li>
-<li><strong>strSubjectSucceeded:</strong>The subject for the message when the backup succeeded</li>
-</ul>
-<p>If you want to schedule the execution off the VBScript you can read my previous post : <a href="/2008/12/scheduling-sharepoint-backup/">here</a>. If you want to download the file you can click here: <a href="/wp-content/uploads/2012/10/SharepointBackup.zip">SharePoint Backup</a></div>

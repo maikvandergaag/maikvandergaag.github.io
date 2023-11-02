@@ -1,14 +1,6 @@
 ---
-layout: post
 title: PowerShell Scripts
-date: 2014-01-02 14:50:15.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
 tags:
 - blob cache
 - Hub
@@ -17,62 +9,17 @@ tags:
 - SharePoint 2013
 - Sites
 - Upgrading
-meta:
-  _wpas_done_all: '1'
-  snap_isAutoPosted: '1'
-  _wp_jd_bitly: http://bit.ly/1iwbJ41
-  _wp_jd_target: ''
-  _jd_wp_twitter: 'a:6:{i:0;s:50:"New post: PowerShell Scripts http://bit.ly/1iwbJ41";i:1;s:53:"Post
-    Edited: PowerShell Scripts http://bit.ly/1iwbJ41";i:2;s:53:"Post Edited: PowerShell
-    Scripts http://bit.ly/1iwbJ41";i:3;s:53:"Post Edited: PowerShell Scripts http://bit.ly/1iwbJ41";i:4;s:53:"Post
-    Edited: PowerShell Scripts http://bit.ly/1iwbJ41";i:5;s:53:"Post Edited: PowerShell
-    Scripts http://bit.ly/1iwbJ41";}'
-  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:53:"Post Edited: PowerShell
-    Scripts http://bit.ly/1iwbJ41";s:5:"error";s:113:"This tweet is identical to another
-    Tweet recently sent to this account. Twitter requires all Tweets to be unique.";s:4:"code";i:403;s:9:"timestamp";i:1410863431;}'
-  _edit_last: '1'
-  _jd_tweet_this: 'yes'
-  _jd_twitter: ''
-  _wpt_status_message: This tweet is identical to another Tweet recently sent to this
-    account. Twitter requires all Tweets to be unique.
-  _yoast_wpseo_focuskw: powershell
-  _yoast_wpseo_title: PowerShell Script - MSFTPlayground
-  _yoast_wpseo_metadesc: Powershell script functions that can be used in different
-    projects.
-  _yoast_wpseo_linkdex: '82'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:395:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1428140744129921";s:5:"pDate";s:19:"2014-06-19
-    11:08:32";s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
-  snapLI: s:498:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:123:"http://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=5824521820816453632&amp;type=U&amp;a=mjnv";s:5:"pDate";s:19:"2014-01-02
-    14:50:16";s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
-  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
-  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: powershell
-  _wds_title: PowerShell Script - MSFTPlayground
-  _wds_metadesc: Powershell script functions that can be used in different projects.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2014/01/powershell-scripts-2/"
+date: 2014-01-02 14:50:15.000000000 +01:00
+permalink: /2014/01/powershell-scripts-2/
+categories:
+- Development
+status: publish
 ---
 <p>During my current project we are using a lot of PowerShell scripts to administrate the environment and make development easier for us.</p>
 <p>In this post that I will try to update frequently, I will share some of our useful PowerShell scripts.</p>
 <h2>Disabling or Enabling Access Request</h2>
 <p>Within our project we had an application with about 400 sites. All of these sites still had the Access Request enabled. We needed to disable these access requests. For this we created a PowerShell function you can use to enable and disable access requests.</p>
-<pre class="brush: powershell;">###
+<pre class="highlight">###
 # Function for enabling and disabling site access requests
 ###
 function Set-AccessRequest{
@@ -101,7 +48,7 @@ function Set-AccessRequest{
 <p>&nbsp;</p>
 <h2>Publish files within a site collection</h2>
 <p>In some situations you would like to have the ability to publish all files within a specific site collection. For example right before going live with a SharePoint publishing portal you need to be sure that every file is published or else end users could  get a access denied on certain resources.</p>
-<pre class="brush: powershell;">###
+<pre class="highlight">###
 # Function for Publishing files in SharePoint
 ###
 function Publish-FilesInList(){
@@ -169,7 +116,7 @@ function ProcessFolderGetFiles(){
 </pre>
 <h2>Unregister a Custom Claim Provider for a specific zone in a web application</h2>
 <p>There are situations were for you will develop custom claim providers. These claim providers can be installed globally on the farm but can also be installed for a specific zone in a web application. The following script will allow you to unregister a custom claim provider for a zone.</p>
-<pre class="brush: powershell;">function Unregister-CustomClaimProvider{
+<pre class="highlight">function Unregister-CustomClaimProvider{
 	param(
 		  [string] $DisplayName = $(Read-Host -prompt "Claim Provider Display Name"),
 		  [string] $Url = $(Read-Host -prompt "Web Application Identity"),
@@ -194,14 +141,14 @@ function ProcessFolderGetFiles(){
 </pre>
 <h2>Disable Browser Based Editing for Sites under a Specific Url</h2>
 <p>In certain situations you would like to disable all browser based editing for specific sites within SharePoint. With the below PowerShell script you can disable browser based editing.</p>
-<pre class="brush: powershell;">Get-SPSite -WebApplication [Web Application] -Limit ALL | where {$_.Url.StartsWith("[Url start With]") } | Foreach-Object { 
+<pre class="highlight">Get-SPSite -WebApplication [Web Application] -Limit ALL | where {$_.Url.StartsWith("[Url start With]") } | Foreach-Object { 
     Write-Host "Activating Feature Client Based Editing for site" $_.Url
     Enable-SPFeature –identity 8a4b8de2-6fd8-41e9-923c-c7c3c00f8295 -URL $_.Url
 }
 </pre>
 <h2>Warm Up SharePoint 2013 Site Collections</h2>
 <p>When you maintain SharePoint environments you would like to warm up the environments for example once a day. The first load on SharePoint still takes a lot of time. For this situation I have developed a warm up script that also take in account your extended Host Named Site Collections.</p>
-<pre class="brush: powershell;">function WarmUp-Url([string]$url){
+<pre class="highlight">function WarmUp-Url([string]$url){
     Write-Host "Warming up " $url -ForegroundColor DarkYellow;
     Invoke-WebRequest $url -UseDefaultCredentials -UseBasicParsing; 
 }
@@ -226,7 +173,7 @@ foreach ($WebApp in (Get-SPWebApplication -IncludeCentralAdministration)){
 </pre>
 <h2>Publish Content Types for Specific group</h2>
 <p>When you start working with the Content Type Hub in SharePoint you will get in situations were you would like to publish multiple content types at once. In these situations you could use the below function to publish all the content types in a specific group.</p>
-<pre class="brush: powershell;">Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue
+<pre class="highlight">Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue
 function Publish-ContentTypesForGroup {
     param
     (
@@ -253,7 +200,7 @@ function Publish-ContentTypesForGroup {
 }</pre>
 <h2>Starting the Content Type Subscriber Job</h2>
 <p>When you work a lot with the Content Type Hub in SharePoint you would also like to start the Content Type Subscriber job by using PowerShell. The below script does the job the web application you specify.</p>
-<pre class="brush: powershell;">Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue
+<pre class="highlight">Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue
 function Run-SPContentTypeHubJob([string]$url) 
 { 
     $job = Get-SPTimerJob -WebApplication $url | ?{ $_.Name -like "MetadataSubscriberTimerJob"} 
@@ -272,7 +219,7 @@ function Run-SPContentTypeHubJob([string]$url)
 }</pre>
 <h2>Delete all items in a List</h2>
 <p>During many projects I had situations were I had to remove all items in a list. In this situation you can choose for removing the complete list en recreating it or you could delete every single item. With the below function you can delete every item in the list.</p>
-<pre class="brush: powershell;">Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue
+<pre class="highlight">Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue
 function Clear-SPList {
     param
     (
@@ -295,7 +242,7 @@ function Clear-SPList {
 }</pre>
 <h2>Finding content types that use a specific field</h2>
 <p>It ofton occurs that you would like to delete a site column but can't because it is used by a specific content type. It really takes a long time then to find the right content type. Using the below PowerShell function it is easy and fast to find your content type.</p>
-<pre class="brush: powershell;">Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue
+<pre class="highlight">Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue
 function Find-ContenttypesByField {
     param
     (
@@ -323,7 +270,7 @@ function Find-ContenttypesByField {
 }</pre>
 <h2>Setting up Ping and SharePoint Trust Federation</h2>
 <p>For a environment we wanted to setup a SSO environment with for example K2. The most know situation is using ADFS. But at our client we were required to use <a title="Ping" href="https://www.pingidentity.com/">Ping</a>. The configuration an the SharePoint site looks very much the same as ADFS. For a reference I have included the PowerShell script in this post.</p>
-<pre class="brush: powershell;">Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue
+<pre class="highlight">Add-PSSnapin Microsoft.SharePoint.PowerShell -ErrorAction SilentlyContinue
 
 $certpath  = "[Ping Certification Path]"
 $stsname   = "Auth-iLink"
@@ -347,19 +294,19 @@ New-SPTrustedIdentityTokenIssuer -Name $stsname -Description $stsdesc -Realm $st
 Write-Host "Trusted Identity Token Issuer is set up."</pre>
 <h2>Delete empty sub folders</h2>
 <p>For a migration we had a large set of folder with also empty folders in it. During the migration we iterated trough the folders also going trough the empty folders took a lot of time for the migration process. That way we wanted a PowerShell script to delete the empty sub folders. (Remove the –whatif to actually perform the script).</p>
-<pre class="brush: powershell;">Get-ChildItem -recurse | Where {$_.PSIsContainer -and `
+<pre class="highlight">Get-ChildItem -recurse | Where {$_.PSIsContainer -and `
 @(Get-ChildItem -Lit $_.Fullname -r | Where {!$_.PSIsContainer}).Length -eq 0} |
 Remove-Item -recurse -whatif</pre>
 <p>&nbsp;</p>
 <h2>Delete site that start with a specific URL.</h2>
 <p>When you are using host named site collections within your environment and also build some kind provisioning mechanism (how this can be done with host named site collections can be read <a href="http://msftplayground.com/2013/10/host-named-site-collections-provisioning-by-code-and-in-specific-content-database/">here</a>). You will get in situations that you would like to remove a huge number of site collections that start with a specific URL. By using this script you can:</p>
-<pre class="brush: powershell;">Get-SPSite -Limit ALL | where {$_.Url.StartsWith("http://spdev.com/sites") } | Foreach-Object { Remove-SPSite $_.Url –Confirm:$False
+<pre class="highlight">Get-SPSite -Limit ALL | where {$_.Url.StartsWith("http://spdev.com/sites") } | Foreach-Object { Remove-SPSite $_.Url –Confirm:$False
 }</pre>
-<h2></h2>
+
 <h2>Flushing the blob cache</h2>
 <p>Because we are using the blob cache within our environment, we also need a easy option to clear the blob cache when we have update our style sheets or maybe JavaScript files.</p>
 <p>Using this function you can easily clear the blob cache for a specific web application.</p>
-<pre class="brush: powershell;">function Flush-SPBlobCache{
+<pre class="highlight">function Flush-SPBlobCache{
         param(
           [string] $Url = $(Read-Host -prompt "Web Application Identity")
         )        
@@ -371,40 +318,7 @@ Remove-Item -recurse -whatif</pre>
 <h2>Feature upgrading</h2>
 <p>For upgrades on our solutions we use the standard upgrading framework of SharePoint. You can read about it <a href="http://msftplayground.com/2012/08/article-published-diwug-magazine-7-sharepoint-2010-solution-life-cycle-management-2/">here</a> this is an article on the upgrading framework for SharePoint 2010 but it is also something for SharePoint 2013.</p>
 <p>Using the following function you are able to upgrade a specific feature within a web application.</p>
-<pre class="brush: powershell;">function Upgrade-SpecificFeatures{
+<pre class="highlight">function Upgrade-SpecificFeatures{
         param(
           [string] $Url = $(Read-Host -prompt "Web Application Identity"),
           [Guid] $ID = $(Read-Host -prompt "Feature ID")
-        )
-
-        $SPWebApp = Get-SPWebApplication $Url;
-
-        foreach ($site in $SPWebApp.Sites){
-            if ($site -ne $null){
-
-                Write-Host "Upgrading site features for site:" $site -ForegroundColor Green;
-                $count = 0;
-                $features = $site.QueryFeatures($ID, $true);
-                Foreach($feature in $features) {
-                        $oldVersion = $feature.Version;
-                        Write-Host "Upgrading feature:" $feature.Definition.DisplayName;
-                        Write-Host "  Current version:" $oldVersion;
-                        $feature.Upgrade($true);
-                        $newVersion = $feature.Version;
-                        Write-Host "      New version:" $newVersion;
-                        if ($oldVersion -eq $newVersion) {
-                            Write-Host "  Something went wrong upgrading this feature!" -ForegroundColor Red;
-                        } else {
-                            Write-Host "  Upgrade successful." -ForegroundColor Green;
-                            $count++;
-                        }
-                }
-
-            if ($count -eq 0) {
-                Write-Host "No features found that needed upgrading for site:" $site -ForegroundColor Yellow;
-            } else {
-                Write-Host "Done upgrading" $count "feature(s). for site:" $site -ForegroundColor Green;
-            }
-        }
-   }
-}</pre>

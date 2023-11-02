@@ -1,109 +1,64 @@
 ---
-layout: post
 title: Managing access control for Logic Apps
-date: 2020-02-11 08:59:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - ARM
 - Logic Apps
 - Security
-meta:
-  _publicize_twitter_user: "@maikvandergaag"
-  _thumbnail_id: '1993'
-  spay_email: ''
-  _wpas_mess: 'Ever wondered how you can set up access to a #Azure #LogicApp? Read
-    this new post. #ARM'
-  _edit_last: '3'
-  _yoast_wpseo_primary_category: '323'
-  _yoast_wpseo_content_score: '30'
-  _yoast_wpseo_focuskw: Logic Apps
-  _yoast_wpseo_metadesc: In situations access to Logic Apps need to be controlled.
-    You can configure this via the Workflow settings within the Azure Portal and via
-    ARM.
-  _yoast_wpseo_linkdex: '73'
-  _nxs_slinks: a:1:{s:32:"0c7ed2117494df70230c55295f6e73aa";s:21:"http://bit.ly/37cSlVP";}
-  snapLI: 's:1187:"a:1:{i:0;a:24:{s:2:"do";s:1:"1";s:5:"nName";s:11:"LinkedIn #0";s:9:"msgFormat";s:55:"I
-    published a new blog post! %TITLE% - %HTAGS% - %SURL%";s:10:"msgAFormat";s:0:"";s:11:"msgATFormat";s:0:"";s:8:"postType";s:1:"A";s:8:"apiToUse";s:4:"liv2";s:7:"fltrsOn";i:0;s:5:"fltrs";a:0:{}s:7:"proxyOn";i:0;s:7:"useSURL";i:0;s:1:"v";i:350;s:4:"pgID";s:32:"urn:li:share:6632905782998429696";s:11:"accessToken";s:350:"AQWRCzh0j53U2Iz4ZBcQfhz3OzRnysH_efKvjyLw93cnAuWWvdoJ17LoYn9j8-dKUlneDGG2q0xSyBqiHSLiZ2wi0LY_4OOX9Nq71Y62use_eXpjTOhzcLp8W1IqwXYKHLDDqFHOamoxJ04Ftt98-0rH2OBFEFstPTwCTOp1RB3iDSeTn6tgR_rvvbzBSXIjkNW6edM3o0l60ynrBxeon7Yw12T3n8jGbAPTso9XUGqQibXCIRtxUCNw9mJ3Mgd0NnuM7bQ5B6hsTLZCxIZpTYuSBPNzhROQZNbkOtKVRkyKmYL9hpJMCWB38d4G_LyNnwVUHiWrQV0ItefA-1kwWMJMTI1iag";s:14:"accessTokenExp";i:1584224482;s:8:"liUserID";s:10:"B-GH5Nmibm";s:10:"liUserInfo";s:29:"Maikvan
-    der Gaag (B-GH5Nmibm)";s:5:"proxy";a:2:{s:5:"proxy";s:0:"";s:2:"up";s:0:"";}s:9:"wpImgSize";s:4:"full";s:6:"appKey";s:14:"784x4hoq5vtn7c";s:6:"appSec";s:16:"FvSHvIXAilKaC1pe";s:8:"isPosted";s:1:"1";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6632905782998429696";s:5:"pDate";s:19:"2020-02-11
-    07:59:32";}}";'
-  snap_isAutoPosted: '1581407972'
-  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6632905782998429696";s:2:"id";s:32:"urn:li:share:6632905782998429696";s:1:"d";s:19:"2020-02-11
-    07:59:32";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1227140095498768385";s:2:"id";s:19:"1227140095498768385";s:1:"d";s:19:"2020-02-11
-    07:59:32";s:1:"w";s:1:"s";}}}}
-  snapTW: s:1452:"a:1:{i:0;a:44:{s:11:"rpstBtwDays";s:0:"";s:11:"rpstRndMins";s:0:"";s:12:"rpstPostIncl";s:0:"";s:8:"rpstType";s:1:"2";s:12:"rpstTimeType";s:1:"A";s:12:"rpstFromTime";s:0:"";s:10:"rpstToTime";s:0:"";s:10:"rpstOLDays";s:2:"30";s:10:"rpstNWDays";s:3:"365";s:10:"nxsCPTSeld";s:21:"a:1:{i:0;s:4:"post";}";s:7:"tagsSel";s:0:"";s:11:"rpstBtwHrsT";s:0:"";s:8:"tagsSelX";s:0:"";s:14:"rpstBtwHrsType";s:0:"";s:11:"rpstBtwHrsF";s:0:"";s:5:"nDays";s:0:"";s:4:"nHrs";s:0:"";s:5:"proxy";s:0:"";s:4:"nMin";s:0:"";s:5:"qTLng";s:0:"";s:1:"v";i:350;s:2:"do";s:1:"1";s:5:"nName";s:14:"maikvandergaag";s:8:"attchImg";i:0;s:9:"msgFormat";s:55:"I
-    published a new blog post! %TITLE% - %HTAGS% - %SURL%";s:6:"appKey";s:49:"x5g9a14d4i43526u3t2l4b4y4q4v3z4w2q4b4w4l4l3u455d3";s:6:"appSec";s:89:"d3h0ag476j4z5j5e434s525n465s3z5d303a3t5i3b4m435g3e3p3q2v4h4f3c34564l376b4t4e444d4n303m3k5";s:5:"twURL";s:34:"https://twitter.com/maikvandergaag";s:11:"accessToken";s:50:"59074926-Z3IUS54c1YaHGUwte0qIzZ37aDTOenjCzfkHMIZSg";s:14:"accessTokenSec";s:42:"W6rcCimT8DWhSwPyriN0fI0e2ZNA7syyvb1fnpTovk";s:7:"imgSize";s:0:"";s:7:"fltrsOn";i:0;s:5:"fltrs";a:0:{}s:7:"proxyOn";i:0;s:9:"wpImgSize";s:4:"full";s:7:"useSURL";i:0;s:5:"tw140";i:0;s:10:"riComments";i:0;s:11:"riCommentsM";i:0;s:12:"riCommentsAA";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1227140095498768385";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1227140095498768385";s:5:"pDate";s:19:"2020-02-11
-    07:59:32";}}";
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Logic Apps
-  _wds_title: ''
-  _wds_metadesc: In situations access to Logic Apps need to be controlled. You can
-    configure this via the Workflow settings within the Azure Portal and via ARM.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2020/02/managing-access-control-for-logic-apps/"
+date: 2020-02-11 08:59:00.000000000 +01:00
+permalink: /2020/02/managing-access-control-for-logic-apps/
+categories:
+- Azure
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>In some situations access to the workflows needs to be controlled. This has to be done in some way to make sure only specific people can trigger or see the content of it. These situations are mostly applied to Logic Apps that can be triggered via a external endpoint.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>One of the most known options is the Integration Service<br />
 Environment which also gives the option of connecting your Logic App to your<br />
 private virtual network., but this post will not go into any details about this<br />
 but will focus on the true PAAS options. If you want to know more about integration<br />
 service environment read this post:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><a href="https://azure.microsoft.com/nl-nl/blog/announcing-azure-integration-service-environment-for-logic-apps/?WT.mc_id=AZ-MVP-5004255">https://azure.microsoft.com/nl-nl/blog/announcing-azure-integration-service-environment-for-logic-apps/</a></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Access Control Control Configuration</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Within the "Workflow Settings" the access control for a Logic App can be managed. Via this configuration you have three options of providing access to the workflow.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":5893,"sizeSlug":"large","className":"is-style-default"} --></p>
-<figure class="wp-block-image size-large is-style-default"><img src="{{ site.baseurl }}/assets/archive/2020/02/afbeelding-1-1024x715.png" alt="Workflow Settings - Access Control - Logic App" class="wp-image-5893" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
+<figure class="wp-block-image size-large is-style-default"><img src="/assets/archive/2020/02/afbeelding-1-1024x715.png" alt="Workflow Settings - Access Control - Logic App" class="wp-image-5893" /></figure>
+
+
 <h2>Any IP</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>By default "Any IP" is selected for a Logic App . As you might think this option allows traffic from any location.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>ARM</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>This option does not require any specific configuration within a ARM template of a Logic App.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>IP Ranges</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The second option within the access control configuration is “Specific IP ranges”. This option will allow access and content restriction to the specified IP ranges.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>ARM</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Allowing access to specific IP ranges can be done for triggers, actions and content. Content will be mentioned in the last paragraph.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">"resources": [
+
+
+<pre class="highlight">"resources": [
     {
         "name": "[parameters('LogicAppName')]",
         "type": "Microsoft.Logic/workflows",
@@ -132,21 +87,21 @@ service environment read this post:</p>
         }
     }
 ]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Only other Logic Apps</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Another option &nbsp;within Logic Apps is “Only other Logic Apps”. This option restricts trigger access to only other workflows within Azure. This scenario is mainly used when you are creating Logic Apps and have specific actions that are handled by a separate workflow.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>ARM</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Restricting a Logic App trigger to only other Logic Apps is done by not specifying any IP ranges within the ARM configuration.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">"resources": [
+
+
+<pre class="highlight">"resources": [
     {
         "name": "[parameters('LogicAppName')]",
         "type": "Microsoft.Logic/workflows",
@@ -170,21 +125,21 @@ service environment read this post:</p>
         }
     }
 ]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>IP ranges for contents</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Within Access control configuration there is also an option restrict access and calls to get the input and output messages from run history to a specific range of IP addresses. This will disallow access to IPs that are not allowed to see the content within the run history which is a interesting option for Logic Apps with specific data.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>ARM</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Setting content restriction can also be done via ARM by specifying the the "contents" object within the access control of the resource template.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">"resources": [
+
+
+<pre class="highlight">"resources": [
    {
       "name": "[parameters('LogicAppName')]",
       "type": "Microsoft.Logic/workflows",
@@ -220,4 +175,4 @@ service environment read this post:</p>
       }
    }
 ]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
+

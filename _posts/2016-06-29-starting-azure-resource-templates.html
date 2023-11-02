@@ -1,67 +1,23 @@
 ---
-layout: post
 title: Starting with Azure Resource Templates
-date: 2016-06-29 23:59:05.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - ARM
 - Azure
 - Deployment
 - JSON
-meta:
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  _yoast_wpseo_primary_category: ''
-  _yoast_wpseo_focuskw_text_input: Azure Resource Templates
-  _yoast_wpseo_focuskw: Azure Resource Templates
-  _yoast_wpseo_linkdex: '69'
-  _yoast_wpseo_content_score: '30'
-  snapFB: s:412:"a:1:{i:0;a:13:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doFB";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1730393613904631";s:5:"pDate";s:19:"2016-06-29
-    23:00:04";}}";
-  snapLI: s:308:"a:1:{i:0;a:10:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";s:1:"1";s:11:"isPrePosted";s:1:"1";}}";
-  snap_isAutoPosted: '1'
-  _wpas_done_all: '1'
-  snapTW: s:299:"a:1:{i:0;a:10:{s:2:"do";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE% -
-    %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:4:"doTW";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"748425488016809984";s:5:"pDate";s:19:"2016-06-30
-    07:58:36";}}";
-  rop_post_url_twitter: https://msftplayground.com/2016/06/starting-azure-resource-templates/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  rop_post_url_facebook: https://msftplayground.com/2016/06/starting-azure-resource-templates/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _oembed_03007b7f723143505bf203b06b98d5e9: "{{unknown}}"
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure Resource Templates
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2016/06/starting-azure-resource-templates/"
+date: 2016-06-29 23:59:05.000000000 +02:00
+permalink: /2016/06/starting-azure-resource-templates/
+categories:
+- Azure
+status: publish
 ---
 <p>Since that Azure uses the Azure Resource Manager you have the ability to setup your own templates for deploying your applications. This can be handy because the infrastructure for your application is typically made up of many components – maybe a virtual machine, storage account, and virtual network, or a web app, database, database server, and 3rd party services. You do not see these components as separate entities, instead you see them as related and interdependent parts of a single entity. These components can be deployed and managed as a group using the Azure Resource Manager.&nbsp; </p>
 <p>With the Resource Manager, you can create a simple template (in JSON format) that defines deployment and configuration of your application. This template is known as a Resource Manager template and provides a declarative way to define deployment. By using a template, you can repeatedly deploy your application throughout the app lifecycle and have confidence your resources are deployed in a consistent state.</p>
-<h3></h3>
+
 <h3>Creating the Azure Resource Template</h3>
 <p>To start with a Azure Resource Template a new project of the template “Azure Resource Group” needs to be added to your Visual Studio Solution. </p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/06/image-8.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2016/06/image_thumb-8.png" width="453" height="308" /></a></p>
+<p><a href="/assets/archive/2016/06/image-8.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/06/image_thumb-8.png" width="453" height="308" /></a></p>
 <p>When clicking “Ok” a dialog will appear that allows you to pick a kind of resource for deployment. When the resource is chosen the project will be created. This will give a project with three folders:</p>
 <ul>
 <li><strong>Scripts: </strong>Folder for PowerShell scripts that are needed for the deployment. By default it will contain a default script for deploying your resource.  </li>
@@ -71,10 +27,10 @@ permalink: "/2016/06/starting-azure-resource-templates/"
 <h3>Editing the Resource Template</h3>
 <p>Within Visual Studio there is a text editor for editing the resource template that basically is a large JSON file. This combined with the JSON Outline viewer gives you the flexibility to do many actions. Which actions you can perform depend on the API versions you use within the Resource Template and what actions are available. It could be possible that JSON Outline viewer does not container actions that the ARM API supports. When this occurs the actions need to be added manually. </p>
 <p>From the JSON Outline viewer you can add additional resources to your template by clicking the right mouse button on the resources node.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/06/image-9.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2016/06/image_thumb-9.png" width="316" height="145" /></a></p>
+<p><a href="/assets/archive/2016/06/image-9.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/06/image_thumb-9.png" width="316" height="145" /></a></p>
 <p>Adding resources can also be done on another level. This will give you different options for example adding a a Web Deploy or Application Settings element to a Web Application.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/06/image-10.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2016/06/image_thumb-10.png" width="607" height="302" /></a></p>
-<h3></h3>
+<p><a href="/assets/archive/2016/06/image-10.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/06/image_thumb-10.png" width="607" height="302" /></a></p>
+
 <h3>Deploying a Azure API Application</h3>
 <p>Most of the time when building a Azure API Application it will not only consists of Azure App Services but also Application Insights and a Azure Storage account for example. To deploy these resources all at once the Azure Resource Manager is the way to go. But to get there you will have to keep a couple things in mind.</p>
 <p> To help you with building templates make use of the Azure Resource Explorer:</p>
@@ -82,10 +38,10 @@ permalink: "/2016/06/starting-azure-resource-templates/"
 <li><a title="https://resources.azure.com/" href="https://resources.azure.com/">Azure Resource Explorer</a></li>
 </ul>
 <p>In the Azure Resource Explorer you will find all your resources you have created within the portal all in JSON representations.</p>
-<h3></h3>
+
 <h3>Setting the Web App Type</h3>
 <p>When selecting a resource for the ARM template there is no option for a API application. The way to create a API Application is by adding a “Web App” resource and setting a specific property to “api” within the template. This property is called “kind”.</p>
-<pre class="brush: js;">"apiVersion": "2015-08-01",
+<pre class="highlight">"apiVersion": "2015-08-01",
 "name": "[parameters('apiName')]",
 "kind" :  "api",
 "type": "Microsoft.Web/sites",
@@ -98,7 +54,7 @@ permalink: "/2016/06/starting-azure-resource-templates/"
 <h3>Adding application settings</h3>
 <p>When developing web applications there will be a need for saving settings within the web.config. These settings can be overridden within Azure via the Application Settings blade. Example for settings are:</p>
 <h4>AlwaysOn en Client Certificates (not possible trough the interface)</h4>
-<pre class="brush: js;">"properties": {
+<pre class="highlight">"properties": {
   "name": "[parameters('apiName')]",
   "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]",
   "clientCertEnabled": true,
@@ -108,17 +64,17 @@ permalink: "/2016/06/starting-azure-resource-templates/"
 }
 </pre>
 <p>Many other settings are depended on other resources like: Application Insights and Azure Storage Accounts. To reference specific values from other resources you can use a specific string concatenation but the resource needs to be created first. When the template is setup in the correct way Azure Resource Manager will handle this dependencies to other resources. </p>
-<h3></h3>
+
 <h4>Storage Account Connection String</h4>
 <p>The storage account connection string can be created with the default endpoint and a key from the Storage Account. These properties can be retrieved and set as connection string by using the below JSON.</p>
-<pre class="brush: js;">"properties": {
+<pre class="highlight">"properties": {
   "StorageConnectionString": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(variables('storageAccountName'),'2016-01-01').keys[0].value)]"
 }
 </pre>
 <h4>Application Insights Instrumentation Key</h4>
 <p>When making use of application insights the application has to know the instrumentation key in order to log the resources. An option for this is to register the instrumentation key in the web.config and register is it in the Application_Start event as you can read here: <a title="https://msftplayground.com/2015/12/application-insights-configurable-instrumentation-key/" href="https://msftplayground.com/2015/12/application-insights-configurable-instrumentation-key/">Application Insights configurable instrumentation key</a>.</p>
 <p>The instrumentation key is added to the web.config by setting the correct reference.</p>
-<pre class="brush: js;">"properties": {
+<pre class="highlight">"properties": {
   "InstrumentationKey": "[reference(concat('Microsoft.Insights/components/', parameters('insightsName'))).InstrumentationKey]"
 }
 </pre>
@@ -128,7 +84,7 @@ permalink: "/2016/06/starting-azure-resource-templates/"
 <p>With the package uploaded you need to add the ‘_artifactsLocation’ and ‘_artifactsLocationSasToken’ parameters to the resource provider in order for it to know where the deployment package is saved. I also altered the default PowerShell to append the date and time to the package name in order to save old deployment packages within the storage container.</p>
 <p>The file name is specified in the ‘_packageFileName’ parameter that is also send to the resource provider by the use of the OptionalParameters. The complete files can be viewed in the following sections.</p>
 <h4>PowerShell deployment file</h4>
-<pre class="brush: powershell;">#Requires -Version 3.0
+<pre class="highlight">#Requires -Version 3.0
 #Requires -Module AzureRM.Resources
 #Requires -Module Azure.Storage
 
@@ -200,7 +156,7 @@ New-AzureRmResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName
 
 </pre>
 <h4>Parameters File</h4>
-<pre class="brush: js;">{
+<pre class="highlight">{
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
   "parameters": {
@@ -216,7 +172,7 @@ New-AzureRmResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName
 }
 </pre>
 <h4>Azure Resource Template</h4>
-<pre class="brush: js;">{
+<pre class="highlight">{
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -567,16 +523,3 @@ New-AzureRmResourceGroupDeployment -Name ((Get-ChildItem $TemplateFile).BaseName
     {
       "name": "[variables('storageAccountName')]",
       "type": "Microsoft.Storage/storageAccounts",
-      "location": "[resourceGroup().location]",
-      "apiVersion": "2015-06-15",
-      "dependsOn": [ ],
-      "tags": {
-        "displayName": "StorageAccount"
-      },
-      "properties": {
-        "accountType": "[parameters('storageType')]"
-      }
-    }
-  ]
-}
-</pre>

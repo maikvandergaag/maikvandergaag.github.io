@@ -39,5 +39,3 @@ gem "webrick"
 
 gem "hpricot"
 gem "open_uri_redirections"
-gem "safe_yaml"
-gem "jekyll-import"

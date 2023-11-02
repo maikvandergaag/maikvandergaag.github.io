@@ -1,95 +1,49 @@
 ---
-layout: post
 title: Trigger a Pipeline from an Azure DevOps Pipeline
-date: 2019-02-06 12:10:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure DevOps
 tags:
 - Azure DevOps
 - Pipeline
 - Trigger
-meta:
-  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";s:3:"yes";s:2:"id";N;s:21:"follower_notification";s:3:"yes";s:7:"license";s:19:"all-rights-reserved";s:14:"publication_id";s:2:"-1";s:6:"status";s:6:"public";s:3:"url";N;}
-  _thumbnail_id: '4795'
-  _edit_last: '3'
-  _yoast_wpseo_primary_category: '535'
-  _yoast_wpseo_focuskw: Azure DevOps
-  _yoast_wpseo_metadesc: In situations, it can be useful to trigger an Azure DevOps
-    pipeline from a pipeline. This is easily done via the Trigger Azure DevOps Pipeline
-    extension.
-  _yoast_wpseo_linkdex: '65'
-  _yoast_wpseo_content_score: '90'
-  _nxs_slinks: a:1:{s:32:"0535cf90c638e87bf18ddd11c0bb2aa4";s:21:"http://bit.ly/2GdOzT1";}
-  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2GdOzT1";s:1:"t";s:84:"https://msftplayground.com/2019/02/trigger-a-pipeline-from-an-azure-devops-pipeline/";s:1:"r";s:1:"B";}
-  snap_isAutoPosted: '1549451448'
-  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:50:"www.linkedin.com/updates?topic=6498870406735290368";s:2:"id";s:0:"";s:1:"d";s:19:"2019-02-06
-    11:10:48";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1093104719462105089";s:2:"id";s:19:"1093104719462105089";s:1:"d";s:19:"2019-02-06
-    11:10:48";s:1:"w";s:1:"s";}}}}
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapLI: s:401:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:61:"New post has
-    been published on %SITENAME% - %TITLE% - %HCATS%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:0:"";s:7:"postURL";s:50:"www.linkedin.com/updates?topic=6498870406735290368";s:5:"pDate";s:19:"2019-02-06
-    11:10:48";}}";
-  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
-    - %HCATS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1093104719462105089";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1093104719462105089";s:5:"pDate";s:19:"2019-02-06
-    11:10:48";}}";
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure DevOps
-  _wds_title: ''
-  _wds_metadesc: In situations, it can be useful to trigger an Azure DevOps pipeline
-    from a pipeline. This is easily done via the Trigger Azure DevOps Pipeline extension.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2019/02/trigger-a-pipeline-from-an-azure-devops-pipeline/"
+date: 2019-02-06 12:10:00.000000000 +01:00
+permalink: /2019/02/trigger-a-pipeline-from-an-azure-devops-pipeline/
+categories:
+- Azure DevOps
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>In some situations,<br />
 it can be useful to trigger an Azure DevOps pipeline from a pipeline.<br />
 Triggering a pipeline can be done via the API and trough PowerShell. You can<br />
 write your own script file and use the PowerShell tasks but there is also a<br />
 custom task in the Azure DevOps marketplace:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
-<li><a href="http:// https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-trigger-pipeline" target="_blank" rel="noreferrer noopener" aria-label="Trigger Azure DevOps pipeline (opens in a new tab)">Trigger Azure DevOps pipeline</a></li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-trigger-pipeline" target="_blank" rel="noreferrer noopener" aria-label="Trigger Azure DevOps pipeline (opens in a new tab)">Trigger Azure DevOps pipeline</a></li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With this task you can trigger a build or release pipeline from another pipeline within the same project or organization but also in another project or organization.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Personal Access Token</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To get<br />
 started a Personal Access Token is needed with the appropriate rights to execute<br />
 pipelines. To generate a new Personal Access Token follow the below guide:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li><a rel="noreferrer noopener" aria-label="Use personal access tokens to authenticate (opens in a new tab)" href="https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=vsts" target="_blank">Use personal access tokens to authenticate</a> </li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Give the personal<br />
 access token the following rights depending on your scenario:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Triggering a Release:
 <ul>
@@ -103,19 +57,19 @@ access token the following rights depending on your scenario:</p>
 </ul>
 </li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Copy the token for later use.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Configure extension</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>When you<br />
 have installed the extension, you can start by altering a pipeline from where<br />
 you want to trigger a different pipeline.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Add<br />
 a new task to the pipeline by clicking in “+” icon.</li>
@@ -126,11 +80,11 @@ pipeline”.</li>
 the task click on “New” next to Azure DevOps Service connection to create a new<br />
 connection.</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:image {"id":5057,"linkDestination":"media"} --></p>
-<figure class="wp-block-image"><a href="https://msftplayground.com/wp-content/uploads/2019/01/Trigger-Azure-DevOps-Pipeline.png" target="_blank" rel="noreferrer noopener" /><img src="{{ site.baseurl }}/assets/archive/2019/02/Trigger-Azure-DevOps-Pipeline-1024x541.png" alt="" class="wp-image-5057" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:list --></p>
+
+
+<figure class="wp-block-image"><a href="/assets/archive/2019/01/Trigger-Azure-DevOps-Pipeline.png" target="_blank" rel="noreferrer noopener" /><img src="/assets/archive/2019/02/Trigger-Azure-DevOps-Pipeline-1024x541.png" alt="" class="wp-image-5057" /></figure>
+
+
 <ul>
 <li>In the new service connection window fill in all the correct properties.
 <ul>
@@ -143,26 +97,26 @@ connection.</li>
 </ul>
 </li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:image {"align":"center","id":5059,"linkDestination":"media"} --></p>
+
+
 <div class="wp-block-image">
-<figure class="aligncenter"><a href="https://msftplayground.com/wp-content/uploads/2019/01/Azure-DevOps-Service-Connection.png" target="_blank" rel="noreferrer noopener" /><img src="{{ site.baseurl }}/assets/archive/2019/02/Azure-DevOps-Service-Connection.png" alt="" class="wp-image-5059" /></figure>
+<figure class="aligncenter"><a href="/assets/archive/2019/01/Azure-DevOps-Service-Connection.png" target="_blank" rel="noreferrer noopener" /><img src="/assets/archive/2019/02/Azure-DevOps-Service-Connection.png" alt="" class="wp-image-5059" /></figure>
 </div>
-<p><!-- /wp:image --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>In<br />
 the task choose the right options. The field for the project, build and release<br />
 definitions should be filled in for you.</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>When you want<br />
 to trigger a release for a specific version make sure to fill in the build<br />
 number. When left empty the extension will use the latest version by default.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Besides that,<br />
 it is also possible to trigger a build for a specific branch. When you want to<br />
 make use of that option make sure you fill in the “Branch” property.</p>
-<p><!-- /wp:paragraph --></p>
+

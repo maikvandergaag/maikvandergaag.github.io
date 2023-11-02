@@ -1,47 +1,19 @@
 ---
-layout: post
 title: Creating Metadata Properties through code - SharePoint 2010
-date: 2010-09-15 05:36:00.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- SharePoint
 tags:
 - Metadata
 - Search
 - SharePoint 2010
-meta:
-  _jd_wp_twitter: 'a:1:{i:0;s:78:"New link: Scott Hanselman http://bit.ly/1N7gBbi
-    http://www.hanselman.com/blog/";}'
-  _wpt_status_message: Tweet sent successfully.
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SharePoint
-  _yoast_wpseo_focuskw: SharePoint
-  _yoast_wpseo_linkdex: '66'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2010/09/creating-metadata-properties-through-code-sharepoint-2010/"
+date: 2010-09-15 05:36:00.000000000 +02:00
+permalink: /2010/09/creating-metadata-properties-through-code-sharepoint-2010/
+categories:
+- SharePoint
+status: publish
 ---
 <div class="ExternalClassEF7144723CD14913B3AC285049692FD1">
 <p>When you work on SharePoint project you often see solutions that are built by using the search engine of SharePoint. To perform queries against the search engine you define 'Metadata properties' these metadata properties need to be mapped to a column within SharePoint. Here comes the first problem when you define those properties through the UI you first have to create an item where in the column is filled in. Then you have to perform all Full Crawl to be able to set the mapping to the Metadata property. When you define the properties within a feature receiver you can create the mapping and you do not have to perform the crawl. Ok, so let's start with creating the properties within a feature receiver. First we will have to define an object in which we can save the mapping like below:</p>
-<pre class="brush: csharp;">  
+<pre class="highlight">  
     [CLSCompliant(false)]
     public class SearchMapping
     {
@@ -106,7 +78,7 @@ permalink: "/2010/09/creating-metadata-properties-through-code-sharepoint-2010/"
 <li><strong>MappedType:</strong>This is the 'ManagedDataType' of the property.</li>
 </ul>
 <p>When we have the mapping we can define the feature activation method.</p>
-<pre class="brush: csharp;">        /// &lt;summary&gt;
+<pre class="highlight">        /// &lt;summary&gt;
         /// Occurs after a Feature is activated.
         /// &lt;/summary&gt;
         /// &lt;param name="properties"&gt;An &lt;see cref="T:Microsoft.SharePoint.SPFeatureReceiverProperties"/&gt; object that represents the properties of the event.&lt;/param&gt;
@@ -134,7 +106,7 @@ permalink: "/2010/09/creating-metadata-properties-through-code-sharepoint-2010/"
             CreateMappedSearchProperty(searchSchema, new List&lt;SearchMapping&gt;() { PageImage }, "PageImage", ManagedDataType.Text);
         }</pre>
 <p>Within the feature we get the SearchServiceApplication by getting it from the SearchService. When we have the SearchServiceApplication we can get the schema of the SearchApplcation. With this schema we can begin to create the new Metadata properties. In the code you see that I create three types of 'SearchMapping' object these mapping will be used for two properties. the 'office12' and 'basic15' for a Metadata property called 'Created' and 'PageImage' for a property called 'PageImage'. The 'Created' metadata property was one that was OOTB within SharePoint 2007 and does not exist within SharePoint 2010. After we created the mapping object I call on a method called CreateMappedSearchProperty() this method will create the property and needs the schema, mappings (as a generic list of 'searchmapping') title and type as parameters.</p>
-<pre class="brush: csharp;">private static void CreateMappedSearchProperty(Schema searchSchema, List&lt;SearchMapping&gt; mappings, string propertyName, ManagedDataType type)
+<pre class="highlight">private static void CreateMappedSearchProperty(Schema searchSchema, List&lt;SearchMapping&gt; mappings, string propertyName, ManagedDataType type)
 {
    ManagedProperty managedProperty = CreateProperty(searchSchema, propertyName, type);
    var mappingCollection = CreateNewMappingCollection(searchSchema, mappings, managedProperty);
@@ -142,7 +114,7 @@ permalink: "/2010/09/creating-metadata-properties-through-code-sharepoint-2010/"
    managedProperty.Update();
 }</pre>
 <p>We create or get the managed property if it already exist by calling the method CreateProperty() that needs the schema, property name and type as parameters. When we have the property we create a new mapping collection by calling the method CreateNewMappingCollection() that needs the schema, list of mappings, and the property as parameters. This will return a 'MappingCollection' object that we will pass into the managedProperty. To save the property we call the Update() method on the managed property. The methods that are described above look like.</p>
-<pre class="brush: csharp;">private static MappingCollection CreateNewMappingCollection(Schema searchSchema, List&lt;SearchMapping&gt; mappings, ManagedProperty prop)
+<pre class="highlight">private static MappingCollection CreateNewMappingCollection(Schema searchSchema, List&lt;SearchMapping&gt; mappings, ManagedProperty prop)
         {
             var retVal = new MappingCollection();
 
@@ -165,14 +137,3 @@ permalink: "/2010/09/creating-metadata-properties-through-code-sharepoint-2010/"
         {
             //if the managedproperty is available only update the mapping else create the managedProperty
             if (!searchSchema.AllManagedProperties.Contains(propertyName))
-            {
-                //Add Manage Properties and create mapping to crawled properties 
-                return searchSchema.AllManagedProperties.Create(propertyName, managedDataType);
-            }
-            else
-            {
-                //Add Manage Properties and create mapping to crawled properties 
-                return searchSchema.AllManagedProperties[propertyName];
-            }
-        }</pre>
-<p>I hope you guys can use this to you benefits. Happy SharePointing </p></div>

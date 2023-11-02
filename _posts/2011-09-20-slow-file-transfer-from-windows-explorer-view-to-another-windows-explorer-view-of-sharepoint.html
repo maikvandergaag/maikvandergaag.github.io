@@ -1,47 +1,21 @@
 ---
-layout: post
-title: Slow file transfer from Windows Explorer view to another Windows Explorer view
-  of SharePoint.
-date: 2011-09-20 05:58:00.000000000 +02:00
+title: Slow file transfer from Windows Explorer view to another Windows Explorer view of SharePoint.
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
-- SharePoint
 tags:
 - File transfer
 - WebDAV
 - Windows Explorer
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SharePoint
-  _yoast_wpseo_focuskw: SharePoint
-  _yoast_wpseo_linkdex: '54'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2011/09/slow-file-transfer-from-windows-explorer-view-to-another-windows-explorer-view-of-sharepoint/"
+date: 2011-09-20 05:58:00.000000000 +02:00
+permalink: /2011/09/slow-file-transfer-from-windows-explorer-view-to-another-windows-explorer-view-of-sharepoint/
+categories:
+- Administration
+- SharePoint
+status: publish
 ---
 <div class="ExternalClass1F65229349394074BB28D9C939033BC8">
 <p>Today I was replacing certain SharePoint documents for one of the projects we are working on. I noticed that the transfer of the document from Windows Explorer View to Windows Explorer view was very slow!! I mean 16,1 kb per Second slow!!!.</p>
 <p>Investigating this problem I found that IE is configured to “Automatically detect settings”:</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/LAN_Settings.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="LAN_Settings" src="{{ site.baseurl }}/assets/archive/2011/09/LAN_Settings_thumb.png" alt="LAN_Settings" width="240" height="210" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/LAN_Settings.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="LAN_Settings" src="/assets/archive/2011/09/LAN_Settings_thumb.png" alt="LAN_Settings" width="240" height="210" border="0" /></a></p>
 <p>This was causing the WebDAV connection to work very slow. Disabling this obtain automatically made my transfer much faster. You can find this option by doing the following:</p>
 <ol>
 <li>In IE open the tools menu and click on Internet options.</li>

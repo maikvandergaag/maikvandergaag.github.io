@@ -1,60 +1,16 @@
 ---
-layout: post
 title: Azure Managed Service Identity and Local Development
-date: 2018-08-13 11:29:11.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
-- Development
 tags:
 - Azure
 - Development
 - MSI
-meta:
-  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  _yoast_wpseo_content_score: '60'
-  _yoast_wpseo_primary_category: ''
-  _thumbnail_id: '3937'
-  _yoast_wpseo_focuskw_text_input: MSI
-  _yoast_wpseo_focuskw: MSI
-  _yoast_wpseo_linkdex: '75'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  _nxs_slinks: a:1:{s:32:"0672b4875d9f12a4ac6a5f36eddc1ef2";s:21:"http://bit.ly/2MEIQVD";}
-  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2MEIQVD";s:1:"t";s:88:"https://msftplayground.com/2018/08/azure-managed-service-identity-and-local-development/";s:1:"r";s:1:"B";}
-  snapLI: s:381:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
-    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:0:"";s:7:"postURL";s:50:"www.linkedin.com/updates?topic=6434717351077253120";s:5:"pDate";s:19:"2018-08-13
-    10:29:28";}}";
-  snap_isAutoPosted: '1534156168'
-  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:50:"www.linkedin.com/updates?topic=6434717351077253120";s:2:"id";s:0:"";s:1:"d";s:19:"2018-08-13
-    10:29:28";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1028951663854473216";s:2:"id";s:19:"1028951663854473216";s:1:"d";s:19:"2018-08-13
-    10:29:28";s:1:"w";s:1:"s";}}}}
-  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
-    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1028951663854473216";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1028951663854473216";s:5:"pDate";s:19:"2018-08-13
-    10:29:28";}}";
-  _wpas_done_all: '1'
-  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1576667965;s:7:"payload";a:0:{}}}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: MSI
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2018/08/azure-managed-service-identity-and-local-development/"
+date: 2018-08-13 11:29:11.000000000 +02:00
+permalink: /2018/08/azure-managed-service-identity-and-local-development/
+categories:
+- Azure
+- Development
+status: publish
 ---
 <p>Instead of storing user credentials of an external system in a configuration file, you should store them in the Azure Key Vault. Before MSI (Managed Service Identity) you would have to store the credentials to use the key vault in the configuration file so this wasn’t really helpful. With MSI (Managed Service Identity) you do not have that problem anymore.</p>
 <h2>MSI</h2>
@@ -70,18 +26,18 @@ permalink: "/2018/08/azure-managed-service-identity-and-local-development/"
 <li>Open the Azure Function in the Azure Portal</li>
 <li>Click on Platform Features and select "Managed service identity"</li>
 </ol>
-<p><a href="https://msftplayground.com/?attachment_id=3925" rel="attachment wp-att-3925"><img class="size-medium wp-image-3925 alignnone" src="{{ site.baseurl }}/assets/archive/2018/08/img-1-3-300x154.png" alt="Managed Service Identity" width="300" height="154" /></a></p>
+<p><a href="https://msftplayground.com/?attachment_id=3925" rel="attachment wp-att-3925"><img class="size-medium wp-image-3925 alignnone" src="/assets/archive/2018/08/img-1-3-300x154.png" alt="Managed Service Identity" width="300" height="154" /></a></p>
 <ol start="3">
 <li>Click "On" and click "Save". In the background an Azure Application is created.</li>
 </ol>
-<p><u><span style="background-color: #bfe6ff; color: #006001;"> <a href="https://msftplayground.com/?attachment_id=3927" rel="attachment wp-att-3927"><img class="size-medium wp-image-3927 alignnone" src="{{ site.baseurl }}/assets/archive/2018/08/img-2-1-300x182.png" alt="" width="300" height="182" /></a></span></u></p>
+<p><u><span style="background-color: #bfe6ff; color: #006001;"> <a href="https://msftplayground.com/?attachment_id=3927" rel="attachment wp-att-3927"><img class="size-medium wp-image-3927 alignnone" src="/assets/archive/2018/08/img-2-1-300x182.png" alt="" width="300" height="182" /></a></span></u></p>
 <ol start="4">
 <li>Give the application the proper rights on the service you would like to use.</li>
 </ol>
 <h2>Using MSI in Code</h2>
 <p>To use the Managed Service Identity in code only two lines of code are needed in combination with the Azure Key Vault. Before using it you will have to add the following NuGet package: " Microsoft.Azure.Services.AppAuthentication"</p>
 <p>&nbsp;</p>
-<pre class="brush: powershell;">[FunctionName("Sample Function")]
+<pre class="highlight">[FunctionName("Sample Function")]
 public static async Task&lt;HttpResponseMessage&gt; Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]HttpRequestMessage req, TraceWriter log)
 {
     log.Info("Function triggered.");
@@ -98,5 +54,3 @@ public static async Task&lt;HttpResponseMessage&gt; Run([HttpTrigger(Authorizati
 }</pre>
 <h2>MSI and local debugging</h2>
 <p>When developing an Azure Function and start on your local machine, you also want to use the Managed Service Identity. But how do you do that? You do not have a Managed Service Identity on your local machine.</p>
-<p>But you do! Visual Studio uses the credentials of the logged in user of Visual Studio. So If you make use of the MSI while debugging locally make sure the user that is logged in into Visual Studio has the proper rights within Azure.</p>
-<p><a href="https://msftplayground.com/?attachment_id=3929" rel="attachment wp-att-3929"><img class="alignleft size-medium wp-image-3929" src="{{ site.baseurl }}/assets/archive/2018/08/img3-1-300x40.png" alt="" width="300" height="40" /></a></p>

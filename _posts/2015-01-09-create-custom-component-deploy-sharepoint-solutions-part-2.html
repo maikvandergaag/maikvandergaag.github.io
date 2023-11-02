@@ -1,79 +1,23 @@
 ---
-layout: post
 title: Create a custom component to deploy SharePoint Solutions &ndash; Part 2
-date: 2015-01-09 14:39:02.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
 tags:
 - Component
 - Deployment
 - Powershell
 - Release Management
-meta:
-  _edit_last: '1'
-  _thumbnail_id: '1031'
-  _nxs_snap_sh_FB0_1420814911: a:36:{s:6:"atpKey";s:0:"";s:4:"doFB";i:1;s:5:"nName";s:19:"Faceboek
-    Connection";s:7:"fbAppID";s:16:"1445491145702623";s:8:"fbAppSec";s:32:"2dfe7ff9672e444edb341488f7e3232d";s:6:"catSel";i:0;s:8:"catSelEd";s:0:"";s:8:"postType";s:1:"A";s:7:"fbAttch";s:1:"2";s:12:"fbAttchAsVid";i:0;s:6:"imgUpl";s:1:"1";s:11:"fbMsgFormat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:10:"fbMsgAFrmt";s:0:"";s:13:"useFBGURLInfo";i:0;s:10:"riComments";i:0;s:12:"riCommentsAA";i:0;s:8:"rpstDays";i:0;s:7:"rpstHrs";i:0;s:8:"rpstMins";i:0;s:6:"rpstOn";i:0;s:8:"rpstStop";s:1:"O";s:11:"rpstOnlyPUP";i:0;s:7:"fltrsOn";i:0;s:11:"rpstBtwDays";a:0:{}s:5:"fbURL";s:39:"https://www.facebook.com/msftplayground";s:6:"fbPgID";s:14:"msftplayground";s:14:"fbAppAuthToken";s:184:"CAAUiqqJDZCN8BAB9ZBCxwNm73O5PdlRlbCz7QgQxOqjxHCabcFCZAZAdlvl4ovmbXBZBQZApkZALyt1nzjOvUKmC9z0RpuTtvNCFDOEYETyx3f5vUXhmpvhODRtNRtDdG5ntLObjrfNmstpWz6so9oNBkEBinoOor4gDpqyH8nLypQH5VWGnSpr";s:8:"destType";s:0:"";s:18:"fbAppPageAuthToken";s:184:"CAAUiqqJDZCN8BALn9sJRuiIp72C9ai4tB0xsvoHJlzhrvH9SxgZAjk0mqMHj27kJ7bwW9m87UZCDG1x5UvLWFM4OtOuaOg7lzW3OmmxUobsdgaYCDJnw4gZCAUbIsJbTCGiHSUGpbZApllogB0R5JLquYKhAqvoTtshKnksr9phZBdlfZCXTRJQ";s:13:"fbAppAuthUser";s:15:"523171297783628";s:17:"fbAppAuthUserName";s:17:"Maik
-    van der Gaag";s:8:"isPosted";s:0:"";s:8:"imgToUse";b:0;s:8:"urlToUse";b:0;s:2:"ii";i:0;s:9:"timeToRun";i:1420814911;}
-  snap_isAutoPosted: '1'
-  _nxs_snap_sh_LI0_1420814911: a:39:{s:2:"ii";i:0;s:4:"doLI";i:1;s:5:"nName";s:0:"";s:8:"liAPIKey";s:14:"77vtw9cpof5jtv";s:8:"liAPISec";s:16:"E2OiH5iT1hPoxHXv";s:7:"liAttch";i:1;s:8:"catSelEd";s:0:"";s:5:"grpID";s:0:"";s:11:"liMsgFormat";s:41:"New
-    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:10:"liMsgAFrmt";s:0:"";s:6:"rpstOn";i:0;s:8:"rpstDays";s:1:"0";s:7:"rpstHrs";s:1:"2";s:8:"rpstMins";s:1:"0";s:11:"rpstRndMins";s:2:"15";s:12:"rpstPostIncl";s:1:"0";s:10:"rpstNxTime";i:1386086230;s:8:"rpstType";s:1:"2";s:12:"rpstTimeType";s:1:"A";s:12:"rpstFromTime";s:0:"";s:10:"rpstToTime";s:0:"";s:10:"rpstOLDays";s:2:"30";s:10:"rpstNWDays";s:3:"365";s:11:"rpstOnlyPUP";i:0;s:10:"nxsCPTSeld";s:21:"a:1:{i:0;s:4:"post";}";s:11:"rpstBtwDays";a:0:{}s:12:"liOAuthToken";s:40:"77--e683ecb3-1951-45c6-b159-50a646ce06a8";s:18:"liOAuthTokenSecret";s:36:"ede90532-47fb-4751-8dcb-649147a43ab6";s:15:"liOAuthVerifier";s:5:"15626";s:13:"liAccessToken";s:36:"5643875e-34f6-48c5-8ed0-8d9a187331cb";s:19:"liAccessTokenSecret";s:36:"f059e50b-3d60-4424-a710-57d21b5dbe15";s:10:"liUserInfo";s:30:"N_tJVLVMK6
-    - Maik van der Gaag";s:6:"catSel";s:1:"0";s:4:"liOK";i:1;s:8:"isPosted";s:0:"";s:8:"imgToUse";b:0;s:8:"urlToUse";b:0;s:9:"timeToRun";i:1420814911;}
-  _yoast_wpseo_focuskw: Release Management
-  _yoast_wpseo_title: Deploy SharePoint solutions using Release Management
-  _yoast_wpseo_metadesc: Release Management can be used to maintain Application Lifecycle
-    for SharePoint applications. In this post we will create a component to deploy
-    SP pacakges
-  snap_MYURL: ''
-  snapEdIT: '1'
-  _jd_twitter: ''
-  _jd_tweet_this: 'yes'
-  _wp_jd_bitly: http://bit.ly/1sdbfGG
-  _wp_jd_target: http://msftplayground.com/2015/01/create-custom-component-deploy-sharepoint-solutions-part-2/
-  _jd_wp_twitter: 'a:1:{i:0;s:102:"Post Edited: Create a custom component to deploy
-    SharePoint Solutions – Part 2 http://bit.ly/1sdbfGG";}'
-  _wpt_status_message: Tweet sent successfully.
-  _yoast_wpseo_linkdex: '79'
-  snapFB: s:395:"a:1:{i:0;a:12:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1519689208308407";s:5:"pDate";s:19:"2015-01-09
-    14:48:39";}}";
-  snapLI: s:540:"a:1:{i:0;a:13:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"5959329705478881280";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=5959329705478881280&amp;type=U&amp;a=Gzrx";s:5:"pDate";s:19:"2015-01-09
-    14:48:40";}}";
-  _jetpack_related_posts_cache: a:0:{}
-  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Release Management
-  _wds_title: Deploy SharePoint solutions using Release Management
-  _wds_metadesc: Release Management can be used to maintain Application Lifecycle
-    for SharePoint applications. In this post we will create a component to deploy
-    SP pacakges
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2015/01/create-custom-component-deploy-sharepoint-solutions-part-2/"
+date: 2015-01-09 14:39:02.000000000 +01:00
+permalink: /2015/01/create-custom-component-deploy-sharepoint-solutions-part-2/
+categories:
+- Development
+status: publish
 ---
 <p>In the <a href="http://msftplayground.com/2014/10/customize-the-release-management-build-template-part-1/">first part of the series</a> we have adjusted a build template in order to copy content from source control to the drop location after the build. This content can then be used to supply release management with information about the deployment. This functionality will be used to copy a configuration file to the drop location. With PowerShell were our custom component will exist off we can read out that configuration file.</p>
 <p>As you can read we will create our custom component in specific steps and we will start with the configuration file.</p>
 <h1> Configuration File</h1>
 <p>The configuration file will contain all of the information that is needed to deploy a SharePoint solution package. As example you would like to know to which web application the solution needs to be deployed to.</p>
 <p>As example take a look at the following sample configuration file:</p>
-<pre class="brush: xml;">&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+<pre class="highlight">&lt;?xml version="1.0" encoding="utf-8" ?&gt;
 &lt;!-- 
   Section to specify the configuration for the deployment
 --&gt;
@@ -147,7 +91,7 @@ permalink: "/2015/01/create-custom-component-deploy-sharepoint-solutions-part-2/
 <p>To make it more complex we also added some other properties (Upgrade, DeployToAll) to make the components more advanced.</p>
 <h1>PowerShell</h1>
 <p>With the configuration file we can start writing the PowerShell that will read out the configuration file and deploys the solution.</p>
-<pre class="brush: powershell;">param(
+<pre class="highlight">param(
     [string]$filename = $(throw "Specify the Config filename that is located in the drop folder"),
     [string]$environment = $(throw "Specify the Environment you would like to deploy to.")
 )
@@ -181,7 +125,7 @@ Write-Host "#### End deploying solutions ####"
 <li><strong>Environment: </strong>The environment you would like to deploy to. This should be the same as the environment section you have specified in the configuration file.</li>
 </ul>
 <p>Within the PowerShell file the SharePoint PowerShell module is loaded and besides that I load a custom functions file. In the functions file I have a couple of PowerShell methods that I use to do some advanced stuff on the configuration file, and also some more SharePoint functions. When everything is loaded the configuration file is loaded in the  config variable and we call the function “Deploy-Solutions” that is within the same file.</p>
-<pre class="brush: powershell;">function Deploy-Solutions(){
+<pre class="highlight">function Deploy-Solutions(){
     $path = ".\";
     $type = "Deploy";
 
@@ -296,19 +240,4 @@ Write-Host "#### End deploying solutions ####"
 </pre>
 <p>In the Deploy-Solution function we navigate trough the xml and deploy the solution packages specified in the configuration file. Within the Deploy-Solution function we also use some functions that are specified in the functions.ps1 file.</p>
 <p>With the PowerShell files in place we can start adding things to Release Management. The first action in Release Management is creating a new Tool. By going to “Inventory” – “Tools”  and click “New” to create a new tool.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-New-Tool.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-New-Tool" src="{{ site.baseurl }}/assets/archive/2015/01/ReleaseManagement-New-Tool_thumb.jpg" alt="ReleaseManagement-New-Tool" width="333" height="173" border="0" /></a></p>
-<p>In this screen you will have to supply all required information:</p>
-<p><strong>Name: </strong>Deploy SharePoint Solutions<br />
-<strong>Description:</strong> Tool for deploying SharePoint solutions<br />
-<strong>Command: </strong>powershell (Because we would like to run powershell)<br />
-<strong>Arguments: </strong>-command .\Deploy-SPSolution.ps1 "__ConfigFileName__" "__Environment__"<br />
-<strong>Resources: </strong>functions.ps1 and Deploy-Solution.ps1</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-New-Tool-Complete.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-New-Tool-Complete" src="{{ site.baseurl }}/assets/archive/2015/01/ReleaseManagement-New-Tool-Complete_thumb.jpg" alt="ReleaseManagement-New-Tool-Complete" width="405" height="192" border="0" /></a></p>
-<p>When specifying __ (double underscores) before and after a value in the arguments section Release Management will recognize this as a parameter that you can specify in for example the Release Template.</p>
-<p>The executing part of the tool specifies what the Release Management agent should execute. In this example it will execute the PowerShell file “Deploy Solution.ps1” with the specified parameters. Because Release Management does not have this file included we add it as resource the same for the functions file.</p>
-<p>A tool only cannot be used within a Release Template. In order to use it within a Release Template we also need to define a component. An component is a object that will take the files (from for example the build drop location) and combines it with the tool we specify (A component can do much more but is not relevant for this post).</p>
-<p>To define a component go to: Configure Apps – Components and then select “New”. First step is to fill in a name and make a selection for the source. As we will use the drop location for the source select the option: Builds with application and enter “ \” as the path to the package. Configuring it this way will make sure that the root drop location is copied to the executing path of the build agent together with the tool files we will specify in the next step.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-New-Component.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-New-Component" src="{{ site.baseurl }}/assets/archive/2015/01/ReleaseManagement-New-Component_thumb.jpg" alt="ReleaseManagement-New-Component" width="448" height="207" border="0" /></a></p>
-<p>The tool needs to be specified in the deployment tab. The deployment tab is the action you would like to take (tool you would like to execute). Here we will select the tool we created and the other fields are filled in for us.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-New-Component-Deployment.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-New-Component-Deployment" src="{{ site.baseurl }}/assets/archive/2015/01/ReleaseManagement-New-Component-Deployment_thumb.jpg" alt="ReleaseManagement-New-Component-Deployment" width="476" height="220" border="0" /></a></p>
-<p>With all this in place we can save the component and use it within a Release Template. In Part 3 we will discuss how to create the release template together with the component and start the release template after a build.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-New-Tool.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-New-Tool" src="/assets/archive/2015/01/ReleaseManagement-New-Tool_thumb.jpg" alt="ReleaseManagement-New-Tool" width="333" height="173" border="0" /></a></p>

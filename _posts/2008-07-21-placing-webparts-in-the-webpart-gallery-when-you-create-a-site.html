@@ -1,46 +1,22 @@
 ---
-layout: post
 title: Placing webparts in the webpart gallery when you create a site.
-date: 2008-07-21 07:25:00.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
-- SharePoint
 tags:
 - Onet
 - Site definition
 - Web Part
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: webparts
-  _yoast_wpseo_focuskw: webparts
-  _yoast_wpseo_linkdex: '74'
-  _syntaxhighlighter_encoded: '1'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: webparts
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2008/07/placing-webparts-in-the-webpart-gallery-when-you-create-a-site/"
+date: 2008-07-21 07:25:00.000000000 +02:00
+permalink: /2008/07/placing-webparts-in-the-webpart-gallery-when-you-create-a-site/
+categories:
+- Development
+- SharePoint
+status: publish
 ---
 <div class="ExternalClassE540B2481B0C4EB5B698FF05A1956C28">
 <p>Normally when you develop webparts you have to place the webparts in the webpart gallery before you can add them to your page. When you develop webparts for a customer this isn’t something you want. So I googled around and found out that you can also add them to the webpart gallery in your onet.xml of the site you are going to create. To do this you have to add a module just like I explained in my blog post <a href="/2008/05/inserting-initial-information-in-a-site-definition/">Inserting initial information in a site definition</a>,so this is kind of a part two of that blog post. First of all you add a module to the configuration in the onet.xml that you are going to use like this:</p>
-<pre class="brush: xml;">&lt;Module Name="WebPartPopulation" /&gt;</pre>
+<pre class="highlight">&lt;Module Name="WebPartPopulation" /&gt;</pre>
 <p>‘WebPartGalleryPopulation’ is the name I created for my module. You have to specify the module at the end of the onet.xml between the tag just before the end tag of projects. The module you could enter there could be something like this: </p>
-<pre class="brush: xml;"> &lt;Module Name="WebPartPopulation" List="113" Url="_catalogs/wp" Path="lists\wplib\dwp" RootWebOnly="TRUE"&gt;
+<pre class="highlight"> &lt;Module Name="WebPartPopulation" List="113" Url="_catalogs/wp" Path="lists\wplib\dwp" RootWebOnly="TRUE"&gt;
     &lt;File Url="MSContentEditor.dwp" Type="GhostableInLibrary" /&gt;
  &lt;/Module&gt;</pre>
 <p>[sourcecode lang="xml"] [/sourcecode] The attributes that you add are described below: </p>

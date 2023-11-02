@@ -1,0 +1,879 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Part 2 – Azure API Application to query the Azure SQL Database - Microsoft Playground</title>
+<meta name="description" content="This post is the second in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to API and then to an Azure SQL Database. In this post we will create an Azure API Application with .Net Core to query the Azure SQL Database. Previous Post :  Part 1 - Azure SQL Database with Azure Active Directory Authentication  Basics To get everything up and running we will need to perform some basic tasks. These tasks include:  Create a .Net Core API application Setting up application settings. Adding HttpContext  Create a .Net Core API Application  Open Visual Studio 2017 Create a new project with the template: “ASP.Net Core Web Application (.Net Framework)”.  Note: We create a ASP.Net Core Web Application with .Net Framework because the needed libraries for this solution are not build yet. This means this application will only run on Windows-based machines.  Select the “Web API” option and make sure you enable authentication in “Work or School Accounts” mode and choose your Azure Active Directory domain. Check in the project properties if you are using the target framework “.Net Framework 4.6.2” if not set it to this version. Open the NuGet Package manager and add the following package:  Microsoft.IdentityModel.Clients.ActiveDirectory    Setting up Application settings and adding HttpContext. With the empty project setup we can start by adding basic things we will need in our application. The first thing is application settings in order to authenticate against Azure Active Directory and the Azure SQL Resource.  Add a new class and call it for example “ApplicationSettings” in this class we will add the properties we need in our configuration file.  public string ClientId { get; set; }">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Part 2 – Azure API Application to query the Azure SQL Database">
+<meta property="og:url" content="http://localhost:4000/2017/05/part-2-azure-api-application-to-query-the-azure-sql-database/">
+
+
+  <meta property="og:description" content="This post is the second in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to API and then to an Azure SQL Database. In this post we will create an Azure API Application with .Net Core to query the Azure SQL Database. Previous Post :  Part 1 - Azure SQL Database with Azure Active Directory Authentication  Basics To get everything up and running we will need to perform some basic tasks. These tasks include:  Create a .Net Core API application Setting up application settings. Adding HttpContext  Create a .Net Core API Application  Open Visual Studio 2017 Create a new project with the template: “ASP.Net Core Web Application (.Net Framework)”.  Note: We create a ASP.Net Core Web Application with .Net Framework because the needed libraries for this solution are not build yet. This means this application will only run on Windows-based machines.  Select the “Web API” option and make sure you enable authentication in “Work or School Accounts” mode and choose your Azure Active Directory domain. Check in the project properties if you are using the target framework “.Net Framework 4.6.2” if not set it to this version. Open the NuGet Package manager and add the following package:  Microsoft.IdentityModel.Clients.ActiveDirectory    Setting up Application settings and adding HttpContext. With the empty project setup we can start by adding basic things we will need in our application. The first thing is application settings in order to authenticate against Azure Active Directory and the Azure SQL Resource.  Add a new class and call it for example “ApplicationSettings” in this class we will add the properties we need in our configuration file.  public string ClientId { get; set; }">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Part 2 – Azure API Application to query the Azure SQL Database">
+  <meta name="twitter:description" content="This post is the second in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to API and then to an Azure SQL Database. In this post we will create an Azure API Application with .Net Core to query the Azure SQL Database. Previous Post :  Part 1 - Azure SQL Database with Azure Active Directory Authentication  Basics To get everything up and running we will need to perform some basic tasks. These tasks include:  Create a .Net Core API application Setting up application settings. Adding HttpContext  Create a .Net Core API Application  Open Visual Studio 2017 Create a new project with the template: “ASP.Net Core Web Application (.Net Framework)”.  Note: We create a ASP.Net Core Web Application with .Net Framework because the needed libraries for this solution are not build yet. This means this application will only run on Windows-based machines.  Select the “Web API” option and make sure you enable authentication in “Work or School Accounts” mode and choose your Azure Active Directory domain. Check in the project properties if you are using the target framework “.Net Framework 4.6.2” if not set it to this version. Open the NuGet Package manager and add the following package:  Microsoft.IdentityModel.Clients.ActiveDirectory    Setting up Application settings and adding HttpContext. With the empty project setup we can start by adding basic things we will need in our application. The first thing is application settings in order to authenticate against Azure Active Directory and the Azure SQL Resource.  Add a new class and call it for example “ApplicationSettings” in this class we will add the properties we need in our configuration file.  public string ClientId { get; set; }">
+  <meta name="twitter:url" content="http://localhost:4000/2017/05/part-2-azure-api-application-to-query-the-azure-sql-database/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2017-05-03T17:21:22+02:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2017/05/part-2-azure-api-application-to-query-the-azure-sql-database/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Part 2 – Azure API Application to query the Azure SQL Database">
+    <meta itemprop="description" content="This post is the second in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to API and then to an Azure SQL Database. In this post we will create an Azure API Application with .Net Core to query the Azure SQL Database.Previous Post :Part 1 - Azure SQL Database with Azure Active Directory AuthenticationBasicsTo get everything up and running we will need to perform some basic tasks. These tasks include:Create a .Net Core API applicationSetting up application settings.Adding HttpContextCreate a .Net Core API ApplicationOpen Visual Studio 2017Create a new project with the template: “ASP.Net Core Web Application (.Net Framework)”.Note: We create a ASP.Net Core Web Application with .Net Framework because the needed libraries for this solution are not build yet. This means this application will only run on Windows-based machines.Select the “Web API” option and make sure you enable authentication in “Work or School Accounts” mode and choose your Azure Active Directory domain.Check in the project properties if you are using the target framework “.Net Framework 4.6.2” if not set it to this version.Open the NuGet Package manager and add the following package:Microsoft.IdentityModel.Clients.ActiveDirectorySetting up Application settings and adding HttpContext.With the empty project setup we can start by adding basic things we will need in our application. The first thing is application settings in order to authenticate against Azure Active Directory and the Azure SQL Resource.Add a new class and call it for example “ApplicationSettings” in this class we will add the properties we need in our configuration file.public string ClientId { get; set; }">
+    <meta itemprop="datePublished" content="2017-05-03T17:21:22+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Part 2 – Azure API Application to query the Azure SQL Database
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          7 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>This post is the second in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to API and then to an Azure SQL Database. In this post we will create an Azure API Application with .Net Core to query the Azure SQL Database.</p>
+<p>Previous Post :</p>
+<ul>
+<li><a href="https://msftplayground.com/2017/04/part-1-azure-sql-database-with-azure-active-directory-authentication" target="_blank" rel="noopener noreferrer noopener noreferrer">Part 1 - Azure SQL Database with Azure Active Directory Authentication</a></li>
+</ul>
+<h2>Basics</h2>
+<p>To get everything up and running we will need to perform some basic tasks. These tasks include:</p>
+<ul>
+<li>Create a .Net Core API application</li>
+<li>Setting up application settings.</li>
+<li>Adding HttpContext</li>
+</ul>
+<h3>Create a .Net Core API Application</h3>
+<ol>
+<li>Open Visual Studio 2017</li>
+<li>Create a new project with the template: “ASP.Net Core Web Application (.Net Framework)”.</li>
+</ol>
+<p><strong><em>Note: </em></strong><i>We create a ASP.Net Core Web Application with .Net Framework because the needed libraries for this solution are not build yet. This means this application will only run on Windows-based machines.</i></p>
+<ol start="3">
+<li>Select the “Web API” option and make sure you enable authentication in “Work or School Accounts” mode and choose your Azure Active Directory domain.</li>
+<li>Check in the project properties if you are using the target framework “.Net Framework 4.6.2” if not set it to this version.</li>
+<li>Open the NuGet Package manager and add the following package:
+<ul>
+<li>Microsoft.IdentityModel.Clients.ActiveDirectory</li>
+</ul>
+</li>
+</ol>
+<h3>Setting up Application settings and adding HttpContext.</h3>
+<p>With the empty project setup we can start by adding basic things we will need in our application. The first thing is application settings in order to authenticate against Azure Active Directory and the Azure SQL Resource.</p>
+<ol>
+<li>Add a new class and call it for example “ApplicationSettings” in this class we will add the properties we need in our configuration file.</li>
+</ol>
+<pre class="highlight">public string ClientId { get; set; }
+
+public string ClientSecret { get; set; }
+
+public string AadInstance { get; set; }
+
+public string Domain  { get; set; }
+
+public string Audience { get; set; }
+
+public string TenantId { get; set; }
+
+public string AzureSqlResource { get; set; }
+
+public string ConnectionString { get; set; }
+</pre>
+<p> </p>
+<p>Below is the description of the properties:</p>
+<table border="1" width="1764" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top" width="313"><b>Property</b></td>
+<td valign="top" width="1449"><b>Description</b></td>
+</tr>
+<tr>
+<td valign="top" width="313"><strong>ClientId</strong></td>
+<td valign="top" width="1449">The client id of the current application registered in Active Directory.</td>
+</tr>
+<tr>
+<td valign="top" width="313"><strong>ClientSecret</strong></td>
+<td valign="top" width="1449">The secret of the current client application.</td>
+</tr>
+<tr>
+<td valign="top" width="313"><strong>AadInstance</strong></td>
+<td valign="top" width="1449">The login URL of Azure Active Directory</td>
+</tr>
+<tr>
+<td valign="top" width="313"><strong>Domain</strong></td>
+<td valign="top" width="1449">The Domain of Azure Active Directory</td>
+</tr>
+<tr>
+<td valign="top" width="313"><strong>Audience</strong></td>
+<td valign="top" width="1449">The application resource App ID URL</td>
+</tr>
+<tr>
+<td valign="top" width="313"><strong>TenantId</strong></td>
+<td valign="top" width="1449">The Tenant Id of Azure Active Directory</td>
+</tr>
+<tr>
+<td valign="top" width="313"><strong>AzureSqlResource</strong></td>
+<td valign="top" width="1449">The resource Id of Azure SQL Databases, by default this is “https://database.windows.net”</td>
+</tr>
+<tr>
+<td valign="top" width="313"><strong>ConnectionString</strong></td>
+<td valign="top" width="1449">The Connection String to out Azure SQL Database</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li>To load these settings within the application we will also need to place them in the .Net Core application file “appsettings.json” in this file add the following section.</li>
+</ol>
+<pre class="highlight">"AuthenticationSettings": {
+  "AadInstance": "https://login.microsoftonline.com/",
+  "Audience": "{App ID URL Application}",
+  "ClientId": "{ClientId}",
+  "ClientSecret": "{ClientSecret}",
+  "Domain": "{Azure Active Directory Domain}",
+  "TenantId": "{Domain Tenant Id}",
+  "ConnectionString": "Data Source={Azure SQL Server};Initial Catalog={Azure SQL Database};Pooling=False;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+  "AzureSqlResource": "https://database.windows.net/"
+}
+</pre>
+<ol start="3">
+<li>Loading these settings need to our settings object need to be configured first. Therefor we need to adjust the “ConfigureService” method in the StartUp.cs file. In this method we also add the loading of the “HttpContextAccessor”, this is all done by using Dependency Injection.</li>
+</ol>
+<pre class="highlight">public void ConfigureServices(IServiceCollection services)
+{
+    services.AddMvc();
+    //Loads the configuration section into out Authentication Settings Object
+    services.Configure&lt;ApplicationSettings&gt;(Configuration.GetSection("AuthenticationSettings"));
+    //Make sure that we have a context within out ASP.Net Core Project
+    services.AddSingleton&lt;IHttpContextAccessor, HttpContextAccessor&gt;();
+}
+</pre>
+<ol start="4">
+<li>Because we do not want duplicate settings in our settings file we will adjust the "Configure" methods as well.</li>
+</ol>
+<pre class="highlight">public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+{
+    loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+    loggerFactory.AddDebug();
+
+    app.UseJwtBearerAuthentication(new JwtBearerOptions
+    {
+        Authority = Configuration["AuthenticationSettings:AadInstance"] + Configuration["AuthenticationSettings:TenantId"],
+        Audience = Configuration["AuthenticationSettings:Audience"]
+    });
+
+    app.UseMvc();
+}
+</pre>
+<ol start="5">
+<li>Move the values from the “Authentication” – “AzureAd” section in the “appsettings.json”file to the newly added “AuthenticationSettings” section and delete the complete “Authentication” section and save the file.</li>
+</ol>
+<h2>Setup a Authentication Helper</h2>
+<p>First up we will create a Authentication helper class that will handle the authentication actions. To get the identity of the logged in user we will retrieve the access token from the authorization header in the request.</p>
+<ol>
+<li>Add a new class file to the project and call it “AuthenticationHelper”.</li>
+<li>Add the below method, this method will retrieve the access token from the authorization header and construct a “UserAssertion” (The UserAssertion object is a credential type representing user credentials) object that is needed to authenticate against Azure Active Directory.</li>
+</ol>
+<pre class="highlight">private static UserAssertion GetUserAssertion(IHttpContextAccessor httpContextAccessor) {
+    UserAssertion retVal = null;
+
+    string accessToken = httpContextAccessor.HttpContext.Request.Headers["Authorization"][0];
+    string userAccessToken = accessToken.Substring(accessToken.LastIndexOf(' ')).Trim();
+
+    Claim upn = httpContextAccessor.HttpContext.User.Claims.First(c =&gt; c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn");
+
+    if (upn != null) {
+        retVal = new UserAssertion(userAccessToken, "urn:ietf:params:oauth:grant-type:jwt-bearer", upn.Value);
+    }
+
+    return retVal;
+}
+</pre>
+<ol start="3">
+<li>With the UserAssertion object that represents the current user we can retrieve a AccessToken from Azure Active Directory for Azure SQL Databases.</li>
+</ol>
+<pre class="highlight">public static AuthenticationResult GetAuthenticationResult(IHttpContextAccessor httpContextAccessor, ApplicationSettings authSettings) {
+
+    AuthenticationResult retVal = null;
+
+    UserAssertion userInfo = GetUserAssertion(httpContextAccessor);
+    ClientCredential clientCred = new ClientCredential(authSettings.ClientId, authSettings.ClientSecret);
+    AuthenticationContext authContext = new AuthenticationContext(authSettings.AadInstance + authSettings.Domain);
+
+    bool retry = false;
+    int retryCount = 0;
+
+    do {
+        retry = false;
+        try {
+            retVal = authContext.AcquireTokenAsync(authSettings.AzureSqlResource, clientCred, userInfo).Result;
+
+        } catch (AdalException ex) {
+            if (ex.ErrorCode == "temporarily_unavailable") {
+                retry = true;
+                retryCount++;
+            }
+        }
+    } while ((retry == true) &amp;&amp; (retryCount &lt; 1));
+
+    return retVal;
+}</pre>
+<p>The token retrieved by this method will be used as an access token for our Azure SQL Database</p>
+<h2>Create a API controller to query the database</h2>
+<ol>
+<li>Add a new controller to the controller folder and add the following fields and constructor in order to have everything in place (settings and httpcontext).</li>
+</ol>
+<pre class="highlight">private IHttpContextAccessor httpContextAccessor;
+
+private ApplicationSettings authSettings { get; set; }
+
+public CustomerController(IHttpContextAccessor httpContextAcc, IOptions&lt;ApplicationSettings&gt; settings) {
+    httpContextAccessor = httpContextAcc;
+    authSettings = settings.Value;
+}
+</pre>
+<ol start="2">
+<li>Next up is implementing the “Get” method of the controller to retrieve the data from the SQL server.</li>
+</ol>
+<pre class="highlight">[HttpGet]
+public JsonResult Get() {
+    JsonResult retVal = null;
+
+    AuthenticationResult authResult = AuthenticationHelper.GetAuthenticationResult(httpContextAccessor, authSettings);
+
+    if (authResult != null) {
+        string queryString = "SELECT * FROM SalesLT.Product";
+
+        using (SqlConnection connection = new SqlConnection(authSettings.ConnectionString)) {
+            connection.AccessToken = authResult.AccessToken;
+            try {
+                connection.Open();
+                SqlCommand command = new SqlCommand(queryString, connection);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+
+                DataTable table = new DataTable();  
+                adapter.Fill(table);
+
+                retVal = new JsonResult(table);
+
+            } catch (SqlException ex) {
+            }
+        }
+    }
+    return retVal;
+}
+</pre>
+<p>In the method the access token is retrieved by the authentication helper and passed through to the connection (the “AccessToken” properties is only available in the .Net Framework 4.6.2 or higher) then a select all query is performed on the SQL database to retrieve all the data and return it as a JSON string.</p>
+<h2>Delegate Permissions</h2>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#api" class="page__taxonomy-item" rel="tag">API</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure-app-services" class="page__taxonomy-item" rel="tag">Azure App Services</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#azure" class="page__taxonomy-item" rel="tag">Azure</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-05-03T17:21:22+02:00">May 3, 2017</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Part+2+%26ndash%3B+Azure+API+Application+to+query+the+Azure+SQL+Database%20http%3A%2F%2Flocalhost%3A4000%2F2017%2F05%2Fpart-2-azure-api-application-to-query-the-azure-sql-database%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2017%2F05%2Fpart-2-azure-api-application-to-query-the-azure-sql-database%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2017%2F05%2Fpart-2-azure-api-application-to-query-the-azure-sql-database%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/04/part-1-azure-sql-database-with-azure-active-directory-authentication/" class="pagination--pager" title="Part 1 – Azure SQL Database with Azure Active Directory Authentication
+">Previous</a>
+    
+    
+      <a href="/2017/05/attending-microsoft-build-2017/" class="pagination--pager" title="Attending Microsoft Build 2017
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

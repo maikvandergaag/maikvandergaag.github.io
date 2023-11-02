@@ -1,58 +1,15 @@
 ---
-layout: post
 title: Installing Azure Stack on a laptop with Windows 10
-date: 2016-03-15 22:00:37.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - Azure
 - Azure Stack
 - Laptop
-meta:
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  _yoast_wpseo_primary_category: '323'
-  _thumbnail_id: '1853'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  _yoast_wpseo_focuskw_text_input: Azure Stack
-  _yoast_wpseo_focuskw: Azure Stack
-  _yoast_wpseo_linkdex: '81'
-  snapFB: s:412:"a:1:{i:0;a:13:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:2:"do";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1683455951931731";s:5:"pDate";s:19:"2016-03-15
-    22:01:28";}}";
-  snapLI: s:555:"a:1:{i:0;a:14:{s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:2:"do";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6115627792618049538";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=6115627792618049538&amp;type=U&amp;a=rEGq";s:5:"pDate";s:19:"2016-03-15
-    22:01:28";}}";
-  snap_isAutoPosted: '1'
-  snapTW: s:299:"a:1:{i:0;a:10:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE%
-    - %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:2:"do";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"709862107689443332";s:5:"pDate";s:19:"2016-03-15
-    22:01:30";}}";
-  _jetpack_related_posts_cache: a:0:{}
-  rop_post_url_twitter: https://msftplayground.com/2016/03/installing-azure-stack-laptop-windows-10/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  rop_post_url_facebook: https://msftplayground.com/2016/03/installing-azure-stack-laptop-windows-10/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure Stack
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2016/03/installing-azure-stack-laptop-windows-10/"
+date: 2016-03-15 22:00:37.000000000 +01:00
+permalink: /2016/03/installing-azure-stack-laptop-windows-10/
+categories:
+- Azure
+status: publish
 ---
 <p>Since the Azure Stack public preview has been released I had the idea of trying to install it on my corporate laptop. My corporate laptop has the following hardware specs:</p>
 <ul>
@@ -67,11 +24,11 @@ permalink: "/2016/03/installing-azure-stack-laptop-windows-10/"
 <ul>
 <li><a title="https://azure.microsoft.com/en-us/overview/azure-stack/try/?v=try" href="https://azure.microsoft.com/en-us/overview/azure-stack/try/?v=try">https://azure.microsoft.com/en-us/overview/azure-stack/try/?v=try</a></li>
 </ul>
-<h2></h2>
-<h2></h2>
+
+
 <h2>Create Virtual Machine</h2>
 <p>After I downloaded all the files the files for the Technical Preview I created a new VM within Hyper-V based on the virtual hard drive “WindowsServer2016Datacenter.vhdx” that was in the set of you downloaded.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/03/image-7.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Stack POC Bits" src="{{ site.baseurl }}/assets/archive/2016/03/image_thumb-7.png" alt="Azure Stack POC Bits" width="529" height="54" border="0" /></a></p>
+<p><a href="/assets/archive/2016/03/image-7.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Stack POC Bits" src="/assets/archive/2016/03/image_thumb-7.png" alt="Azure Stack POC Bits" width="529" height="54" border="0" /></a></p>
 <p>The Virtual Machine was configured with the following specs:</p>
 <ul>
 <li>27 GB Ram</li>
@@ -85,7 +42,7 @@ permalink: "/2016/03/installing-azure-stack-laptop-windows-10/"
 <li><a href="https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/user_guide/nesting" target="_blank">Nested Virtualization</a></li>
 </ul>
 <p>I performed the following PowerShell script from my client machine with the VM running.</p>
-<pre class="brush: powershell;">Invoke-WebRequest https://raw.githubusercontent.com/Microsoft/Virtualization-Documentation/master/hyperv-tools/Nested/Enable-NestedVm.ps1 -OutFile ~/Enable-NestedVm.ps1
+<pre class="highlight">Invoke-WebRequest https://raw.githubusercontent.com/Microsoft/Virtualization-Documentation/master/hyperv-tools/Nested/Enable-NestedVm.ps1 -OutFile ~/Enable-NestedVm.ps1
 
 ~/Enable-NestedVm.ps1 -VmName "Windows 2016 TP 4 - Azure Stack Host"
 
@@ -94,7 +51,7 @@ Invoke-Command -VMName "Windows 2016 TP 4 - Azure Stack Host" -ScriptBlock { Ena
 </pre>
 <p>&nbsp;</p>
 <p>The following screenshot shows the output from these commands:</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/03/snip_20160314141728.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Outcome Nested Virtualization" src="{{ site.baseurl }}/assets/archive/2016/03/snip_20160314141728_thumb.png" alt="Outcome Nested Virtualization" width="669" height="301" border="0" /></a></p>
+<p><a href="/assets/archive/2016/03/snip_20160314141728.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Outcome Nested Virtualization" src="/assets/archive/2016/03/snip_20160314141728_thumb.png" alt="Outcome Nested Virtualization" width="669" height="301" border="0" /></a></p>
 <p>&nbsp;</p>
 <p><strong>Note: </strong>When using Nested Virtualization you can not use dynamic memory.</p>
 <h2>Adjust Setup Files of Azure Stack</h2>
@@ -103,37 +60,37 @@ Invoke-Command -VMName "Windows 2016 TP 4 - Azure Stack Host" -ScriptBlock { Ena
 <p>"Check system memory requirement failed. At least 64GB physical memory is required."</p>
 <p>In order to skip or pass this step the PowerShell that executes the prerequisites needs to be adjusted.</p>
 <p>“Invoke-AzureStackDeploymentPrecheck.ps1”</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/03/snip_20160314140052.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Prerequisites Azure Stack" src="{{ site.baseurl }}/assets/archive/2016/03/snip_20160314140052_thumb.png" alt="Prerequisites Azure Stack" width="660" height="352" border="0" /></a></p>
+<p><a href="/assets/archive/2016/03/snip_20160314140052.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Prerequisites Azure Stack" src="/assets/archive/2016/03/snip_20160314140052_thumb.png" alt="Prerequisites Azure Stack" width="660" height="352" border="0" /></a></p>
 <p>In the file look for the line:</p>
-<pre class="brush: powershell;">if ($totalMemoryInGB -lt 64) {
+<pre class="highlight">if ($totalMemoryInGB -lt 64) {
     throw "Check system memory requirement failed. At least 64GB physical memory is required."
 }
 </pre>
 <p>Change it to the minimum amount of memory your machine will use. This is not the only change you need to make when you want to run Azure Stack on minimal memory. The Azure Service Fabric installer will configure a couple (10) of machines with a specific amount of memory. Running all these machines together will not work on the amount of memory so the configuration needs to be changed.</p>
 <p>The configuration for these machines can be adjusted within a file called “PoCFabricSettings.xml” that you can find in the folder “Drive:\AzureStackInstaller\PoCFabricInstaller”.</p>
 <p>Every VM that will be created during the installation has a configuration element in this file. In order to get it running on my Hardware I needed to adjust the some elements for all machines to the values below.</p>
-<pre class="brush: xml;">&lt;ProcessorCount&gt;1&lt;/ProcessorCount&gt;
+<pre class="highlight">&lt;ProcessorCount&gt;1&lt;/ProcessorCount&gt;
 &lt;RAM&gt;1&lt;/RAM&gt;   
 &lt;MinRAM&gt;1&lt;/MinRAM&gt;   
 &lt;MaxRAM&gt;2&lt;/MaxRAM&gt;
 </pre>
-<h2></h2>
-<h2></h2>
+
+
 <h2>Installation of Azure Stack</h2>
 <p>When the setup files are adjusted the drive can be unmounted and all files from the bits can be copied to the newly created VM.</p>
 <p>When you login to the VM you need to run a PowerShell window as Administrator and start the “DeployAzureStack.ps1” file for the installation. I suggest running the script with the verbose parameter to get some more information during the installation.</p>
-<pre class="brush: powershell;">.\DeployAzureStack.ps1 -verbose
+<pre class="highlight">.\DeployAzureStack.ps1 -verbose
 </pre>
 <p>If something looks strange or something went wrong during the installation you can check the log files. The log files are located in the following ProgramData folder.</p>
 <ul>
 <li>C:\ProgramData\Microsoft\AzureStack\Logs</li>
 </ul>
 <p>After the prerequisites are passed the installation will continue and ask you to login in to a Azure Active Directory tenant. When the login is successful and you confirm you want to attach Azure Stack to this Azure Active Directory the installation of the Azure Stack POC will begin.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/03/snip_20160314135920.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Installation Azure Stack" src="{{ site.baseurl }}/assets/archive/2016/03/snip_20160314135920_thumb.png" alt="Installation Azure Stack" width="666" height="113" border="0" /></a></p>
+<p><a href="/assets/archive/2016/03/snip_20160314135920.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Installation Azure Stack" src="/assets/archive/2016/03/snip_20160314135920_thumb.png" alt="Installation Azure Stack" width="666" height="113" border="0" /></a></p>
 <p>When the installation is done is will show the below message. On my VM the installation took about 4 hours.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/03/snip_20160315143107.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Installation Azure Stack Finished" src="{{ site.baseurl }}/assets/archive/2016/03/snip_20160315143107_thumb.png" alt="Installation Azure Stack Finished" width="666" height="53" border="0" /></a></p>
+<p><a href="/assets/archive/2016/03/snip_20160315143107.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Installation Azure Stack Finished" src="/assets/archive/2016/03/snip_20160315143107_thumb.png" alt="Installation Azure Stack Finished" width="666" height="53" border="0" /></a></p>
 <p>Opening the Client VM and the Azure Stack Portal link will lead to the following URL: https://portal.azurestack.local/ with your own Azure Portal.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/03/snip_20160315143344.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Stack Portal" src="{{ site.baseurl }}/assets/archive/2016/03/snip_20160315143344_thumb.png" alt="Azure Stack Portal" width="666" height="339" border="0" /></a></p>
+<p><a href="/assets/archive/2016/03/snip_20160315143344.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Stack Portal" src="/assets/archive/2016/03/snip_20160315143344_thumb.png" alt="Azure Stack Portal" width="666" height="339" border="0" /></a></p>
 <p>The base installation of Azure Stack can be extend with the PaaS (Platform as a Service) bits. The installation files and manuals can be found here:</p>
 <ul>
 <li><a href="https://azure.microsoft.com/en-us/documentation/articles/azure-stack-tools-paas-services/" target="_blank">Tools and PaaS services for Azure Stack</a></li>
@@ -143,5 +100,3 @@ Invoke-Command -VMName "Windows 2016 TP 4 - Azure Stack Host" -ScriptBlock { Ena
 <li><a title="https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/user_guide/nesting" href="https://msdn.microsoft.com/en-us/virtualization/hyperv_on_windows/user_guide/nesting" target="_blank">Nested Virtualization</a></li>
 <li><a href="https://robertsmit.wordpress.com/2016/02/02/azure-stack-deployment-tweaking-azurestack-azure-deployment" target="_blank">Azure Stack deployment tweaking</a></li>
 <li><a href="http://www.int2skynet.net/2016/02/21/deploying-microsoft-azure-stack-tp1-nested-on-hyper-v-end-to-end/" target="_blank">Deploying Microsoft Azure Stack TP1 nested on Hyper-V end to end</a></li>
-<li><a title="https://azure.microsoft.com/en-us/documentation/articles/azure-stack-run-powershell-script/" href="https://azure.microsoft.com/en-us/documentation/articles/azure-stack-run-powershell-script/" target="_blank">Deploy Azure Stack POC</a></li>
-</ul>

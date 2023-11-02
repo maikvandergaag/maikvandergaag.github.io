@@ -1,65 +1,19 @@
 ---
-layout: post
 title: Creating your first Precompiled Azure Function
-date: 2017-01-31 17:10:38.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - Azure
 - Azure Functions
-meta:
-  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  _yoast_wpseo_content_score: '60'
-  _yoast_wpseo_primary_category: ''
-  _yoast_wpseo_focuskw_text_input: PreCompiled Azure Functions
-  _yoast_wpseo_focuskw: PreCompiled Azure Functions
-  _yoast_wpseo_metadesc: Since some time Azure Functions can work with Precompiled
-    Azure Functions. This enables you to bypass the dynamic compilation process.
-  _yoast_wpseo_linkdex: '77'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:440:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:51:"New post (%TITLE%)
-    has been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doFB";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1835912910019367";s:7:"postURL";s:61:"http://www.facebook.com/msftplayground/posts/1835912910019367";s:5:"pDate";s:19:"2017-01-31
-    16:10:55";}}";
-  snap_isAutoPosted: '1'
-  snapTW: s:375:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
-    - %HTAGS%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"826462782484783104";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/826462782484783104";s:5:"pDate";s:19:"2017-01-31
-    16:10:57";}}";
-  _wpas_done_all: '1'
-  snapLI: s:460:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
-    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6232279559413338112";s:7:"postURL";s:104:"https://www.linkedin.com/updates?discuss=&scope=22692038&stype=M&topic=6232279559413338112&type=U&a=SuNe";s:5:"pDate";s:19:"2017-01-31
-    19:33:57";}}";
-  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
-  _oembed_1ba82f062134c494a889e607d118caea: "{{unknown}}"
-  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: PreCompiled Azure Functions
-  _wds_title: ''
-  _wds_metadesc: Since some time Azure Functions can work with Precompiled Azure Functions.
-    This enables you to bypass the dynamic compilation process.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2017/01/creating-your-first-precompiled-azure-function/"
+date: 2017-01-31 17:10:38.000000000 +01:00
+permalink: /2017/01/creating-your-first-precompiled-azure-function/
+categories:
+- Azure
+status: publish
 ---
 <p>Since a couple of weeks it is possible to create Precompiled Azure Functions.  This enables the use of .NET assemblies containing the function implementation, and bypassing the dynamic compilation process.</p>
 <h2>Precompiled Function</h2>
 <p>In order to use precompiled functions, you need to create a .Net assembly and adjust the function.json file. First of create a class library within Visual Studio  and add the following class:</p>
-<pre class="brush: csharp;">using Microsoft.Azure.WebJobs.Host;
+<pre class="highlight">using Microsoft.Azure.WebJobs.Host;
 
 namespace MsftPlayground.Function {
     public class LoggingFunction
@@ -77,7 +31,7 @@ namespace MsftPlayground.Function {
 <li>entryPoint: The fully qualified method name.</li>
 </ul>
 <p>All of these options together create the following “function.json” file for a manually triggered function.</p>
-<pre class="brush: js;">{
+<pre class="highlight">{
   "scriptFile": "MsftPlayground.Function.dll",
   "entryPoint": "MsftPlayground.Function.LoggingFunction.Run",
   "disabled": false,
@@ -97,21 +51,21 @@ namespace MsftPlayground.Function {
 <li>Navigate to the resource group where in you want to create the Function or create a new one.</li>
 <li>In the resource group click “Add” to create a “Function App”.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/01/image-9.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Create Azure Function App" src="{{ site.baseurl }}/assets/archive/2017/01/image_thumb-9.png" alt="Create Azure Function App" width="959" height="552" border="0" /></a></p>
+<p><a href="/assets/archive/2017/01/image-9.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Create Azure Function App" src="/assets/archive/2017/01/image_thumb-9.png" alt="Create Azure Function App" width="959" height="552" border="0" /></a></p>
 <ol start="4">
 <li>In the created Function App create a new function. In this example a C# Manually triggered function will be created.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/01/image-10.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Add Manual Trigger Function" src="{{ site.baseurl }}/assets/archive/2017/01/image_thumb-10.png" alt="Add Manual Trigger Function" width="973" height="478" border="0" /></a></p>
+<p><a href="/assets/archive/2017/01/image-10.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Add Manual Trigger Function" src="/assets/archive/2017/01/image_thumb-10.png" alt="Add Manual Trigger Function" width="973" height="478" border="0" /></a></p>
 <ol start="5">
 <li>In the develop section of the function click on “View files”.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/01/image-11.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Function Code" src="{{ site.baseurl }}/assets/archive/2017/01/image_thumb-11.png" alt="Azure Function Code" width="978" height="358" border="0" /></a></p>
+<p><a href="/assets/archive/2017/01/image-11.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Function Code" src="/assets/archive/2017/01/image_thumb-11.png" alt="Azure Function Code" width="978" height="358" border="0" /></a></p>
 <ol start="6">
 <li>In the file browser delete the “run.csx” file and adjust the “function.json” file as mentioned above.</li>
 <li>Now use the upload button to upload the compiled file.</li>
 <li>Click the “Run” button so see if your compiled function works.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/01/image-12.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Azure Function Function Json" src="{{ site.baseurl }}/assets/archive/2017/01/image_thumb-12.png" alt="Azure Function Function Json" width="1028" height="591" border="0" /></a></p>
+<p><a href="/assets/archive/2017/01/image-12.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Azure Function Function Json" src="/assets/archive/2017/01/image_thumb-12.png" alt="Azure Function Function Json" width="1028" height="591" border="0" /></a></p>
 <p>The functionality looks very promising and make sure you bypass the dynamic compilation process. But there are a few things to keep in mind when the Azure Function:</p>
 <ul>
 <li>When you make manual adjustments within the portal the function.json file will be refreshed (both scriptFile and entryPoint properties will be removed).</li>

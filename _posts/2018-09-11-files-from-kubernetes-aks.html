@@ -1,58 +1,16 @@
 ---
-layout: post
 title: Kubernetes (AKS) attached to Azure Storage (Files)
-date: 2018-09-11 11:50:15.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - AKS
 - Azure
 - Kubernetes
 - Storage
-meta:
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _edit_last: '3'
-  _thumbnail_id: '4107'
-  _yoast_wpseo_focuskw: AKS
-  _yoast_wpseo_linkdex: '74'
-  _yoast_wpseo_content_score: '60'
-  _yoast_wpseo_primary_category: '323'
-  _nxs_slinks: a:1:{s:32:"a94387babea707f80fb3536668e04f6b";s:21:"http://bit.ly/2MjeMhr";}
-  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2MjeMhr";s:1:"t";s:61:"https://msftplayground.com/2018/09/files-from-kubernetes-aks/";s:1:"r";s:1:"B";}
-  snap_isAutoPosted: '1536663022'
-  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:50:"www.linkedin.com/updates?topic=6445231859604430848";s:2:"id";s:0:"";s:1:"d";s:19:"2018-09-11
-    10:50:22";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1039466172490686465";s:2:"id";s:19:"1039466172490686465";s:1:"d";s:19:"2018-09-11
-    10:50:22";s:1:"w";s:1:"s";}}}}
-  _wpas_done_all: '1'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapLI: s:381:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
-    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:0:"";s:7:"postURL";s:50:"www.linkedin.com/updates?topic=6445231859604430848";s:5:"pDate";s:19:"2018-09-11
-    10:50:22";}}";
-  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
-    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1039466172490686465";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1039466172490686465";s:5:"pDate";s:19:"2018-09-11
-    10:50:22";}}";
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: AKS
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2018/09/files-from-kubernetes-aks/"
+date: 2018-09-11 11:50:15.000000000 +02:00
+permalink: /2018/09/files-from-kubernetes-aks/
+categories:
+- Azure
+status: publish
 ---
 <p>Kubernetes (AKS) can be used for many situations. For a client we needed to make files available trough a Kubernetes Pod. The files needed to be shared between containers, nodes and pods.</p>
 <p>To make these files available we used a file share that gave us a couple of advantages:</p>
@@ -61,7 +19,7 @@ permalink: "/2018/09/files-from-kubernetes-aks/"
 <li>Files can be added via a Windows Network drive.</li>
 </ul>
 <p>To prove the scenario worked we used a simple "html" file when we opened the external endpoint.</p>
-<pre class="brush: html;">&lt;html&gt;
+<pre class="highlight">&lt;html&gt;
 &lt;head&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -78,25 +36,25 @@ permalink: "/2018/09/files-from-kubernetes-aks/"
 <li>Fill in the correct properties and click on "Create".</li>
 <li>When the storage account is created open the resource and click on "Files".</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2018/08/img-files.png"><img class="alignnone size-medium wp-image-3953" src="{{ site.baseurl }}/assets/archive/2018/09/img-files-300x70.png" alt="Azure Files" width="300" height="70" /></a></p>
+<p><a href="/assets/archive/2018/08/img-files.png"><img class="alignnone size-medium wp-image-3953" src="/assets/archive/2018/09/img-files-300x70.png" alt="Azure Files" width="300" height="70" /></a></p>
 <ol start="6">
 <li> In the Azure Files blade create a new "File share".</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2018/08/img-fileshare.png"><img class="alignnone size-medium wp-image-3955" src="{{ site.baseurl }}/assets/archive/2018/09/img-fileshare-300x48.png" alt="Azure File Share" width="300" height="48" /></a></p>
+<p><a href="/assets/archive/2018/08/img-fileshare.png"><img class="alignnone size-medium wp-image-3955" src="/assets/archive/2018/09/img-fileshare-300x48.png" alt="Azure File Share" width="300" height="48" /></a></p>
 <p>With the Azure File Share created you can connect it to your windows machine.</p>
 <ol>
 <li>Click on the file share in the Azure File blade.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2018/08/img-connect.png"><img class="size-medium wp-image-3957 alignnone" src="{{ site.baseurl }}/assets/archive/2018/09/img-connect-300x79.png" alt="Connect Azure File Share" width="300" height="79" /></a></p>
+<p><a href="/assets/archive/2018/08/img-connect.png"><img class="size-medium wp-image-3957 alignnone" src="/assets/archive/2018/09/img-connect-300x79.png" alt="Connect Azure File Share" width="300" height="79" /></a></p>
 <ol start="2">
 <li>Click on "connect".</li>
 <li>In the connect blade it will present the PowerShell script that you can run on your environment to attach the file share.</li>
 </ol>
-<pre class="brush: powershell;">$acctKey = ConvertTo-SecureString -String "[key]" -AsPlainText -Force
+<pre class="highlight">$acctKey = ConvertTo-SecureString -String "[key]" -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential -ArgumentList "Azure\kubernetesstorage01", $acctKey
 New-PSDrive -Name Z -PSProvider FileSystem -Root "[storage]" -Credential $credential -Persist</pre>
 <p><em>"<strong>Note: </strong>Make sure you do not run this script as administrator. Running this script as administrator will add the drive but it will not show up in windows explorer for your account."</em></p>
-<h2><a href="https://msftplayground.com/wp-content/uploads/2018/08/img-windowsexplorer.png"><img class="alignnone size-medium wp-image-3959" src="{{ site.baseurl }}/assets/archive/2018/09/img-windowsexplorer-300x183.png" alt="Windows Explorer" width="300" height="183" /></a></h2>
+<h2><a href="/assets/archive/2018/08/img-windowsexplorer.png"><img class="alignnone size-medium wp-image-3959" src="/assets/archive/2018/09/img-windowsexplorer-300x183.png" alt="Windows Explorer" width="300" height="183" /></a></h2>
 <h2>Kubernetes Secret</h2>
 <p>For the authentication to the file share a secret entry needs to be made within Kubernetes. The secret will contain a couple of properties:</p>
 <ul>
@@ -106,9 +64,9 @@ New-PSDrive -Name Z -PSProvider FileSystem -Root "[storage]" -Credential $creden
 <p>Adding the secrets Kubernetes can be done via a yaml file or the kubectl command line.</p>
 <p><span style="display: inline !important; float: none; background-color: transparent; color: #111111; cursor: text; font-family: 'Arimo',Verdana,Arial; font-size: 15.2px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">When using the yaml option encode the properties in base64. You can google for an online solution. I used: </span><a href="https://www.base64encode.net/">https://www.base64encode.net/</a><span style="display: inline !important; float: none; background-color: transparent; color: #111111; cursor: text; font-family: 'Arimo',Verdana,Arial; font-size: 15.2px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;"> for example. </span></p>
 <p><strong>Command line</strong></p>
-<pre class="brush: powershell;">kubectl create secret generic storage-secret --from-literal=azurestorageaccountname=[storage name] --from-literal=azurestorageaccountkey=[account key]</pre>
+<pre class="highlight">kubectl create secret generic storage-secret --from-literal=azurestorageaccountname=[storage name] --from-literal=azurestorageaccountkey=[account key]</pre>
 <p><strong>Yaml</strong></p>
-<pre class="brush: js;">apiVersion: v1
+<pre class="highlight">apiVersion: v1
 kind: Secret
 metadata:
   name: storage-secret
@@ -117,10 +75,10 @@ data:
   azurestorageaccountname: [base64 account name]
   azurestorageaccountkey: [base64 account key]</pre>
 <p>The yaml will needs to be applied to Kubernetes by using the command:</p>
-<pre class="brush: powershell;">kubectl apply -f [filename]</pre>
+<pre class="highlight">kubectl apply -f [filename]</pre>
 <h2>Kubernetes deployment</h2>
 <p>For getting the container up and running we create a Kubernetes deployment that runs the container.</p>
-<pre class="brush: js;">apiVersion: apps/v1beta1
+<pre class="highlight">apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: webfile
@@ -150,10 +108,10 @@ spec:
 <p>This deployment is a simple one that creates a single pod and attaches a volume to the mountPath: <code class="EnlighterJSRAW" data-enlighter-language="shell">/usr/local/apache2/htdocs/ </code></p>
 <p>The mountPath is the starting point for the apache web server meaning that everything that is placed on the file share will be exposed by the pod.</p>
 <p><span style="display: inline !important; float: none; background-color: transparent; color: #111111; cursor: text; font-family: 'Arimo',Verdana,Arial; font-size: 15.2px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;">The deployment needs to be applied by using the following command:</span></p>
-<pre class="brush: powershell;">kubectl apply -f [kubernetes deployment file]</pre>
+<pre class="highlight">kubectl apply -f [kubernetes deployment file]</pre>
 <h2>Kubernetes service</h2>
 <p>To get it externally available we have to take one more step. That step is configuring a Kubernetes service of the type "LoadBalancer".</p>
-<pre class="brush: js;">apiVersion: v1
+<pre class="highlight">apiVersion: v1
 kind: Service
 metadata:
   name: webfile
@@ -164,14 +122,14 @@ spec:
   selector:
     app: webfile</pre>
 <p>The service needs to be applied by using the command:</p>
-<pre class="brush: powershell;">kubectl apply -f [service deployment file]</pre>
+<pre class="highlight">kubectl apply -f [service deployment file]</pre>
 <p>Applying the service should generate an external IP address. Checking if it is provisioned correctly you can look on the Kubernetes Dashboard:</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2018/08/img-externalip.png"><img class="alignnone size-medium wp-image-3961" src="{{ site.baseurl }}/assets/archive/2018/09/img-externalip-300x37.png" alt="External Endpoint" width="300" height="37" /></a></p>
+<p><a href="/assets/archive/2018/08/img-externalip.png"><img class="alignnone size-medium wp-image-3961" src="/assets/archive/2018/09/img-externalip-300x37.png" alt="External Endpoint" width="300" height="37" /></a></p>
 <p>Or by running the following kubectl command:</p>
-<pre class="brush: powershell;">kubectl get svc [service name]</pre>
-<p><a href="https://msftplayground.com/wp-content/uploads/2018/08/img-outputsvc.png"><img class="alignnone size-medium wp-image-3963" src="{{ site.baseurl }}/assets/archive/2018/09/img-outputsvc-300x27.png" alt="Kubectl output svc" width="300" height="27" /></a></p>
+<pre class="highlight">kubectl get svc [service name]</pre>
+<p><a href="/assets/archive/2018/08/img-outputsvc.png"><img class="alignnone size-medium wp-image-3963" src="/assets/archive/2018/09/img-outputsvc-300x27.png" alt="Kubectl output svc" width="300" height="27" /></a></p>
 <h2>Result</h2>
 <p>Opening the IP in the browser will result in an empty page. Uploading the sample html file named "index.html" will have the expected result.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2018/08/img-result.png"><img class="alignnone size-medium wp-image-3965" src="{{ site.baseurl }}/assets/archive/2018/09/img-result-300x135.png" alt="Result" width="300" height="135" /></a></p>
+<p><a href="/assets/archive/2018/08/img-result.png"><img class="alignnone size-medium wp-image-3965" src="/assets/archive/2018/09/img-result-300x135.png" alt="Result" width="300" height="135" /></a></p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>

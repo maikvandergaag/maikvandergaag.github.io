@@ -1,168 +1,114 @@
 ---
-layout: post
 title: Centrally manage your App Configurations
-date: 2022-12-24 11:00:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - Azure
 - Configuration
-meta:
-  _edit_last: '3'
-  _yoast_wpseo_estimated-reading-time-minutes: '7'
-  _yoast_wpseo_wordproof_timestamp: ''
-  _yoast_wpseo_primary_category: '323'
-  _yoast_wpseo_focuskw: Azure
-  _yoast_wpseo_linkdex: '59'
-  _yoast_wpseo_content_score: '90'
-  _yoast_wpseo_metadesc: When configuration needs to be changed, this mostly is done
-    on multiple locations, and you are bound to forget one. Check how App Configuration
-    can help .
-  _thumbnail_id: '6849'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure
-  _wds_title: ''
-  _wds_metadesc: When configuration needs to be changed, this mostly is done on multiple
-    locations, and you are bound to forget one. Check how App Configuration can help
-    .
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-  _wds_analysis: a:3:{s:6:"errors";a:6:{s:26:"wds-checks::title_keywords";s:50:"Your
-    focus keyword(s) aren't used in the SEO title";s:29:"wds-checks::metadesc_keywords";s:55:"The
-    SEO description doesn't contain your focus keywords";s:25:"wds-checks::slug_keywords";s:52:"You
-    haven't used your focus keywords in the page URL";s:25:"wds-checks::keywords_used";s:58:"Primary
-    focus keyword is already used on another post/page";s:28:"wds-checks::imgalts_keywords";s:57:"None
-    of your image alt texts contain the focus keyword(s)";s:23:"wds-checks::links_count";s:56:"You
-    have 0 internal and 2 external links in your content";}s:10:"percentage";i:65;s:6:"checks";a:17:{s:5:"focus";a:3:{s:6:"status";b:1;s:7:"ignored";b:0;s:6:"result";a:1:{s:5:"state";b:1;}}s:15:"focus_stopwords";a:3:{s:6:"status";b:1;s:7:"ignored";b:0;s:6:"result";a:2:{s:5:"state";b:1;s:6:"phrase";s:8:"keywords";}}s:14:"title_keywords";a:3:{s:6:"status";b:0;s:7:"ignored";b:0;s:6:"result";a:1:{s:5:"state";b:0;}}s:12:"title_length";a:3:{s:6:"status";b:1;s:7:"ignored";b:0;s:6:"result";a:2:{s:6:"length";i:64;s:5:"state";b:1;}}s:17:"metadesc_keywords";a:3:{s:6:"status";b:0;s:7:"ignored";b:0;s:6:"result";a:1:{s:5:"state";b:0;}}s:15:"metadesc_length";a:3:{s:6:"status";b:1;s:7:"ignored";b:0;s:6:"result";a:1:{s:5:"state";b:1;}}s:13:"slug_keywords";a:3:{s:6:"status";b:0;s:7:"ignored";b:0;s:6:"result";a:1:{s:5:"state";b:0;}}s:16:"slug_underscores";a:3:{s:6:"status";b:1;s:7:"ignored";b:0;s:6:"result";a:2:{s:5:"state";b:1;s:7:"mark_up";s:40:"centrally-manage-your-app-configurations";}}s:13:"keywords_used";a:3:{s:6:"status";b:0;s:7:"ignored";b:0;s:6:"result";a:2:{s:5:"state";b:0;s:7:"used_in";a:10:{i:0;a:4:{s:5:"title";s:51:"Azure
-    Costs Analysis preview with Anomaly detection";s:4:"type";s:4:"Post";s:9:"permalink";s:87:"https://msftplayground.com/2022/03/azure-costs-analysis-preview-with-anomaly-detection/";s:9:"edit_link";s:70:"https://msftplayground.com/wp-admin/post.php?post=6589&amp;action=edit";}i:1;a:4:{s:5:"title";s:42:"Markdown
-    generation for ARM and PowerShell";s:4:"type";s:4:"Post";s:9:"permalink";s:78:"https://msftplayground.com/2021/02/markdown-generation-for-arm-and-powershell/";s:9:"edit_link";s:70:"https://msftplayground.com/wp-admin/post.php?post=6061&amp;action=edit";}i:2;a:4:{s:5:"title";s:65:"Control
-    over a Azure Cloud environment? Create a governance plan!";s:4:"type";s:4:"Post";s:9:"permalink";s:99:"https://msftplayground.com/2020/10/control-over-a-azure-cloud-environment-create-a-governance-plan/";s:9:"edit_link";s:70:"https://msftplayground.com/wp-admin/post.php?post=6011&amp;action=edit";}i:3;a:4:{s:5:"title";s:36:"How
-    I try to keep up with technology";s:4:"type";s:4:"Post";s:9:"permalink";s:72:"https://msftplayground.com/2019/03/how-i-try-to-keep-up-with-technology/";s:9:"edit_link";s:70:"https://msftplayground.com/wp-admin/post.php?post=5603&amp;action=edit";}i:4;a:4:{s:5:"title";s:37:"The
-    securitydata Azure resource group";s:4:"type";s:4:"Post";s:9:"permalink";s:73:"https://msftplayground.com/2018/04/the-securitydata-azure-resource-group/";s:9:"edit_link";s:70:"https://msftplayground.com/wp-admin/post.php?post=3753&amp;action=edit";}i:5;a:4:{s:5:"title";s:72:"Invoke
-    Azure Function in your Visual Studio Team Services CI/CD pipeline";s:4:"type";s:4:"Post";s:9:"permalink";s:108:"https://msftplayground.com/2018/02/invoke-azure-function-in-your-visual-studio-team-services-ci-cd-pipeline/";s:9:"edit_link";s:70:"https://msftplayground.com/wp-admin/post.php?post=3677&amp;action=edit";}i:6;a:4:{s:5:"title";s:40:"Listing
-    Azure Services within a CSV file";s:4:"type";s:4:"Post";s:9:"permalink";s:69:"https://msftplayground.com/2017/09/exporting-azure-services-csv-file/";s:9:"edit_link";s:70:"https://msftplayground.com/wp-admin/post.php?post=3459&amp;action=edit";}i:7;a:4:{s:5:"title";s:33:"Alerts
-    on Failed Azure Logic Apps";s:4:"type";s:4:"Post";s:9:"permalink";s:66:"https://msftplayground.com/2016/11/alerts-failed-azure-logic-apps/";s:9:"edit_link";s:70:"https://msftplayground.com/wp-admin/post.php?post=2301&amp;action=edit";}i:8;a:4:{s:5:"title";s:51:"Escape
-    Single Quotes within Azure Resource Template";s:4:"type";s:4:"Post";s:9:"permalink";s:87:"https://msftplayground.com/2016/10/escape-single-quotes-within-azure-resource-template/";s:9:"edit_link";s:70:"https://msftplayground.com/wp-admin/post.php?post=2203&amp;action=edit";}i:9;a:4:{s:5:"title";s:92:"Pass
-    trough all SharePoint items from the &ldquo;Get Items&rdquo; action in Azure Logic
-    Apps";s:4:"type";s:4:"Post";s:9:"permalink";s:114:"https://msftplayground.com/2016/05/send-trough-all-sharepoint-items-from-the-get-items-action-in-azure-logic-apps/";s:9:"edit_link";s:70:"https://msftplayground.com/wp-admin/post.php?post=1989&amp;action=edit";}}}}s:18:"metadesc_handcraft";a:3:{s:6:"status";b:1;s:7:"ignored";b:0;s:6:"result";a:1:{s:5:"state";b:1;}}s:16:"imgalts_keywords";a:3:{s:6:"status";b:0;s:7:"ignored";b:0;s:6:"result";a:5:{s:5:"state";N;s:7:"percent";i:0;s:12:"has_featured";b:1;s:7:"img_cnt";i:0;s:13:"focus_img_cnt";i:0;}}s:14:"content_length";a:3:{s:6:"status";b:1;s:7:"ignored";b:0;s:6:"result";a:3:{s:5:"state";b:1;s:3:"min";i:300;s:5:"count";i:1477;}}s:15:"keyword_density";a:3:{s:6:"status";b:1;s:7:"ignored";b:0;s:6:"result";a:5:{s:5:"state";b:1;s:7:"density";d:2.029999999999999804600747665972448885440826416015625;s:3:"min";i:1;s:3:"max";i:3;s:4:"type";s:15:"primary
-    keyword";}}s:11:"links_count";a:3:{s:6:"status";b:0;s:7:"ignored";b:0;s:6:"result";a:3:{s:5:"state";b:0;s:8:"internal";i:0;s:5:"total";i:2;}}s:14:"nofollow_links";a:3:{s:6:"status";b:1;s:7:"ignored";b:0;s:6:"result";a:1:{s:5:"state";b:1;}}s:13:"para_keywords";a:3:{s:6:"status";b:1;s:7:"ignored";b:0;s:6:"result";a:1:{s:5:"state";b:1;}}s:20:"subheadings_keywords";a:3:{s:6:"status";b:1;s:7:"ignored";b:0;s:6:"result";a:3:{s:5:"state";b:1;s:5:"count";i:2;s:10:"is_primary";b:1;}}}}
-  _wds_analysis_extra: a:0:{}
-  _wds_readability: a:4:{s:5:"score";i:0;s:9:"raw_score";b:0;s:11:"is_readable";b:0;s:5:"error";s:19:"No
-    content to check";}
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2022/12/centrally-manage-your-app-configurations/"
+date: 2022-12-24 11:00:00.000000000 +01:00
+permalink: /2022/12/centrally-manage-your-app-configurations/
+categories:
+- Azure
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deploy, and manage their applications in the cloud. From infrastructure as a service (IaaS) offerings like virtual machines and storage to the platform as a service (PaaS) offerings like Azure App Service and Azure Functions, Azure provides a comprehensive set of tools and services to meet the needs of businesses of all sizes.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>This also has an impact on the application landscape of businesses within Azure. As Azure also evolves, the applications/services that are used evolve. This is not always going in a correct manner where there is time to remove technical debt. As the landscape expands, new services are created, and configurations are added. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>This also surfaces a problem: when a configuration needs to be changed, this must be done on multiple locations, and you are bound to forget one.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Azure App Configuration</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>This is where Azure App Configuration comes in. <a href="https://learn.microsoft.com/azure/azure-app-configuration/overview?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener">Azure App Configuration</a> is a fully managed service that lets you centralize your application's configuration and feature management. It helps to store and manage configuration data and feature flags in a centralized location, which multiple applications and environments can access.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>One of the key benefits of using Azure App Configuration is that it allows you to manage the configuration of your applications in a consistent and organized manner. Instead of hardcoding configuration values into your application's codebase, you can store them in Azure App Configuration and retrieve them at runtime. This makes it easier to manage and update your application's configuration without redeploying your code. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>App Configuration is already a pervasive solution that (at the time of writing this article) has the following capabilities:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
-<ul><!-- wp:list-item --></p>
+
+
+<ul></p>
 <li>Automatic refresh without restarting an application</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>Data encryption (transit/rest)</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>Point-in-time snapshots</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>Configuration comparison</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>Feature Management</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>Import / Export</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>Geo-Replication (preview)</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>Soft Delete</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>AAD authentication</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>Private Endpoint support</li>
-<p><!-- /wp:list-item --></ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+<p></ul>
+
+
 <p>App Configuration can be used within many frameworks by using a specific client or provider or by using the Rest API:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
-<ul><!-- wp:list-item --></p>
+
+
+<ul></p>
 <li>.Net Core</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>ASP.Net Core</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>.Net Framework</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>Java Spring</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>Javascript</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li>Python</li>
-<p><!-- /wp:list-item --></ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+<p></ul>
+
+
 <p>When you would like to use it in, for example, PowerShell, you could leverage the API.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>KeyVault integration</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>As the feature list above isn't already enough, Azure App Configuration also has KeyVault integration. With the KeyVault integration, you can add configurations referencing a KeyVault secret. Azure App Configuration will redirect you (your principal with a correct token) to retrieve the value from the KeyVault without noticing anything.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Getting Started</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Of course, you can get started by using the Azure Portal, PowerShell, or the CLI, but let's check if we can create the service using Bicep.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>Bicep</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The bicep for setting up Azure App Configuration is very easy. Let's take a look at the example below.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">resource configStore 'Microsoft.AppConfiguration/configurationStores@2021-10-01-preview' = {
+
+
+<pre class="highlight">resource configStore 'Microsoft.AppConfiguration/configurationStores@2021-10-01-preview' = {
     name: 'azappconfiguration-${name}'
     location: location
     sku: {
@@ -174,15 +120,15 @@ permalink: "/2022/12/centrally-manage-your-app-configurations/"
         softDeleteRetentionInDays:7
     }
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The code snippet creates a configuration store with the 'standard' SKU, enables purge protection, and sets the soft delete retention to 7 days. Next to that, it also disables the local authentication, meaning that you cannot authenticate to the configuration store by using a key but are required to use a token to authenticate.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Configurations, secret references, and features can also be added by using Bicep. For this, I created a handy module.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">param configStoreName string
+
+
+<pre class="highlight">param configStoreName string
 
 param configItems array
 
@@ -199,12 +145,12 @@ resource configStoreKeyValue 'Microsoft.AppConfiguration/configurationStores/key
     contentType:item.contentType
   }
 }]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The item will be configured correctly based on the array supplied as a parameter. A sample array for the configuration could look like the snippet below.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">[
+
+
+<pre class="highlight">[
     {
         name: 'Bicep:Config:Value'
         value: 'Test from Bicep'
@@ -233,26 +179,26 @@ resource configStoreKeyValue 'Microsoft.AppConfiguration/configurationStores/key
         }
     }
 ]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Getting it in Code</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Adding Azure App Configuration in code is very easy. This article will look into C# and .Net Core 6. Make sure you add the following prerequisites as NuGet packages to your project.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
-<ul><!-- wp:list-item --></p>
+
+
+<ul></p>
 <li><strong>Microsoft.Extensions.Configuration.AzureAppConfiguration</strong> version 4.1.0 or later</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li><strong>Microsoft.Azure.Functions.Extensions</strong> version 1.10 or later: This one is needed to incorporate the Azure Functions configurations.</li>
-<p><!-- /wp:list-item --></ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+<p></ul>
+
+
 <p>The next step is to add the following code to your application startup.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"csharp"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">var endpoint = app.Configuration["AppConfig:Endpoint"];
+
+
+<pre class="highlight">var endpoint = app.Configuration["AppConfig:Endpoint"];
 builder.Configuration.AddAzureAppConfiguration(options => {
     options.Connect(new Uri(endpoint), new DefaultAzureCredential())
             .ConfigureKeyVault(kv => {
@@ -262,33 +208,33 @@ builder.Configuration.AddAzureAppConfiguration(options => {
             .ConfigureRefresh(refreshOptions =>
                 refreshOptions.Register("Demo:Config:Sentinel", refreshAll: true));
 });</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>On line 1 of the snippet, we retrieve the configuration store's endpoint and then aff Azure App Configuration to the application.  By using 'DefaultAzureCredential', we make sure that we connect to the configuration store by the managed identity of the service.  On line 4, we then set up the connection to the KeyVault to retrieve values and specify that for this, we also want to use the managed identity.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With the 'Select' we start specifying which configurations we want. In this example, we want all configurations that start with 'Demo:' and do not have a label. Using the labels, we could have specified an environment, for example. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>On line 9, we then configure the refresh options to ensure that the application configurations are automatically refreshed when we update the sentinel key "Demo:Config:Sentinel" in the configuration store.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>When you would also like to make use of feature management, you would also add the following lines</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"csharp"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">options.UseFeatureFlags(featureFlagOptions => {
+
+
+<pre class="highlight">options.UseFeatureFlags(featureFlagOptions => {
         featureFlagOptions.Select("DemoApp-*", app.Environment.EnvironmentName);
         featureFlagOptions.CacheExpirationInterval = TimeSpan.FromSeconds(30);
     });</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Using the configuration</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Using the configuration is now very easy the below snippet is a function that retrieves a configuration value.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"csharp"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">public class DummyFunction
+
+
+<pre class="highlight">public class DummyFunction
     {
         private readonly IConfiguration _configuration;
 
@@ -317,12 +263,12 @@ builder.Configuration.AddAzureAppConfiguration(options => {
             return new OkObjectResult(responseMessage);
         }
     }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Also, for features, this more or less looks the same. The only difference here is that we use a so-called FeatureManager. For this snippet, we removed some lines of code for simplicity.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"csharp"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">public class WCController : ControllerBase {
+
+
+<pre class="highlight">public class WCController : ControllerBase {
        
         private readonly ILogger&lt;WCController> _logger;
 
@@ -347,39 +293,39 @@ builder.Configuration.AddAzureAppConfiguration(options => {
             return retVal;
         }
     }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>When using features, you also have some other nice options as:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
-<ul><!-- wp:list-item --></p>
+
+
+<ul></p>
 <li>Feature Gates: The feature gate attributes make sure something is only available when the specified feature is activated.</li>
-<p><!-- /wp:list-item --></ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:syntaxhighlighter/code --></p>
-<pre class="wp-block-syntaxhighlighter-code">    [FeatureGate("DemoApi-WC")]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:list --></p>
-<ul><!-- wp:list-item --></p>
+<p></ul>
+
+
+<pre class="highlight">    [FeatureGate("DemoApi-WC")]</pre>
+
+
+<ul></p>
 <li>Feature Tag: The &lt;feature&gt;&nbsp;tag ensures that items are shown only when the&nbsp;feature flag is enabled.</li>
-<p><!-- /wp:list-item --></ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"xml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">    &lt;feature name="DemoApp-Beta">
+<p></ul>
+
+
+<pre class="highlight">    &lt;feature name="DemoApp-Beta">
         &lt;p>Beta feature is enabled!&lt;/p>
     &lt;/feature></pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Azure DevOps</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>In a real-life scenario, configurations are mostly managed and deployed from Azure DevOps. Azure App Configuration can also help in these situations because Azure DevOps has a task that retrieves configuration values and converts them to variables.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Take a look at the pipeline in the below snippet. In the first steps, the configuration is retrieved and later displayed with a PowerShell task. Good to mention here as well is that KeyVault references are also retrieved and specified as secure variables.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">trigger:
+
+
+<pre class="highlight">trigger:
 - main
 
 pool:
@@ -401,72 +347,49 @@ steps:
       Write-Host "Regular value: $(DevOps:DemoValue)"
       Write-Host "Secret value: $(DevOps:Secret:DevOpsSecret)"
 </pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>My Take away’s</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:list --></p>
-<ul><!-- wp:list-item --></p>
+
+
+<ul></p>
 <li><strong>Issues in the configuration can cause the application to break on start-up</strong>: As configurations are loaded at the application's startup, problems with the configuration or lack of permissions can break the complete application.</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li><strong>Do not forget to authorize the application in the Azure Key Vault</strong>: When working with KeyVault references, ensure that the identity used has the appropriate permissions on Azure App Configuration and the KeyVault.</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li><strong>Use labels to sort/group configurations</strong>: Labels add the ability to have different configurations for different scenarios like environments.</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li><strong>RBAC permissions can take time before they are in place</strong>.</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
+
+
 <li><strong>Case Sensitive:</strong> All configurations added are case sensitive.</li>
-<p><!-- /wp:list-item --></p>
-<p><!-- wp:list-item --></p>
-<li></li>
-<p><!-- /wp:list-item --></ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:heading --></p>
+
+
+
+<p></ul>
+
+
 <h2>Conclusion</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>In conclusion, Azure App Configuration is a powerful service for managing your applications' configuration and feature management. Centralizing your configuration data and providing feature management capabilities helps you build more flexible and maintainable applications.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>If you want to see the code in more detail and look at different examples, go check out my <a href="https://github.com/maikvandergaag/msft-appconfiguration" target="_blank" rel="noreferrer noopener">GitHub repo</a>.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Chrismas Present</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>As a small present for Christmas, I also wanted to share an option we use very often. That option is using Azure App Configuration from PowerShell. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">Function Get-AzAppConfigurationKey {
+
+
+<pre class="highlight">Function Get-AzAppConfigurationKey {
     Param(
         [parameter(Mandatory = $true)][string]$AppConfiguration,
         [parameter(Mandatory = $true)][string]$Key
     )
 
-    $url = "$($AppConfiguration)/kv/$($Key)?api-version=1.0"
-
-    $token = Get-AzAccessToken -ResourceUrl $AppConfiguration
-    $apiHeaders = @{
-        Authorization="Bearer $($token.Token)"
-    }
-    
-    Write-Verbose "Trying to invoke app configuration rest api: $url"
-
-    $result = Invoke-RestMethod -Uri $url -Headers $apiHeaders -Method "Get"
-
-    return $result
-}
-
-$endpoint = "https://azapp-sub.azconfig.io"
-$Key = "DemoPS:Message"
-
-Get-AzAppConfigurationKey -AppConfiguration $endpoint -Key $Key
-</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
-<p>This script uses the rest APIs to retrieve the configuration from Azure App Configuration.</p>
-<p><!-- /wp:paragraph --></p>

@@ -1,48 +1,25 @@
 ---
-layout: post
 title: Disabling SharePoint errors (An unexpected error has occurred)
-date: 2008-04-02 06:44:00.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- SharePoint
-- Troubleshooting
 tags:
 - Error
 - SharePoint
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SharePoint
-  _yoast_wpseo_focuskw: SharePoint
-  _yoast_wpseo_linkdex: '51'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2008/04/disabling-sharepoint-errors-an-unexpected-error-has-occurred/"
+date: 2008-04-02 06:44:00.000000000 +02:00
+permalink: /2008/04/disabling-sharepoint-errors-an-unexpected-error-has-occurred/
+categories:
+- SharePoint
+- Troubleshooting
+status: publish
 ---
 <div class="ExternalClassB3CCD588D18A45208C4774E004785D60">
 <p>One of the most annoying things I came across when I was developing for SharePoint 2007 is the error: “An unexpected error has occurred”. You can get rid of this by disabling the custom errors.</p>
 <p>You can do this in two steps:</p>
 <p><strong>Step 1:</strong> Change</p>
-<pre class="brush: xml;">&lt;SafeMode MaxControls="200" CallStack="false" &gt;</pre>
+<pre class="highlight">&lt;SafeMode MaxControls="200" CallStack="false" &gt;</pre>
 <p>to</p>
-<pre class="brush: xml;">&lt;SafeMode MaxControls="200" CallStack="true" &gt;</pre>
+<pre class="highlight">&lt;SafeMode MaxControls="200" CallStack="true" &gt;</pre>
 <p><strong>Step 2:</strong></p>
-<pre class="brush: xml;">&lt;customerrors mode="Off" /&gt;</pre>
+<pre class="highlight">&lt;customerrors mode="Off" /&gt;</pre>
 <p>If you change these settings in the web.config file you will get the ASP.Net error page with the call stack. You can change this in de web.config file of you web application or you can just edit the default web.config file on you development machine.</p>
 <p>You can find your default web.config file in:</p>
 <p><strong>C:\Program Files\Common Files\Microsoft Shared\web server extensions\12\CONFIG</strong></p>

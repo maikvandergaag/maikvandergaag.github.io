@@ -1,73 +1,20 @@
 ---
-layout: post
 title: Creating the Release Template that runs after the Build &ndash; Part 3
-date: 2015-01-30 14:19:43.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- DevOps
 tags:
 - Deployment
 - Powershell
 - Release Management
 - SharePoint
-meta:
-  snap_isAutoPosted: '1'
-  _wpt_short_url: http://bit.ly/1A6sEnl
-  _wp_jd_target: http://msftplayground.com/2015/01/creating-the-release-template-that-runs-after-the-build-part-3/
-  _jd_wp_twitter: 'a:2:{i:0;s:98:"New post: Creating the Release Template that runs
-    after the Build – Part 3 http://bit.ly/1A6sEnl";i:1;s:101:"Post Edited: Creating
-    the Release Template that runs after the Build – Part 3 http://bit.ly/1A6sEnl";}'
-  _wpt_status_message: This tweet is identical to another Tweet recently sent to this
-    account. Twitter requires all Tweets to be unique.
-  _edit_last: '1'
-  _yoast_wpseo_focuskw: Release Template
-  _yoast_wpseo_title: Creating the Release Template that runs after the Build
-  _yoast_wpseo_metadesc: Create a Release Template that will run after a build successfully
-    ended.
-  _jd_twitter: ''
-  _jd_tweet_this: 'yes'
-  _yoast_wpseo_linkdex: '82'
-  _thumbnail_id: '1062'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:395:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1529379494006045";s:5:"pDate";s:19:"2015-01-30
-    14:19:52";s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
-  snapLI: s:540:"a:1:{i:0;a:13:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"5966932602353917952";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=5966932602353917952&amp;type=U&amp;a=HBKE";s:5:"pDate";s:19:"2015-01-30
-    14:19:52";s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
-  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:101:"Post Edited: Creating
-    the Release Template that runs after the Build – Part 3 http://bit.ly/1A6sEnl";s:5:"error";s:113:"This
-    tweet is identical to another Tweet recently sent to this account. Twitter requires
-    all Tweets to be unique.";s:4:"code";i:403;s:9:"timestamp";i:1422627891;}'
-  _yoast_wpseo_focuskw_text_input: Release Template
-  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Release Template
-  _wds_title: Creating the Release Template that runs after the Build
-  _wds_metadesc: Create a Release Template that will run after a build successfully
-    ended.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2015/01/creating-the-release-template-that-runs-after-the-build-part-3/"
+date: 2015-01-30 14:19:43.000000000 +01:00
+permalink: /2015/01/creating-the-release-template-that-runs-after-the-build-part-3/
+categories:
+- DevOps
+status: publish
 ---
 <p>With the component created in <a href="http://msftplayground.com/2015/01/create-custom-component-deploy-sharepoint-solutions-part-2/">part 2</a> we can start using it to deploy applications to our SharePoint environment. We start by creating a new template.</p>
 <p>For this post I assume you already created the release paths and have added the SharePoint servers to Release Management. To create a new template open Release Management and click on “Configure Apps” if you have the sub section “Agent-Based Release Templates” open you will see all Release Templates that are used Agent Based. In my demo environment I have three templates for example.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-AgentBasedTemplates.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-AgentBasedTemplates" src="{{ site.baseurl }}/assets/archive/2015/01/ReleaseManagement-AgentBasedTemplates_thumb.jpg" alt="ReleaseManagement-AgentBasedTemplates" width="446" height="234" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-AgentBasedTemplates.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-AgentBasedTemplates" src="/assets/archive/2015/01/ReleaseManagement-AgentBasedTemplates_thumb.jpg" alt="ReleaseManagement-AgentBasedTemplates" width="446" height="234" border="0" /></a></p>
 <p>In image you can see the agent based release templates available in my environment:</p>
 <ul>
 <li>SharePoint Release Template, release template for a complete SharePoint release path.</li>
@@ -75,7 +22,7 @@ permalink: "/2015/01/creating-the-release-template-that-runs-after-the-build-par
 <li>Web Portal Release, release template for a web portal.</li>
 </ul>
 <p>For this section we will start off with a new one by clicking on “New” .</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-NewTemplate.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-NewTemplate" src="{{ site.baseurl }}/assets/archive/2015/01/ReleaseManagement-NewTemplate_thumb.jpg" alt="ReleaseManagement-NewTemplate" width="408" height="308" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-NewTemplate.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-NewTemplate" src="/assets/archive/2015/01/ReleaseManagement-NewTemplate_thumb.jpg" alt="ReleaseManagement-NewTemplate" width="408" height="308" border="0" /></a></p>
 <p>In the window that appears you will have to specify the information.</p>
 <ul>
 <li><strong>Name: </strong>The name of the release template.</li>
@@ -85,16 +32,16 @@ permalink: "/2015/01/creating-the-release-template-that-runs-after-the-build-par
 <li><strong>Security: </strong>In this section you can specify who or which group is able to do what within this release template. Be careful, by default everyone that has access to release management has edit rights on the release template.</li>
 </ul>
 <p>With the properties filled in you will see a kind off workflow interface in which we will be able to specify which steps we need to take during a release in a specific stage. First off all we will drag the right SharePoint Server from the left side within the deployment sequence.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-Tempalte.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-Tempalte" src="{{ site.baseurl }}/assets/archive/2015/01/ReleaseManagement-Tempalte_thumb.jpg" alt="ReleaseManagement-Tempalte" width="471" height="247" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-Tempalte.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-Tempalte" src="/assets/archive/2015/01/ReleaseManagement-Tempalte_thumb.jpg" alt="ReleaseManagement-Tempalte" width="471" height="247" border="0" /></a></p>
 <p>With the correct server in the release template we can specify what needs to be done on that server. We could add our own components but you are also able to use some predefined actions.</p>
 <p>For know we will add our own component. But the component is not available by default. To make it available right click on components and selecting “Add” this will show a list off all available components.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-Components.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-Components" src="{{ site.baseurl }}/assets/archive/2015/01/ReleaseManagement-Components_thumb.jpg" alt="ReleaseManagement-Components" width="515" height="230" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-Components.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-Components" src="/assets/archive/2015/01/ReleaseManagement-Components_thumb.jpg" alt="ReleaseManagement-Components" width="515" height="230" border="0" /></a></p>
 <p>Select the component that we created and click link on the top of the screen. With the component available in the Release Template drag and drop it within the server that we want to perform that action. Next you will need to expand the component in order to fill in the parameters.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-Parameters.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-Parameters" src="{{ site.baseurl }}/assets/archive/2015/01/ReleaseManagement-Parameters_thumb.jpg" alt="ReleaseManagement-Parameters" width="567" height="295" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-Parameters.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-Parameters" src="/assets/archive/2015/01/ReleaseManagement-Parameters_thumb.jpg" alt="ReleaseManagement-Parameters" width="567" height="295" border="0" /></a></p>
 <p>With this done you can save the template and kick off a release by using TFS Build. If you change the build definition you can kick off a release by changing the properties in the section called “Release”, by setting “Release Build” to true TFS Build will try to start a release that is attached to that build definition after it successfully build the application.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-BuildDef.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-BuildDef" src="{{ site.baseurl }}/assets/archive/2015/01/ReleaseManagement-BuildDef_thumb.jpg" alt="ReleaseManagement-BuildDef" width="454" height="320" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-BuildDef.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-BuildDef" src="/assets/archive/2015/01/ReleaseManagement-BuildDef_thumb.jpg" alt="ReleaseManagement-BuildDef" width="454" height="320" border="0" /></a></p>
 <p>Using this mechanism explained in the series of posts you are able to structure your SharePoint releases or any other type of release like BizTalk of HTML.By scripting new components (because a SharePoint release does not only exists of deploying solutions) you could also have the complete process of SharePoint deployment.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/Deployment-Sequence.jpg"><img style="background-image: none; float: right; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Deployment Sequence" src="{{ site.baseurl }}/assets/archive/2015/01/Deployment-Sequence_thumb.jpg" alt="Deployment Sequence" width="119" height="414" align="right" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/Deployment-Sequence.jpg"><img style="background-image: none; float: right; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Deployment Sequence" src="/assets/archive/2015/01/Deployment-Sequence_thumb.jpg" alt="Deployment Sequence" width="119" height="414" align="right" border="0" /></a></p>
 <p>In this deployment sequence you have several components that all take different actions, some examples are:</p>
 <ul>
 <li>Deploy SharePoint Solutions, will deploy solutions based on the drop folder.</li>
@@ -103,6 +50,6 @@ permalink: "/2015/01/creating-the-release-template-that-runs-after-the-build-par
 <li>WarmUp SharePoint, will warmup SharePoint after a deployment.</li>
 </ul>
 <p>If you take it some steps further you could build in a specific role back mechanism that restores your SharePoint environment or deploy to all your development environments in parallel.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-Template-Parralel.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-Template-Parralel" src="{{ site.baseurl }}/assets/archive/2015/01/ReleaseManagement-Template-Parralel_thumb.jpg" alt="ReleaseManagement-Template-Parralel" width="410" height="296" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2015/01/ReleaseManagement-Template-Parralel.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ReleaseManagement-Template-Parralel" src="/assets/archive/2015/01/ReleaseManagement-Template-Parralel_thumb.jpg" alt="ReleaseManagement-Template-Parralel" width="410" height="296" border="0" /></a></p>
 <p>&nbsp;</p>
 <p>I hope you have a good impression of what can be done by using Release Management. If you have any further questions please let me know.</p>

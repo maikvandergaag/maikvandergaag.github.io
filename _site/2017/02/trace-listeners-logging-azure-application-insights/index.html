@@ -1,0 +1,761 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Trace listeners (Logging) with Application Insights - Microsoft Playground</title>
+<meta name="description" content="For every application that is build a logging framework needs to be present. Tracing and Application are framework that can be used in almost every situation. Application Insights is an extensible Application Performance Management (APM) service for web developers on multiple platforms. It can be used to monitor your live web application. It can automatically detect performance anomalies and includes powerful analytics tools to help you diagnose issues and to understand what users actually do with your app. Trace listeners (Tracing) on the other end are objects that get tracing information from the trace class and output the data to a medium that is configured. For instance you can write trace information to a UI, file or a windows event log. Trace information can be send to Application Insights by making use of the Application Insights trace listener. Custom Tracing class Write a custom tracing class for your application. This class can be a static class because we do not want to initiate the class and it needs to be constructed only once. In the class methods need to be created for every event severity. public static class AppTrace {     private static TraceSource traceSource { get; set; }">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Trace listeners (Logging) with Application Insights">
+<meta property="og:url" content="http://localhost:4000/2017/02/trace-listeners-logging-azure-application-insights/">
+
+
+  <meta property="og:description" content="For every application that is build a logging framework needs to be present. Tracing and Application are framework that can be used in almost every situation. Application Insights is an extensible Application Performance Management (APM) service for web developers on multiple platforms. It can be used to monitor your live web application. It can automatically detect performance anomalies and includes powerful analytics tools to help you diagnose issues and to understand what users actually do with your app. Trace listeners (Tracing) on the other end are objects that get tracing information from the trace class and output the data to a medium that is configured. For instance you can write trace information to a UI, file or a windows event log. Trace information can be send to Application Insights by making use of the Application Insights trace listener. Custom Tracing class Write a custom tracing class for your application. This class can be a static class because we do not want to initiate the class and it needs to be constructed only once. In the class methods need to be created for every event severity. public static class AppTrace {     private static TraceSource traceSource { get; set; }">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Trace listeners (Logging) with Application Insights">
+  <meta name="twitter:description" content="For every application that is build a logging framework needs to be present. Tracing and Application are framework that can be used in almost every situation. Application Insights is an extensible Application Performance Management (APM) service for web developers on multiple platforms. It can be used to monitor your live web application. It can automatically detect performance anomalies and includes powerful analytics tools to help you diagnose issues and to understand what users actually do with your app. Trace listeners (Tracing) on the other end are objects that get tracing information from the trace class and output the data to a medium that is configured. For instance you can write trace information to a UI, file or a windows event log. Trace information can be send to Application Insights by making use of the Application Insights trace listener. Custom Tracing class Write a custom tracing class for your application. This class can be a static class because we do not want to initiate the class and it needs to be constructed only once. In the class methods need to be created for every event severity. public static class AppTrace {     private static TraceSource traceSource { get; set; }">
+  <meta name="twitter:url" content="http://localhost:4000/2017/02/trace-listeners-logging-azure-application-insights/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2017-02-27T18:32:23+01:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2017/02/trace-listeners-logging-azure-application-insights/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Trace listeners (Logging) with Application Insights">
+    <meta itemprop="description" content="For every application that is build a logging framework needs to be present. Tracing and Application are framework that can be used in almost every situation.Application Insights is an extensible Application Performance Management (APM) service for web developers on multiple platforms. It can be used to monitor your live web application. It can automatically detect performance anomalies and includes powerful analytics tools to help you diagnose issues and to understand what users actually do with your app.Trace listeners (Tracing) on the other end are objects that get tracing information from the trace class and output the data to a medium that is configured. For instance you can write trace information to a UI, file or a windows event log.Trace information can be send to Application Insights by making use of the Application Insights trace listener.Custom Tracing classWrite a custom tracing class for your application. This class can be a static class because we do not want to initiate the class and it needs to be constructed only once. In the class methods need to be created for every event severity.public static class AppTrace {    private static TraceSource traceSource { get; set; }">
+    <meta itemprop="datePublished" content="2017-02-27T18:32:23+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Trace listeners (Logging) with Application Insights
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>For every application that is build a logging framework needs to be present. Tracing and Application are framework that can be used in almost every situation.</p>
+<p><strong>Application Insights</strong> is an extensible Application Performance Management (APM) service for web developers on multiple platforms. It can be used to monitor your live web application. It can automatically detect performance anomalies and includes powerful analytics tools to help you diagnose issues and to understand what users actually do with your app.</p>
+<p><strong>Trace listeners</strong> (Tracing) on the other end are objects that get tracing information from the trace class and output the data to a medium that is configured. For instance you can write trace information to a UI, file or a windows event log.</p>
+<p>Trace information can be send to Application Insights by making use of the Application Insights trace listener.</p>
+<h2>Custom Tracing class</h2>
+<p>Write a custom tracing class for your application. This class can be a static class because we do not want to initiate the class and it needs to be constructed only once. In the class methods need to be created for every event severity.</p>
+<pre class="highlight">public static class AppTrace {
+    private static TraceSource traceSource { get; set; }
+
+    static AppTrace() {
+        traceSource = new TraceSource("TraceLogging");
+    }
+
+    public static void Verbose(string message, int id = 16, [CallerMemberName]string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber]int lineNumber = 0) {
+        traceSource.TraceEvent(TraceEventType.Verbose, id, Format(message, memberName, filePath, lineNumber));
+    }
+
+    public static void Error(string message, int id = 2, [CallerMemberName]string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber]int lineNumber = 0) {
+        traceSource.TraceEvent(TraceEventType.Error, id, Format(message, memberName, filePath, lineNumber));
+    }
+
+    public static void Information(string message, int id = 8, [CallerMemberName]string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber]int lineNumber = 0)
+        traceSource.TraceEvent(TraceEventType.Information, id, Format(message, memberName, filePath, lineNumber));
+    }
+
+    public static void Critical(string message, int id = 1, [CallerMemberName]string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber]int lineNumber = 0) {
+        traceSource.TraceEvent(TraceEventType.Critical, id, Format(message, memberName, filePath, lineNumber));
+    }
+
+    public static void Warning(string message, int id = 4, [CallerMemberName]string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber]int lineNumber = 0) {
+        traceSource.TraceEvent(TraceEventType.Warning, id, Format(message, memberName, filePath, lineNumber));
+    }
+
+    public static void Start(string service, int id = 256, [CallerMemberName]string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber]int lineNumber = 0) {
+        traceSource.TraceEvent(TraceEventType.Start, id, Format("Starting - " + service, memberName, filePath, lineNumber));
+    }
+
+    public static void Stop(string service, int id = 512, [CallerMemberName]string memberName = "", [CallerFilePath] string filePath = "", [CallerLineNumber]int lineNumber = 0) {
+        traceSource.TraceEvent(TraceEventType.Stop, id, Format("Stoping - " + service, memberName, filePath, lineNumber));
+    }
+
+    private static string Format(string message, string memberName, string filePath, int lineNumber) {
+        return $"Message: {message}, MemberName: {memberName}, FilePath: {filePath}, LineNumber: {lineNumber}";
+    }
+}
+
+</pre>
+<p>In the constructor the source name is configured this makes it possible to bind the trace listeners within the application configuration.</p>
+<h2>Application Insight trace listener</h2>
+<p>For sending trace information to Application Insights a reference needs need to be added to the project by adding "Microsoft.ApplicationInsights.TraceListener" NuGet package.</p>
+<h3>From the “Package Manager Console”</h3>
+<pre class="highlight">Install-Package Microsoft.ApplicationInsights.TraceListener
+</pre>
+<h3>From the “Package Manager UI”</h3>
+<p><a href="/assets/archive/2017/02/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="NuGet Package Manager" src="/assets/archive/2017/02/image_thumb.png" alt="NuGet Package Manager" width="470" height="315" border="0"></a></p>
+<h2>Configure the trace listener</h2>
+<p>To bind trace listeners to the trace source they need to be configured within the web.config or app.config. This can be done by adding the below configuration section within the configuration tag.</p>
+<pre class="highlight">&lt;system.diagnostics&gt;
+  &lt;sources&gt;
+    &lt;source name="TraceLogging" switchName="Verbose"&gt;
+      &lt;listeners&gt;
+        &lt;add name="appinsights" type="Microsoft.ApplicationInsights.TraceListener.ApplicationInsightsTraceListener, Microsoft.ApplicationInsights.TraceListener"/&gt;
+        &lt;add name="console" type="System.Diagnostics.ConsoleTraceListener" /&gt;
+      &lt;/listeners&gt;
+    &lt;/source&gt;
+  &lt;/sources&gt;
+&lt;/system.diagnostics&gt;
+</pre>
+<p>Within our class the trace listeners are referenced by using the source name “TraceLogging”.</p>
+<p>Within the configuration of the “Source” the listeners are configured. In the snip-it above it has a listener for Application Insights and for the Console Window. This means that depending on the “TraceLevel” of the message the message will be send to Application Insights and to the Console.</p>
+<p>Which messages are send to the listeners depend on the switch. In the "source" tag it is configured by the "swithName" property. The switch is something you would like change when you find a problem within your application.</p>
+<h2>Azure</h2>
+<p>At the moment it is not possible to change tracing configuration within the Azure Portal that will reflect the above settings. To be able to make this configurable you can add a specific app setting to be able to set the switch in code.</p>
+<p>Besides the switch you should also make the Id ("InstrumentationKey") of the Application Insights service configurable.</p>
+<h2>Additions to keep it configurable</h2>
+<h3>Web.config</h3>
+<p>Add an application setting for the instrumentation key and trace switch.</p>
+<pre class="highlight">&lt;appSettings&gt;
+  &lt;add key="InstrumentationKey" value="[key]"/&gt;
+  &lt;add key="TraceSwitch" value="All"/&gt;
+&lt;/appSettings&gt;
+</pre>
+<h3>Trace Class</h3>
+<p>To make use of these settings we also need to adjust the constructor of our class. Make the following adjustments to the constructor.</p>
+<pre class="highlight">static AppTrace() {
+    traceSource = new TraceSource("TraceLogging");
+    traceSource.Switch.Level = (SourceLevels)Enum.Parse(typeof(SourceLevels), ConfigurationManager.AppSettings["TraceSwitch"], true);
+    TelemetryConfiguration.Active.InstrumentationKey = ConfigurationManager.AppSettings["InstrumentationKey"];
+}</pre>
+<h2>Write information to the Trace Log</h2>
+<p>With everything in place it is easy to write monitoring information to any source of your choosing, and depending on the level specified in the settings information will be send to the log.</p>
+<pre class="highlight">class Program {
+    static void Main(string[] args) {
+        AppTrace.Verbose("Test Verbose");
+        AppTrace.Error("Test Error");
+        AppTrace.Warning("Test Warning");
+        AppTrace.Information("Test Information");
+        AppTrace.Critical("Test Critical");
+
+        Console.ReadKey();
+    }
+}
+</pre>
+<p>Starting this console application will show messages within in the console and Application Insights:</p>
+<p><strong>Console Output</strong></p>
+<p><a href="/assets/archive/2017/02/image-1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Console Output" src="/assets/archive/2017/02/image_thumb-1.png" alt="Console Output" width="420" height="220" border="0"></a></p>
+<p><strong>Application Insights Output</strong></p>
+<p><a href="/assets/archive/2017/02/image-2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Application Insights Trace Output" src="/assets/archive/2017/02/image_thumb-2.png" alt="Application Insights Trace Output" width="476" height="294" border="0"></a></p>
+<p> </p>
+<p>As we change the “TraceSwith” setting to for example “Critical” you will see within the console window that less information is send by the trace source.</p>
+<p><a href="/assets/archive/2017/02/image-3.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Trace Output Critical" src="/assets/archive/2017/02/image_thumb-3.png" alt="Trace Output Critical" width="458" height="240" border="0"></a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#application-insights" class="page__taxonomy-item" rel="tag">Application Insights</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      <a href="/tags/#logging" class="page__taxonomy-item" rel="tag">Logging</a><span class="sep">, </span>
+    
+      <a href="/tags/#monitoring" class="page__taxonomy-item" rel="tag">Monitoring</a><span class="sep">, </span>
+    
+      <a href="/tags/#trace" class="page__taxonomy-item" rel="tag">Trace</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#devops" class="page__taxonomy-item" rel="tag">DevOps</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-02-27T18:32:23+01:00">February 27, 2017</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Trace+listeners+%28Logging%29+with+Application+Insights%20http%3A%2F%2Flocalhost%3A4000%2F2017%2F02%2Ftrace-listeners-logging-azure-application-insights%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2017%2F02%2Ftrace-listeners-logging-azure-application-insights%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2017%2F02%2Ftrace-listeners-logging-azure-application-insights%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/02/speaking-global-azure-bootcamp/" class="pagination--pager" title="Speaking at the Global Azure Bootcamp
+">Previous</a>
+    
+    
+      <a href="/2017/03/azure-functions-ci-overview/" class="pagination--pager" title="Azure Function CI – Overview
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

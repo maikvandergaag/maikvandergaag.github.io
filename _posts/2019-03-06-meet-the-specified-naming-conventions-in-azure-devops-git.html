@@ -1,129 +1,62 @@
 ---
-layout: post
 title: Meet the specified naming conventions in Azure DevOps Git
-date: 2019-03-06 11:19:26.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure DevOps
 tags:
 - Azure DevOps
 - Azure Repos
 - branch
-meta:
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";s:3:"yes";s:2:"id";N;s:21:"follower_notification";s:3:"yes";s:7:"license";s:19:"all-rights-reserved";s:14:"publication_id";s:2:"-1";s:6:"status";s:6:"public";s:3:"url";N;}
-  _edit_last: '3'
-  slide_template: default
-  _yoast_wpseo_primary_category: '535'
-  _wpb_vc_js_status: 'false'
-  _dt_sidebar_position: right
-  _dt_sidebar_widgetarea_id: sidebar_1
-  _dt_sidebar_hide_on_mobile: '0'
-  _dt_footer_show: '1'
-  _dt_footer_widgetarea_id: sidebar_2
-  _dt_footer_hide_on_mobile: '0'
-  _dt_header_title: enabled
-  _dt_header_background: normal
-  _dt_header_background_below_slideshow: disabled
-  _dt_header_transparent_bg_color_scheme: light
-  _dt_header_transparent_top_bar_bg_color: "#ffffff"
-  _dt_header_transparent_top_bar_bg_opacity: '25'
-  _dt_header_transparent_bg_color: "#000000"
-  _dt_header_transparent_bg_opacity: '50'
-  _dt_header_disabled_background: normal
-  _dt_header_disabled_transparent_bg_color_scheme: light
-  _dt_header_disabled_transparent_top_bar_bg_color: "#ffffff"
-  _dt_header_disabled_transparent_top_bar_bg_opacity: '25'
-  _dt_header_disabled_transparent_bg_color: "#000000"
-  _dt_header_disabled_transparent_bg_opacity: '50'
-  _dt_page_overrides_top_margin: ''
-  _dt_page_overrides_bottom_margin: ''
-  _dt_post_options_back_button: ''
-  _dt_post_options_hide_thumbnail: '0'
-  _dt_post_options_related_mode: same
-  _dt_post_options_preview: normal
-  _yoast_wpseo_content_score: '30'
-  _syntaxhighlighter_encoded: '1'
-  _thumbnail_id: '5569'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapLI: s:248:"a:1:{i:0;a:8:{s:2:"do";s:1:"0";s:9:"msgFormat";s:61:"New post has
-    been published on %SITENAME% - %TITLE% - %HCATS%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;}}";
-  snapTW: s:212:"a:1:{i:0;a:8:{s:2:"do";s:1:"0";s:9:"msgFormat";s:25:"%TITLE% - %URL%
-    - %HCATS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;}}";
-  _yoast_wpseo_focuskw: Azure DevOps
-  _yoast_wpseo_metadesc: With naming conventions specified you should be able to enforce
-    these rules as well. In Azure DevOps this is possible. This article explains how.
-  _yoast_wpseo_linkdex: '70'
-  snap_isAutoPosted: '1551867573'
-  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1576667504;s:7:"payload";a:0:{}}}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure DevOps
-  _wds_title: ''
-  _wds_metadesc: With naming conventions specified you should be able to enforce these
-    rules as well. In Azure DevOps this is possible. This article explains how.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2019/03/meet-the-specified-naming-conventions-in-azure-devops-git/"
+date: 2019-03-06 11:19:26.000000000 +01:00
+permalink: /2019/03/meet-the-specified-naming-conventions-in-azure-devops-git/
+categories:
+- Azure DevOps
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>Collaborating in a Azure DevOps Git repository with a lot of people could become a chaos regarding branch folders. At the start of a project you can specify naming conventions for the branch names. In these names you can incorporate a '/' and the tooling (Azure Devops, TFS and Visual Studio) will see this as a folder. Example for the naming conventions:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>One root branch in the repository for example "master".</li>
 <li>Create new branches under "/features/[feature name]"</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With naming conventions specified you should be able to enforce these rules as well. In Azure DevOps repositories you have this options by setting permissions on branch levels. Using this option also allows you to configure specific names for specific groups of users.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Prerequisites</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Team Foundation version control command (<code class="">tf.exe</code>). This tooling is normally installed when using the Visual Studio Developer Command Prompt.</li>
 <li>An existing Azure DevOps account.</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:image {"id":5559,"align":"center","linkDestination":"media"} --></p>
+
+
 <div class="wp-block-image">
-<figure class="aligncenter"><a href="https://msftplayground.com/wp-content/uploads/2019/02/commandprompt.png" target="_blank" rel="noreferrer noopener" /><img src="{{ site.baseurl }}/assets/archive/2019/03/commandprompt-181x300.png" alt="Developer Command prompt" class="wp-image-5559" /></figure>
+<figure class="aligncenter"><a href="/assets/archive/2019/02/commandprompt.png" target="_blank" rel="noreferrer noopener" /><img src="/assets/archive/2019/03/commandprompt-181x300.png" alt="Developer Command prompt" class="wp-image-5559" /></figure>
 </div>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Steps</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The most important thing to do first is to remove the creation of branches on the root level of the repository.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:html --><br />
+
+<p><br />
 [php]tf git permission /deny:CreateBranch /group:Contributors /collection:[Azure DevOps Instance] /teamproject:[ProjectName] /repository:[Repository Name][/php]<br />
-<!-- /wp:html --></p>
-<p><!-- wp:paragraph --></p>
+</p>
+
 <p>The script above removes the permissions for the "Contributors" group within the Azure DevOps project. When the default permissions are removed specific permissions for folders can be added to the repository.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:html --><br />
+
+<p><br />
 [php]tf git permission /allow:CreateBranch /group:Contributors /collection:[Azure DevOps Instance] /teamproject:[Project Name] /repository:[Repository name] /branch:features[/php]<br />
-<!-- /wp:html --></p>
-<p><!-- wp:paragraph --></p>
+</p>
+
 <p>The "branch" arguments specifies the folder name you allow within the repository. In the example permissions are added to create branches in the features folder for users in the "Contributors" group.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":5561,"align":"center","width":600,"height":394,"linkDestination":"media"} --></p>
+
+
 <div class="wp-block-image">
-<figure class="aligncenter is-resized"><a href="https://msftplayground.com/wp-content/uploads/2019/02/root-permissions.png" target="_blank" rel="noreferrer noopener" /><img src="{{ site.baseurl }}/assets/archive/2019/03/root-permissions-300x197.png" alt="Git branch permissions" class="wp-image-5561" width="600" height="394" /></figure>
+<figure class="aligncenter is-resized"><a href="/assets/archive/2019/02/root-permissions.png" target="_blank" rel="noreferrer noopener" /><img src="/assets/archive/2019/03/root-permissions-300x197.png" alt="Git branch permissions" class="wp-image-5561" width="600" height="394" /></figure>
 </div>
-<p><!-- /wp:image --></p>
+

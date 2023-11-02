@@ -1,57 +1,17 @@
 ---
-layout: post
 title: Application Insights configurable instrumentation key
-date: 2015-12-21 07:58:30.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- DevOps
 tags:
 - Application Insights
 - Azure
-meta:
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  snap_isAutoPosted: '1'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:395:"a:1:{i:0;a:12:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1651721201771873";s:5:"pDate";s:19:"2015-12-21
-    07:58:47";}}";
-  snapLI: s:537:"a:1:{i:0;a:13:{s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6084612756718305280";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=6084612756718305280&amp;type=U&amp;a=TT6y";s:5:"pDate";s:19:"2015-12-21
-    07:58:47";}}";
-  snapTW: s:271:"a:1:{i:0;a:9:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:15:"%TITLE%
-    - %URL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"678847070283898880";s:5:"pDate";s:19:"2015-12-21
-    07:58:48";}}";
-  _yoast_wpseo_focuskw_text_input: Application Insights
-  _yoast_wpseo_focuskw: Application Insights
-  _yoast_wpseo_linkdex: '85'
-  _jetpack_related_posts_cache: a:0:{}
-  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Application Insights
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2015/12/application-insights-configurable-instrumentation-key/"
+date: 2015-12-21 07:58:30.000000000 +01:00
+permalink: /2015/12/application-insights-configurable-instrumentation-key/
+categories:
+- DevOps
+status: publish
 ---
 <p>Starting with Application Insights can be done by adding NuGet Packages to your project.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2015/12/image-5.png"><img title="Application Insights Nuget Package" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Application Insights Nuget Package" src="{{ site.baseurl }}/assets/archive/2015/12/image_thumb-5.png" width="666" height="370" /></a></p>
+<p><a href="/assets/archive/2015/12/image-5.png"><img title="Application Insights Nuget Package" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Application Insights Nuget Package" src="/assets/archive/2015/12/image_thumb-5.png" width="666" height="370" /></a></p>
 <p>In the above screenshot you see two NuGet Packages:</p>
 <ul>
 <li><strong>Microsoft.ApplicationInsights.JavaScript: </strong>NuGet Package for JavaScript applications.  </li>
@@ -60,21 +20,21 @@ permalink: "/2015/12/application-insights-configurable-instrumentation-key/"
 <p>By adding both packages you can use application insights in for example a MVC application. Adding those NuGet packages will add a default JavaScript section within the “_Layout.cshtml” file. This default section will contain a instrumentation key that points to the correct Application Insights instance in Azure. This key is added as a string value.</p>
 <p>When running multiple instances of your application (development, test, acceptance and production), you don’t want all events to be registered in the same Application Insights instance. You can change the string value on every deploy but you can also make it configurable.</p>
 <p>When you start off the “_Layout.cshtml” file looks like this.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2015/12/image-6.png"><img title="Instrumentation Key" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Instrumentation Key" src="{{ site.baseurl }}/assets/archive/2015/12/image_thumb-6.png" width="666" height="253" /></a></p>
+<p><a href="/assets/archive/2015/12/image-6.png"><img title="Instrumentation Key" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Instrumentation Key" src="/assets/archive/2015/12/image_thumb-6.png" width="666" height="253" /></a></p>
 <p>To make that section configurable we open the “Global.asax” file in the project and add the following using statement.</p>
-<pre class="brush: csharp;">using Microsoft.ApplicationInsights.Extensibility;
+<pre class="highlight">using Microsoft.ApplicationInsights.Extensibility;
 </pre>
 <p>With this using statement you can set specific configurable values of application insights and in special the instrumentation key. After the using is added we add we add the application start event to the file and set the “TelemetryConfiguration” “InstrumentationKey” to a key we specify in the “Web.Config” file.</p>
-<pre class="brush: csharp;">protected void Application_Start()
+<pre class="highlight">protected void Application_Start()
 {
     TelemetryConfiguration.Active.InstrumentationKey = WebConfigurationManager.AppSettings[AppSettingKeys.InstrumentationKey];
 }
 </pre>
 <p>When this value is set the below line will get the specified instrumentation key in you Razor files.</p>
-<pre class="brush: csharp;">@Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration.Active.InstrumentationKey
+<pre class="highlight">@Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration.Active.InstrumentationKey
 </pre>
 <p>The string value of the instrumentation key can be replaced by the above line and the complete JavaScript reference for application insights will then look like this.</p>
-<pre class="brush: js;">&lt;script type="text/javascript"&gt;
+<pre class="highlight">&lt;script type="text/javascript"&gt;
     var appInsights = window.appInsights || function (config) {
         function s(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, r = document, f = window, e = "script", o = r.createElement(e), i, u; for (o.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", r.getElementsByTagName(e)[0].parentNode.appendChild(o), t.cookie = r.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace"]; i.length;) s("track" + i.pop()); return config.disableExceptionTracking || (i = "onerror", s("_" + i), u = f[i], f[i] = function (config, r, f, e, o) { var s = u &amp;&amp; u(config, r, f, e, o); return s !== !0 &amp;&amp; t["_" + i](config, r, f, e, o), s }), t
     }({
@@ -86,4 +46,4 @@ permalink: "/2015/12/application-insights-configurable-instrumentation-key/"
 &lt;/script&gt;
 </pre>
 <p>When this option is configured and deployed the instrumentation key can be altered by using the Azure Portal.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2015/12/image-7.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2015/12/image_thumb-7.png" width="666" height="397" /></a></p>
+<p><a href="/assets/archive/2015/12/image-7.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2015/12/image_thumb-7.png" width="666" height="397" /></a></p>

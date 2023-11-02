@@ -1,78 +1,49 @@
 ---
-layout: post
 title: Building your Azure Policies - Part 1
-date: 2022-03-17 11:00:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - Azure
 - Compliance
 - Policy
-meta:
-  _edit_last: '3'
-  _yoast_wpseo_content_score: '30'
-  _yoast_wpseo_estimated-reading-time-minutes: '8'
-  _yoast_wpseo_primary_category: '323'
-  _yoast_wpseo_focuskw: policy
-  _yoast_wpseo_metadesc: Azure Policy is a way of enforcing standards and assessing
-    resource compliance. This article explains how to create custom policies
-  _yoast_wpseo_linkdex: '60'
-  _thumbnail_id: '6629'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: policy
-  _wds_title: ''
-  _wds_metadesc: Azure Policy is a way of enforcing standards and assessing resource
-    compliance. This article explains how to create custom policies
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2022/03/building-your-azure-policies-part-1/"
+date: 2022-03-17 11:00:00.000000000 +01:00
+permalink: /2022/03/building-your-azure-policies-part-1/
+categories:
+- Azure
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>Azure Policy is a way of enforcing standards and guardrails and assessing resource compliance. In Azure, the compliance dashboard offers an aggregated view to validate the state of the platform with additional options to see the resources that are not compliant.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6629,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2022/03/image-1.png" /><img src="{{ site.baseurl }}/assets/archive/2022/03/image-1-1024x358.png" alt="Azure Policy overview" class="wp-image-6629" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
-<h2 id="overview"><a href="https://docs.microsoft.com/en-us/azure/governance/policy/overview#overview"></a>Policy</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2022/03/image-1.png" /><img src="/assets/archive/2022/03/image-1-1024x358.png" alt="Azure Policy overview" class="wp-image-6629" /></figure>
+
+
+<h2 id="overview">Policy</h2>
+
+
 <p>An Azure Policy itself evaluates resources within Azure based on the rules you specify. The rules are defined in a JSON format and called policy definitions, and policies can also be grouped into so-called policy initiatives. The policies themself can be deployed on several scopes that, of course, keep the standard Azure inheritance in place. The scopes it can be deployed to are:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Management groups</li>
 <li>Subscriptions</li>
 <li>Resource Groups</li>
 <li>Resources</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>If there are resources at a scope that can not comply with the guardrails/standards, these resources can be excluded by defining an exclusion on the policy assignment.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The Azure Portal offers a lot of policies OOTB, but in many situations, you want to create your own. This is when the policy rules come in.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Policy Rule Effects</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>As mentioned above, Azure Policies have rules that have specific effects. At the time of writing this article, the following effects are supported:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li><strong>Append: </strong>Append additonal information / fields on the resource. Like appending additional rows to an firewall array.</li>
 <li><strong>Audit: </strong>Log specific information as warning in the activity log.</li>
@@ -82,11 +53,11 @@ permalink: "/2022/03/building-your-azure-policies-part-1/"
 <li><strong>Disabled: </strong>Disabled effect means that the policy itself is disabled.</li>
 <li><strong>Modify: </strong>Modify an existing deployment to fit the rules specified. This is mainly used to do CRUD operations on properties and tags for subscriptions, resource groups and resources.</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>When working with policies and custom policies, it is good to know the order of the evaluation process. The below-ordered list shows this:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list {"ordered":true} --></p>
+
+
 <ol>
 <li>Disabled</li>
 <li>Append and Modify</li>
@@ -94,14 +65,14 @@ permalink: "/2022/03/building-your-azure-policies-part-1/"
 <li>Audit</li>
 <li>AuditIfNotExists and DeployIfNotExists.</li>
 </ol>
-<p><!-- /wp:list --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>When are policies evaluated</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Policies are evaluated on multiple occasions and, depending on the way used, will show results in around 30 minutes:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Manual / On-demand</li>
 <li>At policy assignment</li>
@@ -110,46 +81,46 @@ permalink: "/2022/03/building-your-azure-policies-part-1/"
 <li>Default evaluation cycle (once every 24 hours)</li>
 <li>Resource creation or update</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>For more information about policies, read the <a href="https://docs.microsoft.com/en-us/azure/governance/policy?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener">Azure Policy documentation</a>.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Creating your own Policy</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Creating your policy is done using Bicep or writing the definition in JSON. With the use of Bicep, you can use the standard way of deploying the policies. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>We will work on a policy that solves the following problem for this series of posts.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:quote --></p>
+
+
 <blockquote class="wp-block-quote"><p>As a administrator I want to make sure that resources that are tagged as production resources are not able to be changed. Unless specific actions are taken.</p>
 </blockquote>
-<p><!-- /wp:quote --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The above problem can be solved by combining Azure Policies with Azure Resource Locks, especially the read-only lock deployed with the "DeployIfNotExists" effect.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">resource bicepDeployResourceLock 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
+
+
+<pre class="highlight">resource bicepDeployResourceLock 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
   name: 'Deploy read-only resource locks based on tags'
   properties: {}
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The first part of the policy in Bicep contains the default information, and the policy itself is specified in the properties property. Let's discuss that in parts.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>Policy Metadata</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The first section is the metadata. The policy metadata contains all the information about the policy that defines the name, description, category, and everything else. With the help of the 'securityCenter' part, you can specify additional feedback for Azure Security Center.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>For our use case, these properties are filled with information to identify the policy correctly.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">properties: {
+
+
+<pre class="highlight">properties: {
     displayName: 'Deploy read-only resource lock on resource groups based on tag'
     description: 'Deploy read-only resource lock on resource groups based on tag'
     policyType: 'Custom'
@@ -168,18 +139,18 @@ permalink: "/2022/03/building-your-azure-policies-part-1/"
     policyRule: {...
     }
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>Policy Parameters</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The second part we will discuss is the parameters. Within the policy parameter section, parameters for the policy itself can be defined. Using this adds the ability to supply information when assigning the policies.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>For this use case, we will define two parameters. The tag name so that we can specify against what tag we want to check within the rule and tag value used to check for the rule to be successful.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">properties: {
+
+
+<pre class="highlight">properties: {
     metadata: {...
     }
     parameters: {
@@ -201,15 +172,15 @@ permalink: "/2022/03/building-your-azure-policies-part-1/"
     policyRule: {...
     }
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>Policy Rule</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The last part is the most important. This section contains the rule, which is the real heart of the policy. This section defines where to check against and what action (effect) is handled.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">properties: {
+
+
+<pre class="highlight">properties: {
     metadata: {...
     }
     parameters: {...
@@ -269,27 +240,27 @@ permalink: "/2022/03/building-your-azure-policies-part-1/"
         }
       }
     }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>In the above rule, we do the following: If the field type is of the type resource group and field tags contains a tag with the specified tag name (the parameter) with the value (the parameter) that is configured, then deploy the specified deployment template, which includes the read-only lock.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The deployment part of the rule contains an ARM template for the deployment.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Remediation</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>In Azure, you can also remediate existing resources. In our example, remediating a resource group means that the remediation is done when instructing Azure Policy to remediate the resource. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Azure Policy in Bicep</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The complete policy in Bicep looks like the snapshot below.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">targetScope = 'managementGroup'
+
+
+<pre class="highlight">targetScope = 'managementGroup'
 
 param policyCategory string = 'Custom'
 param policySource string = 'Guardrails'
@@ -385,24 +356,24 @@ resource bicepDeployResourceLock 'Microsoft.Authorization/policyDefinitions@2021
 }
 
 output policyDefId string = bicepDeployResourceLock.id</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Deploy the Azure Policy</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>When the policy is defined in Bicep, it can quickly be deployed with the standard deployment commands on the scope you want. The below snippet shows how to deploy the file on the management group scope.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">$tempFile = "..\policy.bicep"
+
+
+<pre class="highlight">$tempFile = "..\policy.bicep"
 $mgId = "mgid"
 
 New-AzManagementGroupDeployment -Name "DeployPolicy" -ManagementGroupId $mgId -TemplateFile $tempFile -Location "WestEurope"</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The definition can also be defined in JSON. When expressed in JSON, the structure is the same. The snipped below shows it defined in JSON.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">{
+
+
+<pre class="highlight">{
  "properties": {
   "displayName": "Deploy read-only resource lock on resource groups based on tag",
   "policyType": "Custom",
@@ -489,12 +460,12 @@ New-AzManagementGroupDeployment -Name "DeployPolicy" -ManagementGroupId $mgId -T
   }
  }
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With the help of the below PowerShell function, the policy definition can be deployed to the Azure Platform.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">[CmdletBinding()]
+
+
+<pre class="highlight">[CmdletBinding()]
 Param(
   [Parameter(Mandatory = $true)]
   [ValidateSet('Subscription', 'Managementgroup')]
@@ -533,15 +504,7 @@ if($definition){
 }
 
 New-AzPolicyDefinition @parameters</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>To be continued</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:list --></p>
-<ul>
-<li>Part 2 - <a href="https://msftplayground.com/2022/03/building-your-azure-policies-azure-devops-part-2/" target="_blank" rel="noreferrer noopener">Building your Azure Policies (Azure DevOps) – Part 2</a></li>
-<li>Part 3 - <a href="https://msftplayground.com/2022/03/building-your-azure-policies-github-actions-part-3/" target="_blank" rel="noreferrer noopener">Building your Azure Policies (GitHub Actions) – Part 3</a></li>
-</ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
-<p><!-- /wp:paragraph --></p>
+

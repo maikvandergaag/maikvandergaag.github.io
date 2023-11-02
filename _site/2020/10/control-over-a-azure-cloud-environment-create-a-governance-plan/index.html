@@ -1,0 +1,779 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Control over a Azure Cloud environment? Create a governance plan! - Microsoft Playground</title>
+<meta name="description" content="Control over your cloud environment is great. In order to properly monitor and manage a cloud environment, it is important to draw up a cloud governance plan based on the company policy.">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Control over a Azure Cloud environment? Create a governance plan!">
+<meta property="og:url" content="http://localhost:4000/2020/10/control-over-a-azure-cloud-environment-create-a-governance-plan/">
+
+
+  <meta property="og:description" content="Control over your cloud environment is great. In order to properly monitor and manage a cloud environment, it is important to draw up a cloud governance plan based on the company policy.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Control over a Azure Cloud environment? Create a governance plan!">
+  <meta name="twitter:description" content="Control over your cloud environment is great. In order to properly monitor and manage a cloud environment, it is important to draw up a cloud governance plan based on the company policy.">
+  <meta name="twitter:url" content="http://localhost:4000/2020/10/control-over-a-azure-cloud-environment-create-a-governance-plan/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2020-10-29T12:20:00+01:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2020/10/control-over-a-azure-cloud-environment-create-a-governance-plan/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Control over a Azure Cloud environment? Create a governance plan!">
+    <meta itemprop="description" content="Control over your cloud environment is great. In order to properly monitor and manage a cloud environment, it is important to draw up a cloud governance plan based on the company policy. ">
+    <meta itemprop="datePublished" content="2020-10-29T12:20:00+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Control over a Azure Cloud environment? Create a governance plan!
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p id="tw-target-text">Control over your cloud environment is great. In order to properly monitor and manage a cloud environment, it is important to draw up a cloud governance plan based on the company policy. </p>
+
+
+<p id="tw-target-text">In this plan, you name all aspects that are essential and then implement the policy. But what steps do you need to take to draw up a good cloud governance plan?</p>
+
+
+<p id="tw-target-text">For every organization it is important to keep control on the cloud environment. This is not only related to; who has rights where, it is also about making the costs transparent. If these costs are transparent, it is easy to make a so-called IT charge or showback of these costs. </p>
+
+
+<p id="tw-target-text">IT chargeback and IT showback are two policies used by IT departments to inform and / or bill the costs for the use of each department of division. Read more about <a href="https://www.bmc.com/blogs/chargeback-vs-showback/" target="_blank" rel="noreferrer noopener noopener noreferrer">IT charge and showback here</a>. </p>
+
+
+<p id="tw-target-text">To get control over the cloud platform one of the first steps is write a cloud governance plan.</p>
+
+
+<h2>Cloud Governance</h2>
+
+
+<p id="tw-target-text">From the company policy the Cloud governance is formalized For this document, the following aspects are mainly considered: </p>
+
+
+<ul>
+<li>
+<strong>Business risks</strong>: Identifying and understanding business risks. </li>
+<li>
+<strong>Policy and compliance</strong>: Convert risk into statements that support any compliance requirements.</li>
+<li>
+<strong>Processes</strong>: Ensuring compliance with the established policy. </li>
+</ul>
+
+
+
+
+<p>You then write up five disciplines based on this policy, which are:</p>
+
+
+<ul>
+<li>
+<strong>Cost management</strong>: Evaluate and monitor costs, keep IT expenses under control and gain insight into costs. </li>
+<li>
+<strong>Basic security</strong>: Ensure compliance with IT security requirements by applying a basic security line. </li>
+<li>
+<strong>Resource consistency</strong>: Provide consistency in resource configuration. </li>
+<li>
+<strong>Basic Identity Configuration</strong>: Ensure that the basis for identity and access is maintained by applying consistent role definitions and assignments.</li>
+<li>
+<strong>Deployment acceleration</strong>: Accelerate deployment through centralization, consistency, and standardization across resource templates.</li>
+</ul>
+
+
+<h2>Governance Implementation</h2>
+
+
+<p id="tw-target-text">After setting up the cloud governance, it is time for implementation. With the implementation you ensure that the established policy can be complied with and checked.</p>
+
+
+<p id="tw-target-text">By applying cloud governance you ensure a cloud platform that is in the best possible status and that the platform is compliant. Within Azure there are various services that support you in setting up cloud governance. <a href="https://docs.microsoft.com/en-us/azure/governance/policy/overview?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener noopener noreferrer">Check out this website</a> for more information on Azure Governance.</p>
+
+
+<h2>Management groups</h2>
+
+
+<p id="tw-target-text">Management groups are virtual containers in which subscriptions are placed. By means of these containers the subscriptions can be placed in a hierarchy. This makes it possible to manage subscriptions uniformly and manage policies and access rights across multiple subscriptions. </p>
+
+
+
+
+<figure class="wp-block-image size-large"><img src="/assets/archive/2020/10/Untitled.png" alt="Management Groups" class="wp-image-6013"></figure>
+
+
+<p id="tw-target-text">Some important points of Management groups are: </p>
+
+
+<ul>
+<li>A structure for Management groups is set up per Azure Active Directory; </li>
+<li>By default, a Tenant Root Management group is present per tenant. </li>
+</ul>
+
+
+<p>Limits of Management groups are:</p>
+
+
+<ul>
+<li>One Azure Active Directory tenant can contain 10,000 management groups; </li>
+<li>The structure can be made up to 6 levels deep (excluding the Tenant Root Management group.);</li>
+<li>Groups or subscriptions can be placed in one group.</li>
+</ul>
+
+
+<h2>Azure Policies</h2>
+
+
+<p id="tw-target-text">As described, policies have been written down for the cloud platform. These policies can be enforced or registered through Azure Policies. </p>
+
+
+<p id="tw-target-text">Azure Policies specifies the rules in a JSON format, making the rules easy to check by the platform. The platform itself has a large number of rules build-in, some examples for this are: </p>
+
+
+<ul>
+<li>Require tag and its value on resource groups;</li>
+<li>Allowed locations;</li>
+<li>A maximum of 3 owners should be designated for your subscription;</li>
+<li>MFA should be enabled on accounts with owner permissions on your subscription.</li>
+</ul>
+
+
+<p>The above rules are a small selection of the policies that can be used by default. Next to that you can also specify customer policies to be compliant with your governance design.</p>
+
+
+<h2 id="tw-target-text">Other Azure Services</h2>
+
+
+<p id="tw-target-text"> In addition to Azure Policies and management groups, there are a large number of other Azure Services and platform functionalities that support cloud governance:</p>
+
+
+<ul>
+<li>
+<strong>Azure Automation</strong>: Automating various cloud infrastructure tasks. </li>
+<li>
+<strong>Azure Monitor</strong>: Monitoring resources and supporting alerts for the cloud team. </li>
+<li>
+<strong>Azure Blueprints</strong>: A blueprint for new subscriptions related to role assignment, resources and policies.</li>
+<li>
+<strong>Role Based Access Control</strong>: Grant rights based on roles of employees and administrators.</li>
+<li>
+<strong>Privilege Identity Management</strong>: Being able to temporarily assign additional rights for management tasks.</li>
+</ul>
+
+
+<blockquote class="wp-block-quote">
+<p><em>Blog originally published in Dutch on the website of Microsoft Gold Partner </em><a rel="noreferrer noopener noopener noreferrer" href="https://www.3fifty.eu/grip-op-de-azure-cloud-omgeving-maak-een-governanceplan/" target="_blank">3fifty</a><em>. If your are based in the Netherlands take a look at the website.</em></p>
+</blockquote>
+
+
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      <a href="/tags/#governance" class="page__taxonomy-item" rel="tag">Governance</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#azure" class="page__taxonomy-item" rel="tag">Azure</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-10-29T12:20:00+01:00">October 29, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Control+over+a+Azure+Cloud+environment%3F+Create+a+governance+plan%21%20http%3A%2F%2Flocalhost%3A4000%2F2020%2F10%2Fcontrol-over-a-azure-cloud-environment-create-a-governance-plan%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2020%2F10%2Fcontrol-over-a-azure-cloud-environment-create-a-governance-plan%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2020%2F10%2Fcontrol-over-a-azure-cloud-environment-create-a-governance-plan%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2020/10/getting-started-with-project-bicep-for-azure-arm/" class="pagination--pager" title="Getting started with Project Bicep for Azure ARM
+">Previous</a>
+    
+    
+      <a href="/2020/11/managing-the-microsoft-azure-cloud-is-not-easy-would-a-cloud-team-be-useful/" class="pagination--pager" title="Managing the Microsoft Azure cloud is not easy, would a cloud team be useful?
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

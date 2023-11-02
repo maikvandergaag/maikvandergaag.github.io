@@ -1,79 +1,36 @@
 ---
-layout: post
 title: Markdown generation for ARM and PowerShell
-date: 2021-02-02 12:31:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
-- Azure DevOps
 tags:
 - DevOps
 - Powershell
-meta:
-  _edit_last: '3'
-  _yoast_wpseo_content_score: '60'
-  _yoast_wpseo_estimated-reading-time-minutes: '8'
-  _thumbnail_id: '6073'
-  _yoast_wpseo_primary_category: '323'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  _yoast_wpseo_focuskw: Azure
-  _yoast_wpseo_metadesc: Generate MarkDown based on Azure Resource Manager (ARM) templates
-    and PowerShell script files.
-  _yoast_wpseo_linkdex: '63'
-  snap_MYSURL: a:3:{s:1:"s";s:78:"https://msftplayground.com/2021/02/markdown-generation-for-arm-and-powershell/";s:1:"t";s:78:"https://msftplayground.com/2021/02/markdown-generation-for-arm-and-powershell/";s:1:"r";s:1:"B";}
-  snapLI: s:447:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
-    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:32:"urn:li:share:6762331900888522752";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6762331900888522752";s:5:"pDate";s:19:"2021-02-02
-    11:32:43";}}";
-  snap_isAutoPosted: '1612265563'
-  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6762331900888522752";s:2:"id";s:32:"urn:li:share:6762331900888522752";s:1:"d";s:19:"2021-02-02
-    11:32:43";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1356566212847820801";s:2:"id";s:19:"1356566212847820801";s:1:"d";s:19:"2021-02-02
-    11:32:43";s:1:"w";s:1:"s";}}}}
-  snapTW: s:426:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
-    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1356566212847820801";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1356566212847820801";s:5:"pDate";s:19:"2021-02-02
-    11:32:43";}}";
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure
-  _wds_title: ''
-  _wds_metadesc: Generate MarkDown based on Azure Resource Manager (ARM) templates
-    and PowerShell script files.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2021/02/markdown-generation-for-arm-and-powershell/"
+date: 2021-02-02 12:31:00.000000000 +01:00
+permalink: /2021/02/markdown-generation-for-arm-and-powershell/
+categories:
+- Azure
+- Azure DevOps
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>After my session at <a href="https://azurelowlands.com">Azure LowLands</a> with the title "You build It, You run It on the Microsoft Platform"  a lot of people were interested in a script that I showed during the session.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The session itself is about developing a software package / product the DevOps way that also needs to be maintained after moving it to production. I tell a lot about how it should be done using 5 principles and my experience I had with multiple clients. During the demonstration I show Cloud Native resources in Azure that can be used in any kind of product or service.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Improvement of Daily work</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>One of the principles discussed is "Improvement of Daily work". This principle really makes our teams think about how they can improve the things we are doing and how that should be done. One of the thing that we did not like to do is write the documentation for our PowerShell scripts and ARM templates. For this we (Leon Boers and I) wrote some automation scripts to take care of this.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>PowerShell</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The script to generate the PowerShell documentation uses the "Help" that is specified within the script file. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">&lt;#
+
+
+<pre class="highlight">&lt;#
 .SYNOPSIS
     Script for generating Markdown documentation based on information in PowerShell script files.
 
@@ -106,12 +63,12 @@ Include the TOC from the Azure DevOps wiki to the markdown files
 .EXAMPLE
     .\New-MDPowerShellScripts.ps1 -ScriptFolder "./" -OutputFolder "docs/arm"
 #></pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The idea of using this we got from someone who was using the same principle on GitHub. We adopted the idea and created the below script.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">[CmdletBinding()]
+
+
+<pre class="highlight">[CmdletBinding()]
 
 Param (
     [Parameter(Mandatory = $true, Position = 0)][string]$ScriptFolder,
@@ -258,42 +215,42 @@ PROCESS {
     }
 }
 END {}</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Within this script you can see that we have added a different implementation for the "Notes" section. In the notes section we wanted to place more information and also be able to format in a specific way. That is why we created this format:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>[Name]: [Value];</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>This why we are able to add all kind of information and keep is nicely formatted. The generated documentation looks like:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6065,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/02/image.png" /><img src="{{ site.baseurl }}/assets/archive/2021/02/image-1024x855.png" alt="" class="wp-image-6065" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/02/image.png" /><img src="/assets/archive/2021/02/image-1024x855.png" alt="" class="wp-image-6065" /></figure>
+
+
 <h2>ARM Templates</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>When we finished the documentation generation for PowerShell script files we thought that it is also quite easy to use the same principle for ARM templates.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The only thing we had to think of was the way we wanted to add additional information for the documentation. For this we added the "Metadata" property. This property does not violate the schema validation and additional properties could be added like description, version and author.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">"metadata": {
+
+
+<pre class="highlight">"metadata": {
    "Description": "This template deploys a standard storage account.",
    "Author": "3fifty | Maik van der Gaag | Leon Boers",
    "Version": "1.0.0"
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The script looks quite the same as the PowerShell version but adopted the specific ideas for ARM.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">[CmdletBinding()]
+
+
+<pre class="highlight">[CmdletBinding()]
 
 Param (
     [Parameter(Mandatory = $true, Position = 0)][string]$TemplateFolder,
@@ -414,52 +371,3 @@ PROCESS {
                             $outputHeaderDivider = "| --- | --- | --- |  "
                             $outputRow = " | {0}| {1} | {2} | "
 
-                            $StringBuilderOutput = @()
-                            $StringBuilderOutput += $outputHeader
-                            $StringBuilderOutput += $outputHeaderDivider
-
-                            $StringBuilderOutput += $templateObject.outputs | get-member -MemberType NoteProperty | ForEach-Object { $outputRow -f $_.Name , $templateObject.outputs.($_.Name).type , $templateObject.outputs.($_.Name).value }
-                            $StringBuilderOutput | Out-File -FilePath $outputFile -Append
-                        }
-                    } else {
-                        write-verbose ("This file does not contain outputs")
-                    }
-                }
-            }
-        }
-    } catch {
-        Write-Error "Something went wrong while generating the output documentation: $_"
-    }
-}
-END {}
-</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
-<p>The generated documentation looks like:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6069,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/02/image-1.png" /><img src="{{ site.baseurl }}/assets/archive/2021/02/image-1-1024x835.png" alt="" class="wp-image-6069" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
-<h2>Automation</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
-<p>With these scripts in place these actions can also be automated within for example a Azure Pipeline. This can be done by adding this yaml for example.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">- task: PowerShell@2
-  displayName: 'Docs - Generate scripts documentation'
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-  inputs:
-    filePath: './utilities/New-MarkdownDocumentation.ps1'
-    arguments: '-ScriptFolder "$(scriptPath)" -OutputFolder "$(scriptDocPath)" -IndexFileName "Scripts"'
-    pwsh: true</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
-<p>All of the documentation and scripts can be found on our GitHub.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
-<ul>
-<li><a href="https://github.com/3fifty/scripts">3fifty/scripts: A repository with scripts and files that are shared with the community. (github.com)</a></li>
-</ul>
-<p><!-- /wp:list --></p>

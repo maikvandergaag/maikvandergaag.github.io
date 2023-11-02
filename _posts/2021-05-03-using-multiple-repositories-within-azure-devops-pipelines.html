@@ -1,141 +1,100 @@
 ---
-layout: post
 title: Using multiple repositories within Azure DevOps pipelines
-date: 2021-05-03 11:59:00.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure DevOps
 tags:
 - Azure DevOps
 - Pipelines
 - Repositories
-meta:
-  _edit_last: '3'
-  _yoast_wpseo_content_score: '30'
-  _yoast_wpseo_estimated-reading-time-minutes: '4'
-  _yoast_wpseo_primary_category: '535'
-  _yoast_wpseo_focuskw: Azure Repos
-  _yoast_wpseo_metadesc: In some situations sharing scripts is required between Azure
-    Repos. Setting this up can required you to checkout multiple repositories.
-  _yoast_wpseo_linkdex: '68'
-  _thumbnail_id: '6203'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapLI: s:213:"a:1:{i:0;a:8:{s:2:"do";s:1:"1";s:9:"msgFormat";s:26:"%TITLE% - %HTAGS%
-    - %SURL%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;}}";
-  snap_MYSURL: a:3:{s:1:"s";s:93:"https://msftplayground.com/2021/05/using-multiple-repositories-within-azure-devops-pipelines/";s:1:"t";s:93:"https://msftplayground.com/2021/05/using-multiple-repositories-within-azure-devops-pipelines/";s:1:"r";s:1:"B";}
-  snap_isAutoPosted: '1620039588'
-  _snapPHST: a:1:{s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1389172838867759105";s:2:"id";s:19:"1389172838867759105";s:1:"d";s:19:"2021-05-03
-    10:59:49";s:1:"w";s:1:"s";}}}}
-  snapTW: s:397:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:26:"%TITLE% - %HTAGS%
-    - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1389172838867759105";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1389172838867759105";s:5:"pDate";s:19:"2021-05-03
-    10:59:49";}}";
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure Repos
-  _wds_title: ''
-  _wds_metadesc: In some situations sharing scripts is required between Azure Repos.
-    Setting this up can required you to checkout multiple repositories.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2021/05/using-multiple-repositories-within-azure-devops-pipelines/"
+date: 2021-05-03 11:59:00.000000000 +02:00
+permalink: /2021/05/using-multiple-repositories-within-azure-devops-pipelines/
+categories:
+- Azure DevOps
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>In numerous situations I have seen seen people sharing code from a centralized Azure Repos sending the scripts via email. On every new version they would send out a new version. Working with Azure DevOps this isn't a preferred solution, as you do not know how the script is being used and when there is a bug in the script there is no real fast option to update all distributed scripts.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>This is where the option comes in to checkout multiple repositories within you Azure DevOps Pipeline. The rest of the article guides you trough the process of setting this up.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Different Azure DevOps Organization</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>When a repository from a different organization is one of the requirements a Service Connection is a prerequisite. This service connection will be used to setup the connection between the organizations by using a Personal Access Token. Depending on the use case make sure you generate a PAT with the correct permissions. Usually I generate a PAT with read permissions.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6187,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/05/image.png" /><img src="{{ site.baseurl }}/assets/archive/2021/05/image.png" alt="Code rights personal access token" class="wp-image-6187" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/05/image.png" /><img src="/assets/archive/2021/05/image.png" alt="Code rights personal access token" class="wp-image-6187" /></figure>
+
+
 <p>Within the project were the pipeline will be created create a new service connection of the type "Azure Repos / Team Foundation Server". In the creation dialog fill in the PAT en the organization and click verify to check the connection.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6189,"sizeSlug":"medium","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-medium"><a href="https://msftplayground.com/wp-content/uploads/2021/05/image-1.png" /><img src="{{ site.baseurl }}/assets/archive/2021/05/image-1-170x300.png" alt="New Azure Repo/Team Foundation Server service connection" class="wp-image-6189" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
+<figure class="wp-block-image size-medium"><a href="/assets/archive/2021/05/image-1.png" /><img src="/assets/archive/2021/05/image-1-170x300.png" alt="New Azure Repo/Team Foundation Server service connection" class="wp-image-6189" /></figure>
+
+
 <h2>Checking out multiple Azure Repos</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Loading repositories is completely handled from within the pipeline and currently the below repository types are supported:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Azure Repos Git</li>
 <li>Github</li>
 <li>Github Enterprise</li>
 <li>Bitbucket cloud</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>For this article we use multiple Azure DevOps repositories. Within the pipeline the other repositories are specified by using the "resources" option were in a "repository" is specified.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>Check out code from different organization </h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>As mentioned above to check out code from a different organization the service connection needs to be created and specified within the repository reference.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">resources:
+
+
+<pre class="highlight">resources:
   repositories:
   - repository: [Name for reference in your Pipeline] 
     endpoint: [The created Service Connection]
     type: git
     name: [Project]/[Github Repository]
     ref: [Branch]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The above code snippet shows which information needs to be supplied for making the connection.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>Check out code from the same organization</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Checking out code from the same organization requires not that much steps to get up and running and can be done directly from the "checkout" step from within the pipeline.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code --></p>
-<pre class="wp-block-syntaxhighlighter-code">- checkout: git://[Project name]/[Repository]@[Branch]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<pre class="highlight">- checkout: git://[Project name]/[Repository]@[Branch]</pre>
+
+
 <p>I personally like to specify the repository completely as I'm then also able to supply the name that I would like to use within the check out step.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">resources:
+
+
+<pre class="highlight">resources:
   repositories:
     - repository: [Name for reference in your Pipeline] 
       name: [Github Repository]
       type: git
       ref: [Branch]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Putting all Azure Repos together</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p> When this is all in place you can checkout the different repositories within the pipeline within the stages were you need the sources. The current repository of the pipeline is referenced by the keyword "self" and the others are referenced by there name specified within the resources.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">resources:
+
+
+<pre class="highlight">resources:
   repositories:
   - repository: DifferentOrganization 
     endpoint: Repos - MSFTPlayground
@@ -158,27 +117,25 @@ steps:
 - checkout: DifferentOrganization
 - checkout: SameOrganization
 - script: dir $(Build.SourcesDirectory)</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Where are the files checked out to?</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Normally when using just the current repo the files are saved directly within the "$(Build.SourcesDirectory)". With multiple repositories configured for each reference a folder is created based on the repository name. This is shown by the output of the above reference yml file.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6193,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/05/image-2.png" /><img src="{{ site.baseurl }}/assets/archive/2021/05/image-2-1024x641.png" alt="Directory output" class="wp-image-6193" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/05/image-2.png" /><img src="/assets/archive/2021/05/image-2-1024x641.png" alt="Directory output" class="wp-image-6193" /></figure>
+
+
 <h2>Conclusion</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Sharing code in some situations can be handy, but when you want to keep control over the scripts and how they can be executed you really need to check this option. You can take this far as setting up generic pipeline that is used within other projects.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>For more information about checking out repositories:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li><a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/repos/multi-repo-checkout?view=azure-devops&amp;WT.mc_id=DOP-MVP-5004255">Check out multiple repositories in your pipeline - Azure Pipelines | Microsoft Docs</a></li>
-</ul>
-<p><!-- /wp:list --></p>

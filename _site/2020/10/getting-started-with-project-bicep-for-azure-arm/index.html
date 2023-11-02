@@ -1,0 +1,909 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Getting started with Project Bicep for Azure ARM - Microsoft Playground</title>
+<meta name="description" content="Bicep is at the time of writing an experimental language that you can be used to simplify the writing of ARM templates. Bicep is a so called DSL (Domain Specific Language) meaning that it is a specific language for a specific domains in this case ARM.">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Getting started with Project Bicep for Azure ARM">
+<meta property="og:url" content="http://localhost:4000/2020/10/getting-started-with-project-bicep-for-azure-arm/">
+
+
+  <meta property="og:description" content="Bicep is at the time of writing an experimental language that you can be used to simplify the writing of ARM templates. Bicep is a so called DSL (Domain Specific Language) meaning that it is a specific language for a specific domains in this case ARM.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Getting started with Project Bicep for Azure ARM">
+  <meta name="twitter:description" content="Bicep is at the time of writing an experimental language that you can be used to simplify the writing of ARM templates. Bicep is a so called DSL (Domain Specific Language) meaning that it is a specific language for a specific domains in this case ARM.">
+  <meta name="twitter:url" content="http://localhost:4000/2020/10/getting-started-with-project-bicep-for-azure-arm/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2020-10-15T12:08:00+02:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2020/10/getting-started-with-project-bicep-for-azure-arm/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Getting started with Project Bicep for Azure ARM">
+    <meta itemprop="description" content="Bicep is at the time of writing an experimental language that you can be used to simplify the writing of ARM templates. Bicep is a so called DSL (Domain Specific Language) meaning that it is a specific language for a specific domains in this case ARM.">
+    <meta itemprop="datePublished" content="2020-10-15T12:08:00+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Getting started with Project Bicep for Azure ARM
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Bicep is at the time of writing an experimental language that you can be used to simplify the writing of ARM templates. Bicep is a so called DSL (Domain Specific Language) meaning that it is a specific language for a specific domains in this case ARM.</p>
+
+
+<p>In short Bicep is a abstractions over the Azure Resource Manager and ARM templates which means that any thing that can be done in ARM templates should also be possible in Bicep.</p>
+
+
+<p>Concrete this means that Bicep files need to be compiled to ARM json templates meaning that ARM effectively is an Intermediate Language.</p>
+
+
+<h2>Why do we want something like Bicep</h2>
+
+
+<p>Bicep is developed with the goal of being simpler and easier to understand than ARM templates.  Besides that by hiding a lot of options it should be easier to read as well. But let’s check it out our selves to see if this is correct.</p>
+
+
+<h2>Really getting started</h2>
+
+
+<p>To get started with Bicep the compiler / tool needs to be installed on the machine.</p>
+
+
+<ul>
+<li>Installation documentation: <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noopener noreferrer">https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install</a>
+</li>
+</ul>
+
+
+<p>If you directly want to install Bicep for windows you can also use this link:</p>
+
+
+<ul>
+<li>Windows: <a href="https://github.com/Azure/bicep/releases/latest/download/bicep-setup-win-x64.exe" target="_blank" rel="noopener noreferrer">https://github.com/Azure/bicep/releases/latest/download/bicep-setup-win-x64.exe</a>
+</li>
+</ul>
+
+
+<p>The installation itself is very straight forward and will install the Bicep CLI.</p>
+
+
+<figure class="wp-block-image size-large"><img src="/assets/archive/2020/10/Picture1.png" alt="Bicep installation" class="wp-image-5981"></figure>
+
+
+<p>Once installed, the installation can be validated by opening a Windows terminal and typing the following command:</p>
+
+
+<pre class="highlight">bicep --help</pre>
+
+
+
+
+<figure class="wp-block-image size-large"><img src="/assets/archive/2020/10/Picture2-1024x560.png" alt="Bicep help" class="wp-image-5983"></figure>
+
+
+<p>For Bicep there is also a extension for you favorite IDE: Visual Studio Code. To make it easier to write Bicep files install the extension.</p>
+
+
+<ul>
+<li><a href="https://github.com/Azure/bicep/releases/latest/download/vscode-bicep.vsix" target="_blank" rel="noopener noreferrer">https://github.com/Azure/bicep/releases/latest/download/vscode-bicep.vsix</a></li>
+</ul>
+
+
+<p><em>When trying to install the VSIX remember that you cannot double click the extension but that you need to install it from Visual Studio Code itself:</em></p>
+
+
+<figure class="wp-block-image size-large"><img src="/assets/archive/2020/10/Picture3-1-1024x152.png" alt="Install VSIX Visual Studio Code" class="wp-image-5987"></figure>
+
+
+<h2>The first bicep file</h2>
+
+
+<p>With all pre-requisites installed we can create our first Bicep file in Visual Studio Code. In this article we will setup a Bicep file for a Azure App Service with Application Insight.</p>
+
+
+<p>Take the first steps:</p>
+
+
+<ul>
+<li>Create a new file and for example call it main.bicep</li>
+<li>Add parameters to you file with the param</li>
+</ul>
+
+
+<p>In a mather of a few seconds you will have something like this:</p>
+
+
+<pre class="highlight">param appName string
+
+resource app 'Microsoft.Web/sites@2018-11-01' = {
+    name: appName
+}</pre>
+
+
+<p>Going from Bicep to ARM is very easy by using the following command:</p>
+
+
+<pre class="highlight">bicep build [reference to your bicep file]</pre>
+
+
+<p>The above bicep file will result in a template like below.</p>
+
+
+<pre class="highlight">{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appName": {
+      "type": "string"
+    }
+  },
+  "functions": [],
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[parameters('appName')]"
+    }
+  ],
+  "outputs": {}
+}</pre>
+
+
+<p>Import to notice in Bicep is the following: resource [reference] [type][version]</p>
+
+
+<ul>
+<li>Reference: You can use this value throughout the complete file. This way you can reference resource specific variables.</li>
+<li>Type: the type of the resource</li>
+<li>Version: the specific version you would like to use</li>
+</ul>
+
+
+<h2>Extending the sample</h2>
+
+
+<p>The beauty of the Bicep language is the easy references and the dependencies the languages creates. This means you do not longer have to specify the dependencies but the language will do that for you. </p>
+
+
+<p>If we continue with the sample after a few moment the file will look like this.</p>
+
+
+<pre class="highlight">param appName string
+param location string = resourceGroup().location
+
+resource insights 'Microsoft.Insights/components@2015-05-01' = {
+    name: 'insights-${appName}'
+    location: location
+    properties: {
+        Application_Type: 'web'
+    }
+}
+
+resource hosting 'Microsoft.Web/serverfarms@2019-08-01' = {
+    name: 'hosting-${appName}'
+    location: location
+    sku: {
+        name: 'S1'
+    }
+}
+
+resource app 'Microsoft.Web/sites@2018-11-01' = {
+    name: appName
+    location: location
+    identity: {
+        type: 'SystemAssigned'
+    }
+    properties: {
+        name: appName
+        siteConfig: {
+            appSettings: [
+                {
+                    name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
+                    value: insights.properties.InstrumentationKey
+                }
+            ]
+        }
+        serverFarmId: hosting.id
+    }
+}
+
+output appId string = app.id</pre>
+
+
+<p>The above Bicep file is a reference for a Azure Web Application with Application Insights attached. As mentioned before the dependencies and references defined look very easy.</p>
+
+
+<p>Even notice the output option at the end that looks a lot cleaner and simpler than what you would normally do in ARM. To make the sample complete the above Bicep will result in.</p>
+
+
+<pre class="highlight">{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appName": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    }
+  },
+  "functions": [],
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.Insights/components",
+      "apiVersion": "2015-05-01",
+      "name": "[format('insights-{0}', parameters('appName'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "Application_Type": "web"
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2019-08-01",
+      "name": "[format('hosting-{0}', parameters('appName'))]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "S1"
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[parameters('appName')]",
+      "location": "[parameters('location')]",
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "name": "[parameters('appName')]",
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('Microsoft.Insights/components', format('insights-{0}', parameters('appName')))).InstrumentationKey]"
+            }
+          ]
+        },
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', format('hosting-{0}', parameters('appName')))]"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', format('hosting-{0}', parameters('appName')))]",
+        "[resourceId('Microsoft.Insights/components', format('insights-{0}', parameters('appName')))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "appId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.Web/sites', parameters('appName'))]"
+    }
+  }
+}</pre>
+
+
+<p>In the next article I will describe the usage of Bicep modules that can be used for reusing components meaning that you do not have to copy the code around in multiple templates files.</p>
+
+
+<p>If you want to learn more about Azure Bicep make sure to look at the tutorial on the github page as there are many more great features of this language:</p>
+
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#arm" class="page__taxonomy-item" rel="tag">ARM</a><span class="sep">, </span>
+    
+      <a href="/tags/#automation" class="page__taxonomy-item" rel="tag">Automation</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#azure" class="page__taxonomy-item" rel="tag">Azure</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2020-10-15T12:08:00+02:00">October 15, 2020</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Getting+started+with+Project+Bicep+for+Azure+ARM%20http%3A%2F%2Flocalhost%3A4000%2F2020%2F10%2Fgetting-started-with-project-bicep-for-azure-arm%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2020%2F10%2Fgetting-started-with-project-bicep-for-azure-arm%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2020%2F10%2Fgetting-started-with-project-bicep-for-azure-arm%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2020/10/book-implementing-azure-devops-solutions/" class="pagination--pager" title="Book: Implementing Azure DevOps Solutions
+">Previous</a>
+    
+    
+      <a href="/2020/10/control-over-a-azure-cloud-environment-create-a-governance-plan/" class="pagination--pager" title="Control over a Azure Cloud environment? Create a governance plan!
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

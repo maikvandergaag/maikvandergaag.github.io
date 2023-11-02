@@ -1,55 +1,15 @@
 ---
-layout: post
 title: SharePoint 2013 Workflow with Visual Studio 2012
-date: 2013-07-18 07:39:35.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
 tags:
 - SharePoint 2013
 - Visual Studio
 - Worklow
-meta:
-  _wp_jd_bitly: http://bit.ly/111sgnm
-  _wp_jd_target: http://msftplayground.com/2013/07/sharepoint-2013-workflow-with-visual-studio-2012/
-  _jd_wp_twitter: 'a:2:{i:0;s:80:"New post: SharePoint 2013 Workflow with Visual Studio
-    2012 http://bit.ly/111sgnm";i:1;s:83:"Post Edited: SharePoint 2013 Workflow with
-    Visual Studio 2012 http://bit.ly/111sgnm";}'
-  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:83:"Post Edited: SharePoint
-    2013 Workflow with Visual Studio 2012 http://bit.ly/111sgnm";s:5:"error";s:71:"This
-    tweet is identical to another Tweet recently sent to this account.";s:4:"code";i:403;s:9:"timestamp";i:1374154672;}'
-  _edit_last: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapLI: s:259:"a:1:{i:0;a:8:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;}}";
-  _jd_twitter: ''
-  _jd_tweet_this: 'no'
-  _yoast_wpseo_focuskw_text_input: Visual Studio 2012
-  _yoast_wpseo_focuskw: Visual Studio 2012
-  _yoast_wpseo_linkdex: '73'
-  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463269776;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:798;}i:1;a:1:{s:2:"id";i:803;}i:2;a:1:{s:2:"id";i:825;}}}}
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Visual Studio 2012
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2013/07/sharepoint-2013-workflow-with-visual-studio-2012/"
+date: 2013-07-18 07:39:35.000000000 +02:00
+permalink: /2013/07/sharepoint-2013-workflow-with-visual-studio-2012/
+categories:
+- Development
+status: publish
 ---
 <p>Today I have been working on a project that required a workflow in order to keep track of a status. Because we were working with SharePoint 2013 I thought lets build a SharePoint 2013 Workflow.</p>
 <p>First of all when you would like to begin using SharePoint 2013 Workflow you have to install some services. When using the Web Platform Installer it is quit easy. When you still need to install SharePoint 2013 workflow following the below article from Microsoft:</p>
@@ -71,7 +31,7 @@ permalink: "/2013/07/sharepoint-2013-workflow-with-visual-studio-2012/"
 <li><a title="http://msdn.microsoft.com/en-us/library/jj163911.aspx" href="http://msdn.microsoft.com/en-us/library/jj163911.aspx">How to: Build and deploy workflow custom actions</a></li>
 </ul>
 <p>When I was creating my first workflow the second thing I noticed was that there are a lot of actions you use and that it is quite easy to extend:</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2013/07/image.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; display: inline; border-top-width: 0px" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2013/07/image_thumb.png" width="240" height="233" /></a> </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/07/image.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; display: inline; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2013/07/image_thumb.png" width="240" height="233" /></a> </p>
 <p>All together I think this new approach is very powerful and does also mean you will be able to create APP workflow.</p>
 <p>Deploying my first workflow directly resulted in a error when activating the feature:</p>
 <table cellspacing="0" cellpadding="2" width="400" border="0">
@@ -85,7 +45,7 @@ permalink: "/2013/07/sharepoint-2013-workflow-with-visual-studio-2012/"
 </tbody>
 </table>
 <p>You will have to create a App Management Service Application if you want to run SharePoint 2013 workflow and off course also start the “App Management Service“. Besides that the “Microsoft SharePoint Foundation Subscription Settings Service” should be started and you also have to make the Service Application by using PowerShell.</p>
-<pre class="brush: powershell;">if ((Get-PSSnapin "Microsoft.SharePoint.PowerShell" -ErrorAction SilentlyContinue) -eq $null) {
+<pre class="highlight">if ((Get-PSSnapin "Microsoft.SharePoint.PowerShell" -ErrorAction SilentlyContinue) -eq $null) {
     Add-PSSnapin "Microsoft.SharePoint.PowerShell"
 }
 

@@ -1,46 +1,23 @@
 ---
-layout: post
 title: Using SPSecurity.RunWithElevatedPrivileges()
-date: 2009-02-10 06:34:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
-- SharePoint
 tags:
 - Elevated
 - Priviledges
 - SPSecurity
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SPSecurity
-  _yoast_wpseo_focuskw: SPSecurity
-  _yoast_wpseo_linkdex: '79'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SPSecurity
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2009/02/using-spsecurity-runwithelevatedprivileges/"
+date: 2009-02-10 06:34:00.000000000 +01:00
+permalink: /2009/02/using-spsecurity-runwithelevatedprivileges/
+categories:
+- Development
+- SharePoint
+status: publish
 ---
 <div class="ExternalClass7245FF89CE984BEFA767688F626A31B1">
 <p>The last time I have been receiving questions about using SPSecurity.RunWithElevatedPrivileges in a SharePoint webpart. This made me think and I thought by myself lets write a short post with some examples about this subject.</p>
 <p>When you want to build a webpart that will be used by anonymous or read only users you often have to use RunWithElevatedPriviledges because a lot of objects in a SharePoint site require more rights. If you use RunWithElevatedPriviledges you will run a particular action under a account that has more rights in SharePoint.</p>
 <p>I hear you asking under what account do we run this particular code then? The answer is the application pool account of your web application.</p>
 <p>Now we know that we can write some examples to see what will work. Let’s begin with an example how you should not use RunWithElevatedPriviledges.</p>
-<pre class="brush: csharp;"> SPWeb web = SPContext.Current.Web;
+<pre class="highlight"> SPWeb web = SPContext.Current.Web;
 
  SPSecurity.RunWithElevatedPrivileges(delegate()
  {
@@ -49,7 +26,7 @@ permalink: "/2009/02/using-spsecurity-runwithelevatedprivileges/"
 <p>In this example we get the current web object from the SPContext. This means we have got a web object that runs under the account that we are logged in with. After we have got the web object we use RunWithElevatedPriviledges because read only users can not access the list.</p>
 <p>If we would run this code in a webpart we will see an access denied message, all because we use a web object that is retrieved with our current context.</p>
 <p>Let’s take a look at an example how you could do it the right way (this is the way I mostly use RunWithElevatedPriviledges):</p>
-<pre class="brush: csharp;">Guid webID = SPContext.Current.Web.ID;
+<pre class="highlight">Guid webID = SPContext.Current.Web.ID;
  Guid siteID = SPContext.Current.Site.ID;
 
  SPSecurity.RunWithElevatedPrivileges(delegate()
@@ -65,4 +42,3 @@ permalink: "/2009/02/using-spsecurity-runwithelevatedprivileges/"
 <p>In this example you can see that we first retrieve the ids of the site collection and the web so that we know which site object and web object we want to work with.</p>
 <p>We then use RunWithElevatedPriviledges and retrieve the SPSite and SPWeb within the RunWithElevatedPriviledges. These objects will then run under the account of the application pool.</p>
 <p>I hope this post will you guys out there and please fill free to leave comments.</p>
-</div>

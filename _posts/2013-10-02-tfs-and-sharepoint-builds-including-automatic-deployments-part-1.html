@@ -1,50 +1,16 @@
 ---
-layout: post
 title: TFS and SharePoint Builds including Automatic deployments &ndash; Part 1
-date: 2013-10-02 13:09:49.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
 tags:
 - Deployment
 - SharePoint
 - Team Foundation Server
 - TFS
-meta:
-  _wpas_done_all: '1'
-  _wp_jd_bitly: http://bit.ly/1g3kTCs
-  _wp_jd_target: http://msftplayground.com/2013/10/tfs-and-sharepoint-builds-including-automatic-deployments-part-1/
-  _jd_wp_twitter: 'a:1:{i:0;s:100:"New post: TFS and SharePoint Builds including Automatic
-    deployments – Part 1 http://bit.ly/1g3kTCs";}'
-  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:100:"New post: TFS and SharePoint
-    Builds including Automatic deployments – Part 1 http://bit.ly/1g3kTCs";s:5:"error";s:71:"This
-    tweet is identical to another Tweet recently sent to this account.";s:4:"code";i:403;s:9:"timestamp";i:1380719393;}'
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SharePoint Builds
-  _yoast_wpseo_focuskw: SharePoint Builds
-  _yoast_wpseo_linkdex: '65'
-  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463265503;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:776;}i:1;a:1:{s:2:"id";i:180;}i:2;a:1:{s:2:"id";i:656;}}}}
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint Builds
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2013/10/tfs-and-sharepoint-builds-including-automatic-deployments-part-1/"
+date: 2013-10-02 13:09:49.000000000 +02:00
+permalink: /2013/10/tfs-and-sharepoint-builds-including-automatic-deployments-part-1/
+categories:
+- Development
+status: publish
 ---
 <p>Part 1 of this series will instruct how to configure your build server for building SharePoint projects. In Part 2 we will discuss the automatic deploy options. Part 1 of this series is based on the following MSDN article <a href="http://msdn.microsoft.com/en-us/library/ff622991.aspx">How to Build Office Developer Tools Projects with TFS Team Build 2012</a>. In this article there are some mistakes and are corrected here.</p>
 <p>When user are using Frameworks like SCRUM you also have to look into automatic builds and automatic deployments to your test and acceptance environments in order to not lose a lot of times with you deployments.</p>
@@ -56,7 +22,7 @@ permalink: "/2013/10/tfs-and-sharepoint-builds-including-automatic-deployments-p
 <p>When installing the Windows SDK you can encounter the following error:</p>
 <p><em>Installation of the “Microsoft Windows SDK for Windows 7″ product has reported the following error: Please refer to Samples\Setup\HTML\ConfigDetails.htm document for further information</em></p>
 <p>Looking at the log files you will see these two entries:</p>
-<pre class="brush: bash;">DDSet_Error: Patch Hooks: Missing required property 'ProductFamily': Setup cannot continue. 
+<pre class="highlight">DDSet_Error: Patch Hooks: Missing required property 'ProductFamily': Setup cannot continue. 
 DDSet_Warning: Setup failed while calling 'getDLLName'. System error: Cannot create a file
 </pre>
 <p>This is because the Windows SDK installer is having problems with a currently installed component. Remove this component and it will work fine:</p>

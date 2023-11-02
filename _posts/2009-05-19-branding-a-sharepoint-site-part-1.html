@@ -1,40 +1,15 @@
 ---
-layout: post
 title: Branding a SharePoint site &ndash; Part 1
-date: 2009-05-19 06:49:00.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Design
 tags:
 - Branding
 - CSS
 - Development
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: Branding
-  _yoast_wpseo_focuskw: Branding
-  _yoast_wpseo_linkdex: '76'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Branding
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2009/05/branding-a-sharepoint-site-part-1/"
+date: 2009-05-19 06:49:00.000000000 +02:00
+permalink: /2009/05/branding-a-sharepoint-site-part-1/
+categories:
+- Design
+status: publish
 ---
 <div class="ExternalClass24C09A8CA3EE426CA7BD14F48C67687D">
 <p>Within SharePoint and WSS you have the possibility to brand your site. You can do this on several ways:</p>
@@ -54,7 +29,7 @@ permalink: "/2009/05/branding-a-sharepoint-site-part-1/"
 <p><strong>mossExtension.css</strong> <br />The mossExtension.css is an extension file for the Theme.css file. When the Theme.css file is loaded it will be extended with the content of this file.</p>
 <p>When you want to create a custom theme you can use several tools to help you edit the theme.css file. One of my favorites is the Web Developers tool in Internet Explorer 8. You can use this tool by opening your SharePoint site and selecting: “Tools – Developer Tools” or just press F12.</p>
 <p>This will open a window like below. If you select the arrow at the top of the page you are able to select a section of your site and see the css styling of it.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/developertoolsselected.png"><img title="developertoolsselected" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="developertoolsselected" src="{{ site.baseurl }}/assets/archive/2009/05/developertoolsselected_thumb.png" width="240" height="145" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/developertoolsselected.png"><img title="developertoolsselected" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="developertoolsselected" src="/assets/archive/2009/05/developertoolsselected_thumb.png" width="240" height="145" /></a></p>
 <p>On my SharePoint site I have selected the site title. On the right side of the developer tool you can see the styling of the site title. Every item that is stripped away will not be used so you can see that the colour of the title is changes to #0066a4 in moti1011-65001.css. This file is the theme.css file in our motion10 theme folder. </p>
 <p>When you are done with the creation of the theme you have to make it available within the SharePoint farm. The theme can be added by updating the “SPThemes.xml” file within the following directory:</p>
 <p><em>C:\Program Files\Common Files\microsoft shared\Web Server Extensions\12\TEMPLATE\LAYOUTS\1033</em></p>
@@ -71,7 +46,7 @@ permalink: "/2009/05/branding-a-sharepoint-site-part-1/"
 <p>Manually editing of files in the farm is not desired and support. To solve this you have to create a solution using WSP Builder and add your Theme folder to the right path in your solution. You also have to make changes to the “SPThemes.xml” so you also add this file to your solution. You will have a problem with this because you have the complete file and extend it with you section. When you deploy your solution the out of the box file will be overwritten. But what happens when another SharePoint developer also makes a theme en deploys it to the server. He will also overwrite the file with the result that your theme will be deleted.</p>
 <p>To work around this problem you have to create a farm feature that will kick off a timer job to alter the SPThemes file.</p>
 <p>First we have to create a farm scoped feature that has a feature receiver.</p>
-<pre class="brush: xml;"> &lt;?xml version="1.0" encoding="utf-8"?&gt;
+<pre class="highlight"> &lt;?xml version="1.0" encoding="utf-8"?&gt;
  &lt;Feature  Id="e0c634c2-5378-4fe6-927b-03aa895b5d8d"
                Title="motion10 Theme Installer : motion10"
                Description="Feature for adding the motion10 theme to the SharePoint Farm."
@@ -96,7 +71,7 @@ permalink: "/2009/05/branding-a-sharepoint-site-part-1/"
 
 In the properties section of the feature we have defined 5 properties. These properties represent the values that you have to fill into the SPThemes.xml.</pre>
 <p>In the SPFeatureReceiver we will start the timer job to insert the values into the file.</p>
-<pre class="brush: csharp;">public override void FeatureActivated(SPFeatureReceiverProperties properties) {
+<pre class="highlight">public override void FeatureActivated(SPFeatureReceiverProperties properties) {
          RunJobNow(false, properties);
  }
 
@@ -110,7 +85,7 @@ In the properties section of the feature we have defined 5 properties. These pro
  public override void FeatureUninstalling(SPFeatureReceiverProperties properties) {
  } </pre>
 <p>In the FeatureActivated and FeatureDeactivating event we call a method called “RunJobNow” with two properties. These properties represent a boolean if the section must be deleted and the property bag of the feature for retrieving the property values.</p>
-<pre class="brush: csharp;">public void RunJobNow(bool delete, SPFeatureReceiverProperties prop) {
+<pre class="highlight">public void RunJobNow(bool delete, SPFeatureReceiverProperties prop) {
 
     SPFarm farm = prop.Definition.Farm;
 
@@ -147,7 +122,7 @@ In the properties section of the feature we have defined 5 properties. These pro
 <li><strong>documentNameSpace:</strong> The namespace of the xml document.</li>
 </ul>
 <p>Within the timer job we have five properties to retrieve the properties from the feature definition. These properties need to be retrieved for adding our Templates section to the SPThemes file.</p>
-<pre class="brush: csharp;"> public string TemplateID {
+<pre class="highlight"> public string TemplateID {
     get {
        SPFeatureDefinition def = Farm.FeatureDefinitions[this._featureID];
 
@@ -157,7 +132,7 @@ In the properties section of the feature we have defined 5 properties. These pro
     }
  }</pre>
 <p>For the initiation of our timer job we will have to insert two properties in the property bag. These properties are “_delete” and “_featureid”.</p>
-<pre class="brush: csharp;">private readonly string deleteKey = "C11B44D604004a1d9CD9D0CAB326373F_Delete";
+<pre class="highlight">private readonly string deleteKey = "C11B44D604004a1d9CD9D0CAB326373F_Delete";
 
  private bool _delete {
     get {
@@ -176,7 +151,7 @@ In the properties section of the feature we have defined 5 properties. These pro
     }
  } </pre>
 <p>For the creation of a timer job you also need to define a LockType. This LockType is very important because the timer job has to be run on every server in the farm. For accomplishing this we will have to use SPLockType.None ( http://www.shillier.com/archive/2009/05/01/where-is-my-timer-job.aspx)</p>
-<pre class="brush: csharp;"> public InstallThemeTimerJob() {
+<pre class="highlight"> public InstallThemeTimerJob() {
  }
 
  public InstallThemeTimerJob(SPService service, Guid featureID, bool delete)
@@ -187,7 +162,7 @@ In the properties section of the feature we have defined 5 properties. These pro
     this._featureID = featureID;
  }</pre>
 <p>On the execution of the timer job we will execute a method called ChangeThemesFile(). Within this method we will add or delete a section in the SPThemes file that is defined in the properties of the feature definition.</p>
-<pre class="brush: csharp;">private readonly string filePath = "TEMPLATE\\LAYOUTS\\1033\\SPTHEMES.XML";
+<pre class="highlight">private readonly string filePath = "TEMPLATE\\LAYOUTS\\1033\\SPTHEMES.XML";
  private readonly string documentNameSpace = "http://tempuri.org/SPThemes.xsd";
 
  public override void Execute(Guid targetInstanceId) {
@@ -207,26 +182,3 @@ In the properties section of the feature we have defined 5 properties. These pro
                        where b.Element(ns + "TemplateID").Value == this.TemplateID
                        select b;
 
-    bool containsElement = (element != null &amp;&amp; element.Count() &gt; 0);
-
-    if (_delete) {
-       if (containsElement) {
-         element.Remove();
-         doc.Save(SPThemesFile);
-       }
-    } else {
-       if (!containsElement) {
-          XElement spThemesElement = new XElement(ns + "Templates", new XElement(ns + "TemplateID", this.TemplateID),
-                                             new XElement(ns + "DisplayName", this.ThemeDisplayName),
-                                             new XElement(ns + "Description", this.Description),
-                                             new XElement(ns + "Thumbnail", this.Thumbnail),
-                                             new XElement(ns + "Preview", this.Preview));
-
-           doc.Element(ns + "SPThemes").Add(spThemesElement);
-           doc.Save(SPThemesFile);
-      }
-    }
- } </pre>
-<p>In the method we use Linq to find an element based on the TemplateID we have defined in the feature.xml. If the element count is 0 the element is not in the SPThemes file and can be added to the file by creating a new XElement with the properties from the feature.</p>
-<p>In part 2 we will discuss the point of activating the theme by default and creating a feature to activate the theme. Besides that we will also discuss a way to replace all the out of the box search images without replacing the default one in the 12 hive.</p>
-</div>

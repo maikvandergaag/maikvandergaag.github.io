@@ -1,44 +1,18 @@
 ---
-layout: post
-title: Console Application for SharePoint 2010 [No User Profile Application available
-  to service the request. Contact your farm administrator.]
-date: 2010-08-13 06:42:00.000000000 +02:00
+title: Console Application for SharePoint 2010 [No User Profile Application available to service the request. Contact your farm administrator.]
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
 tags:
 - Console Application
 - Troubleshouting
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SharePoint
-  _yoast_wpseo_focuskw: SharePoint
-  _yoast_wpseo_linkdex: '48'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2010/08/console-application-for-sharepoint-2010-no-user-profile-application-available-to-service-the-request-contact-your-farm-administrator/"
+date: 2010-08-13 06:42:00.000000000 +02:00
+permalink: /2010/08/console-application-for-sharepoint-2010-no-user-profile-application-available-to-service-the-request-contact-your-farm-administrator/
+categories:
+- Development
+status: publish
 ---
 <div class="ExternalClass8DB1FC39FFC646D086CAED17645A46E3">
 <p>Today I was working on some cool features to update the User Profile store in SharePoint 2010. To test this feature I usually use a Console Application. In my Console Application I was keep getting an error on a line like below: </p>
-<pre class="brush: csharp;">UserProfileManager profileConfigManager = new UserProfileManager(ServiceContext);</pre>
+<pre class="highlight">UserProfileManager profileConfigManager = new UserProfileManager(ServiceContext);</pre>
 <p>The exception I kept getting was : 'No User Profile Application available to service the request. Contact your farm administrator.' I made sure the User Profile Application was running correctly and it was. I already clicked on the "Administrators" button in the toolbar of the Service Application to give me Full Control, but it still wasn't working.</p>
 <p>Till I noticed that there is also a 'Permissions' button. I clicked the button and saw that my current user wasn't in the permissions box. I gave my user 'Full Control' and now everything works great from the console application. </p>
 <p>Happy Coding! </p>

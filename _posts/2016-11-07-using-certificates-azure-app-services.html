@@ -1,60 +1,16 @@
 ---
-layout: post
 title: Using Certificates in Azure App Services
-date: 2016-11-07 09:00:28.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - Azure
 - Azure App Services
 - Certificate
 - Identity Server
-meta:
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: Azure App
-  _yoast_wpseo_focuskw: Azure App
-  _yoast_wpseo_linkdex: '74'
-  _yoast_wpseo_content_score: '30'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  _yoast_wpseo_primary_category: ''
-  snapFB: s:412:"a:1:{i:0;a:13:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doFB";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1791573794453279";s:5:"pDate";s:19:"2016-11-07
-    08:01:00";}}";
-  snapLI: s:555:"a:1:{i:0;a:14:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6201302206583500801";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=6201302206583500801&amp;type=U&amp;a=Klhv";s:5:"pDate";s:19:"2016-11-07
-    08:01:00";}}";
-  snap_isAutoPosted: '1'
-  snapTW: s:299:"a:1:{i:0;a:10:{s:2:"do";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE% -
-    %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:4:"doTW";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"795536519649984512";s:5:"pDate";s:19:"2016-11-07
-    08:01:01";}}";
-  _wpas_done_all: '1'
-  rop_post_url_twitter: https://msftplayground.com/2016/11/using-certificates-azure-app-services/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  rop_post_url_facebook: https://msftplayground.com/2016/11/using-certificates-azure-app-services/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  _oembed_1ba82f062134c494a889e607d118caea: "{{unknown}}"
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure App
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2016/11/using-certificates-azure-app-services/"
+date: 2016-11-07 09:00:28.000000000 +01:00
+permalink: /2016/11/using-certificates-azure-app-services/
+categories:
+- Azure
+status: publish
 ---
 <p>In different kind of situations you need to use a certificate for authentication or signing. I needed on because I was setting up a Identity Server the Identity Server V3 (<a href="https://identityserver.io">https://identityserver.io</a>) to be exact.</p>
 <p>Within this Identity Server a certificate is used for signing. For testing purposes you can download one from their GitHub repository. But if you would like to buy one or generate one you will have to do some extra work.</p>
@@ -69,11 +25,11 @@ permalink: "/2016/11/using-certificates-azure-app-services/"
 <ol>
 <li>Open the Azure portal: <a href="https://portal.azure.com">https://portal.azure.com</a></li>
 <li>Navigate to your created Azure App Service for example a Azure Web App.</li>
-<li>In the menu blade pick the option “SSL Certificates” under the “Settings” section.<a href="https://msftplayground.com/wp-content/uploads/2016/10/image.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/11/image_thumb.png" alt="image" width="373" height="373" border="0" /></a></li>
-<li>In the SSL Certificates blade upload your certificate and supply the password.<a href="https://msftplayground.com/wp-content/uploads/2016/10/image-1.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/11/image_thumb-1.png" alt="image" width="471" height="349" border="0" /></a></li>
+<li>In the menu blade pick the option “SSL Certificates” under the “Settings” section.<a href="/assets/archive/2016/10/image.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-width: 0px;" title="image" src="/assets/archive/2016/11/image_thumb.png" alt="image" width="373" height="373" border="0" /></a></li>
+<li>In the SSL Certificates blade upload your certificate and supply the password.<a href="/assets/archive/2016/10/image-1.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-width: 0px;" title="image" src="/assets/archive/2016/11/image_thumb-1.png" alt="image" width="471" height="349" border="0" /></a></li>
 </ol>
-<h2></h2>
-<h2></h2>
+
+
 <h2>Adjusting the Web App Settings</h2>
 <p>When the certificate is uploaded the Web application it self needs to be instructed to load the certificate. This can be done by adding a application settings called “WEBSITE_LOAD_CERTIFICATES” and adding the thumbprint of the certificate you want to be loaded as the value. If you want to load multiple certificates you need to supply the value as a comma-separated list.</p>
 <ol>
@@ -82,14 +38,14 @@ permalink: "/2016/11/using-certificates-azure-app-services/"
 <li>In the menu blade pick the option “Application Settings” under the “Settings” section.</li>
 <li>In the newly opened blade scroll down to the section called “App Settings” and add the settings.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/10/image-2.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/11/image_thumb-2.png" alt="image" width="357" height="365" border="0" /></a></p>
-<ol><!--EndFragment--></ol>
+<p><a href="/assets/archive/2016/10/image-2.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border-width: 0px;" title="image" src="/assets/archive/2016/11/image_thumb-2.png" alt="image" width="357" height="365" border="0" /></a></p>
+
 <p>Before publishing your application to the cloud you can also add the value to your web.config.</p>
-<pre class="brush: xml;">&lt;add key="WEBSITE_LOAD_CERTIFICATES" value="2697505afae56f3ac23a53716d2ff3029903d542"/&gt;
+<pre class="highlight">&lt;add key="WEBSITE_LOAD_CERTIFICATES" value="2697505afae56f3ac23a53716d2ff3029903d542"/&gt;
 </pre>
 <h2>Load the certificate within your application</h2>
 <p>With the previous steps done you are able to load the certificate within the application. By simply adding the following C# method:</p>
-<pre class="brush: csharp;">public X509Certificate2 GetCertificate(string thumbprint) {
+<pre class="highlight">public X509Certificate2 GetCertificate(string thumbprint) {
 
     if (string.IsNullOrEmpty(thumbprint))
         throw new ArgumentNullException("thumbprint", "Argument 'thumbprint' cannot be 'null' or 'string.empty'");
@@ -111,12 +67,6 @@ permalink: "/2016/11/using-certificates-azure-app-services/"
 }
 </pre>
 <p>This method can simply be called by supplying the thumbprint of the certificate that you for example have saved within the web.config/ app settings.</p>
-<pre class="brush: csharp;">//load the thumbprint from the web.config
+<pre class="highlight">//load the thumbprint from the web.config
 string thumbprint = WebConfigurationManager.AppSettings[WebConfigurationKeys.Thumbprint];
 X509Certificate2 identityCertificate = GetCertificate(thumbprint);
-</pre>
-<p>My complete test application for Identity Server V3 with the Azure certificate implementation can be found on GitHub:</p>
-<ul>
-<li><a title="https://github.com/MaikvanderGaag/IdentityServer" href="https://github.com/MaikvanderGaag/IdentityServer">https://github.com/MaikvanderGaag/IdentityServer</a></li>
-</ul>
-<p>The complete solution can be hosted within a Azure Web App Instances but preferable within a Azure App Service Environment. This is because a Web App instances is a shared resource on a VM witch is not a good security practice for a Identity Server, so deploying it to a Azure App Service environment is preferable as this is not a shared environment.</p>

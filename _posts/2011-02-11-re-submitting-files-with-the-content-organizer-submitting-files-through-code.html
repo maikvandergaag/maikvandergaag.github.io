@@ -1,38 +1,15 @@
 ---
-layout: post
 title: Re-Submitting files with the Content Organizer (Submitting files through code)
-date: 2011-02-11 07:55:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- DMS
-- SharePoint
 tags:
 - Content Organizer
 - Submitting
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: Content Organizer
-  _yoast_wpseo_focuskw: Content Organizer
-  _yoast_wpseo_linkdex: '69'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Content Organizer
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2011/02/re-submitting-files-with-the-content-organizer-submitting-files-through-code/"
+date: 2011-02-11 07:55:00.000000000 +01:00
+permalink: /2011/02/re-submitting-files-with-the-content-organizer-submitting-files-through-code/
+categories:
+- DMS
+- SharePoint
+status: publish
 ---
 <div class="ExternalClassB70916B7548B4429A54D40AB13EBBDE7">
 <p>About a week ago I wrote an article about the “<a href="/2011/01/sharepoint-2010-content-organizer-feature/">Content Organizer</a>” feature of SharePoint 2010. </p>
@@ -42,7 +19,7 @@ permalink: "/2011/02/re-submitting-files-with-the-content-organizer-submitting-f
 <p>With this page you can enable the re-submitting feature and select the fields that have to be changed if the file needs to be re-submitted. </p>
 <p>If you enable the re-submitting feature on the page it will install an event receiver on the current list. This event receiver will run on the ItemUpdated event. In the ItemUpdated event you can then check which fields are changed and then send the document for re-routing. </p>
 <p>I hear you asking how can I submit a file for routing. Let’s take a look at the ItemUpdated receiver I have written.</p>
-<pre class="brush: csharp;">/// &lt;summary&gt;
+<pre class="highlight">/// &lt;summary&gt;
 /// An item is being updated.
 /// &lt;/summary&gt;
 public override void ItemUpdated(SPItemEventProperties properties)
@@ -58,7 +35,7 @@ public override void ItemUpdated(SPItemEventProperties properties)
     }
 }</pre>
 <p>This code will be executed by the event Receiver. The method Check ForReRouteItem will check if certain fields were changed.</p>
-<pre class="brush: csharp;">private bool CheckForReRouteItem(SPItemEventProperties properties)
+<pre class="highlight">private bool CheckForReRouteItem(SPItemEventProperties properties)
 {
     List&lt;string&gt; changesFields = GetField(properties);
 
@@ -74,7 +51,7 @@ public override void ItemUpdated(SPItemEventProperties properties)
 }</pre>
 <p>In the above method the fields for which we have to check if they are changed are retrieved by another method called GetFields(properties). This method will retrieve the fields that are saved in the property bag by the list settings page.</p>
 <p>If a field is changed the method will return true to indicate that the files needs to be submitted to the Content Organizer.</p>
-<pre class="brush: csharp;">private bool ReRoutItem(SPItemEventProperties properties)
+<pre class="highlight">private bool ReRoutItem(SPItemEventProperties properties)
 {
     Guid webId = properties.Web.ID;
     Guid siteId = properties.SiteId;
@@ -123,7 +100,7 @@ public override void ItemUpdated(SPItemEventProperties properties)
 <p>The above method performs the actual submitting of the file to the Content Organizer by calling OfficialFileCore.SubmitFile().</p>
 <p>This method will return an OfficialFileResult to indicate whether the submitting was successful of not. </p>
 <p>Important: With submitting the file we had a problem because it was giving us an outcome of NotFound every time we submitted the file. After debugging the SharePoint dlls we found out that Microsoft performs the following method EcmDocumentRoutingWeb.IsSubmitter(web)):</p>
-<pre class="brush: csharp;">internal static bool IsSubmitter(SPWeb web)
+<pre class="highlight">internal static bool IsSubmitter(SPWeb web)
 {
     if (web == null)
     {
@@ -142,9 +119,3 @@ public override void ItemUpdated(SPItemEventProperties properties)
     {
         ULS.SendTraceTag(0x636d7539, ULSCat.msoulscat_DLC_Routing, ULSTraceLevel.Medium, "Routing Engine: User does not have permissions to submit to this site. Exception: {0}", new object[] { exception.Message });
         flag = false;
-    }
-    return flag;
-}</pre>
-<p>In this method Microsoft checks if the current user is in a specific group to allow the submission of the file. If you are not in this group Microsoft will return an outcome of NotFound.</p>
-<p>I hope this post will help you guys develop cool SharePoint solutions.</p>
-</div>

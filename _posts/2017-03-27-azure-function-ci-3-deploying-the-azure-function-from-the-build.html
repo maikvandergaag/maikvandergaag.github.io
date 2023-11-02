@@ -1,65 +1,17 @@
 ---
-layout: post
 title: Azure Function CI – 3. Deploying the Azure Function from the Build within VSTS
-date: 2017-03-27 15:28:00.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- DevOps
 tags:
 - ALM
 - Azure
 - Azure Functions
 - DevOps
 - VSTS
-meta:
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: VSTS
-  _yoast_wpseo_focuskw: VSTS
-  _yoast_wpseo_metadesc: Deploying a Azure Function created with the Azure Function
-    Tools by leveraging a Build within Visual Studio Team Services (VSTS)
-  _yoast_wpseo_linkdex: '75'
-  _yoast_wpseo_content_score: '30'
-  _yoast_wpseo_primary_category: '272'
-  _wpas_done_all: '1'
-  _thumbnail_id: '2881'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapLI: s:441:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
-    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6245018175440855040";s:7:"postURL";s:104:"https://www.linkedin.com/updates?discuss=&scope=22692038&stype=M&topic=6245018175440855040&type=U&a=Nu3o";s:5:"pDate";s:19:"2017-03-07
-    23:12:40";}}";
-  snap_isAutoPosted: '1'
-  snapFB: s:421:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:51:"New post (%TITLE%)
-    has been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1864818740462117";s:7:"postURL";s:61:"http://www.facebook.com/msftplayground/posts/1864818740462117";s:5:"pDate";s:19:"2017-03-27
-    19:15:58";}}";
-  snapTW: s:379:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
-    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"846440725696974848";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/846440725696974848";s:5:"pDate";s:19:"2017-03-27
-    19:16:10";}}";
-  _jetpack_dont_email_post_to_subs: '1'
-  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1576667136;s:7:"payload";a:0:{}}}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: VSTS
-  _wds_title: ''
-  _wds_metadesc: Deploying a Azure Function created with the Azure Function Tools
-    by leveraging a Build within Visual Studio Team Services (VSTS)
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2017/03/azure-function-ci-3-deploying-the-azure-function-from-the-build/"
+date: 2017-03-27 15:28:00.000000000 +02:00
+permalink: /2017/03/azure-function-ci-3-deploying-the-azure-function-from-the-build/
+categories:
+- DevOps
+status: publish
 ---
 <p>This post is the third and last one in a series of posts and will help you by deploying a CI build for a Azure Function.</p>
 <h2>Prerequisites</h2>
@@ -73,11 +25,11 @@ permalink: "/2017/03/azure-function-ci-3-deploying-the-azure-function-from-the-b
 <p>In order to also make it deployable we need to take some steps.</p>
 <h2>Project changes</h2>
 <p>With all parts in place we can take the last steps to deploy the function. As there are still some small issues with the Preview Azure Function Tools for Visual Studio we need to use a ASP.Net Web Application project to create the deployment package. Right click the solution to add the new project of the type ASP.Net Web Application.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb171.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb171" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb171_thumb.png" alt="image_thumb171" width="443" height="262" border="0" /></a></p>
+<p><a href="/assets/archive/2017/03/image_thumb171.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb171" src="/assets/archive/2017/03/image_thumb171_thumb.png" alt="image_thumb171" width="443" height="262" border="0" /></a></p>
 <p>In the next screen click the empty ASP.Net Web Application template because we do not need all the extra features that are included in the other templates.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb175.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb175" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb175_thumb.png" alt="image_thumb175" width="417" height="325" border="0" /></a></p>
+<p><a href="/assets/archive/2017/03/image_thumb175.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb175" src="/assets/archive/2017/03/image_thumb175_thumb.png" alt="image_thumb175" width="417" height="325" border="0" /></a></p>
 <p>As mentioned above the project will be used to build a deployment package for the function. In order to get all files in place within the project we will configure a Pre Build event by opening the properties of the newly created project.</p>
-<pre class="brush: bash;">SET SOURCEPATH=$(SolutionDir)MSFT.Function\MsftHttpTrigger
+<pre class="highlight">SET SOURCEPATH=$(SolutionDir)MSFT.Function\MsftHttpTrigger
 SET FILEPATH=$(ProjectDir)MsftHttpTrigger
 
 IF NOT EXIST "%FILEPATH%" (
@@ -93,9 +45,9 @@ xcopy /e /y "%SOURCEPATH%" "%FILEPATH%"
 </pre>
 <p>Now build the project, this will make sure all files are retrieved and placed within the project folder structure. When the build succeeds include the files within the project except the “project.json” and “project.lock.json”. By including the files within the project we make sure the files can be packaged by “msbuild”.&nbsp; In the functions folder also include a dummy “run.csx” file in order to use the precompiled function within the Azure Portal. Last step for now is to delete the “web.config” file.</p>
 <p>The solution now looks as followed:</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb6.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb[6]" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb6_thumb.png" alt="image_thumb[6]" width="279" height="416" border="0" /></a></p>
+<p><a href="/assets/archive/2017/03/image_thumb6.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb[6]" src="/assets/archive/2017/03/image_thumb6_thumb.png" alt="image_thumb[6]" width="279" height="416" border="0" /></a></p>
 <p>Now check / change the build order of the solution to make sure everything is build in the appropriate order to have the latest files in place within the deployment project.&nbsp; Right click the solution and click on “Project Build Order”.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb133.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb133" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb133_thumb.png" alt="image_thumb133" width="240" height="232" border="0" /></a></p>
+<p><a href="/assets/archive/2017/03/image_thumb133.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb133" src="/assets/archive/2017/03/image_thumb133_thumb.png" alt="image_thumb133" width="240" height="232" border="0" /></a></p>
 <p>Make sure the projects are build in the following sequence:</p>
 <ol>
 <li>Azure Function Project</li>
@@ -103,14 +55,14 @@ xcopy /e /y "%SOURCEPATH%" "%FILEPATH%"
 <li>Deployment Project</li>
 </ol>
 <p>When we would package the project at this time we would get a correct package but would also have some files we do not want to include in our package. This is the package.config file and the default “bin” folder of a web project. In order to exclude them unload the project in Visual Studio by right clicking and selecting “Unload Project”. When the project is unloaded right click it and click on “Edit [Project file name]”</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb141.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb141" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb141_thumb.png" alt="image_thumb141" width="323" height="167" border="0" /></a></p>
+<p><a href="/assets/archive/2017/03/image_thumb141.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb141" src="/assets/archive/2017/03/image_thumb141_thumb.png" alt="image_thumb141" width="323" height="167" border="0" /></a></p>
 <p>Add the following xml section within the configuration XML of the build configurations.</p>
-<pre class="brush: xml;">&lt;ExcludeFoldersFromDeployment&gt;bin&lt;/ExcludeFoldersFromDeployment&gt;
+<pre class="highlight">&lt;ExcludeFoldersFromDeployment&gt;bin&lt;/ExcludeFoldersFromDeployment&gt;
 &lt;ExcludeFilesFromDeployment&gt;package.config&lt;/ExcludeFilesFromDeployment&gt;
 
 </pre>
 <p>When added the Property groups will look like:</p>
-<pre class="brush: xml;">&lt;PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' "&gt;
+<pre class="highlight">&lt;PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' "&gt;
   &lt;DebugSymbols&gt;true&lt;/DebugSymbols&gt;
   &lt;DebugType&gt;full&lt;/DebugType&gt;
   &lt;Optimize&gt;false&lt;/Optimize&gt;
@@ -135,23 +87,21 @@ xcopy /e /y "%SOURCEPATH%" "%FILEPATH%"
 <p>Save the changes and reload the project by right clicking the it and selecting “Reload Project”. Commit all the changes you made and queue a new&nbsp; build.</p>
 <h2>Deploy Azure Function</h2>
 <p>When the build succeed the build template needs to be adjust in order to deploy the Azure Function. Edit the build template and add so called “msbuild” arguments to the build action of the solution to make sure the package is created when the solution is build. In order to achieve this open the Build template editor of your previously created build and click on the “Build solution” action to add the following build arguments.</p>
-<pre class="brush: bash;">/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"
+<pre class="highlight">/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"
 </pre>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb148.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb148" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb148_thumb.png" alt="image_thumb148" width="480" height="250" border="0" /></a></p>
+<p><a href="/assets/archive/2017/03/image_thumb148.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb148" src="/assets/archive/2017/03/image_thumb148_thumb.png" alt="image_thumb148" width="480" height="250" border="0" /></a></p>
 <p>&nbsp;</p>
 <p>Next up is adding a task to the build template for deploying the resources to Azure. This can be be done by adding the task:&nbsp; Azure App Services Deploy</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb155.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb155" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb155_thumb.png" alt="image_thumb155" width="637" height="337" border="0" /></a></p>
+<p><a href="/assets/archive/2017/03/image_thumb155.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb155" src="/assets/archive/2017/03/image_thumb155_thumb.png" alt="image_thumb155" width="637" height="337" border="0" /></a></p>
 <p>Configure this build step with the correct subscription, and Azure resource (the function were you would like to deploy to). Make sure you set a different package location, so that the action can find the deployment package created within the previous action:</p>
-<pre class="brush: bash;">$(build.artifactstagingdirectory)/**/*.zip
+<pre class="highlight">$(build.artifactstagingdirectory)/**/*.zip
 </pre>
 <p>&nbsp;</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb183.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb183" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb183_thumb.png" alt="image_thumb183" width="600" height="342" border="0" /></a></p>
+<p><a href="/assets/archive/2017/03/image_thumb183.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb183" src="/assets/archive/2017/03/image_thumb183_thumb.png" alt="image_thumb183" width="600" height="342" border="0" /></a></p>
 <p>&nbsp;</p>
 <p>Save and queue a new build. If this build succeeds your pre-compiled Azure Function is deployed to your Azure resource.</p>
 <p><em><strong>Note: </strong>This build template requires the Azure Function Host to be present within Azure if there is enough interest I will also create a series of post to deploy the Function by using ARM templates within the same pipeline.</em></p>
-<h2></h2>
+
 <h2>Enable CI</h2>
 <p>Finally Continuous Integration needs to be enabled. To do this edit the build definition and click on the “Triggers” tab.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image-23.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Triggers" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb-23.png" alt="Triggers" width="715" height="161" border="0" /></a></p>
-<p>Click the switch to enable the Continuous Integration trigger and keep the default setting to trigger build on changes committed to the master branch.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image-24.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Continuous Integration VSTS" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb-24.png" alt="Continuous Integration VSTS" width="508" height="440" border="0" /></a></p>
+<p><a href="/assets/archive/2017/03/image-23.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Triggers" src="/assets/archive/2017/03/image_thumb-23.png" alt="Triggers" width="715" height="161" border="0" /></a></p>

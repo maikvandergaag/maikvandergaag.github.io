@@ -2,20 +2,14 @@
 main:
   - title: "About"
     url: about
+  - title: "Extensions"
+    url: extensions
   - title: "Speaking"
     url: speaking
   - title: "Posts"
     url: year-archive
   - title: "Categories"
     url: categories
-  - title: "Books"
-    url: books
-  # - title: "Tags"
-  #   url: tags
-  # - title: "Sample Collections"
-  #   url: /collection-archive/
-  # - title: "Sitemap"
-  #   url: /sitemap/
 side:
   - title: "All Posts"
     url: year-archive

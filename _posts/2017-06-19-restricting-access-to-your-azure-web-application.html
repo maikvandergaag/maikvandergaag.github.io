@@ -1,66 +1,19 @@
 ---
-layout: post
 title: Restricting access to your Azure Web Application
-date: 2017-06-19 13:48:02.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - Azure
 - Azure Web Apps
-meta:
-  _wpas_done_all: '1'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  _yoast_wpseo_is_cornerstone: ''
-  _yoast_wpseo_content_score: '30'
-  _yoast_wpseo_primary_category: ''
-  _yoast_wpseo_focuskw_text_input: Azure Web Application
-  _yoast_wpseo_focuskw: Azure Web Application
-  _yoast_wpseo_metadesc: As you may know everything that is deployed to Azure Web
-    Applications is publicly available. As with Azure SQL Database you do not have
-    a firewall
-  _yoast_wpseo_linkdex: '74'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:421:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:51:"New post (%TITLE%)
-    has been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1909675232643134";s:7:"postURL";s:61:"http://www.facebook.com/msftplayground/posts/1909675232643134";s:5:"pDate";s:19:"2017-06-19
-    12:49:23";}}";
-  snapLI: s:441:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
-    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6282549664411717632";s:7:"postURL";s:104:"https://www.linkedin.com/updates?discuss=&scope=22692038&stype=M&topic=6282549664411717632&type=U&a=oC1z";s:5:"pDate";s:19:"2017-06-19
-    12:49:24";}}";
-  snap_isAutoPosted: '1'
-  snapTW: s:379:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
-    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"876783978572918789";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/876783978572918789";s:5:"pDate";s:19:"2017-06-19
-    12:49:25";}}";
-  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure Web Application
-  _wds_title: ''
-  _wds_metadesc: As you may know everything that is deployed to Azure Web Applications
-    is publicly available. As with Azure SQL Database you do not have a firewall
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2017/06/restricting-access-to-your-azure-web-application/"
+date: 2017-06-19 13:48:02.000000000 +02:00
+permalink: /2017/06/restricting-access-to-your-azure-web-application/
+categories:
+- Azure
+status: publish
 ---
 <p>As you may know almost everything that is deployed to Azure is publicly available. As with Azure SQL Database you do not have a firewall available for Azure Web Applications. That means other options need to be used to restrict access to Azure Web Application.</p>
 <h2>Restrict access by IP</h2>
 <p>A possible option is to restrict access to your application by IP addresses. The IP addresses can be added as a allowed IP address within the web.config of your application. All other IP addresses will get a 403 Forbidden response from Azure.</p>
-<pre class="brush: xml;">&lt;system.webServer&gt;
+<pre class="highlight">&lt;system.webServer&gt;
     &lt;security&gt;
       &lt;ipSecurity allowUnlisted="false"&gt;
         &lt;clear /&gt;
@@ -75,36 +28,36 @@ permalink: "/2017/06/restricting-access-to-your-azure-web-application/"
 <ol>
 <li>In the Azure Portal navigate to the blade of the web application.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/05/2017-05-07_19-01-35-1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Authentication / Authorization" src="{{ site.baseurl }}/assets/archive/2017/06/2017-05-07_19-01-35_thumb-1.png" alt="Authentication / Authorization" width="1006" height="432" border="0" /></a></p>
+<p><a href="/assets/archive/2017/05/2017-05-07_19-01-35-1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Authentication / Authorization" src="/assets/archive/2017/06/2017-05-07_19-01-35_thumb-1.png" alt="Authentication / Authorization" width="1006" height="432" border="0" /></a></p>
 <ol start="2">
 <li>Click on “Authentication/Authorization” and select “On”.</li>
 <li>Activating this option will give you several options for Authentication Providers. For know we will select Azure Active Directory.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/05/2017-05-07_19-02-38.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Active Directory" src="{{ site.baseurl }}/assets/archive/2017/06/2017-05-07_19-02-38_thumb.png" alt="Azure Active Directory" width="1000" height="508" border="0" /></a></p>
+<p><a href="/assets/archive/2017/05/2017-05-07_19-02-38.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Active Directory" src="/assets/archive/2017/06/2017-05-07_19-02-38_thumb.png" alt="Azure Active Directory" width="1000" height="508" border="0" /></a></p>
 <ol start="4">
 <li>Because there isn’t a pre-configured application select the “Express” option. This option will register the Enterprise application within Azure Active Directory for us, or let you select a existing.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/05/2017-05-07_19-03-03.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Configure Authentication" src="{{ site.baseurl }}/assets/archive/2017/06/2017-05-07_19-03-03_thumb.png" alt="Configure Authentication" width="530" height="537" border="0" /></a></p>
+<p><a href="/assets/archive/2017/05/2017-05-07_19-03-03.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Configure Authentication" src="/assets/archive/2017/06/2017-05-07_19-03-03_thumb.png" alt="Configure Authentication" width="530" height="537" border="0" /></a></p>
 <ol start="5">
 <li>Clicking “Save” on this blade will register the application within Azure Active Directory. From there users can be granted access to the application.</li>
 <li>To grant users access to the application open the Azure Active Directory blade within the Azure Portal and select Enterprise Applications.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/05/2017-05-07_19-04-43.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Enterprise Applications" src="{{ site.baseurl }}/assets/archive/2017/06/2017-05-07_19-04-43_thumb.png" alt="Enterprise Applications" width="708" height="563" border="0" /></a></p>
+<p><a href="/assets/archive/2017/05/2017-05-07_19-04-43.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Enterprise Applications" src="/assets/archive/2017/06/2017-05-07_19-04-43_thumb.png" alt="Enterprise Applications" width="708" height="563" border="0" /></a></p>
 <ol start="7">
 <li>In the Enterprise Applications blade select “All Applications” to see a list of all applications that are registered within Azure Active Directory.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/05/2017-05-07_19-05-03.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Enterprise Application List" src="{{ site.baseurl }}/assets/archive/2017/06/2017-05-07_19-05-03_thumb.png" alt="Enterprise Application List" width="743" height="526" border="0" /></a></p>
+<p><a href="/assets/archive/2017/05/2017-05-07_19-05-03.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Enterprise Application List" src="/assets/archive/2017/06/2017-05-07_19-05-03_thumb.png" alt="Enterprise Application List" width="743" height="526" border="0" /></a></p>
 <ol start="8">
 <li>From this list select the application. This will open the blade of the specific application.</li>
 <li>In the blade select “Users and Groups”.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/05/2017-05-07_19-05-26.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Users for Azure Active Directory Application" src="{{ site.baseurl }}/assets/archive/2017/06/2017-05-07_19-05-26_thumb.png" alt="Users for Azure Active Directory Application" width="720" height="591" border="0" /></a></p>
+<p><a href="/assets/archive/2017/05/2017-05-07_19-05-26.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Users for Azure Active Directory Application" src="/assets/archive/2017/06/2017-05-07_19-05-26_thumb.png" alt="Users for Azure Active Directory Application" width="720" height="591" border="0" /></a></p>
 <ol start="9">
 <li>In the “Users and Groups” blade all users are shown that are granted access to the application. From here you can a add users to give them access.</li>
 </ol>
 <h2>Restrict Crawling</h2>
 <p>When you are developing or testing a site that has anonymous content you probably want the content not to be crawled by spiders or bots because many traffic can come from bots and spiders. Stopping the crawling can be done by placing a file called “robots.txt” at the root of your web application with the following content.</p>
-<pre class="brush: xml;">#robots.txt
+<pre class="highlight">#robots.txt
 User-agent: *  
 Disallow: / 
 </pre>

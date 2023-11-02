@@ -1,45 +1,19 @@
 ---
-layout: post
-title: 'Exception: [COMException (0x81072101): &lt;nativehr&gt;0x81072101&lt;/nativehr&gt;&lt;nativestack&gt;
-  &lt;/nativestack&gt; Cannot complete this action.'
-date: 2010-09-20 05:34:00.000000000 +02:00
+title: 'Exception: [COMException (0x81072101): &lt;nativehr&gt;0x81072101&lt;/nativehr&gt;&lt;nativestack&gt; &lt;/nativestack&gt; Cannot complete this action.'
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- SharePoint
-- Troubleshooting
 tags:
 - COMException
 - Troubleshouting
-meta:
-  _jd_wp_twitter: 'a:1:{i:0;s:75:"New link: Vesa Juvonen http://bit.ly/1N7gtZh http://blogs.msdn.com/b/vesku/";}'
-  _wpt_status_message: Tweet sent successfully.
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: Exception
-  _yoast_wpseo_focuskw: Exception
-  _yoast_wpseo_linkdex: '69'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Exception
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2010/09/exception-comexception-0x81072101-nativehr0x81072101nativehrnativestack-nativestack-cannot-complete-this-action/"
+date: 2010-09-20 05:34:00.000000000 +02:00
+permalink: /2010/09/exception-comexception-0x81072101-nativehr0x81072101nativehrnativestack-nativestack-cannot-complete-this-action/
+categories:
+- SharePoint
+- Troubleshooting
+status: publish
 ---
 <div class="ExternalClassD3E1E1D8508E4C3BA7A45B4D02BD78F5">
 <p>When I was working on a project I had to create a list instance of one of our own list definitions. I created a feature with the following element.xml.</p>
-<pre class="brush: xml;">&lt;xml version="1.0" encoding="utf-8"&gt;
+<pre class="highlight">&lt;xml version="1.0" encoding="utf-8"&gt;
 &lt;elements xmlns="http://schemas.microsoft.com/sharepoint/"&gt;
     &lt;listinstance title="Public Navigation"
                   description="Public Navigation List"
@@ -48,12 +22,12 @@ permalink: "/2010/09/exception-comexception-0x81072101-nativehr0x81072101nativeh
     &lt;/listinstance&gt;
 &lt;/elements&gt;</pre>
 <p>When I activate this feature I got the following exception: [COMException (0x81072101): 0x81072101Cannot complete this action. </p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Native-Error1.jpg"><img title="Native Error" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="Native Error" src="{{ site.baseurl }}/assets/archive/2010/09/Native-Error_thumb1.jpg" width="450" height="272" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Native-Error1.jpg"><img title="Native Error" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="Native Error" src="/assets/archive/2010/09/Native-Error_thumb1.jpg" width="450" height="272" /></a></p>
 <p>When I looked into the log files of SharePoint I found the following entries:</p>
 <p>&nbsp;<em>09/20/2010 16:11:43.49 w3wp.exe (0x1ED8) 0x1AB4 SharePoint Foundation Fields 88yt High GetUserListSchema(): Failed to get the list schema XML for feature '41202ea8-d927-475f-b710-48fe3af7e403', template '15555': hr=0x81072101. eee79fed-2362-41c1-aaa2-29b93ddee0ca </em></p>
 <p><em>09/20/2010 16:11:43.49 w3wp.exe (0x1ED8) 0x1AB4 SharePoint Foundation General 8l2r High Failed to find the list schema for FeatureId '41202ea8-d927-475f-b710-48fe3af7e403', list template ID 15555. Cannot create list in web "http://sharepoint/sites/Test" at URL "Lists/NavigationTop". eee79fed-2362-41c1-aaa2-29b93ddee0ca 09/20/2010 16:11:43.49 w3wp.exe (0x1ED8) 0x1AB4 SharePoint Foundation General 8kh7 High 0x81072101Cannot complete this action. Please try again. eee79fed-2362-41c1-aaa2-29b93ddee0ca</em> </p>
 <p>This looked to me like the feature could not find the schema.xml that was defined for the list definition. I then went looking through the list instance definition and found out that I can insert a feature ID attribute. Point this feature ID attribute to the feature that installs the schema.xml and everything will go just fine.</p>
-<pre class="brush: xml;">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+<pre class="highlight">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;Elements xmlns="http://schemas.microsoft.com/sharepoint/"&gt;
   &lt;ListInstance Title="Public Navigation"
                 TemplateType="15555"

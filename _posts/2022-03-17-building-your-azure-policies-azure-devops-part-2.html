@@ -1,59 +1,30 @@
 ---
-layout: post
 title: Building your Azure Policies (Azure DevOps) - Part 2
-date: 2022-03-17 11:26:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
-- Azure DevOps
-- DevOps
 tags:
 - Azure
 - Azure DevOps
 - Compliance
 - Policy
-meta:
-  _edit_last: '3'
-  _yoast_wpseo_content_score: '30'
-  _yoast_wpseo_estimated-reading-time-minutes: '4'
-  _yoast_wpseo_primary_category: '323'
-  _thumbnail_id: '6161'
-  _yoast_wpseo_focuskw: Policy
-  _yoast_wpseo_metadesc: In the first article policies are used to maintain the state.
-    In this part, we go over deploy custom policy definitions with Azure DevOps.
-  _yoast_wpseo_linkdex: '59'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Policy
-  _wds_title: ''
-  _wds_metadesc: In the first article policies are used to maintain the state. In
-    this part, we go over deploy custom policy definitions with Azure DevOps.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2022/03/building-your-azure-policies-azure-devops-part-2/"
+date: 2022-03-17 11:26:00.000000000 +01:00
+permalink: /2022/03/building-your-azure-policies-azure-devops-part-2/
+categories:
+- Azure
+- Azure DevOps
+- DevOps
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>As written in <a href="https://msftplayground.com/2022/03/building-your-azure-policies-part-1/" target="_blank" rel="noreferrer noopener">Part 1</a>, policies are used to maintain the state. The Azure portal itself contains a lot of OOTB policies, but you also want to create and deploy your own. This part will go over how to deploy custom policy definitions using Azure DevOps.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Script</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The script shared in <a href="https://msftplayground.com/2022/03/building-your-azure-policies-part-1/" target="_blank" rel="noreferrer noopener">part 1</a> is adjusted to read out the policy definition files within a directory. This is done because you do not want to deploy just one definition per pipeline. Below the updated PowerShell script is added.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">[CmdletBinding()]
+
+
+<pre class="highlight">[CmdletBinding()]
 Param(
     [Parameter(Mandatory = $true)]
     [ValidateSet('Subscription', 'Managementgroup')]
@@ -99,56 +70,56 @@ foreach ($policyFile in $policyFiles) {
 
     New-AzPolicyDefinition @parameters
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Policy definitions can be saved in Azure DevOps as code. The definitions in source control can be deployed via Azure DevOps Pipelines.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Prerequisites</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To be able to start deploying the definitions, we need to have the following in place:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Service principal in Azure Active Directory</li>
 <li>Service Connection in Azure DevOps</li>
 <li>Access rights in Azure</li>
 <li>Pipeline</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>First couple of prerequisites</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>We will need a service principal to deploy policy definitions via Azure DevOps. Creating this can be done via the portal. When the principal is made, give that principal the correct permissions on the scope where you want to deploy the definitions. I will provide the principal access to the management group where the policies need to be deployed for this article.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Of course, we can give the principal owner permissions on the scope, but we want to stick to the least privileges. Therefore we provide the principal the 'Resource Policy Contributor' role, which is enough for deploying Azure Policies.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6685,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2022/03/image-2.png" /><img src="{{ site.baseurl }}/assets/archive/2022/03/image-2-1024x212.png" alt="Role assingment" class="wp-image-6685" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2022/03/image-2.png" /><img src="/assets/archive/2022/03/image-2-1024x212.png" alt="Role assingment" class="wp-image-6685" /></figure>
+
+
 <p>With the rights in place, the service connection in Azure DevOps can be configured. In Azure DevOps, create an "Azure Resource Manager" service connection and fill in the correct information regarding your platform.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6687,"sizeSlug":"full","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-full"><a href="https://msftplayground.com/wp-content/uploads/2022/03/image-3.png" /><img src="{{ site.baseurl }}/assets/archive/2022/03/image-3.png" alt="Service Connection" class="wp-image-6687" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
+<figure class="wp-block-image size-full"><a href="/assets/archive/2022/03/image-3.png" /><img src="/assets/archive/2022/03/image-3.png" alt="Service Connection" class="wp-image-6687" /></figure>
+
+
 <h2> Pipeline</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Next up is the pipeline. For the pipeline, we will start with an empty one that we save in a GitHub repository, where we also save the policy definition files. From the empty pipeline, remove the default tasks and add an Azure PowerShell task that connects to the Service Connection we created.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6689,"sizeSlug":"full","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-full"><a href="https://msftplayground.com/wp-content/uploads/2022/03/image-4.png" /><img src="{{ site.baseurl }}/assets/archive/2022/03/image-4.png" alt="Azure PowerShell Task" class="wp-image-6689" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image size-full"><a href="/assets/archive/2022/03/image-4.png" /><img src="/assets/archive/2022/03/image-4.png" alt="Azure PowerShell Task" class="wp-image-6689" /></figure>
+
+
 <p>Point this task to the correct script file in the repository and ensure the arguments are supplied using variables. The Yaml of the task will look like the snippet below.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">- task: AzurePowerShell@5
+
+
+<pre class="highlight">- task: AzurePowerShell@5
   inputs:
     azureSubscription: 'Root Management Group Connection'
     ScriptType: 'FilePath'
@@ -156,12 +127,12 @@ foreach ($policyFile in $policyFiles) {
     ScriptArguments: '-Scope "$(scope)" -ScopeName "$(scopeName)" -PolicyFolder "$(folder)"'
     azurePowerShellVersion: 'LatestVersion'
     pwsh: true</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Bringing this all together will result in a simple pipeline like below.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">trigger:
+
+
+<pre class="highlight">trigger:
 - main
 
 pool:
@@ -186,18 +157,9 @@ steps:
     azurePowerShellVersion: 'LatestVersion'
     pwsh: true
 </pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Of course, this is not a production-grade solution, but it highlights how to manage your policy definitions in code and how to deploy them. In the following article, we will deploy definitions via GitHub Actions.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>To be continued</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:list --></p>
-<ul>
-<li>Part 1 - <a href="https://msftplayground.com/2022/03/building-your-azure-policies-part-1/" target="_blank" rel="noreferrer noopener">Building your Azure Policies – Part 1</a></li>
-<li>Part 3 - <a href="https://msftplayground.com/2022/03/building-your-azure-policies-github-actions-part-3/" target="_blank" rel="noreferrer noopener">Building your Azure Policies (GitHub Actions) – Part 3</a></li>
-</ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
-<p><!-- /wp:paragraph --></p>

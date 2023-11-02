@@ -1,61 +1,16 @@
 ---
-layout: post
 title: Part 1 &ndash; Azure SQL Database with Azure Active Directory Authentication
-date: 2017-04-25 17:00:03.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
 tags:
 - Azure
 - Azure Active Directory
 - Azure SQL Server
 - Identity
-meta:
-  _wpas_done_all: '1'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  _yoast_wpseo_is_cornerstone: ''
-  _yoast_wpseo_content_score: '30'
-  _yoast_wpseo_primary_category: ''
-  _yoast_wpseo_focuskw_text_input: Azure SQL
-  _yoast_wpseo_focuskw: Azure SQL
-  _yoast_wpseo_metadesc: The creation of identity pass-through authentication from
-    a client application to a API and then to a Azure SQL Database.
-  _yoast_wpseo_linkdex: '72'
-  _thumbnail_id: '3067'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snap_isAutoPosted: '1'
-  snapTW: s:379:"a:1:{i:0;a:11:{s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"856925201635954688";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/856925201635954688";s:5:"pDate";s:19:"2017-04-25
-    17:37:43";s:9:"msgFormat";s:25:"%TITLE% - %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:2:"do";s:1:"1";}}";
-  snapLI: s:441:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
-    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6262690954038386688";s:7:"postURL";s:104:"https://www.linkedin.com/updates?discuss=&scope=22692038&stype=M&topic=6262690954038386688&type=U&a=61By";s:5:"pDate";s:19:"2017-04-25
-    17:37:58";}}";
-  snapFB: s:421:"a:1:{i:0;a:11:{s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1881013435509314";s:7:"postURL";s:61:"http://www.facebook.com/msftplayground/posts/1881013435509314";s:5:"pDate";s:19:"2017-04-25
-    17:38:15";s:9:"msgFormat";s:51:"New post (%TITLE%) has been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:2:"do";s:1:"1";}}";
-  _oembed_b954b96bf2e22976c1f9bfb1e80f3497: "{{unknown}}"
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure SQL
-  _wds_title: ''
-  _wds_metadesc: The creation of identity pass-through authentication from a client
-    application to a API and then to a Azure SQL Database.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2017/04/part-1-azure-sql-database-with-azure-active-directory-authentication/"
+date: 2017-04-25 17:00:03.000000000 +02:00
+permalink: /2017/04/part-1-azure-sql-database-with-azure-active-directory-authentication/
+categories:
+- Administration
+status: publish
 ---
 <p>This post is the first post in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to an API and then to an Azure SQL Database. In this post we setup an Azure SQL Database and enable Azure Active Directory authentication on the database.</p>
 <h2>Create Azure SQL Database</h2>
@@ -64,7 +19,7 @@ permalink: "/2017/04/part-1-azure-sql-database-with-azure-active-directory-authe
 <li>Open the azure portal (<a href="https://portal.azure.com">https://portal.azure.com</a>)</li>
 <li>Click on “New” and search for SQL Database.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/04/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure SQL Database" src="{{ site.baseurl }}/assets/archive/2017/04/image_thumb.png" alt="Azure SQL Database" width="788" height="358" border="0" /></a></p>
+<p><a href="/assets/archive/2017/04/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure SQL Database" src="/assets/archive/2017/04/image_thumb.png" alt="Azure SQL Database" width="788" height="358" border="0" /></a></p>
 <ol start="3">
 <li>Click on SQL Database.</li>
 <li>In the next blade that appears click “Create”</li>
@@ -76,11 +31,11 @@ permalink: "/2017/04/part-1-azure-sql-database-with-azure-active-directory-authe
 <li>With the Azure SQL Database that is created you also create an Azure SQL Server or you have chosen to use an existing one. Within the portal navigate to the Azure SQL Server.</li>
 <li>In the Azure SQL Server blade click on “Active Directory admin” under “Settings”</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/04/image-1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2017/04/image_thumb-1.png" alt="image" width="1010" height="577" border="0" /></a></p>
+<p><a href="/assets/archive/2017/04/image-1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="/assets/archive/2017/04/image_thumb-1.png" alt="image" width="1010" height="577" border="0" /></a></p>
 <ol start="3">
 <li>Click on " “Set admin” in the “Active Directory Admin” blade.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/04/image-2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Active Directory Admin" src="{{ site.baseurl }}/assets/archive/2017/04/image_thumb-2.png" alt="Active Directory Admin" width="922" height="346" border="0" /></a></p>
+<p><a href="/assets/archive/2017/04/image-2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Active Directory Admin" src="/assets/archive/2017/04/image_thumb-2.png" alt="Active Directory Admin" width="922" height="346" border="0" /></a></p>
 <ol start="4">
 <li>Add the Active Directory user that you want to use as admin and click on “Select”.</li>
 <li>In the Active Directory Admin blade click on “Save” to save the settings.</li>
@@ -104,27 +59,27 @@ permalink: "/2017/04/part-1-azure-sql-database-with-azure-active-directory-authe
 <li>Open SQL Server Management Studio as Administrator.</li>
 <li>In the connect window fill in the Azure SQL Server and select “Active Directory Universal Authentication” as the authentication method.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/04/image-3.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Connect to Server" src="{{ site.baseurl }}/assets/archive/2017/04/image_thumb-3.png" alt="Connect to Server" width="689" height="459" border="0" /></a></p>
+<p><a href="/assets/archive/2017/04/image-3.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Connect to Server" src="/assets/archive/2017/04/image_thumb-3.png" alt="Connect to Server" width="689" height="459" border="0" /></a></p>
 <ol start="3">
 <li>Clicking on “Connect” will make a authentication dialog appear, fill in the right credentials (the credentials for the Active Directory Admin) and click on login.</li>
 <li>Open a new Query window in SQL Management studio and perform the following query.</li>
 </ol>
-<pre class="brush: sql;">Create user [User] from external provider
+<pre class="highlight">Create user [User] from external provider
 </pre>
 <ol start="5">
 <li>This query will add a User, Application or Group out of Azure Active Directory to the SQL Server Users. You can use the below SQL query to check if the user is added.</li>
 </ol>
-<pre class="brush: sql;">SELECT * FROM sys.sysusers;
+<pre class="highlight">SELECT * FROM sys.sysusers;
 </pre>
 <ol start="6">
 <li>By adding the user it  does not have read rights on the Azure SQL Database. Perform the next query to give the user the data reader role.</li>
 </ol>
-<pre class="brush: sql;">ALTER ROLE db_datareader ADD MEMBER [User]
+<pre class="highlight">ALTER ROLE db_datareader ADD MEMBER [User]
 </pre>
 <ol start="7">
 <li>You can now login with the added user by using SQL Server Management studio but make sure you set the initial database for the connection by clicking options.</li>
 </ol>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/04/image-4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Initial Database" src="{{ site.baseurl }}/assets/archive/2017/04/image_thumb-4.png" alt="Initial Database" width="492" height="537" border="0" /></a></p>
+<p><a href="/assets/archive/2017/04/image-4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Initial Database" src="/assets/archive/2017/04/image_thumb-4.png" alt="Initial Database" width="492" height="537" border="0" /></a></p>
 <p>If you do not configure the initial database you will get the following exception: Login failed for user “NT AUTHORITY\ANONYMOUS LOGIN”. (Microsoft SQL Server, Error: 18456).</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2017/04/image-5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="SQL Authentication Error" src="{{ site.baseurl }}/assets/archive/2017/04/image_thumb-5.png" alt="SQL Authentication Error" width="961" height="248" border="0" /></a></p>
+<p><a href="/assets/archive/2017/04/image-5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="SQL Authentication Error" src="/assets/archive/2017/04/image_thumb-5.png" alt="SQL Authentication Error" width="961" height="248" border="0" /></a></p>
 <p>In the next post we will  create a Azure API Application to query the Azure SQL Database.</p>

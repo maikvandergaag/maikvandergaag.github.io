@@ -1,39 +1,14 @@
 ---
-layout: post
 title: Creating a SharePoint Designer Action for the Sandbox
-date: 2011-06-08 05:47:00.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
 tags:
 - Sandbox
 - SharePoint Designer
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SharePoint Designer
-  _yoast_wpseo_focuskw: SharePoint Designer
-  _yoast_wpseo_linkdex: '71'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint Designer
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2011/06/creating-a-sharepoint-designer-action-for-the-sandbox/"
+date: 2011-06-08 05:47:00.000000000 +02:00
+permalink: /2011/06/creating-a-sharepoint-designer-action-for-the-sandbox/
+categories:
+- Development
+status: publish
 ---
 <div class="ExternalClass564006F59DE04677BDC2DF7C93E9AC8B">
 <p>One of the new features in SharePoint 2010 was the possibility to create Sandbox solutions. Sandbox solutions are custom build solutions that run in another process with another <a href="http://msdn.microsoft.com/en-us/library/930b76w0(v=VS.90).aspx" target="_blank">CAS</a> policy.</p>
@@ -51,7 +26,7 @@ permalink: "/2011/06/creating-a-sharepoint-designer-action-for-the-sandbox/"
 </ul>
 <p>After all Sandbox solutions are a powerful feature of SharePoint. SharePoint designer gives you the possibility to develop Custom actions. But when you try to develop those for the sandbox it is totally different.</p>
 <p>Let’s start of by creating a empty SharePoint project. When you created a empty project add a new Class file. Mark the class public and add a method that returns a Hashtable that has a SPUserCodeWorkflowContext object as parameter. The Hashtable will give you the ability to return values in the workflow. The SPUserCodeWorkflowContext on the other hand is a ‘In’ parameter.</p>
-<pre class="brush: csharp;">using System;
+<pre class="highlight">using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -70,7 +45,7 @@ namespace Motion10.SharePoint.Sandbox.Designer
 }</pre>
 <p>In the above code example you see that I created a method called ‘CreateSubSite’ within this method you can add the logic of your custom action. In the upcoming examples we will create a action that creates a sub site.</p>
 <p>To add the custom action to SharePoint you have to create a new elements file in which you have  to specify the custom action.</p>
-<pre class="brush: xml;">&lt;WorkflowActions&gt;
+<pre class="highlight">&lt;WorkflowActions&gt;
   &lt;Action Name="Create Sub Site"
           SandboxedFunction="true"
           Assembly="$SharePoint.Project.AssemblyFullName$"
@@ -81,20 +56,20 @@ namespace Motion10.SharePoint.Sandbox.Designer
   &lt;/Action&gt;
 &lt;/WorkflowActions&gt;</pre>
 <p>To be able to add parameters to the method that you need to create a sub site we will have to define a ‘RuleDesigner’ section to enable users to fill in those parameters.</p>
-<pre class="brush: xml;">&lt;RuleDesigner Sentence="Create sub site with the title: %1, url: %2 and description: %3."&gt;
+<pre class="highlight">&lt;RuleDesigner Sentence="Create sub site with the title: %1, url: %2 and description: %3."&gt;
   &lt;FieldBind Field="Title" Text="Title" Id="1" DesignerType="TextBox" /&gt;
   &lt;FieldBind Field="Url" Text="Url" Id="2" DesignerType="TextBox" /&gt;
   &lt;FieldBind Field="Description" Text="Description" Id="3" DesignerType="TextBox" /&gt;
 &lt;/RuleDesigner&gt;</pre>
 <p>The ‘RuleDesigner’ section has to be placed within the ‘Action’ section. In the ‘Action’ section you also have to place a ‘Parameters’ section to pass the actual values in the workflow action.</p>
-<pre class="brush: xml;">&lt;Parameters&gt;
+<pre class="highlight">&lt;Parameters&gt;
   &lt;Parameter Name="__Context" Type="Microsoft.SharePoint.WorkflowActions.WorkflowContext, Microsoft.SharePoint.WorkflowActions" Direction="In" DesignerType="Hide" /&gt;
   &lt;Parameter Name="Title" Type="System.String, mscorlib" Direction="In" DesignerType="ParameterNames" /&gt;
   &lt;Parameter Name="Url" Type="System.String, mscorlib" Direction="In" DesignerType="ParameterNames" /&gt;
   &lt;Parameter Name="Description" Type="System.String, mscorlib" Direction="In" DesignerType="ParameterNames" /&gt;
 &lt;/Parameters&gt;</pre>
 <p>With all of this in place we can extend our method with the correct parameters and create a simple action to create a sub site.</p>
-<pre class="brush: csharp;">public Hashtable CreateSubSite(SPUserCodeWorkflowContext context, string Title, string Url, string Description)
+<pre class="highlight">public Hashtable CreateSubSite(SPUserCodeWorkflowContext context, string Title, string Url, string Description)
 {
     //hashtable that will be returned can be used for return values.
     Hashtable retVal = new Hashtable();
@@ -119,4 +94,3 @@ namespace Motion10.SharePoint.Sandbox.Designer
     return retVal;
 }</pre>
 <p>Make sure you add the elements file to feature that is scoped to ‘Site’ and deploy the Sandbox solution. Open SharePoint Designer and you will see that you have the action available!</p>
-</div>

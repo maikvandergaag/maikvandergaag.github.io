@@ -1,63 +1,15 @@
 ---
-layout: post
 title: Customize the Release Management Build template &ndash; Part 1
-date: 2014-10-17 13:40:40.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- DevOps
 tags:
 - ALM
 - Build Template
 - SharePoint
-meta:
-  snap_isAutoPosted: '1'
-  _wp_jd_bitly: http://bit.ly/ZxxadV
-  _wp_jd_target: http://msftplayground.com/2014/10/customize-the-release-management-build-template-part-1/
-  _jd_wp_twitter: 'a:2:{i:0;s:89:"New post: Customize the Release Management Build
-    template – Part 1 http://bit.ly/ZxxadV";i:1;s:92:"Post Edited: Customize the Release
-    Management Build template – Part 1 http://bit.ly/ZxxadV";}'
-  _wpt_status_message: Tweet sent successfully.
-  _edit_last: '1'
-  _yoast_wpseo_focuskw: Build Template
-  _yoast_wpseo_title: Customize the Release Management Build template
-  _yoast_wpseo_metadesc: Customize a build template in order to work with SharePoint
-    solutions and Release Management. Besides that this build template will be able
-    to copy solution files to your drop location.
-  _jd_twitter: ''
-  _jd_tweet_this: 'no'
-  _yoast_wpseo_linkdex: '86'
-  _thumbnail_id: '1012'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:395:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1480266025584059";s:5:"pDate";s:19:"2014-10-17
-    13:40:48";s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
-  snapLI: s:292:"a:1:{i:0;a:9:{s:11:"isPrePosted";s:1:"1";s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Build Template
-  _wds_title: Customize the Release Management Build template
-  _wds_metadesc: Customize a build template in order to work with SharePoint solutions
-    and Release Management. Besides that this build template will be able to copy
-    solution files to your drop location.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2014/10/customize-the-release-management-build-template-part-1/"
+date: 2014-10-17 13:40:40.000000000 +02:00
+permalink: /2014/10/customize-the-release-management-build-template-part-1/
+categories:
+- DevOps
+status: publish
 ---
 <p>To setup a build in combination with Release Management you need the Release Management build template. This template looks like the default build template but has an additional sequence action to start the release after the build is succeeded. The Release Management Build template can be found within the install location of release management.</p>
 <p><i>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Release Management\Client\bin\</i><i>ReleaseTfvcTemplate.12.xaml</i></p>
@@ -66,34 +18,34 @@ permalink: "/2014/10/customize-the-release-management-build-template-part-1/"
 <p>You can find the “msbuild” activity by following the following path:</p>
 <p><em>“Overall Build Process” – “Run on Agent” – “Try” – “Compile, Test and Publish”.</em></p>
 <p>In the sequence activity that contains the “msbuild”  action we will add two argument by selecting “Compile, Test and Publish” and then Arguments in to lower left corner. If you scroll down the list click on “Create Argument” to add a new argument.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb.png" alt="image" width="318" height="195" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb.png" alt="image" width="318" height="195" border="0" /></a></p>
 <p>Add the following arguments:</p>
 <ul>
 <li><strong>CopySolutionFolder:</strong> Will be used to save the location of the Solution folder relative to the Team Foundation server.</li>
 <li><strong>DropLocation: </strong>Will be used to save the drop location of the build.</li>
 <li><strong>CustomBuildDirectory:</strong> Will be used to save the location of the Solution folder on the build server.</li>
 </ul>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb1.png" alt="image" width="446" height="39" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb1.png" alt="image" width="446" height="39" border="0" /></a></p>
 <p>Know that we have created the argument we can add actions to set the values of the arguments. Drag a “GetEnvironmentVariable&lt;T&gt;” action to the top of the “Compile, Test and Publish” sequence and call it “Get Drop Location Folder” and set the properties as you can see in the image.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb2.png" alt="image" width="456" height="171" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb2.png" alt="image" width="456" height="171" border="0" /></a></p>
 <p>The “WellKnownEnvironmentVariables.DropLocation” is the environment variable we need in order to get the drop location of the build. In the result property define the argument (“DropLocation”) in which you want to save the value.</p>
 <p>Place an “If” control flow underneath the “GetEnvironmentVariable” action to check whether the value of the argument “CopySolutionFolder” is not null or empty. This because we will define this argument within the build definition interface. You can add an argument to the build definition interface by updating the Metadata Argument. Select this argument and edit it by selecting the three dots within the default value column.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image3.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb3.png" alt="image" width="476" height="143" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image3.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb3.png" alt="image" width="476" height="143" border="0" /></a></p>
 <p>Scroll down the list of parameters and check whether the argument you created is in the list. If this argument is not already in the list add it.</p>
 <p>&nbsp;</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb4.png" alt="image" width="430" height="237" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb4.png" alt="image" width="430" height="237" border="0" /></a></p>
 <p>In the If control flow we check if the value of the “CopySolutionFolder” argument is not null or empty by defining the following condition:</p>
-<pre class="brush: csharp;">String.IsNullOrEmpty(CopySolutionFolder)
+<pre class="highlight">String.IsNullOrEmpty(CopySolutionFolder)
 </pre>
 <p>If the argument is null or empty we will not take any action and if it contains a value we will try to get the local path of the solution folder in order to copy the contents to the drop location. To achieve this we need to add a sequence action to the else branch.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb5.png" alt="image" width="399" height="190" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb5.png" alt="image" width="399" height="190" border="0" /></a></p>
 <p>To retrieve the local path of the solution folder we place the “GetLocalPath” activity in the sequence. This action will allow us to add a TFS project relative path in the build definition. For example the value could be: “$/SharePoint Portal/MSFTPlayground.SharePoint.Farm/Deployment Configuration”. The result of the “GetLocalPath” action will be saved in the CustomBuildDirectory argument.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image6.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb6.png" alt="image" width="449" height="191" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image6.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb6.png" alt="image" width="449" height="191" border="0" /></a></p>
 <p>To finalize the build definition we add the “CopyDirectory” activity to the sequence. The source of the activity will be the solution folder (“CustomBuildDirectory”) and the destination will be the drop location (“DropLocation”).</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image7.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb7.png" alt="image" width="466" height="200" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image7.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb7.png" alt="image" width="466" height="200" border="0" /></a></p>
 <p>Save the build template and check the file in into TFS. With the file in TFS you are able to use this template within a build definition. This template can be used by selecting show details in the process tab of a build definition and then selecting “New” to browse to the location were you have saved the build template within TFS.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image8.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb8.png" alt="image" width="590" height="155" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image8.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb8.png" alt="image" width="590" height="155" border="0" /></a></p>
 <p>Underneath the template selection you can see the parameters of the build template.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image9.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb9.png" alt="image" width="409" height="298" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image9.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb9.png" alt="image" width="409" height="298" border="0" /></a></p>
 <p align="left">The categories 1,2,3,4,5 are the default categories. The Release category is the category that can be used to define the parameters regarding “Release Management”. The “Extra Files” category this is the category for our added argument.</p>
 <p>In the next couple of post we will see how this build template will be used to start off a “Release” within “Release Management” order to start a SharePoint deployment.</p>

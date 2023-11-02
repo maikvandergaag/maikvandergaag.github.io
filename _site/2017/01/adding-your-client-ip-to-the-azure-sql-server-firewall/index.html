@@ -1,0 +1,667 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Adding your Client IP to the Azure SQL server firewall - Microsoft Playground</title>
+<meta name="description" content="One of the first things that need to be done when you create a Azure SQL database is adding the Client IP address to the firewall of the Azure SQL server. By default all traffic between Azure services are allowed but traffic from another machine is disallowed. Connecting to the server with for example SQL Management Studio will result in the following error: &nbsp; “Cannot open server [servername] requested by the login. Client with IP address [IP Address] is not allowed to access the server.” &nbsp;  Steps When you open the Azure SQL Database within Visual Studio it will prompt you the question if you would like to add your Client IP to the firewall in order to access the database.  If you prefer another tool like SQL Server Management studio you will have to configure this within the Azure Portal (as mentioned in the error):  Open the Azure Portal: https://portal.azure.com. Click on Resource Groups and then the resource group of the SQL server. In the Resource Group blade click on the SQL server. Within the “Security” Category click on “Firewall”. Add your Client IP within this blade. Click on save to save the settings.  &nbsp;  &nbsp; Until today I navigated to the website: https://www.whatismyip.com/ to retrieve my external IP and add it via the steps mentioned above but today I noticed another option (I think it already was there for quite some time). Within the firewall blade you can click on “Add client IP” to add your current client IP. &nbsp;">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Adding your Client IP to the Azure SQL server firewall">
+<meta property="og:url" content="http://localhost:4000/2017/01/adding-your-client-ip-to-the-azure-sql-server-firewall/">
+
+
+  <meta property="og:description" content="One of the first things that need to be done when you create a Azure SQL database is adding the Client IP address to the firewall of the Azure SQL server. By default all traffic between Azure services are allowed but traffic from another machine is disallowed. Connecting to the server with for example SQL Management Studio will result in the following error: &nbsp; “Cannot open server [servername] requested by the login. Client with IP address [IP Address] is not allowed to access the server.” &nbsp;  Steps When you open the Azure SQL Database within Visual Studio it will prompt you the question if you would like to add your Client IP to the firewall in order to access the database.  If you prefer another tool like SQL Server Management studio you will have to configure this within the Azure Portal (as mentioned in the error):  Open the Azure Portal: https://portal.azure.com. Click on Resource Groups and then the resource group of the SQL server. In the Resource Group blade click on the SQL server. Within the “Security” Category click on “Firewall”. Add your Client IP within this blade. Click on save to save the settings.  &nbsp;  &nbsp; Until today I navigated to the website: https://www.whatismyip.com/ to retrieve my external IP and add it via the steps mentioned above but today I noticed another option (I think it already was there for quite some time). Within the firewall blade you can click on “Add client IP” to add your current client IP. &nbsp;">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Adding your Client IP to the Azure SQL server firewall">
+  <meta name="twitter:description" content="One of the first things that need to be done when you create a Azure SQL database is adding the Client IP address to the firewall of the Azure SQL server. By default all traffic between Azure services are allowed but traffic from another machine is disallowed. Connecting to the server with for example SQL Management Studio will result in the following error: &nbsp; “Cannot open server [servername] requested by the login. Client with IP address [IP Address] is not allowed to access the server.” &nbsp;  Steps When you open the Azure SQL Database within Visual Studio it will prompt you the question if you would like to add your Client IP to the firewall in order to access the database.  If you prefer another tool like SQL Server Management studio you will have to configure this within the Azure Portal (as mentioned in the error):  Open the Azure Portal: https://portal.azure.com. Click on Resource Groups and then the resource group of the SQL server. In the Resource Group blade click on the SQL server. Within the “Security” Category click on “Firewall”. Add your Client IP within this blade. Click on save to save the settings.  &nbsp;  &nbsp; Until today I navigated to the website: https://www.whatismyip.com/ to retrieve my external IP and add it via the steps mentioned above but today I noticed another option (I think it already was there for quite some time). Within the firewall blade you can click on “Add client IP” to add your current client IP. &nbsp;">
+  <meta name="twitter:url" content="http://localhost:4000/2017/01/adding-your-client-ip-to-the-azure-sql-server-firewall/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2017-01-27T17:11:48+01:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2017/01/adding-your-client-ip-to-the-azure-sql-server-firewall/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Adding your Client IP to the Azure SQL server firewall">
+    <meta itemprop="description" content="One of the first things that need to be done when you create a Azure SQL database is adding the Client IP address to the firewall of the Azure SQL server. By default all traffic between Azure services are allowed but traffic from another machine is disallowed. Connecting to the server with for example SQL Management Studio will result in the following error: “Cannot open server [servername] requested by the login. Client with IP address [IP Address] is not allowed to access the server.” StepsWhen you open the Azure SQL Database within Visual Studio it will prompt you the question if you would like to add your Client IP to the firewall in order to access the database.  If you prefer another tool like SQL Server Management studio you will have to configure this within the Azure Portal (as mentioned in the error):Open the Azure Portal: https://portal.azure.com.Click on Resource Groups and then the resource group of the SQL server.In the Resource Group blade click on the SQL server.Within the “Security” Category click on “Firewall”.Add your Client IP within this blade.Click on save to save the settings.  Until today I navigated to the website: https://www.whatismyip.com/ to retrieve my external IP and add it via the steps mentioned above but today I noticed another option (I think it already was there for quite some time). Within the firewall blade you can click on “Add client IP” to add your current client IP. ">
+    <meta itemprop="datePublished" content="2017-01-27T17:11:48+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Adding your Client IP to the Azure SQL server firewall
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>One of the first things that need to be done when you create a Azure SQL database is adding the Client IP address to the firewall of the Azure SQL server. By default all traffic between Azure services are allowed but traffic from another machine is disallowed. Connecting to the server with for example SQL Management Studio will result in the following error:</p>
+<p> </p>
+<p>“<em>Cannot open server [servername] requested by the login. Client with IP address [IP Address] is not allowed to access the server.</em>”</p>
+<p> </p>
+<p><a href="/assets/archive/2017/01/image-4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2017/01/image_thumb-4.png" alt="image" width="953" height="381" border="0"></a></p>
+<h2>Steps</h2>
+<p>When you open the Azure SQL Database within Visual Studio it will prompt you the question if you would like to add your Client IP to the firewall in order to access the database.  If you prefer another tool like SQL Server Management studio you will have to configure this within the Azure Portal (as mentioned in the error):</p>
+<ol>
+<li>Open the Azure Portal: <a href="https://portal.azure.com" target="_blank" rel="noopener noreferrer">https://portal.azure.com</a>.</li>
+<li>Click on Resource Groups and then the resource group of the SQL server.</li>
+<li>In the Resource Group blade click on the SQL server.</li>
+<li>Within the “Security” Category click on “Firewall”.</li>
+<li>Add your Client IP within this blade.</li>
+<li>Click on save to save the settings.</li>
+</ol>
+<p> </p>
+<p><a href="/assets/archive/2017/01/image-5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Azure SQL Firewall" src="/assets/archive/2017/01/image_thumb-5.png" alt="Azure SQL Firewall" width="725" height="644" border="0"></a></p>
+<p> </p>
+<p>Until today I navigated to the website: <a title="https://www.whatismyip.com/" href="https://www.whatismyip.com/" target="_blank" rel="noopener noreferrer">https://www.whatismyip.com/</a> to retrieve my external IP and add it via the steps mentioned above but today I noticed another option (I think it already was there for quite some time). Within the firewall blade you can click on “Add client IP” to add your current client IP.</p>
+<p> </p>
+<p><a href="/assets/archive/2017/01/image-6.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Add Client IP" src="/assets/archive/2017/01/image_thumb-6.png" alt="Add Client IP" width="1577" height="131" border="0"></a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      <a href="/tags/#ip" class="page__taxonomy-item" rel="tag">IP</a><span class="sep">, </span>
+    
+      <a href="/tags/#sql" class="page__taxonomy-item" rel="tag">SQL</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#azure" class="page__taxonomy-item" rel="tag">Azure</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-01-27T17:11:48+01:00">January 27, 2017</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Adding+your+Client+IP+to+the+Azure+SQL+server+firewall%20http%3A%2F%2Flocalhost%3A4000%2F2017%2F01%2Fadding-your-client-ip-to-the-azure-sql-server-firewall%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2017%2F01%2Fadding-your-client-ip-to-the-azure-sql-server-firewall%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2017%2F01%2Fadding-your-client-ip-to-the-azure-sql-server-firewall%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/01/practice-for-deployment-slots/" class="pagination--pager" title="Practice for working with Deployment Slots within Azure App Services
+">Previous</a>
+    
+    
+      <a href="/2017/01/creating-your-first-precompiled-azure-function/" class="pagination--pager" title="Creating your first Precompiled Azure Function
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

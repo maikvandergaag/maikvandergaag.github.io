@@ -1,95 +1,47 @@
 ---
-layout: post
 title: Testing ARM Templates in Azure DevOps
-date: 2020-01-16 12:21:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure DevOps
 tags:
 - ARM
 - Azure DevOps
-meta:
-  _publicize_twitter_user: "@maikvandergaag"
-  _thumbnail_id: '5925'
-  spay_email: ''
-  _wpas_mess: 'Created a new #AzureDevOps extension for testing #Azure #ARM templates.'
-  _edit_last: '3'
-  _yoast_wpseo_primary_category: '535'
-  _yoast_wpseo_focuskw: ARM-TTK
-  _yoast_wpseo_metadesc: Testing ARM templates within Azure DevOps was kind of hard.
-    With this extension this is made a lot easier and you are able to see what to
-    adjust.
-  _yoast_wpseo_linkdex: '55'
-  _yoast_wpseo_content_score: '60'
-  _nxs_slinks: a:1:{s:32:"50684486e68473ed2c2cf1912d40e30e";s:21:"http://bit.ly/30v4XG6";}
-  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/30v4XG6";s:1:"t";s:72:"https://msftplayground.com/2020/01/testing-arm-template-in-azure-devops/";s:1:"r";s:1:"B";}
-  snap_isAutoPosted: '1579173671'
-  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6623534446387752960";s:2:"id";s:32:"urn:li:share:6623534446387752960";s:1:"d";s:19:"2020-01-16
-    11:21:11";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1217768758984486912";s:2:"id";s:19:"1217768758984486912";s:1:"d";s:19:"2020-01-16
-    11:21:11";s:1:"w";s:1:"s";}}}}
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapLI: s:463:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:71:"New post (%TITLE%)
-    has been published on %SITENAME% - %HTAGS% - %HCATS%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:32:"urn:li:share:6623534446387752960";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6623534446387752960";s:5:"pDate";s:19:"2020-01-16
-    11:21:11";}}";
-  snapTW: s:403:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:32:"%TITLE% - %HCATS%
-    %HTAGS%  %URL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1217768758984486912";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1217768758984486912";s:5:"pDate";s:19:"2020-01-16
-    11:21:11";}}";
-  _yoast_wpseo_estimated-reading-time-minutes: '1'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: ARM-TTK
-  _wds_title: ''
-  _wds_metadesc: Testing ARM templates within Azure DevOps was kind of hard. With
-    this extension this is made a lot easier and you are able to see what to adjust.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2020/01/testing-arm-template-in-azure-devops/"
+date: 2020-01-16 12:21:00.000000000 +01:00
+permalink: /2020/01/testing-arm-template-in-azure-devops/
+categories:
+- Azure DevOps
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>Two days Ago I published the post <a href="https://msftplayground.com/?p=5913">"Testing ARM Templates"</a>  that mentioned the ARM-TTK PowerShell Module Microsoft is creating to test ARM templates. After writing the post I couldn’t resist creating a Azure DevOps Pipeline tasks that integrates the tooling.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>ARM Template Tester</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With the “<a href="https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-arm-ttk" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">ARM Template Tester</a>” you have the option of testing your Azure Resource Manager templates within a build or release pipeline. The tasks itself does not have a lot of parameters that need to be set in order to use the extension:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li><strong>Template folder: </strong>The folder for testing the ARM templates</li>
 <li><strong>Stop on violation: </strong>Stop pipeline execution on a violation of the rules in the template</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:image {"id":5923,"sizeSlug":"large"} --></p>
-<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/archive/2020/01/2020-01-09_14-32-54-1024x486.png" alt="ARM Template Tester Task" class="wp-image-5923" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image size-large"><img src="/assets/archive/2020/01/2020-01-09_14-32-54-1024x486.png" alt="ARM Template Tester Task" class="wp-image-5923" /></figure>
+
+
 <p>The extension itself does not have a lot of functionality at<br />
 this moment but I will try to extend it in the next couple of weeks/months. If<br />
 you have a great idea or want to help extending this task send me a email a<br />
 file an issue within GitHub.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Useful links</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>GitHub Task repository:  <a href="https://github.com/maikvandergaag/msft-extensions">https://github.com/maikvandergaag/msft-extensions</a> </li>
 <li>Azure DevOps Task – ARM Template Tester:  <a href="https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-arm-ttk">https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-arm-ttk</a> </li>
 <li>ARM-TTK repository:  <a href="https://github.com/Azure/azure-quickstart-templates">https://github.com/Azure/azure-quickstart-templates</a> </li>
 <li>GitHub Issues list:  <a href="https://github.com/maikvandergaag/msft-extensions/issues">https://github.com/maikvandergaag/msft-extensions/issues</a> </li>
 </ul>
-<p><!-- /wp:list --></p>
+

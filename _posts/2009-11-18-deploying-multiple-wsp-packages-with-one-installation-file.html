@@ -1,43 +1,20 @@
 ---
-layout: post
 title: Deploying multiple wsp packages with one installation file
-date: 2009-11-18 09:22:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
-- SharePoint
 tags:
 - Deployment
 - WSP
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SharePoint
-  _yoast_wpseo_focuskw: SharePoint
-  _yoast_wpseo_linkdex: '62'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2009/11/deploying-multiple-wsp-packages-with-one-installation-file/"
+date: 2009-11-18 09:22:00.000000000 +01:00
+permalink: /2009/11/deploying-multiple-wsp-packages-with-one-installation-file/
+categories:
+- Administration
+- SharePoint
+status: publish
 ---
 <div class="ExternalClass6CA0DDCDBC9044E5BA76480530009302">
 <p>Today the public beta of SharePoint 2010 is released and everyone started blogging about SharePoint 2010. I am still preparing a Virtual Machine because the beta does not fully works on a Windows Server 2008 R2 installation and I had prepared a virtual machine with this operating system. But know back to deploying multiple wsp packages.</p>
 <p>At the moment I’m working for a client that want to install multiple wsp packages and keep it simple for administrators to change the deployment. To accomplish this I created a sample configuration file for a custom installation.</p>
-<pre class="brush: xml;">&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+<pre class="highlight">&lt;?xml version="1.0" encoding="utf-8" ?&gt;
 &lt;Solution&gt;
     &lt;Package file="Solutions\CustomPackage2.wsp" deployment="Globally"&gt;&lt;/Package&gt;
     &lt;Package file="Solutions\CustomPackage1.wsp" deployment="WebApplication"&gt;
@@ -46,7 +23,7 @@ permalink: "/2009/11/deploying-multiple-wsp-packages-with-one-installation-file/
 &lt;/Solution&gt;</pre>
 <p>In the configuration file you can see that there are two packages. One of the packages has to be deployed globally and 1 of them for several web applications that is why the second packages has child elements.</p>
 <p>Know that we have a sample configuration file we want we to start building a application to install those packages. First of all we will try to read out the xml file in a console application.</p>
-<pre class="brush: csharp;">class Program
+<pre class="highlight">class Program
  {
     public const string SolutionElement = "Solution";
     public const string PackageElement = "Package";
@@ -88,7 +65,7 @@ permalink: "/2009/11/deploying-multiple-wsp-packages-with-one-installation-file/
     Console.ReadKey();
  }</pre>
 <p>In the ‘Main’ of the console application we check if the configuration file exists and when it exists we load the file and run a Linq query for the package elements. When we have package elements within the configuration file we run the method Process Package for each package element.</p>
-<pre class="brush: csharp;">private static void ProcessPackage(XElement element)
+<pre class="highlight">private static void ProcessPackage(XElement element)
 {
     var deployment = element.Attribute(DeploymentAttribute).Value;
     if (deployment.ToUpperInvariant() == "GLOBALLY")
@@ -101,7 +78,7 @@ permalink: "/2009/11/deploying-multiple-wsp-packages-with-one-installation-file/
     }
 }</pre>
 <p>In the process package we check the deployment attribute to check how to deploy the package, globally or for web applications.</p>
-<pre class="brush: csharp;">private static void DeploymenWebApplication(XElement element)
+<pre class="highlight">private static void DeploymenWebApplication(XElement element)
  {
     var file = element.Attribute(FileAttribute).Value;
     var fileName = Path.GetFileName(file);
@@ -146,7 +123,7 @@ private static void DeploymentGlobally(XElement element)
  }</pre>
 <p>In the methods we read out additional information from the package element. In the ‘DeploymentWebApplication’ we read out the child elements and retract and delete the solution for each web application before we start installing the solution. Each time we retract or deploy a package we also run the execadmsvcjobs because we have to make sure no action for a package is running at the moment we start a new action.</p>
 <p>The actions we do are started by the method RunStsAdmProcess this methods starts a new process that runs the stsadm tool of SharePoint. The methods needs two parameters the command and the argument.</p>
-<pre class="brush: csharp;">internal static string RunStsAdmProcces(string command, string arguments)
+<pre class="highlight">internal static string RunStsAdmProcces(string command, string arguments)
  {
     var retVal = string.Empty;
     var commonFilesPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.CommonProgramFiles);
@@ -161,18 +138,3 @@ private static void DeploymentGlobally(XElement element)
        processStartInfo.Arguments = string.Format(CultureInfo.InvariantCulture, " -o {0} {1}", command, arguments);
 
        //initialize the process
-       process.StartInfo = processStartInfo;
-       process.Start();
-
-       //read the output stream of the process
-       StreamReader myStreamReader = process.StandardOutput;
-       retVal = myStreamReader.ReadToEnd();
-
-       process.Close();
-    }
-    return retVal;
-
- }</pre>
-<p>In the method a new stsadm process is started with the parameters. With a streamreader the output of the process is captured and returned to the console application.</p>
-<p>I hope this can help you guys with creating solutions to deploy multiple wsp packages from one installation.</p>
-</div>

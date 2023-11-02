@@ -1,74 +1,32 @@
 ---
-layout: post
 title: Connect Logic Apps with Azure Functions
-date: 2016-04-25 12:00:15.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
-- Development
 tags:
 - Azure
 - Azure Functions
 - Logic Apps
-meta:
-  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  _thumbnail_id: '1919'
-  _yoast_wpseo_focuskw_text_input: Azure Functions
-  _yoast_wpseo_focuskw: Azure Functions
-  _yoast_wpseo_linkdex: '82'
-  _yoast_wpseo_primary_category: ''
-  snap_isAutoPosted: '1'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:412:"a:1:{i:0;a:13:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:2:"do";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1704065076537485";s:5:"pDate";s:19:"2016-04-26
-    07:09:30";}}";
-  snapLI: s:555:"a:1:{i:0;a:14:{s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:2:"do";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6130623614824824832";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=6130623614824824832&amp;type=U&amp;a=R8Rc";s:5:"pDate";s:19:"2016-04-26
-    07:09:31";}}";
-  snapTW: s:299:"a:1:{i:0;a:10:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE%
-    - %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:2:"do";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"724857929531314176";s:5:"pDate";s:19:"2016-04-26
-    07:09:32";}}";
-  rop_post_url_twitter: https://msftplayground.com/2016/04/connect-logic-apps-azure-functions/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  rop_post_url_facebook: https://msftplayground.com/2016/04/connect-logic-apps-azure-functions/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure Functions
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2016/04/connect-logic-apps-azure-functions/"
+date: 2016-04-25 12:00:15.000000000 +02:00
+permalink: /2016/04/connect-logic-apps-azure-functions/
+categories:
+- Azure
+- Development
+status: publish
 ---
 <p>Azure functions is a component released a few weeks ago by Microsoft in Azure to easily perform code/function in Azure.</p>
 <p>“<em>Azure functions is a solution for easily running small pieces of code, or "functions," in the cloud. You can write just the code you need for the problem at hand, without worrying about a whole application or the infrastructure to run it. This can make development even more productive, and you can </em><a href="https://azure.microsoft.com/en-us/documentation/articles/functions-create-first-azure-function/"><em>get started with your first function</em></a><em> in just minutes.</em>”</p>
 <p>If you want more information on Functions you can get this from the documentation site of Microsoft (<a title="https://azure.microsoft.com/en-us/documentation/articles/functions-overview/" href="https://azure.microsoft.com/en-us/documentation/articles/functions-overview/">https://azure.microsoft.com/en-us/documentation/articles/functions-overview/</a>).</p>
 <p>I could imagine a lot of situations were you would like to incorporate pieces of code within a Logic App. You already could achieve this by creating a web / api application but with the use of functions this is a lot easier and you can benefit off the dynamic loading of Azure functions.</p>
 <p>To incorporate functions open the Logic App designer and press the + button.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/04/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/04/image_thumb.png" alt="Logic Apps Designer" width="408" height="190" border="0" /></a></p>
+<p><a href="/assets/archive/2016/04/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="/assets/archive/2016/04/image_thumb.png" alt="Logic Apps Designer" width="408" height="190" border="0" /></a></p>
 <p>Click “Add an Action”.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/04/image-1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Add an Action" src="{{ site.baseurl }}/assets/archive/2016/04/image_thumb-1.png" alt="Add an Action" width="240" height="115" border="0" /></a></p>
+<p><a href="/assets/archive/2016/04/image-1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Add an Action" src="/assets/archive/2016/04/image_thumb-1.png" alt="Add an Action" width="240" height="115" border="0" /></a></p>
 <p>The designer will give a couple of options. If you try the search box you won’t find any functions. To incorporate the functions click on “Show Microsoft Managed APIs”.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/04/image-2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Designer Block" src="{{ site.baseurl }}/assets/archive/2016/04/image_thumb-2.png" alt="Designer Block" width="387" height="297" border="0" /></a></p>
+<p><a href="/assets/archive/2016/04/image-2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Designer Block" src="/assets/archive/2016/04/image_thumb-2.png" alt="Designer Block" width="387" height="297" border="0" /></a></p>
 <p>This option gives several options that exist in the same region. One of the options is Azure Functions.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/04/image-3.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Logic App Api Selection" src="{{ site.baseurl }}/assets/archive/2016/04/image_thumb-3.png" alt="Logic App Api Selection" width="424" height="191" border="0" /></a></p>
+<p><a href="/assets/archive/2016/04/image-3.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Logic App Api Selection" src="/assets/archive/2016/04/image_thumb-3.png" alt="Logic App Api Selection" width="424" height="191" border="0" /></a></p>
 <p>Clicking on the option “Show Azure Functions in the same region” will open the selection for the functions container. Select the right container.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/04/image-4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Function Container" src="{{ site.baseurl }}/assets/archive/2016/04/image_thumb-4.png" alt="Azure Function Container" width="361" height="203" border="0" /></a></p>
+<p><a href="/assets/archive/2016/04/image-4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Function Container" src="/assets/archive/2016/04/image_thumb-4.png" alt="Azure Function Container" width="361" height="203" border="0" /></a></p>
 <p>With the right container selected the existing functions will be loaded. Besides that you can also create a new one.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/04/image-5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Function Selection" src="{{ site.baseurl }}/assets/archive/2016/04/image_thumb-5.png" alt="Azure Function Selection" width="359" height="193" border="0" /></a></p>
+<p><a href="/assets/archive/2016/04/image-5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Function Selection" src="/assets/archive/2016/04/image_thumb-5.png" alt="Azure Function Selection" width="359" height="193" border="0" /></a></p>
 <p>With the function selected you can add the input payload for the function.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/04/image-6.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Function Itegration" src="{{ site.baseurl }}/assets/archive/2016/04/image_thumb-6.png" alt="Azure Function Itegration" width="396" height="289" border="0" /></a></p>
+<p><a href="/assets/archive/2016/04/image-6.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Function Itegration" src="/assets/archive/2016/04/image_thumb-6.png" alt="Azure Function Itegration" width="396" height="289" border="0" /></a></p>

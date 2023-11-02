@@ -1,92 +1,50 @@
 ---
-layout: post
 title: Deploy your Azure Website with VSTS Build
-date: 2016-01-05 10:29:05.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- DevOps
 tags:
 - Azure
 - Build
 - Deployment
 - VSTS
-meta:
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _thumbnail_id: '1599'
-  _edit_last: '1'
-  snap_isAutoPosted: '1'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:395:"a:1:{i:0;a:12:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1657512294526097";s:5:"pDate";s:19:"2016-01-05
-    10:29:21";}}";
-  snapLI: s:537:"a:1:{i:0;a:13:{s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6090086467521048576";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=6090086467521048576&amp;type=U&amp;a=Nt1S";s:5:"pDate";s:19:"2016-01-05
-    10:29:22";}}";
-  snapTW: s:271:"a:1:{i:0;a:9:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:15:"%TITLE%
-    - %URL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"684320782076514304";s:5:"pDate";s:19:"2016-01-05
-    10:29:23";}}";
-  _yoast_wpseo_focuskw_text_input: Azure Website
-  _yoast_wpseo_focuskw: Azure Website
-  _yoast_wpseo_linkdex: '75'
-  _jetpack_related_posts_cache: a:0:{}
-  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
-  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure Website
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2016/01/deploy-azure-website-vsts-build/"
+date: 2016-01-05 10:29:05.000000000 +01:00
+permalink: /2016/01/deploy-azure-website-vsts-build/
+categories:
+- DevOps
+status: publish
 ---
 <p>From VSTS (Visual Studio Team Services) your can deploy to a Azure Website directly directly from a build. Setting this up will require a couple of steps. In this blog post I will help you trough these steps.</p>
 <h3>Create New Build</h3>
 <p>Navigate to VSTS within the browser and open the team page where a build definition needs to be added. From the team page select build to go to the build configuration section.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image.png"><img title="VSTS Team Page" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="VSTS Team Page" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb.png" width="665" height="307" /></a></p>
+<p><a href="/assets/archive/2016/01/image.png"><img title="VSTS Team Page" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="VSTS Team Page" src="/assets/archive/2016/01/image_thumb.png" width="665" height="307" /></a></p>
 <p>The build tab will show the status of current builds. On this page you are also able to create a new build. To create a new build select the + icon in the upper left corner.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-1.png"><img title="Create Build" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Create Build" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-1.png" width="666" height="196" /></a></p>
+<p><a href="/assets/archive/2016/01/image-1.png"><img title="Create Build" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Create Build" src="/assets/archive/2016/01/image_thumb-1.png" width="666" height="196" /></a></p>
 <p>Pressing the + icon will make a dialog appear. In this dialog you need to select what kind of build needs to be created. We want to deploy to Azure so we select the “Deployment”&nbsp; tab and then select “Azure WebSite”.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-2.png"><img title="New Build" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="New Build" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-2.png" width="356" height="352" /></a></p>
+<p><a href="/assets/archive/2016/01/image-2.png"><img title="New Build" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="New Build" src="/assets/archive/2016/01/image_thumb-2.png" width="356" height="352" /></a></p>
 <p>When selected press next. On the next screen you have to specify a couple of build settings settings. For example the “Repository type” on this screen you can also select a check box called “continuous integration: build each check-in”. Selecting this option will make sure a new build will be queued after a check-in.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-3.png"><img title="Build Settings" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Build Settings" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-3.png" width="475" height="470" /></a></p>
+<p><a href="/assets/archive/2016/01/image-3.png"><img title="Build Settings" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Build Settings" src="/assets/archive/2016/01/image_thumb-3.png" width="475" height="470" /></a></p>
 <p>Select the configuration depending on you situation and click on “Create”. In the background the build definition will be created and you will be navigated to a screen that contains all the steps in order to deploy to Azure.</p>
 <h3>Configure the Build Definition Build Blocks</h3>
-<h3></h3>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-4.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-4.png" width="670" height="352" /></a></p>
+
+<p><a href="/assets/archive/2016/01/image-4.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/01/image_thumb-4.png" width="670" height="352" /></a></p>
 <p>The first two building blocks of the build definition can stay as they are by default. In the first building block there is a setting called “MSBuild Arguments”. This settings shows for example were the Web Deployment Package will be placed:</p>
-<pre class="brush: csharp;">/p:PackageLocation="$(build.artifactstagingdirectory)\\
+<pre class="highlight">/p:PackageLocation="$(build.artifactstagingdirectory)\\
 </pre>
 <p>The second block will execute tests if there are any in your solution. By default it will stop the build if there are tests that fail during the build. By selecting “Continue on error” the build will continue even if tests fail.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-5.png"><img title="Test Building Block" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Test Building Block" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-5.png" width="666" height="334" /></a></p>
+<p><a href="/assets/archive/2016/01/image-5.png"><img title="Test Building Block" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Test Building Block" src="/assets/archive/2016/01/image_thumb-5.png" width="666" height="334" /></a></p>
 <p>The next block is the block that will execute the deployment. As you can see the block is red and that is because not all required properties are filled in.</p>
 <p>Select the building block you will notice that the Azure subscription isn’t filled.</p>
 <p>When starting with a new VSTS tenant you will not have any Azure subscriptions configured. The Azure Subscription can be configured by clicking on “Manage”.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-6.png"><img title="Azure Deployment" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Azure Deployment" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-6.png" width="666" height="224" /></a></p>
+<p><a href="/assets/archive/2016/01/image-6.png"><img title="Azure Deployment" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Azure Deployment" src="/assets/archive/2016/01/image_thumb-6.png" width="666" height="224" /></a></p>
 <h3>Configure Azure Service Endpoint</h3>
 <p>Clicking on manage will open a new browser window will that brings you tot the services endpoint configuration page of VSTS. On this page a Azure Subscription needs to be added by selecting the + icon in the upper left corner, and then selecting Azure.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-7.png"><img title="Add Azure Subscription" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Add Azure Subscription" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-7.png" width="644" height="299" /></a></p>
+<p><a href="/assets/archive/2016/01/image-7.png"><img title="Add Azure Subscription" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Add Azure Subscription" src="/assets/archive/2016/01/image_thumb-7.png" width="644" height="299" /></a></p>
 <p>In the dialog that appears authentication information for windows Azure subscription needs to be filled in. This information has to be retrieved and this can be done with the Azure PowerShell window.</p>
 <ul>
 <li>Open the Microsoft Azure PowerShell window in administrative mode
 </li>
 <li>Execute the following PowerShell command:</li>
 </ul>
-<pre class="brush: powershell;">Get-AzurePublishSettingsFile 
+<pre class="highlight">Get-AzurePublishSettingsFile 
 </pre>
 <ul>
 <li>Executing the commend will open a web browser and automatically download your subscription file
@@ -96,15 +54,15 @@ permalink: "/2016/01/deploy-azure-website-vsts-build/"
 <li>Find the Subscription ID and the ManagementCertificate in the file.</li>
 </ul>
 <p>In the dialog window select “Certificate Based” and copy and past all the right information.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-8.png"><img title="Azure Subscription" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Azure Subscription" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-8.png" width="448" height="228" /></a></p>
+<p><a href="/assets/archive/2016/01/image-8.png"><img title="Azure Subscription" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Azure Subscription" src="/assets/archive/2016/01/image_thumb-8.png" width="448" height="228" /></a></p>
 <p>Press “OK” to save the Service Endpoint and navigate back to the build tab in your browser.</p>
 <p>With the service endpoint configured the&nbsp; Azure Subscription field needs to be refreshed. When the field is refreshed you can select the appropriate Azure Subscription.</p>
 <p>After setting the Azure Subscription the Web Site information needs to be added. The Web Deploy Package settings will deploy all zip files within your build it is also possible to specific a specific package if your know the name by altering the line.</p>
-<pre class="brush: powershell;">$(build.stagingDirectory)\MSFT-DEMO-WEBAPP.zip
+<pre class="highlight">$(build.stagingDirectory)\MSFT-DEMO-WEBAPP.zip
 </pre>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-9.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-9.png" width="666" height="190" /></a></p>
+<p><a href="/assets/archive/2016/01/image-9.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/01/image_thumb-9.png" width="666" height="190" /></a></p>
 <p>The last two building block have the right configuration by default. If you want you can also delete them from the build definition.</p>
 <p>Now that everything is setup correctly the build definition can be saved. When saving for the first time you will be able to give it a appropriate name.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-10.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-10.png" width="397" height="152" /></a></p>
+<p><a href="/assets/archive/2016/01/image-10.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/01/image_thumb-10.png" width="397" height="152" /></a></p>
 <p>When saved the build can be queued by selecting “Queue Build”.</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-11.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-11.png" width="669" height="223" /></a></p>
+<p><a href="/assets/archive/2016/01/image-11.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/01/image_thumb-11.png" width="669" height="223" /></a></p>

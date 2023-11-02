@@ -1,144 +1,115 @@
 ---
-layout: post
 title: Building your Azure Policies (GitHub Actions) - Part 3
-date: 2022-03-17 11:54:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
-- GitHub Actions
 tags:
 - Azure
 - GitHub Actions
 - Policy
 - Powershell
-meta:
-  _edit_last: '3'
-  _yoast_wpseo_primary_category: '323'
-  _yoast_wpseo_content_score: '60'
-  _yoast_wpseo_estimated-reading-time-minutes: '5'
-  _thumbnail_id: '6703'
-  _yoast_wpseo_focuskw: Policy
-  _yoast_wpseo_metadesc: In the first article policies are used to maintain the state.
-    In this part, we go over deploy custom policy definitions with GitHub Actions.
-  _yoast_wpseo_linkdex: '65'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Policy
-  _wds_title: ''
-  _wds_metadesc: In the first article policies are used to maintain the state. In
-    this part, we go over deploy custom policy definitions with GitHub Actions.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2022/03/building-your-azure-policies-github-actions-part-3/"
+date: 2022-03-17 11:54:00.000000000 +01:00
+permalink: /2022/03/building-your-azure-policies-github-actions-part-3/
+categories:
+- Azure
+- GitHub Actions
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>As written in <a href="https://msftplayground.com/2022/03/building-your-azure-policies-part-1/" target="_blank" rel="noreferrer noopener">part 1</a>, policies are used to maintain the state. The Azure portal itself contains a lot of OOTB policies, but you also want to create and deploy your own. In this article, we will go over how to deploy the policy definitions using GitHub Actions.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>In <a href="https://msftplayground.com/2022/03/building-your-azure-policies-azure-devops-part-2" target="_blank" rel="noreferrer noopener">part 2</a>, we deployed the definitions via Azure DevOps pipelines, and for the Github Actions, we will also use the script file. But in GitHub Actions, there is also another option for managing policy definitions.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Prerequisites</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Service principal in Azure Active Directory</li>
 <li>Credentials saved wihtin GitHub</li>
 <li>Access rights in Azure</li>
 <li>GitHub workflow</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>First couple of prerequisites</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>For this test, we will reuse the principal that we created in <a href="https://msftplayground.com/2022/03/building-your-azure-policies-azure-devops-part-2/" target="_blank" rel="noreferrer noopener">part 2</a> of the series. The credentials for this will be saved within a Github Secret.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>GitHub Secret</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The information for the authentication is saved within so-called&nbsp;<a href="https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions?WT.mc_id=DT-MVP-5004255" target="_blank" rel="noreferrer noopener">secrets</a>&nbsp;that are encrypted within GitHub that are saved on the organization, repository, or repository environment level. The credential information for the authentication against Azure is saved in JSON format.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">{
+
+
+<pre class="highlight">{
     "clientId": "[clientId]",
     "clientSecret": "[clientSecret]",
     "subscriptionId": "[subscription id]",
     "tenantId": "[Azure Active Directory Tenant Id]"
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To save the credential information, you can follow the below steps:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list {"ordered":true} --></p>
+
+
 <ol>
 <li>Within the GitHub repository go to settings and then secrets.</li>
 </ol>
-<p><!-- /wp:list --></p>
-<p><!-- wp:image {"id":6347,"linkDestination":"custom"} --></p>
-<figure class="wp-block-image"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-11.png" /><img src="{{ site.baseurl }}/assets/archive/2022/03/image-11-1024x548.png" alt="GitHub Secrets" class="wp-image-6347" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:list {"ordered":true,"start":2} --></p>
+
+
+<figure class="wp-block-image"><a href="/assets/archive/2021/06/image-11.png" /><img src="/assets/archive/2022/03/image-11-1024x548.png" alt="GitHub Secrets" class="wp-image-6347" /></figure>
+
+
 <ol start="2">
 <li>Click on “new repository secret”</li>
 <li>Fill in a name for the secret and use the json object for the value of the secret.</li>
 </ol>
-<p><!-- /wp:list --></p>
-<p><!-- wp:image {"id":6349,"linkDestination":"custom"} --></p>
-<figure class="wp-block-image"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-12.png" /><img src="{{ site.baseurl }}/assets/archive/2022/03/image-12-1024x337.png" alt="GitHub Actions Secret" class="wp-image-6349" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
+<figure class="wp-block-image"><a href="/assets/archive/2021/06/image-12.png" /><img src="/assets/archive/2022/03/image-12-1024x337.png" alt="GitHub Actions Secret" class="wp-image-6349" /></figure>
+
+
 <h2>Use the Azure steps within GitHub Actions</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With the credentials saved, we can get started with the workflow. Let's create a new workflow in the UI and give it a name and file name and remove the information that is not required. To work with Azure, we will use the so-called Azure steps and start with the login step.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Add the <a href="https://github.com/marketplace/actions/azure-login" target="_blank" rel="noreferrer noopener">'azure/login'</a> step and connect it to the correct secret. The YAML snippet is below.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code --></p>
-<pre class="wp-block-syntaxhighlighter-code">- uses: azure/login@v1
+
+
+<pre class="highlight">- uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS_MANAGEMENTGROUP}}.
         enable-AzPSSession: true </pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><em>"Make sure you add 'enable-AzPSSession: true' if you want to make use of Azure PowerShell in the workflow."</em></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>In this task, you see the reference to the secret we saved in the previous paragraph.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>GitHub Actions and Azure PowerShell</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>If you want to start from GitHub and deploy your definitions that haven't been deployed to Azure yet, you can reuse the script that we used in <a href="https://msftplayground.com/2022/03/building-your-azure-policies-azure-devops-part-2/" target="_blank" rel="noreferrer noopener">part 2</a> and execute it within GitHub actions via the <a href="https://github.com/marketplace/actions/azure-powershell-action" target="_blank" rel="noreferrer noopener">Azure PowerShell Action</a>.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code --></p>
-<pre class="wp-block-syntaxhighlighter-code">    - name: Run Azure PowerShell script
+
+
+<pre class="highlight">    - name: Run Azure PowerShell script
       uses: azure/powershell@v1
       with:
         inlineScript: |
           ./scripts/azpolicy.ps1 -Scope "${{env.Scope}}" -ScopeName "${{env.ScopeName}}" -PolicyFolder "${{env.Folder}}"
         azPSVersion: "latest"</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>We reference the same script file and supply it with the correct arguments in the task. For your reference, the complete Github Actions file would look like below.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">name: Policy - All Policies
+
+
+<pre class="highlight">name: Policy - All Policies
 on:
   workflow_dispatch:
     inputs:
@@ -169,24 +140,24 @@ jobs:
           ./scripts/azpolicy.ps1 -Scope "${{env.Scope}}" -ScopeName "${{env.ScopeName}}" -PolicyFolder "${{env.Folder}}"
         azPSVersion: "latest"
 </pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>GitHub Actions and Manage Policy Task</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>GitHub actions contain a task (<a href="https://github.com/marketplace/actions/manage-azure-policy" target="_blank" rel="noreferrer noopener">Manage Azure Policy</a>) to manage policy definitions, deploy them to the correct scopes, and manage the assignments. The downside of this task is that it requires the definitions to be deployed on Azure because it references the ids.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To use this, it is best to export the definitions from Azure and work in the below folder hierarchy.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6697,"sizeSlug":"full","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-full"><a href="https://msftplayground.com/wp-content/uploads/2022/03/image-5.png" /><img src="{{ site.baseurl }}/assets/archive/2022/03/image-5.png" alt="Policy structure" class="wp-image-6697" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image size-full"><a href="/assets/archive/2022/03/image-5.png" /><img src="/assets/archive/2022/03/image-5.png" alt="Policy structure" class="wp-image-6697" /></figure>
+
+
 <p>The name of the folders refers to the policy names, and the policy.json files contain the information of the policies. These files are the same as shown in part 1, except they have the id, type, and name properties. The task only needs to reference the policy folder, and you are good to go and manage your policy definitions.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">name: Policy - All Policies
+
+
+<pre class="highlight">name: Policy - All Policies
 on:
   workflow_dispatch:
     inputs:
@@ -209,24 +180,22 @@ jobs:
       with:      
         paths:  |                  
           policies/**</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>As you can see in the pipeline file, you may have noticed that this pipeline does not reference the management group. This is because the JSON file contains a reference to the id of the existing policy definition, so it knows where it is deployed.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With this task is, you can also manage your assignments by specifying that in the same folder structure when interested, take a look at the <a href="https://github.com/marketplace/actions/manage-azure-policy">page</a> of the extension.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Of course, this is not a production-grade solution, but it gives you the highlights on how to manage your policy definitions in code and how to deploy them.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>To be continued</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Part 1 - <a href="https://msftplayground.com/2022/03/building-your-azure-policies-part-1/" target="_blank" rel="noreferrer noopener">Building your Azure Policies – Part 1</a></li>
 <li>Part 2 - <a href="https://msftplayground.com/2022/03/building-your-azure-policies-azure-devops-part-2/" target="_blank" rel="noreferrer noopener">Building your Azure Policies (Azure DevOps) – Part 2</a></li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
-<p><!-- /wp:paragraph --></p>
+

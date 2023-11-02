@@ -1,56 +1,15 @@
 ---
-layout: post
-title: Install SharePoint 2013 Public Beta on Windows Server 2012 RC &ndash; Part
-  I &ndash; Installation of Windows Server 2012 RC
-date: 2012-06-14 06:25:00.000000000 +02:00
+title: Install SharePoint 2013 Public Beta on Windows Server 2012 RC &ndash; Part I &ndash; Installation of Windows Server 2012 RC
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
 tags:
 - Beta
 - SharePoint 2013
 - Windows Server 2012
-meta:
-  _wpt_short_url: http://bit.ly/1iH8g58
-  _wp_jd_target: http://msftplayground.com/2012/06/install-sharepoint-2013-public-beta-on-windows-server-2012-rc-part-i-installation-of-windows-server-2012-rc/
-  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:144:"Post Edited: Install SharePoint
-    2013 Public Beta on Windows Server 2012 RC – Part I – Installation of Windows
-    Server 2 http://bit.ly/1iH8g58";s:5:"error";s:171:"403 Forbidden: The request
-    is understood, but has been refused by Twitter. Possible reasons: too many Tweets,
-    same Tweet submitted twice, Tweet longer than 140 characters.";s:4:"code";i:403;s:9:"timestamp";i:1446796326;}'
-  _wpt_status_message: '403 Forbidden: The request is understood, but has been refused
-    by Twitter. Possible reasons: too many Tweets, same Tweet submitted twice, Tweet
-    longer than 140 characters.'
-  _oembed_1ba82f062134c494a889e607d118caea: "{{unknown}}"
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SharePoint 2013
-  _yoast_wpseo_focuskw: SharePoint 2013
-  _yoast_wpseo_linkdex: '70'
-  _oembed_eba07b9b609be5fa9378b0833c10122a: "{{unknown}}"
-  _oembed_cac274230a743a85c3c9e23f92389121: "{{unknown}}"
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _oembed_d423c6708f0fc8efdf8243018624c4cb: "{{unknown}}"
-  _oembed_c25bdc8a0c604c23819c4d62cd81bbff: "{{unknown}}"
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint 2013
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2012/06/install-sharepoint-2013-public-beta-on-windows-server-2012-rc-part-i-installation-of-windows-server-2012-rc/"
+date: 2012-06-14 06:25:00.000000000 +02:00
+permalink: /2012/06/install-sharepoint-2013-public-beta-on-windows-server-2012-rc-part-i-installation-of-windows-server-2012-rc/
+categories:
+- Administration
+status: publish
 ---
 <div class="ExternalClass1702728456E74761A8CFA633275EDC96">
 <p>With the new version of SharePoint almost in Public Beta (I have hopes it will be this month) it is time to show you how you can install it on the new Release Candidate of Windows Server 2012.</p>
@@ -65,27 +24,27 @@ permalink: "/2012/06/install-sharepoint-2013-public-beta-on-windows-server-2012-
 <p>So let us begin with the installation of Windows Server 2012 RC. First off make sure you have a ISO available of Windows Server 2012 RC. If you don not have the image already download it from the Microsoft site:</p>
 <p>http://www.microsoft.com/en-us/server-cloud/windows-server/2012-default.aspx</p>
 <p>When you have downloaded the image you can create a new virtual machine and assign a appropriate amount of memory. I have created my VM with 6 GB of memory.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/VM-Settings.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="VM-Settings" src="{{ site.baseurl }}/assets/archive/2012/06/VM-Settings_thumb.png" alt="VM-Settings" width="240" height="226" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/VM-Settings.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="VM-Settings" src="/assets/archive/2012/06/VM-Settings_thumb.png" alt="VM-Settings" width="240" height="226" border="0" /></a></p>
 <p>Attach the image file to the virtual machine and then boot it. It will automatically boot the installation wizard of Windows Server 2012 with the language selection screen.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/language-selection-screen.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="language-selection-screen" src="{{ site.baseurl }}/assets/archive/2012/06/language-selection-screen_thumb.png" alt="language-selection-screen" width="240" height="202" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/language-selection-screen.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="language-selection-screen" src="/assets/archive/2012/06/language-selection-screen_thumb.png" alt="language-selection-screen" width="240" height="202" border="0" /></a></p>
 <p>With the right language selected click ‘Next’  to proceed to the next step. The next step is easiest step of the installation. You only have to press the button “Install now”.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Install-now-step.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Install-now-step" src="{{ site.baseurl }}/assets/archive/2012/06/Install-now-step_thumb.png" alt="Install-now-step" width="240" height="202" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Install-now-step.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Install-now-step" src="/assets/archive/2012/06/Install-now-step_thumb.png" alt="Install-now-step" width="240" height="202" border="0" /></a></p>
 <p>When “Install now” is pressed the installation medium will load the actual setup files. In the mean time it will show you a dark blue screen with the waiting mouse cursor and the text “Setup is Starting”.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Setup-is-Starting.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Setup-is-Starting" src="{{ site.baseurl }}/assets/archive/2012/06/Setup-is-Starting_thumb.png" alt="Setup-is-Starting" width="240" height="202" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Setup-is-Starting.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Setup-is-Starting" src="/assets/archive/2012/06/Setup-is-Starting_thumb.png" alt="Setup-is-Starting" width="240" height="202" border="0" /></a></p>
 <p>When all the files are loaded it is time to begin the actual setup of Windows. Basically the complete setup really look like the installation of Windows Server 2008 R2 so I think you can guess what is coming next.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Operating-System-Selection.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Operating-System-Selection" src="{{ site.baseurl }}/assets/archive/2012/06/Operating-System-Selection_thumb.png" alt="Operating-System-Selection" width="240" height="202" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Operating-System-Selection.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Operating-System-Selection" src="/assets/archive/2012/06/Operating-System-Selection_thumb.png" alt="Operating-System-Selection" width="240" height="202" border="0" /></a></p>
 <p>Yep…. It is the Operating System selection screen. The only version available at the moment is the Windows Server 2012 Release Candidate Datacenter edition. You still have to take a good look because the installation disc also has the Server Core Installation. Choose the “ Server with a GUI” option and click next. Accept the license and again click next to go to the installation type screen.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Installation-Type.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Installation-Type" src="{{ site.baseurl }}/assets/archive/2012/06/Installation-Type_thumb.png" alt="Installation-Type" width="240" height="202" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Installation-Type.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Installation-Type" src="/assets/archive/2012/06/Installation-Type_thumb.png" alt="Installation-Type" width="240" height="202" border="0" /></a></p>
 <p>Like the installation of Windows 7 and Windows Server 2008 R2 you have the option to upgrade your current Operation System. Since this is a complete new installation we choose for “Custom: Install Windows Only (Advanced)”.</p>
 <p>In the next screen you will be asked to select the disk you would like to use for your installation. Select the right disk and click on “Next” .</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Disk-Selection.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Disk-Selection" src="{{ site.baseurl }}/assets/archive/2012/06/Disk-Selection_thumb.png" alt="Disk-Selection" width="240" height="202" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Disk-Selection.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Disk-Selection" src="/assets/archive/2012/06/Disk-Selection_thumb.png" alt="Disk-Selection" width="240" height="202" border="0" /></a></p>
 <p>After you selected the disk Windows will start installing the files to the specified disk.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Installation.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Installation" src="{{ site.baseurl }}/assets/archive/2012/06/Installation_thumb.png" alt="Installation" width="240" height="202" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Installation.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Installation" src="/assets/archive/2012/06/Installation_thumb.png" alt="Installation" width="240" height="202" border="0" /></a></p>
 <p>When the installation is done the server will reboot and starts preparing Windows. Just like the old version you then will be asked to give in your Administrator password.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Administrator-Password.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Administrator-Password" src="{{ site.baseurl }}/assets/archive/2012/06/Administrator-Password_thumb.png" alt="Administrator-Password" width="240" height="202" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Administrator-Password.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Administrator-Password" src="/assets/archive/2012/06/Administrator-Password_thumb.png" alt="Administrator-Password" width="240" height="202" border="0" /></a></p>
 <p>When you click the “Finish” the setup will finalize. After the finalization you will see the new ctrl+alt+delete screen.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/ctrl-alt-delete-screen.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ctrl-alt-delete-screen" src="{{ site.baseurl }}/assets/archive/2012/06/ctrl-alt-delete-screen_thumb.png" alt="ctrl-alt-delete-screen" width="240" height="202" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/ctrl-alt-delete-screen.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ctrl-alt-delete-screen" src="/assets/archive/2012/06/ctrl-alt-delete-screen_thumb.png" alt="ctrl-alt-delete-screen" width="240" height="202" border="0" /></a></p>
 <p>Press ctrl+alt+delete and login to the server the desktop will be loaded and you are ready to start installing new windows component with the new Server Manager.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Windows-Server-Desktop.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Windows-Server-Desktop" src="{{ site.baseurl }}/assets/archive/2012/06/Windows-Server-Desktop_thumb.png" alt="Windows-Server-Desktop" width="240" height="202" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Windows-Server-Desktop.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Windows-Server-Desktop" src="/assets/archive/2012/06/Windows-Server-Desktop_thumb.png" alt="Windows-Server-Desktop" width="240" height="202" border="0" /></a></p>
 <p>Like described at the top of the post this is the first post in a series of 6 posts. In the next post I will show you how to install the Active Directory component and the DNS component on Windows Server 2012 RC.</p>
 </div>

@@ -1,0 +1,765 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Azure Management - Microsoft Playground</title>
+<meta name="description" content="Azure Management and Governance is hard because Azure services are growing at a fast pace. Try to imagine that you are a Azure Administrator for a large company and that you need to maintain the Azure Subscription. If you start thinking about it sounds really hard and that makes you wonder about options that you have to manage and keep it running as it should be. For managing your Azure environment there are a couple of capabilities. Ad the time of writing there are the following build-in options:  Azure Policy &amp; Audit Role Based Access Control Azure Automation Resource Locks Azure Security Center Resource Groups Azure Advisor  Role Based Access Control is a huge one here. This was in place since the beginning of the new Azure Portal. This made sure you did not have to make someone Co-Administrator on your complete subscription. Besides the build-in options there is also a need to define a policy regarding your Azure Environment also called a Governance document. In the document you need to specify naming conventions that are used for creating and naming of services. The options described above can help you maintain that Governance. Azure Policy &amp; Audit Azure Policies and Audits help you manage risks within your Azure Environment / Subscription. Therefore it will help you by restricting, enforcing or auditing events. Some key facts for policies and audits in Azure are:  It is a default allow system. By default everything is allowed. You will need to define deny or audit actions. Policies are created by Policy definitions, which are if-then conditions. Policy definitions are defined in JSON Deployed and Maintained via the Resource Manager.  Policies within Azure can be build on three types of actions:  Deny: Stop / Cancel the request. Audit: Add a specific message to the Audit log. Append: Add information to the resource. For example add a specific tag.  The defined policies can be enforced within the following scopes:  Subscription Resource group Resource type  My article about Azure Policies published a few weeks ago shares some more information and also contains information about the implementation:  Define Azure Resource Manager Policies  Besides the article I also maintain a GitHub repository with policies I created:  https://github.com/MaikvanderGaag/MSFT-Azure-Policy  Alongside the policies you also have the activity (audit) log that gives insight in all activities in and around Azure.  Resource Locks Resource locks support another type of management on your resources. With resource locks you for example are able to make a resource read-only. Which makes it possible to secure resources in another way. At the time of writing this article Resource Locks support two actions:  CanNotDelete: You will not be able to delete the resources with this lock applied. ReadOnly: You only be able to read the resources with this lock applied, and will not be able to edit specific properties.  With a Resource Lock applied you can make sure someone does not accidently delete a business critical application, or for example the virtual network with the connection to the on-premise systems.">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Azure Management">
+<meta property="og:url" content="http://localhost:4000/2017/01/azure-management/">
+
+
+  <meta property="og:description" content="Azure Management and Governance is hard because Azure services are growing at a fast pace. Try to imagine that you are a Azure Administrator for a large company and that you need to maintain the Azure Subscription. If you start thinking about it sounds really hard and that makes you wonder about options that you have to manage and keep it running as it should be. For managing your Azure environment there are a couple of capabilities. Ad the time of writing there are the following build-in options:  Azure Policy &amp; Audit Role Based Access Control Azure Automation Resource Locks Azure Security Center Resource Groups Azure Advisor  Role Based Access Control is a huge one here. This was in place since the beginning of the new Azure Portal. This made sure you did not have to make someone Co-Administrator on your complete subscription. Besides the build-in options there is also a need to define a policy regarding your Azure Environment also called a Governance document. In the document you need to specify naming conventions that are used for creating and naming of services. The options described above can help you maintain that Governance. Azure Policy &amp; Audit Azure Policies and Audits help you manage risks within your Azure Environment / Subscription. Therefore it will help you by restricting, enforcing or auditing events. Some key facts for policies and audits in Azure are:  It is a default allow system. By default everything is allowed. You will need to define deny or audit actions. Policies are created by Policy definitions, which are if-then conditions. Policy definitions are defined in JSON Deployed and Maintained via the Resource Manager.  Policies within Azure can be build on three types of actions:  Deny: Stop / Cancel the request. Audit: Add a specific message to the Audit log. Append: Add information to the resource. For example add a specific tag.  The defined policies can be enforced within the following scopes:  Subscription Resource group Resource type  My article about Azure Policies published a few weeks ago shares some more information and also contains information about the implementation:  Define Azure Resource Manager Policies  Besides the article I also maintain a GitHub repository with policies I created:  https://github.com/MaikvanderGaag/MSFT-Azure-Policy  Alongside the policies you also have the activity (audit) log that gives insight in all activities in and around Azure.  Resource Locks Resource locks support another type of management on your resources. With resource locks you for example are able to make a resource read-only. Which makes it possible to secure resources in another way. At the time of writing this article Resource Locks support two actions:  CanNotDelete: You will not be able to delete the resources with this lock applied. ReadOnly: You only be able to read the resources with this lock applied, and will not be able to edit specific properties.  With a Resource Lock applied you can make sure someone does not accidently delete a business critical application, or for example the virtual network with the connection to the on-premise systems.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Azure Management">
+  <meta name="twitter:description" content="Azure Management and Governance is hard because Azure services are growing at a fast pace. Try to imagine that you are a Azure Administrator for a large company and that you need to maintain the Azure Subscription. If you start thinking about it sounds really hard and that makes you wonder about options that you have to manage and keep it running as it should be. For managing your Azure environment there are a couple of capabilities. Ad the time of writing there are the following build-in options:  Azure Policy &amp; Audit Role Based Access Control Azure Automation Resource Locks Azure Security Center Resource Groups Azure Advisor  Role Based Access Control is a huge one here. This was in place since the beginning of the new Azure Portal. This made sure you did not have to make someone Co-Administrator on your complete subscription. Besides the build-in options there is also a need to define a policy regarding your Azure Environment also called a Governance document. In the document you need to specify naming conventions that are used for creating and naming of services. The options described above can help you maintain that Governance. Azure Policy &amp; Audit Azure Policies and Audits help you manage risks within your Azure Environment / Subscription. Therefore it will help you by restricting, enforcing or auditing events. Some key facts for policies and audits in Azure are:  It is a default allow system. By default everything is allowed. You will need to define deny or audit actions. Policies are created by Policy definitions, which are if-then conditions. Policy definitions are defined in JSON Deployed and Maintained via the Resource Manager.  Policies within Azure can be build on three types of actions:  Deny: Stop / Cancel the request. Audit: Add a specific message to the Audit log. Append: Add information to the resource. For example add a specific tag.  The defined policies can be enforced within the following scopes:  Subscription Resource group Resource type  My article about Azure Policies published a few weeks ago shares some more information and also contains information about the implementation:  Define Azure Resource Manager Policies  Besides the article I also maintain a GitHub repository with policies I created:  https://github.com/MaikvanderGaag/MSFT-Azure-Policy  Alongside the policies you also have the activity (audit) log that gives insight in all activities in and around Azure.  Resource Locks Resource locks support another type of management on your resources. With resource locks you for example are able to make a resource read-only. Which makes it possible to secure resources in another way. At the time of writing this article Resource Locks support two actions:  CanNotDelete: You will not be able to delete the resources with this lock applied. ReadOnly: You only be able to read the resources with this lock applied, and will not be able to edit specific properties.  With a Resource Lock applied you can make sure someone does not accidently delete a business critical application, or for example the virtual network with the connection to the on-premise systems.">
+  <meta name="twitter:url" content="http://localhost:4000/2017/01/azure-management/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2017-01-09T16:25:15+01:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2017/01/azure-management/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Azure Management">
+    <meta itemprop="description" content="Azure Management and Governance is hard because Azure services are growing at a fast pace. Try to imagine that you are a Azure Administrator for a large company and that you need to maintain the Azure Subscription.If you start thinking about it sounds really hard and that makes you wonder about options that you have to manage and keep it running as it should be.For managing your Azure environment there are a couple of capabilities. Ad the time of writing there are the following build-in options:Azure Policy &amp; AuditRole Based Access ControlAzure AutomationResource LocksAzure Security CenterResource GroupsAzure AdvisorRole Based Access Control is a huge one here. This was in place since the beginning of the new Azure Portal. This made sure you did not have to make someone Co-Administrator on your complete subscription. Besides the build-in options there is also a need to define a policy regarding your Azure Environment also called a Governance document. In the document you need to specify naming conventions that are used for creating and naming of services. The options described above can help you maintain that Governance.Azure Policy &amp; AuditAzure Policies and Audits help you manage risks within your Azure Environment / Subscription. Therefore it will help you by restricting, enforcing or auditing events.Some key facts for policies and audits in Azure are:It is a default allow system. By default everything is allowed. You will need to define deny or audit actions.Policies are created by Policy definitions, which are if-then conditions.Policy definitions are defined in JSONDeployed and Maintained via the Resource Manager.Policies within Azure can be build on three types of actions:Deny: Stop / Cancel the request.Audit: Add a specific message to the Audit log.Append: Add information to the resource. For example add a specific tag.The defined policies can be enforced within the following scopes:SubscriptionResource groupResource typeMy article about Azure Policies published a few weeks ago shares some more information and also contains information about the implementation:Define Azure Resource Manager PoliciesBesides the article I also maintain a GitHub repository with policies I created:https://github.com/MaikvanderGaag/MSFT-Azure-PolicyAlongside the policies you also have the activity (audit) log that gives insight in all activities in and around Azure.Resource LocksResource locks support another type of management on your resources. With resource locks you for example are able to make a resource read-only. Which makes it possible to secure resources in another way. At the time of writing this article Resource Locks support two actions:CanNotDelete: You will not be able to delete the resources with this lock applied.ReadOnly: You only be able to read the resources with this lock applied, and will not be able to edit specific properties.With a Resource Lock applied you can make sure someone does not accidently delete a business critical application, or for example the virtual network with the connection to the on-premise systems.">
+    <meta itemprop="datePublished" content="2017-01-09T16:25:15+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Azure Management
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          6 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Azure Management and Governance is hard because Azure services are growing at a fast pace. Try to imagine that you are a Azure Administrator for a large company and that you need to maintain the Azure Subscription.</p>
+<p>If you start thinking about it sounds really hard and that makes you wonder about options that you have to manage and keep it running as it should be.</p>
+<p>For managing your Azure environment there are a couple of capabilities. Ad the time of writing there are the following build-in options:</p>
+<ul>
+<li>Azure Policy &amp; Audit</li>
+<li>Role Based Access Control</li>
+<li>Azure Automation</li>
+<li>Resource Locks</li>
+<li>Azure Security Center</li>
+<li>Resource Groups</li>
+<li>Azure Advisor</li>
+</ul>
+<p>Role Based Access Control is a huge one here. This was in place since the beginning of the new Azure Portal. This made sure you did not have to make someone Co-Administrator on your complete subscription. Besides the build-in options there is also a need to define a policy regarding your Azure Environment also called a Governance document. In the document you need to specify naming conventions that are used for creating and naming of services. The options described above can help you maintain that Governance.</p>
+<h2>Azure Policy &amp; Audit</h2>
+<p>Azure Policies and Audits help you manage risks within your Azure Environment / Subscription. Therefore it will help you by restricting, enforcing or auditing events.</p>
+<p>Some key facts for policies and audits in Azure are:</p>
+<ul>
+<li>It is a default allow system. By default everything is allowed. You will need to define deny or audit actions.</li>
+<li>Policies are created by Policy definitions, which are if-then conditions.</li>
+<li>Policy definitions are defined in JSON</li>
+<li>Deployed and Maintained via the Resource Manager.</li>
+</ul>
+<p>Policies within Azure can be build on three types of actions:</p>
+<ul>
+<li>
+<strong>Deny</strong>: Stop / Cancel the request.</li>
+<li>
+<strong>Audit</strong>: Add a specific message to the Audit log.</li>
+<li>
+<strong>Append</strong>: Add information to the resource. For example add a specific tag.</li>
+</ul>
+<p>The defined policies can be enforced within the following scopes:</p>
+<ul>
+<li>Subscription</li>
+<li>Resource group</li>
+<li>Resource type</li>
+</ul>
+<p>My article about Azure Policies published a few weeks ago shares some more information and also contains information about the implementation:</p>
+<ul>
+<li><a title="https://msftplayground.com/2016/11/define-azure-resource-manager-policies/" href="https://msftplayground.com/2016/11/define-azure-resource-manager-policies/" target="_blank" rel="noopener noreferrer">Define Azure Resource Manager Policies</a></li>
+</ul>
+<p>Besides the article I also maintain a GitHub repository with policies I created:</p>
+<ul>
+<li><a href="https://github.com/MaikvanderGaag/MSFT-Azure-Policy" target="_blank" rel="noopener noreferrer">https://github.com/MaikvanderGaag/MSFT-Azure-Policy</a></li>
+</ul>
+<p>Alongside the policies you also have the activity (audit) log that gives insight in all activities in and around Azure.</p>
+<p><a href="/assets/archive/2016/12/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="/assets/archive/2017/01/image_thumb.png" alt="image" width="621" height="236" border="0"></a></p>
+<h2>Resource Locks</h2>
+<p>Resource locks support another type of management on your resources. With resource locks you for example are able to make a resource read-only. Which makes it possible to secure resources in another way. At the time of writing this article Resource Locks support two actions:</p>
+<ul>
+<li>
+<strong>CanNotDelete: </strong>You will not be able to delete the resources with this lock applied.</li>
+<li>
+<strong>ReadOnly: </strong>You only be able to read the resources with this lock applied, and will not be able to edit specific properties.</li>
+</ul>
+<p>With a Resource Lock applied you can make sure someone does not accidently delete a business critical application, or for example the virtual network with the connection to the on-premise systems.</p>
+
+<h2>Resource Tags</h2>
+<p>Within Azure you have the option to add metadata to your resources in the form of tags. Tags are key value pairs that enable you to group and aggregate resources in various ways. With the use of Azure Policies you can also make sure that resources are tagged automatically with for example the Cost Center. Examples for tags are:</p>
+<ul>
+<li>Cost Center</li>
+<li>Department</li>
+<li>Owner</li>
+<li>Project</li>
+</ul>
+<p><a href="/assets/archive/2016/12/tags.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="tags" src="/assets/archive/2017/01/tags_thumb.png" alt="tags" width="841" height="442" border="0"></a></p>
+<p> </p>
+<p>In my opinion you should always tag your resources groups with useful information and tag the resources within with the tags that are appropriate.</p>
+<h2>Resource Groups</h2>
+<p>A Resource group is a logical container for resources. You can resources by project or application for example.</p>
+<p>The resource group gives you the ability to manage the following:</p>
+<ul>
+<li>Delete resources at once.</li>
+<li>Move resources at once.</li>
+<li>Assign rights for the resource group.</li>
+</ul>
+<p>Because of the new model of Azure you can also assign rights within a Resource Group like Role-based access control to give access to resources.</p>
+<h2>Azure Automation</h2>
+<p>This service provides a way for people to automate the manual, long-running, error-prone, and frequently repeated tasks that are commonly performed in a enterprise environment.</p>
+<p>With Azure Automation you create so called Runbooks that are sets of tasks that are needed to be performed. You can use Runbooks created by the community within you Azure Environment.</p>
+<ul>
+<li><a title="https://gallery.technet.microsoft.com/scriptcenter/site/search?f%5B0%5D.Type=RootCategory&amp;f%5B0%5D.Value=WindowsAzure&amp;f%5B1%5D.Type=SubCategory&amp;f%5B1%5D.Value=WindowsAzure_automation&amp;f%5B1%5D.Text=Automation" href="https://gallery.technet.microsoft.com/scriptcenter/site/search?f%5B0%5D.Type=RootCategory&amp;f%5B0%5D.Value=WindowsAzure&amp;f%5B1%5D.Type=SubCategory&amp;f%5B1%5D.Value=WindowsAzure_automation&amp;f%5B1%5D.Text=Automation" target="_blank" rel="noopener noreferrer">Azure Automation: Script resources for IT professionals</a></li>
+<li><a title="https://docs.microsoft.com/en-us/azure/automation/automation-runbook-gallery#runbooks-in-runbook-gallery" href="https://docs.microsoft.com/en-us/azure/automation/automation-runbook-gallery#runbooks-in-runbook-gallery" target="_blank" rel="noopener noreferrer">Runbook and module galleries for Azure Automation</a></li>
+</ul>
+<p>Examples for Runbooks are:</p>
+<ul>
+<li>Automatically shut down Azure VM’s</li>
+<li>Start and run specific services.</li>
+</ul>
+<h2>Azure Security Center</h2>
+<p>As Microsoft states Security Center helps you prevent, detect, and respond to threats with increased visibility into and control over the security of your Azure resources. It provides integrated security monitoring and policy management across your Azure subscriptions, helps detect threats that might otherwise go unnoticed, and works with a broad ecosystem of security solutions.</p>
+<p>In the most simple form Azure Security Center is a service that gives you recommendation about the security of your services. Besides that it is also able to monitor the services in order to detect threats within your environment.</p>
+<p><a href="/assets/archive/2016/12/security-center.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="security center" src="/assets/archive/2017/01/security-center_thumb.png" alt="security center" width="852" height="593" border="0"></a></p>
+<p>Policies within Security center can be turned off when they are not seen as threats and based on specific settings you can also define alerts.</p>
+<h2>Azure Advisor</h2>
+<p>Since last month “Azure Advisor” made it to public preview. The service is a recommendation engine that recommends steps to optimally configure your Azure resources. By analyzing the resource configuration and usage data it is able to make recommendations according to the best practices that in the long run will reduce costs and better the performance.</p>
+<p>The Azure Advisor will give recommendation on four categories:</p>
+<ul>
+<li>High Availability</li>
+<li>Security</li>
+<li>Performance</li>
+<li>Costs</li>
+</ul>
+<p>You may noticed that the list also contains a Security category this category is a integration with Azure Security Center.</p>
+<p>For information and how to start using the service read the following article:</p>
+<ul>
+<li><a title="https://msftplayground.com/2016/11/recommendations-on-azure-with-azure-advisor/" href="https://msftplayground.com/2016/11/recommendations-on-azure-with-azure-advisor/" target="_blank" rel="noopener noreferrer">Recommendations on Azure with Azure Advisor</a></li>
+</ul>
+<h2>Useful links</h2>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-subscription-service-limits" target="_blank" rel="noopener noreferrer">Azure subscription and service limits, quotas, and constraints</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/guidance/guidance-naming-conventions" target="_blank" rel="noopener noreferrer">Recommended naming conventions for Azure resources</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-manager-policy" target="_blank" rel="noopener noreferrer">Use Policy to manage resources and control access</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-audit" target="_blank" rel="noopener noreferrer">Audit operations with Resource Manager</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-using-tags" target="_blank" rel="noopener noreferrer">Using tags to organize your Azure resources</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-lock-resources" target="_blank" rel="noopener noreferrer">Lock resources with Azure Resource Manager</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/automation/automation-intro" target="_blank" rel="noopener noreferrer">Azure Automation overview</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/automation/automation-runbook-gallery" target="_blank" rel="noopener noreferrer">Runbook and module galleries for Azure Automation</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/security-center/security-center-intro" target="_blank" rel="noopener noreferrer">Introduction to Azure Security Center</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/advisor/advisor-overview" target="_blank" rel="noopener noreferrer">Introduction to Azure Advisor</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#azure-management-governance" class="page__taxonomy-item" rel="tag">Azure;Management;Governance</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#administration" class="page__taxonomy-item" rel="tag">Administration</a><span class="sep">, </span>
+    
+      <a href="/categories/#azure" class="page__taxonomy-item" rel="tag">Azure</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-01-09T16:25:15+01:00">January 9, 2017</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Azure+Management%20http%3A%2F%2Flocalhost%3A4000%2F2017%2F01%2Fazure-management%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2017%2F01%2Fazure-management%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2017%2F01%2Fazure-management%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2016/12/2016-review-msftplayground/" class="pagination--pager" title="2016 review of MSFTPlayground
+">Previous</a>
+    
+    
+      <a href="/2017/01/undo-checkout-within-tfs/" class="pagination--pager" title="Undo Checkout within TFS or VSTS
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

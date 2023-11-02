@@ -1,0 +1,748 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Part 3 – Console application to call a API with Azure Active Directory Authentication - Microsoft Playground</title>
+<meta name="description" content="This post is the third and last in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to a API and then to an Azure SQL Database. In this post we will create a console application to query the API published in Azure. Previous Posts:  Part 1 – Azure SQL Database with Azure Active Directory Authentication Part 2 – Azure API Application to query the Azure SQL Database  Add new Application to Azure Active Directory In order to call our API we need to have a registered application within Azure Active Directory that has delegated permissions for the API application.  Navigate to the Azure Portal (https://portal.azure.com/) Open the “Azure Active Directory” blade. In the blade click on “App Registrations”. In the “App Registrations” blade click on “New application registration”. Fill in a Name (like ConsoleApplication), Application Type: Native and Redirect Url: https://localhost. With everything filled in click on “Create”.    With the application registration created click on the registered application in the application list. In this window copy the ClientId of the application and click on “Required permissions”.    Click “Add” in the Required permissions blade to give the console application delegated permissions on the API we created. In the “Select an API” search for your created API application and select it. The permission step will open, make sure you select your application under “Delegated Permissions” and click “Select”. In the steps blade click “Done”.  Create console application  Open Visual Studio and create a new Console Application. Open the NuGet Package manager and add the following package:  Microsoft.IdentityModel.Clients.ActiveDirectory – Version: 2.22.302111727    Note: Make sure you install version: 2.22.302111727. This version contains the option to prompt for user credentials. Client authentication with authentication prompt  In the “Program.cs” file add the below methods.  private static void TestApi(string url) {">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Part 3 – Console application to call a API with Azure Active Directory Authentication">
+<meta property="og:url" content="http://localhost:4000/2017/05/part-3-console-application-call-api/">
+
+
+  <meta property="og:description" content="This post is the third and last in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to a API and then to an Azure SQL Database. In this post we will create a console application to query the API published in Azure. Previous Posts:  Part 1 – Azure SQL Database with Azure Active Directory Authentication Part 2 – Azure API Application to query the Azure SQL Database  Add new Application to Azure Active Directory In order to call our API we need to have a registered application within Azure Active Directory that has delegated permissions for the API application.  Navigate to the Azure Portal (https://portal.azure.com/) Open the “Azure Active Directory” blade. In the blade click on “App Registrations”. In the “App Registrations” blade click on “New application registration”. Fill in a Name (like ConsoleApplication), Application Type: Native and Redirect Url: https://localhost. With everything filled in click on “Create”.    With the application registration created click on the registered application in the application list. In this window copy the ClientId of the application and click on “Required permissions”.    Click “Add” in the Required permissions blade to give the console application delegated permissions on the API we created. In the “Select an API” search for your created API application and select it. The permission step will open, make sure you select your application under “Delegated Permissions” and click “Select”. In the steps blade click “Done”.  Create console application  Open Visual Studio and create a new Console Application. Open the NuGet Package manager and add the following package:  Microsoft.IdentityModel.Clients.ActiveDirectory – Version: 2.22.302111727    Note: Make sure you install version: 2.22.302111727. This version contains the option to prompt for user credentials. Client authentication with authentication prompt  In the “Program.cs” file add the below methods.  private static void TestApi(string url) {">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Part 3 – Console application to call a API with Azure Active Directory Authentication">
+  <meta name="twitter:description" content="This post is the third and last in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to a API and then to an Azure SQL Database. In this post we will create a console application to query the API published in Azure. Previous Posts:  Part 1 – Azure SQL Database with Azure Active Directory Authentication Part 2 – Azure API Application to query the Azure SQL Database  Add new Application to Azure Active Directory In order to call our API we need to have a registered application within Azure Active Directory that has delegated permissions for the API application.  Navigate to the Azure Portal (https://portal.azure.com/) Open the “Azure Active Directory” blade. In the blade click on “App Registrations”. In the “App Registrations” blade click on “New application registration”. Fill in a Name (like ConsoleApplication), Application Type: Native and Redirect Url: https://localhost. With everything filled in click on “Create”.    With the application registration created click on the registered application in the application list. In this window copy the ClientId of the application and click on “Required permissions”.    Click “Add” in the Required permissions blade to give the console application delegated permissions on the API we created. In the “Select an API” search for your created API application and select it. The permission step will open, make sure you select your application under “Delegated Permissions” and click “Select”. In the steps blade click “Done”.  Create console application  Open Visual Studio and create a new Console Application. Open the NuGet Package manager and add the following package:  Microsoft.IdentityModel.Clients.ActiveDirectory – Version: 2.22.302111727    Note: Make sure you install version: 2.22.302111727. This version contains the option to prompt for user credentials. Client authentication with authentication prompt  In the “Program.cs” file add the below methods.  private static void TestApi(string url) {">
+  <meta name="twitter:url" content="http://localhost:4000/2017/05/part-3-console-application-call-api/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2017-05-10T08:25:27+02:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2017/05/part-3-console-application-call-api/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Part 3 – Console application to call a API with Azure Active Directory Authentication">
+    <meta itemprop="description" content="This post is the third and last in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to a API and then to an Azure SQL Database. In this post we will create a console application to query the API published in Azure.Previous Posts:Part 1 – Azure SQL Database with Azure Active Directory AuthenticationPart 2 – Azure API Application to query the Azure SQL DatabaseAdd new Application to Azure Active DirectoryIn order to call our API we need to have a registered application within Azure Active Directory that has delegated permissions for the API application.Navigate to the Azure Portal (https://portal.azure.com/)Open the “Azure Active Directory” blade.In the blade click on “App Registrations”.In the “App Registrations” blade click on “New application registration”.Fill in a Name (like ConsoleApplication), Application Type: Native and Redirect Url: https://localhost. With everything filled in click on “Create”.With the application registration created click on the registered application in the application list.In this window copy the ClientId of the application and click on “Required permissions”.Click “Add” in the Required permissions blade to give the console application delegated permissions on the API we created.In the “Select an API” search for your created API application and select it.The permission step will open, make sure you select your application under “Delegated Permissions” and click “Select”.In the steps blade click “Done”.Create console applicationOpen Visual Studio and create a new Console Application.Open the NuGet Package manager and add the following package:Microsoft.IdentityModel.Clients.ActiveDirectory – Version: 2.22.302111727Note: Make sure you install version: 2.22.302111727. This version contains the option to prompt for user credentials.Client authentication with authentication promptIn the “Program.cs” file add the below methods.private static void TestApi(string url) {">
+    <meta itemprop="datePublished" content="2017-05-10T08:25:27+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Part 3 – Console application to call a API with Azure Active Directory Authentication
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>This post is the third and last in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to a API and then to an Azure SQL Database. In this post we will create a console application to query the API published in Azure.</p>
+<p>Previous Posts:</p>
+<ul>
+<li><a href="https://msftplayground.com/2017/04/part-1-azure-sql-database-with-azure-active-directory-authentication" target="_blank" rel="noopener noreferrer noopener noreferrer">Part 1 – Azure SQL Database with Azure Active Directory Authentication</a></li>
+<li><a href="https://msftplayground.com/2017/05/part-2-azure-api-application-to-query-the-azure-sql-database" target="_blank" rel="noopener noreferrer noopener noreferrer">Part 2 – Azure API Application to query the Azure SQL Database</a></li>
+</ul>
+<h2>Add new Application to Azure Active Directory</h2>
+<p>In order to call our API we need to have a registered application within Azure Active Directory that has delegated permissions for the API application.</p>
+<ol>
+<li>Navigate to the Azure Portal (<a href="https://portal.azure.com/)" target="_blank" rel="noopener noreferrer">https://portal.azure.com/)</a>
+</li>
+<li>Open the “Azure Active Directory” blade.</li>
+<li>In the blade click on “App Registrations”.</li>
+<li>In the “App Registrations” blade click on “New application registration”.</li>
+<li>Fill in a Name (like ConsoleApplication), Application Type: Native and Redirect Url: https://localhost. With everything filled in click on “Create”.</li>
+</ol>
+<p><a href="/assets/archive/2017/04/clip_image008.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Add Application" src="/assets/archive/2017/05/clip_image008_thumb.jpg" alt="Add Application" width="240" height="212" border="0"></a></p>
+<ol start="6">
+<li>With the application registration created click on the registered application in the application list.</li>
+<li>In this window copy the ClientId of the application and click on “Required permissions”.</li>
+</ol>
+<p><a href="/assets/archive/2017/04/clip_image010.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Console Application Permissions" src="/assets/archive/2017/05/clip_image010_thumb.png" alt="Console Application Permissions" width="1081" height="275" border="0"></a></p>
+<ol start="8">
+<li>Click “Add” in the Required permissions blade to give the console application delegated permissions on the API we created.</li>
+<li>In the “Select an API” search for your created API application and select it.</li>
+<li>The permission step will open, make sure you select your application under “Delegated Permissions” and click “Select”.</li>
+<li>In the steps blade click “Done”.</li>
+</ol>
+<h2>Create console application</h2>
+<ol>
+<li>Open Visual Studio and create a new Console Application.</li>
+<li>Open the NuGet Package manager and add the following package:
+<ul>
+<li>Microsoft.IdentityModel.Clients.ActiveDirectory – <strong>Version: 2.22.302111727</strong>
+</li>
+</ul>
+</li>
+</ol>
+<p><em><strong>Note: </strong>Make sure you install version: 2.22.302111727. This version contains the option to prompt for user credentials.</em></p>
+<h2>Client authentication with authentication prompt</h2>
+<ol>
+<li>In the “Program.cs” file add the below methods.</li>
+</ol>
+<pre class="highlight">private static void TestApi(string url) {
+
+    var authResult = GetToken();
+    string token = authResult.AccessToken;
+    if (token != null) {
+
+        HttpClient client = new HttpClient();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        var response = client.GetAsync(new Uri(url));
+
+        string content = response.Result.Content.ReadAsStringAsync().Result;
+        Console.WriteLine(content);
+    }
+}
+
+private static AuthenticationResult GetToken() {
+
+    string aadInstance = "https://login.windows.net/{0}";
+    string ResourceId = ConfigurationManager.AppSettings["ResourceId"];
+    string tenantId = ConfigurationManager.AppSettings["TenantId"];
+    string clientId = ConfigurationManager.AppSettings["ClientId"];
+    string replyAddress = ConfigurationManager.AppSettings["ReplyAddressConfigured"];
+    AuthenticationContext authenticationContext =
+      new AuthenticationContext(string.Format(aadInstance, tenantId));
+
+    AuthenticationResult authenticationResult = authenticationContext.AcquireToken(ResourceId, clientId, new Uri(replyAddress), PromptBehavior.RefreshSession);
+
+    return authenticationResult;
+}
+
+</pre>
+<p>The methods will call the API with the URL as specified in the “url” parameter but also retrieve a token for the user that logs in to the prompt. The “GetToken” method makes sure this prompt is shown by the "PromptBehavior" enumeration.</p>
+<ol start="2">
+<li>With the methods in the “Program.cs” file we need to adjust the main method.</li>
+</ol>
+<pre class="highlight">static void Main(string[] args) {
+
+    string url = ConfigurationManager.AppSettings["Url"];
+
+    if (string.IsNullOrEmpty(url)) {
+        Console.WriteLine("Please fill in your URL:");
+        url = Console.ReadLine();
+    }
+
+    Console.WriteLine("Calling url: " + url);
+
+    TestApi(url);
+    Console.WriteLine("Done processing, press any key to close....");
+    Console.ReadKey();
+}
+
+</pre>
+<ol start="3">
+<li>As you may have seen in the previous methods we will save the settings in the configuration file. Open the file and add those settings.</li>
+</ol>
+<pre class="highlight">&lt;appSettings&gt;
+
+        
+      </pre></section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#api" class="page__taxonomy-item" rel="tag">API</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure-app-services" class="page__taxonomy-item" rel="tag">Azure App Services</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure-sql-server" class="page__taxonomy-item" rel="tag">Azure SQL Server</a><span class="sep">, </span>
+    
+      <a href="/tags/#identity" class="page__taxonomy-item" rel="tag">Identity</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#development" class="page__taxonomy-item" rel="tag">Development</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-05-10T08:25:27+02:00">May 10, 2017</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Part+3+%26ndash%3B+Console+application+to+call+a+API+with+Azure+Active+Directory+Authentication%20http%3A%2F%2Flocalhost%3A4000%2F2017%2F05%2Fpart-3-console-application-call-api%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2017%2F05%2Fpart-3-console-application-call-api%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2017%2F05%2Fpart-3-console-application-call-api%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/05/attending-microsoft-build-2017/" class="pagination--pager" title="Attending Microsoft Build 2017
+">Previous</a>
+    
+    
+      <a href="/2017/05/build-2017-announcements-that-effect-your-work/" class="pagination--pager" title="Build 2017 announcements that effect your work
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

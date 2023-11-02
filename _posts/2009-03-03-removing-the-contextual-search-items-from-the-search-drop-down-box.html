@@ -1,40 +1,15 @@
 ---
-layout: post
 title: Removing the Contextual Search items from the Search Drop Down Box
-date: 2009-03-03 06:30:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
-- SharePoint
 tags:
 - Contextual
 - Search Drop Down
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SharePoint
-  _yoast_wpseo_focuskw: SharePoint
-  _yoast_wpseo_linkdex: '59'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2009/03/removing-the-contextual-search-items-from-the-search-drop-down-box/"
+date: 2009-03-03 06:30:00.000000000 +01:00
+permalink: /2009/03/removing-the-contextual-search-items-from-the-search-drop-down-box/
+categories:
+- Development
+- SharePoint
+status: publish
 ---
 <div class="ExternalClass6CAEF2CF0EB74C25967E7B9892CCFED2">
 <p>For one of our clients we were looking for a solution to remove or replace the search result page that is used by the contextual searches from the Search DropDownBox. This because the contextual search let to a page “/_layouts/osssearchresults.aspx” or “/_layouts/searchresults.aspx” depending on whether you use WSS or MOSS. </p>
@@ -43,7 +18,7 @@ permalink: "/2009/03/removing-the-contextual-search-items-from-the-search-drop-d
 <p>We thought that there would be a certain property for disabling the searches. But there isn’t, you have to create a custom feature were in you define a new search area where in you want to disable the contextual search.</p>
 <p>You can define it like this:</p>
 <p><strong>feature.xml</strong></p>
-<pre class="brush: xml;"> &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+<pre class="highlight"> &lt;?xml version="1.0" encoding="utf-8" ?&gt;
  &lt;Feature  Id="89FC9564-0E82-490f-AD47-8678A619AB75A"
            Title="CustomSearchBox"
            Description="$Resources:EnhancedSearch_Feature_Description;"
@@ -57,7 +32,7 @@ permalink: "/2009/03/removing-the-contextual-search-items-from-the-search-drop-d
  &lt;/Feature&gt; </pre>
 <p>This is the code you need for the feature. In de searcharea.xml the xml defines the search area:</p>
 <p><strong>SearchArea.xml</strong></p>
-<pre class="brush: xml;"> &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+<pre class="highlight"> &lt;?xml version="1.0" encoding="utf-8" ?&gt;
  &lt;Elements xmlns="http://schemas.microsoft.com/sharepoint/"&gt;
      &lt;Control
          Id="SmallSearchInputBox"

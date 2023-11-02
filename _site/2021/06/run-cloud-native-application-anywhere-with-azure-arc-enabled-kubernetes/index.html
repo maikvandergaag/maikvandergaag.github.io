@@ -1,0 +1,1047 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Run cloud native application anywhere with Azure Arc enabled Kubernetes - Microsoft Playground</title>
+<meta name="description" content="At the beginning of this year Microsoft released Azure Arc enabled Kubernetes, this enabled you to attach conformant&nbsp;Kubernetes&nbsp;clusters to Azure for management.&nbsp;With a new preview release Microsoft introduced the capabilities of running Azure application services on Kubernetes anywhere you want. This could be on a Kubernetes cluster on the google cloud, AWS, on-premises or even on Azure it self.">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Run cloud native application anywhere with Azure Arc enabled Kubernetes">
+<meta property="og:url" content="http://localhost:4000/2021/06/run-cloud-native-application-anywhere-with-azure-arc-enabled-kubernetes/">
+
+
+  <meta property="og:description" content="At the beginning of this year Microsoft released Azure Arc enabled Kubernetes, this enabled you to attach conformant&nbsp;Kubernetes&nbsp;clusters to Azure for management.&nbsp;With a new preview release Microsoft introduced the capabilities of running Azure application services on Kubernetes anywhere you want. This could be on a Kubernetes cluster on the google cloud, AWS, on-premises or even on Azure it self.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Run cloud native application anywhere with Azure Arc enabled Kubernetes">
+  <meta name="twitter:description" content="At the beginning of this year Microsoft released Azure Arc enabled Kubernetes, this enabled you to attach conformant&nbsp;Kubernetes&nbsp;clusters to Azure for management.&nbsp;With a new preview release Microsoft introduced the capabilities of running Azure application services on Kubernetes anywhere you want. This could be on a Kubernetes cluster on the google cloud, AWS, on-premises or even on Azure it self.">
+  <meta name="twitter:url" content="http://localhost:4000/2021/06/run-cloud-native-application-anywhere-with-azure-arc-enabled-kubernetes/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2021-06-15T12:00:00+02:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2021/06/run-cloud-native-application-anywhere-with-azure-arc-enabled-kubernetes/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Run cloud native application anywhere with Azure Arc enabled Kubernetes">
+    <meta itemprop="description" content="At the beginning of this year Microsoft released Azure Arc enabled Kubernetes, this enabled you to attach conformant Kubernetes clusters to Azure for management. With a new preview release Microsoft introduced the capabilities of running Azure application services on Kubernetes anywhere you want. This could be on a Kubernetes cluster on the google cloud, AWS, on-premises or even on Azure it self. ">
+    <meta itemprop="datePublished" content="2021-06-15T12:00:00+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Run cloud native application anywhere with Azure Arc enabled Kubernetes
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>At the beginning of this year Microsoft released Azure Arc enabled Kubernetes, this enabled you to attach conformant Kubernetes clusters to Azure for management. With a new preview release Microsoft introduced the capabilities of running Azure application services on Kubernetes anywhere you want. This could be on a Kubernetes cluster on the google cloud, AWS, on-premises or even on Azure it self. </p>
+
+
+<p>The services that you are able to deploy in this preview are: </p>
+
+
+<ul>
+<li>Azure App Services</li>
+<li>Azure Logic Apps</li>
+<li>Azure Functions</li>
+<li>Azure Event Grid</li>
+<li>Azure API Management</li>
+</ul>
+
+
+<p>This functions opens up a lot of new possibilities to developers and also opens up option for using other cloud platforms next to Azure.</p>
+
+
+<h2>How to get started</h2>
+
+
+<p>To get started you are required to have a running Kubernetes cluster, this can be on any cloud platform, on-premises or even on your laptop. For this example I have used a local Kubernetes cluster running on my laptop with the use of Docker for Windows and a Kubernetes cluster within one of my Azure subscriptions.</p>
+
+
+<p>To be able to deploy app services within Kubernetes we have to perform two main tasks: Connect the Kubernetes cluster to Azure Arc and create a custom location within the Azure platform.</p>
+
+
+<p>To perform these steps we need the following prerequisites:</p>
+
+
+<ul>
+<li>az cli version 2.16.0 or later (you can upgrade the cli via the below command)</li>
+</ul>
+
+
+<pre class="highlight">az upgrade</pre>
+
+
+<ul>
+<li>Latest version of Helm</li>
+</ul>
+
+
+<pre class="highlight">choco install kubernetes-helm</pre>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image.png"></a><img src="/assets/archive/2021/06/image-1024x44.png" alt="install helm" class="wp-image-6293"></figure>
+
+
+<ul>
+<li>Kubernetes context connected to the Kubernetes cluster you want to connect to</li>
+<li>az cli extensions: connectedk8s, k8s-extension, customlocation</li>
+</ul>
+
+
+<pre class="highlight">az extension add --name connectedk8s
+az extension add --name k8s-extension
+az extension add --name customlocation</pre>
+
+
+<blockquote class="wp-block-quote">
+<p>Custom locations for Azure services are only supported in the below regions at the time of writing this article:<br>- East US<br>- West Europe</p>
+</blockquote>
+
+
+<h2>Connect Kubernetes cluster to Azure Arc</h2>
+
+
+<p>To connect the Kubernetes cluster to Azure Arc specific resource providers need to be registered on the subscriptions were you want to deploy Azure Arc to. The required resource providers are: Microsoft.Kubernetes, Microsoft.KubernetesConfiguration, Microsoft.ExtendedLocation.</p>
+
+
+<p>These registration can be done via the Azure Portal but in this article we will use the Azure CLI to perform all the steps.</p>
+
+
+<pre class="highlight">az provider register --namespace [provider]</pre>
+
+
+<p>Perform the command for all three providers and wait for the registration to finish. In total this could take up to 30 minutes to complete. The status can be monitored by using this command.</p>
+
+
+<pre class="highlight">az provider show -n [provider] -o table</pre>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-1.png"></a><img src="/assets/archive/2021/06/image-1-1024x76.png" alt="provider registration" class="wp-image-6295"></figure>
+
+
+<p>Azure Arc it self is a Azure resource that needs to be deployed to an Azure Resource group. That is why we will also create a resource group.</p>
+
+
+<pre class="highlight">az group create -n [group name]-l [location] -o table</pre>
+
+
+<p>Next step is to connect the Kubernetes cluster to Azure Arc. In this step all required resources will be deployed to Kubernetes and Azure were the Azure Arc resource will be created.</p>
+
+
+<pre class="highlight">az connectedk8s connect -n [Azure Arc Instance name] `
+-g [Resource group name]</pre>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-3.png"></a><img src="/assets/archive/2021/06/image-3-1024x106.png" alt="" class="wp-image-6299"></figure>
+
+
+<p>This command will initiate a new deployment to the Kubernetes cluster via Helm and as you see in the screenshot the deployment done there was to my AKS cluster. Were it is specified that you only have to connect to Azure Arc for enabled services because Azure Monitor and Defender are natively support within AKS.</p>
+
+
+<p>When this deployment is succeeded the cluster is connected to Azure Arc. In the below screenshots you can see the differences in deployments on the cluster before connecting to Azure Arc and after connecting it to Azure Arc.</p>
+
+
+<h3>Before</h3>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-4.png"></a><img src="/assets/archive/2021/06/image-4-1024x277.png" alt="Kubernetes deployments before connecting to Azure Arc" class="wp-image-6301"></figure>
+
+
+<h3>After</h3>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-5.png"></a><img src="/assets/archive/2021/06/image-5-1024x441.png" alt="Kubernetes deployments before connecting to Azure Arc" class="wp-image-6303"></figure>
+
+
+<h2>Adding custom location to Azure</h2>
+
+
+<p>With the Kubernetes cluster connected to Azure Arc a custom location can be added. Adding this location is done in two easy steps by using the extensions on the Azure CLI.</p>
+
+
+<h3>Enable custom locations</h3>
+
+
+<p>To use custom locations the functionality has to be activated on the cluster it self. So make sure u are connected to Azure and still have the active context to the Kubernetes cluster that you would like to connect.</p>
+
+
+<pre class="highlight">az connectedk8s enable-features -n [cluster name] `
+-g [Resource group name] `
+--features cluster-connect custom-locations</pre>
+
+
+<p>After enabling the feature the custom location can be activated for three different service instances:</p>
+
+
+<ul>
+<li>Azure Arc enabled Data Services</li>
+<li>Azure App Service on Azure Arc</li>
+<li>Event Grid on Kubernetes</li>
+</ul>
+
+
+<p>Each of these have there own specific command for the activation:</p>
+
+
+<p><strong>Azure Arc enabled Data Services</strong></p>
+
+
+<pre class="highlight">az k8s-extension create --name [name for the extension] `
+--extension-type microsoft.arcdataservices `
+--cluster-type connectedClusters `
+-c [name of the Kubernetes cluster] `
+-g [resource group name ARC] `
+-scope cluster
+--release-namespace arc `
+--config Microsoft.CustomLocation.ServiceAccount=sa-bootstrapper</pre>
+
+
+<p><strong>Azure App Service on Azure Arc</strong></p>
+
+
+<pre class="highlight">az k8s-extension create --name [name for the extension] `
+--extension-type microsoft.arcdataservices `
+--cluster-type connectedClusters `
+-c [name of the Kubernetes cluster] `
+-g [Resource group name ARC] `
+--scope cluster `
+--release-namespace arc `
+--config Microsoft.CustomLocation.ServiceAccount=sa-bootstrapper</pre>
+
+
+<p><strong>Event Grid on Kubernetes</strong></p>
+
+
+<pre class="highlight">az k8s-extension create --name [name for the extension] `
+--extension-type Microsoft.EventGrid `
+--cluster-type connectedClusters `
+-c [name of the Kubernetes cluster] `
+-g [Resource group name ARC] `
+--scope cluster `
+--release-namespace eventgrid-ext `
+--configuration-protected-settings-file protected-settings-extension.json `
+--configuration-settings-file settings-extension.json</pre>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-6.png"></a><img src="/assets/archive/2021/06/image-6-1024x388.png" alt="Enable data services extension" class="wp-image-6307"></figure>
+
+
+<p>The scripts shown above are all standard scripts to get started with the extension. If you for example want to deploy Azure App Services additional configuration is required. To start using App Service try the following command to configure the extension.</p>
+
+
+<pre class="highlight">az k8s-extension create --resource-group [resource group name] `
+--name [name for the extension] `
+--cluster-type connectedClusters `
+--cluster-name [cluster name] `
+--extension-type 'Microsoft.Web.Appservice' `
+--release-train stable `
+--auto-upgrade-minor-version true `
+--scope cluster `
+--release-namespace [namespace] `
+--configuration-settings "Microsoft.CustomLocation.ServiceAccount=default" `
+--configuration-settings "appsNamespace=[namespace]" `
+--configuration-settings "clusterName=[cluster name]" `
+--configuration-settings "loadBalancerIp=[static ip of cluster]" `
+--configuration-settings "keda.enabled=true" `
+--configuration-settings "buildService.storageClassName=default" `
+--configuration-settings "buildService.storageAccessMode=ReadWriteOnce" `
+--configuration-settings "customConfigMap=[namespace]/kube-environment-config" `
+--configuration-settings "envoy.annotations.service.beta.kubernetes.io/azure-load-balancer-resource-group=[kubernetes infra resource group name]"</pre>
+
+
+<p>With the extension created some information needs to be retrieved to be able to do the final step. For the final step the resourceId of the Azure Arc enabled Kubernetes cluster is required and the same for the extension that has been activated on the cluster</p>
+
+
+<p><strong>Resource Id connected cluster</strong></p>
+
+
+<pre class="highlight">az connectedk8s show -n [Azure Arc enabled cluster] `
+-g [Resource group name]  `
+--query id -o tsv</pre>
+
+
+<p><strong>Resource Id extension for connected cluster</strong></p>
+
+
+<pre class="highlight">az k8s-extension show --name [name of the extension] `
+--cluster-type connectedClusters `
+-c [Azure Arc enabled cluster] `
+-g [Resource group name]  `
+--query id -o tsv</pre>
+
+
+<p>With this information retrieved the cluster can be defined as a custom location:</p>
+
+
+<pre class="highlight">az customlocation create -n [location name] `
+-g [Resource group name] `
+--namespace [namespace in Kubernetes] `
+--host-resource-id [cluster id] `
+--cluster-extension-ids [extension id]</pre>
+
+
+<p>Things to be aware of when you process the above command:</p>
+
+
+<ul>
+<li>Per connection a different namespace needs to be defined.</li>
+</ul>
+
+
+<h2>Next Step</h2>
+
+
+<p>After following the above steps your cluster is connected to Azure Arc and should be available as a custom location. The existing custom location can be checked with the below command.</p>
+
+
+<pre class="highlight">az customlocation list -o table</pre>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-7.png"></a><img src="/assets/archive/2021/06/image-7-1024x157.png" alt="100%&lt;br /&gt;
+az customlocation list —o&lt;br /&gt;
+table&lt;br /&gt;
+Command&lt;br /&gt;
+status&lt;br /&gt;
+Name&lt;br /&gt;
+group&lt;br /&gt;
+' customlocation' is&lt;br /&gt;
+in preview and under development. Reference and support levels:&lt;br /&gt;
+https : // aka. ms/CLI_ref&lt;br /&gt;
+azlocal—appservices&lt;br /&gt;
+azlocal—dataservices&lt;br /&gt;
+azshared—dataservices&lt;br /&gt;
+azshared—appservices&lt;br /&gt;
+Location&lt;br /&gt;
+westeurope&lt;br /&gt;
+westeurope&lt;br /&gt;
+westeurope&lt;br /&gt;
+westeurope&lt;br /&gt;
+ResourceGroup&lt;br /&gt;
+—arck810caI&lt;br /&gt;
+sponsor—rg&lt;br /&gt;
+—arck810caI&lt;br /&gt;
+sponsor—rg&lt;br /&gt;
+—k8shared&lt;br /&gt;
+sponsor—rg&lt;br /&gt;
+sponsor—rg—k8shared&lt;br /&gt;
+Namespace&lt;br /&gt;
+arc&lt;br /&gt;
+arc—data&lt;br /&gt;
+arc—data&lt;br /&gt;
+arc&lt;br /&gt;
+ProvisioningState&lt;br /&gt;
+Succeeded&lt;br /&gt;
+Succeeded&lt;br /&gt;
+Succeeded&lt;br /&gt;
+Succeeded " class="wp-image-6309"></figure>
+
+
+<p>These location can also be found by opening the Azure Arc blade within the Azure portal and clicking on custom locations.</p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-9.png"></a><img src="/assets/archive/2021/06/image-9-1024x417.png" alt="Azure Arc custom locations" class="wp-image-6313"></figure>
+
+
+<p>As shown in the screenshots four different locations are added to Azure. Two to a local cluster installed on my own laptop and two for the Kubernetes cluster hosted in Azure.</p>
+
+
+<h2>Enable Azure App Services in Kubernetes</h2>
+
+
+<p>Creating services in the specified location requires you to have Azure App Services Kubernetes environment. By creating this environment the cluster is enabled to receive new request for app services.</p>
+
+
+<pre class="highlight">az appservice kube create --resource-group [resource group] `
+--name [name for the environment] `
+--custom-location [Id of the custom location] `
+--static-ip [static ip used in the extension installation]</pre>
+
+
+<p>The custom location id used in the above command can be retrieved with the following script.</p>
+
+
+<pre class="highlight">$customLocationId=$(az customlocation show --resource-group [resource group name] `
+--name [location name] `
+--query id `
+--output tsv)</pre>
+
+
+<p><em><strong>Note: </strong>If the "az appservice kube" command does not work make sure you install a defined version with the following script.</em></p>
+
+
+<pre class="highlight">az extension remove --name appservice-kube
+az extension add --yes `
+--source "https://aka.ms/appsvc/appservice_kube-latest-py2.py3-none-any.whl"</pre>
+
+
+<p>When done all kind of new services will have appeared in the resource group used during the connection.</p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-8.png"></a><img src="/assets/archive/2021/06/image-8.png" alt="Resources in resource group for Kubernetes" class="wp-image-6311"></figure>
+
+
+<h2>Creating resources on the Kubernetes environment</h2>
+
+
+<p>The Kubernetes environment is now prepared for new Azure App Services. These services can be created through the portal or via the Azure CLI. </p>
+
+
+<p><strong>Azure CLI</strong></p>
+
+
+<p>When using the Azure CLI the custom location id needs to be supplied when creating the hosting plan and the web application for example.</p>
+
+
+<pre class="highlight">az appservice plan create -g [resource group name] `
+-n [name hosting plan] `
+--custom-location [custom location id] `
+--per-site-scaling `
+--is-linux `
+--sku K1
+
+az webapp create --plan [name hosting plan] `
+--resource-group [resource group name] `
+--name [web app name] `
+--custom-location [custom location id] `
+--runtime [runtime]</pre>
+
+
+<p><strong>Azure Portal</strong></p>
+
+
+<p>On every location were you are able to use custom location the location will appear on the locations drop down.</p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-10.png"></a><img src="/assets/archive/2021/06/image-10.png" alt="Custom location in Azure Portal" class="wp-image-6337"></figure>
+
+
+<h2>More to learn</h2>
+
+
+<p>On docs.microsoft.com a lot more articles and information can be found about this subject. The below list points you to some interesting articles:</p>
+
+
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noopener noreferrer">Azure Arc enabled Kubernetes</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/custom-locations?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noopener noreferrer">Create and manage custom locations on Azure Arc enabled Kubernetes</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/app-service/quickstart-arc?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener noopener noreferrer">Create a web app on Azure Arc - Azure App Service</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration#app-service-kubernetes-environment?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noopener noreferrer">App Service on Azure Arc - Azure App Service</a></li>
+</ul>
+
+
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#arc" class="page__taxonomy-item" rel="tag">Arc</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure-app-services" class="page__taxonomy-item" rel="tag">Azure App Services</a><span class="sep">, </span>
+    
+      <a href="/tags/#kubernetes" class="page__taxonomy-item" rel="tag">Kubernetes</a><span class="sep">, </span>
+    
+      <a href="/tags/#mvpbuzz" class="page__taxonomy-item" rel="tag">mvpbuzz</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#azure" class="page__taxonomy-item" rel="tag">Azure</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2021-06-15T12:00:00+02:00">June 15, 2021</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Run+cloud+native+application+anywhere+with+Azure+Arc+enabled+Kubernetes%20http%3A%2F%2Flocalhost%3A4000%2F2021%2F06%2Frun-cloud-native-application-anywhere-with-azure-arc-enabled-kubernetes%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2021%2F06%2Frun-cloud-native-application-anywhere-with-azure-arc-enabled-kubernetes%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2021%2F06%2Frun-cloud-native-application-anywhere-with-azure-arc-enabled-kubernetes%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2021/05/using-multiple-repositories-within-azure-devops-pipelines/" class="pagination--pager" title="Using multiple repositories within Azure DevOps pipelines
+">Previous</a>
+    
+    
+      <a href="/2021/06/execute-scripts-against-azure-from-github-actions/" class="pagination--pager" title="Execute scripts against Azure from GitHub Actions
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

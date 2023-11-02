@@ -1,59 +1,16 @@
 ---
-layout: post
 title: SharePoint Rest API Handler
-date: 2016-07-06 23:01:54.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
 tags:
 - API
 - Rest
 - Samples
 - SharePoint
-meta:
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  _yoast_wpseo_primary_category: ''
-  _yoast_wpseo_focuskw_text_input: SharePoint Rest API
-  _yoast_wpseo_focuskw: SharePoint Rest API
-  _yoast_wpseo_linkdex: '68'
-  _yoast_wpseo_content_score: '30'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:412:"a:1:{i:0;a:13:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doFB";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1733152976962028";s:5:"pDate";s:19:"2016-07-06
-    22:04:26";}}";
-  snapLI: s:308:"a:1:{i:0;a:10:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";s:1:"1";s:11:"isPrePosted";s:1:"1";}}";
-  snap_isAutoPosted: '1'
-  snapTW: s:299:"a:1:{i:0;a:10:{s:2:"do";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE% -
-    %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:4:"doTW";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"750812686951321601";s:5:"pDate";s:19:"2016-07-06
-    22:04:28";}}";
-  _wpas_done_all: '1'
-  rop_post_url_twitter: https://msftplayground.com/2016/07/sharepoint-rest-api-handler/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  rop_post_url_facebook: https://msftplayground.com/2016/07/sharepoint-rest-api-handler/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  _oembed_1ba82f062134c494a889e607d118caea: "{{unknown}}"
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint Rest API
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2016/07/sharepoint-rest-api-handler/"
+date: 2016-07-06 23:01:54.000000000 +02:00
+permalink: /2016/07/sharepoint-rest-api-handler/
+categories:
+- Development
+status: publish
 ---
 <p>SharePoint contains a lot of Rest API’s that can be used for many scenario’s. You could use them for example in desktop and windows phone applications. When using these API’s you need to make sure authentication is handled before calling the API. For authenticating to these API’s there a couple of options:</p>
 <ul>
@@ -72,7 +29,7 @@ permalink: "/2016/07/sharepoint-rest-api-handler/"
 <li>[siteurl]/_api/web/lists/GetByTitle('[listname]')/GetItems(<a href="mailto:query=@v1)?@v1={&quot;ViewXml&quot;:&quot;[camlquery">query=@v1)?@v1={"ViewXml":"[camlquery</a>]"} </li>
 </ul>
 <p>Example for a Caml query is displayed below. Make sure you supply a query with the “View” and “Query” tag included.</p>
-<pre class="brush: xml;">&lt;View&gt;
+<pre class="highlight">&lt;View&gt;
  &lt;ViewFields&gt;
   &lt;FieldRef Name='LinkFilename' /&gt;
  &lt;/ViewFields&gt;
@@ -85,7 +42,7 @@ permalink: "/2016/07/sharepoint-rest-api-handler/"
 </pre>
 <p>&nbsp;</p>
 <p>In C# the API call can be made in the following way:</p>
-<pre class="brush: csharp;">public string GetItems(string siteUrl, string list, string camlQuery) {
+<pre class="highlight">public string GetItems(string siteUrl, string list, string camlQuery) {
     string retVal = string.Empty;
 
     string data = camlJson.Replace("{0}", camlQuery);
@@ -105,7 +62,7 @@ permalink: "/2016/07/sharepoint-rest-api-handler/"
 <li>[siteurl]/_api/web/lists/getByTitle('[listname]')/items?$select=EncodedAbsUrl&amp;$filter=Id eq [Id] </li>
 </ul>
 <p>The select query in the above method retrieves the “EncodedAbsUrl” this is the URL to the specific document. Within C# you can use the following method to retrieve the specific document.</p>
-<pre class="brush: csharp;">public string GetDocument(string siteUrl, string list, string Id) {
+<pre class="highlight">public string GetDocument(string siteUrl, string list, string Id) {
     
     string retVal = string.Empty;
     string url = string.Format(CultureInfo.InvariantCulture, "{0}/_api/web/lists/getByTitle('{1}')/items?$select=EncodedAbsUrl&amp;$filter=Id eq {2}", siteUrl, list, Id);
@@ -123,7 +80,7 @@ permalink: "/2016/07/sharepoint-rest-api-handler/"
 <li>[siteurl]/_api/web/lists/getByTitle('[listname]')/RootFolder/Files/Add(url='[filename]', overwrite=true) </li>
 </ul>
 <p>The document itself needs to be added to the content of the post message. In C# the complete method looks like this:</p>
-<pre class="brush: csharp;">public string PostDocument(string siteUrl, string list, Document document) {
+<pre class="highlight">public string PostDocument(string siteUrl, string list, Document document) {
     string retVal = string.Empty;
 
     string url = string.Format(CultureInfo.InvariantCulture, "{0}/_api/web/lists/getByTitle('{1}')/RootFolder/Files/Add(url='{2}', overwrite=true)", siteUrl, list, document.FileName);
@@ -146,7 +103,7 @@ permalink: "/2016/07/sharepoint-rest-api-handler/"
 </ul>
 <p>The relative URL of the file can be retrieved from the result of the upload request. This can be seen in the paragraph above where the result message is serialized in a dynamic object and the “ServerRelativeUrl” property is retrieved.</p>
 <p>The complete C# method for updating a document is:</p>
-<pre class="brush: csharp;">public string UpdateDocument(string siteUrl, string relativeUrl, Document document) {
+<pre class="highlight">public string UpdateDocument(string siteUrl, string relativeUrl, Document document) {
     string retVal = string.Empty;
     
     string url = string.Format(CultureInfo.InvariantCulture, "{0}/_api/web/GetFileByServerRelativeUrl('{1}')/ListItemAllFields", siteUrl, relativeUrl);
@@ -158,10 +115,10 @@ permalink: "/2016/07/sharepoint-rest-api-handler/"
 }
 
 </pre>
-<h3></h3>
+
 <h3>SharePoint API Handler</h3>
 <p>As you can see in the examples above they all make use of the “SPAPIHandler” class. This class takes care of the HTTP calls and authenticates the requests.</p>
-<pre class="brush: csharp;">public class SPAPIHandler {
+<pre class="highlight">public class SPAPIHandler {
 
     private string contenttype = "application/json;odata=verbose";
 
@@ -257,55 +214,3 @@ permalink: "/2016/07/sharepoint-rest-api-handler/"
         listRequestStream.Close();
 
         HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-
-        if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.NoContent) {
-            using (var reader = new System.IO.StreamReader(response.GetResponseStream())) {
-             return reader.ReadToEnd();
-            }
-        }
-
-        return null;
-    }
-
-    public string PostDocument(string url, byte[] document) {
-        var accessToken = GetAccessTokenResponse(url);
-
-        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-        request.Method = "POST";
-        request.ContentLength = document.Length;
-        request.ContentType = contenttype;
-        request.Accept = acceptHeader;
-        request.Headers.Add("Authorization", accessToken.TokenType + " " + accessToken.AccessToken);
-
-        Stream listRequestStream = request.GetRequestStream();
-        listRequestStream.Write(document, 0, document.Length);
-        listRequestStream.Close();
-
-        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-
-        if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.NoContent) {
-            using (var reader = new System.IO.StreamReader(response.GetResponseStream())) {
-                return reader.ReadToEnd();
-            }
-        }
-
-        return (null);
-    }
-
-
-    private OAuth2AccessTokenResponse GetAccessTokenResponse(string url) {
-        Uri targetWeb = new Uri(url);
-        string targetRealm = TokenHelper.GetRealmFromTargetUrl(targetWeb);
-        var responseToken = TokenHelper.GetAppOnlyAccessToken(TokenHelper.SharePointPrincipal, targetWeb.Authority, targetRealm, ClientId, ClientSecret);
-
-        return responseToken;
-    }
-}
-
-</pre>
-<p>The handler adds all the correct headers to the specific Http methods and returns the results of the API calls. The complete source code including a console application for testing can be downloaden from here:</p>
-<ul>
-<li><a href="https://code.msdn.microsoft.com/SharePoint-Rest-API-Sample-06ec173a" target="_blank">SharePoint Rest API Sample</a> </li>
-</ul>

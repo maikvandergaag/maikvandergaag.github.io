@@ -1,157 +1,117 @@
 ---
-layout: post
 title: Getting started with Project Bicep for Azure ARM
-date: 2020-10-15 12:08:00.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - ARM
 - Automation
 - Azure
-meta:
-  _edit_last: '3'
-  _yoast_wpseo_content_score: '30'
-  _yoast_wpseo_focuskw: Azure Bicep
-  _yoast_wpseo_linkdex: '63'
-  _thumbnail_id: '6001'
-  _yoast_wpseo_primary_category: '323'
-  snap_MYSURL: a:3:{s:1:"s";s:84:"https://msftplayground.com/2020/10/getting-started-with-project-bicep-for-azure-arm/";s:1:"t";s:84:"https://msftplayground.com/2020/10/getting-started-with-project-bicep-for-azure-arm/";s:1:"r";s:1:"B";}
-  snap_isAutoPosted: '1602760173'
-  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6722463406550462464";s:2:"id";s:32:"urn:li:share:6722463406550462464";s:1:"d";s:19:"2020-10-15
-    11:09:33";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1316697718396420096";s:2:"id";s:19:"1316697718396420096";s:1:"d";s:19:"2020-10-15
-    11:09:33";s:1:"w";s:1:"s";}}}}
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapLI: s:447:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
-    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:32:"urn:li:share:6722463406550462464";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6722463406550462464";s:5:"pDate";s:19:"2020-10-15
-    11:09:33";}}";
-  snapTW: s:426:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
-    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1316697718396420096";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1316697718396420096";s:5:"pDate";s:19:"2020-10-15
-    11:09:33";}}";
-  _yoast_wpseo_estimated-reading-time-minutes: '5'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure Bicep
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2020/10/getting-started-with-project-bicep-for-azure-arm/"
+date: 2020-10-15 12:08:00.000000000 +02:00
+permalink: /2020/10/getting-started-with-project-bicep-for-azure-arm/
+categories:
+- Azure
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>Bicep is at the time of writing an experimental language that you can be used to simplify the writing of ARM templates. Bicep is a so called DSL (Domain Specific Language) meaning that it is a specific language for a specific domains in this case ARM.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>In short Bicep is a abstractions over the Azure Resource Manager and ARM templates which means that any thing that can be done in ARM templates should also be possible in Bicep.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Concrete this means that Bicep files need to be compiled to ARM json templates meaning that ARM effectively is an Intermediate Language.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Why do we want something like Bicep</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Bicep is developed with the goal of being simpler and easier to understand than ARM templates.&nbsp; Besides that by hiding a lot of options it should be easier to read as well. But let’s check it out our selves to see if this is correct.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Really getting started</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To get started with Bicep the compiler / tool needs to be installed on the machine.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Installation documentation: <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install?WT.mc_id=AZ-MVP-5004255">https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install</a></li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>If you directly want to install Bicep for windows you can also use this link:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Windows: <a href="https://github.com/Azure/bicep/releases/latest/download/bicep-setup-win-x64.exe">https://github.com/Azure/bicep/releases/latest/download/bicep-setup-win-x64.exe</a></li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The installation itself is very straight forward and will install the Bicep CLI.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":5981,"sizeSlug":"large"} --></p>
-<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/archive/2020/10/Picture1.png" alt="Bicep installation" class="wp-image-5981" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image size-large"><img src="/assets/archive/2020/10/Picture1.png" alt="Bicep installation" class="wp-image-5981" /></figure>
+
+
 <p>Once installed, the installation can be validated by opening a Windows terminal and typing the following command:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">bicep --help</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":5983,"sizeSlug":"large"} --></p>
-<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/archive/2020/10/Picture2-1024x560.png" alt="Bicep help" class="wp-image-5983" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<pre class="highlight">bicep --help</pre>
+
+
+
+
+<figure class="wp-block-image size-large"><img src="/assets/archive/2020/10/Picture2-1024x560.png" alt="Bicep help" class="wp-image-5983" /></figure>
+
+
 <p>For Bicep there is also a extension for you favorite IDE: Visual Studio Code. To make it easier to write Bicep files install the extension.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li><a href="https://github.com/Azure/bicep/releases/latest/download/vscode-bicep.vsix">https://github.com/Azure/bicep/releases/latest/download/vscode-bicep.vsix</a></li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><em>When trying to install the VSIX remember that you cannot double click the extension but that you need to install it from Visual Studio Code itself:</em></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":5987,"sizeSlug":"large"} --></p>
-<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/archive/2020/10/Picture3-1-1024x152.png" alt="Install VSIX Visual Studio Code" class="wp-image-5987" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
+<figure class="wp-block-image size-large"><img src="/assets/archive/2020/10/Picture3-1-1024x152.png" alt="Install VSIX Visual Studio Code" class="wp-image-5987" /></figure>
+
+
 <h2>The first bicep file</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With all pre-requisites installed we can create our first Bicep file in Visual Studio Code. In this article we will setup a Bicep file for a Azure App Service with Application Insight.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Take the first steps:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Create a new file and for example call it main.bicep</li>
 <li>Add parameters to you file with the param</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>In a mather of a few seconds you will have something like this:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">param appName string
+
+
+<pre class="highlight">param appName string
 
 resource app 'Microsoft.Web/sites@2018-11-01' = {
     name: appName
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Going from Bicep to ARM is very easy by using the following command:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">bicep build [reference to your bicep file]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<pre class="highlight">bicep build [reference to your bicep file]</pre>
+
+
 <p>The above bicep file will result in a template like below.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">{
+
+
+<pre class="highlight">{
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -170,28 +130,28 @@ resource app 'Microsoft.Web/sites@2018-11-01' = {
   ],
   "outputs": {}
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Import to notice in Bicep is the following: resource [reference] [type][version]</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Reference: You can use this value throughout the complete file. This way you can reference resource specific variables.</li>
 <li>Type: the type of the resource</li>
 <li>Version: the specific version you would like to use</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Extending the sample</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The beauty of the Bicep language is the easy references and the dependencies the languages creates. This means you do not longer have to specify the dependencies but the language will do that for you. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>If we continue with the sample after a few moment the file will look like this.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">param appName string
+
+
+<pre class="highlight">param appName string
 param location string = resourceGroup().location
 
 resource insights 'Microsoft.Insights/components@2015-05-01' = {
@@ -231,15 +191,15 @@ resource app 'Microsoft.Web/sites@2018-11-01' = {
 }
 
 output appId string = app.id</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The above Bicep file is a reference for a Azure Web Application with Application Insights attached. As mentioned before the dependencies and references defined look very easy.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Even notice the output option at the end that looks a lot cleaner and simpler than what you would normally do in ARM. To make the sample complete the above Bicep will result in.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">{
+
+
+<pre class="highlight">{
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -305,15 +265,11 @@ output appId string = app.id</pre>
     }
   }
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>In the next article I will describe the usage of Bicep modules that can be used for reusing components meaning that you do not have to copy the code around in multiple templates files.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>If you want to learn more about Azure Bicep make sure to look at the tutorial on the github page as there are many more great features of this language:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
-<ul>
-<li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install?WT.mc_id=AZ-MVP-5004255">https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/install</a></li>
-</ul>
-<p><!-- /wp:list --></p>
+
+

@@ -1,55 +1,15 @@
 ---
-layout: post
 title: Point to Site VPN Client won&rsquo;t install
-date: 2018-04-05 21:15:40.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
 tags:
 - App Services
 - Azure
 - VPN
-meta:
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _edit_last: '3'
-  _yoast_wpseo_focuskw_text_input: VPN
-  _yoast_wpseo_focuskw: VPN
-  _yoast_wpseo_linkdex: '46'
-  _yoast_wpseo_content_score: '90'
-  _yoast_wpseo_primary_category: ''
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapLI: s:228:"a:1:{i:0;a:8:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
-    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;}}";
-  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2En4Z60";s:1:"t";s:68:"https://msftplayground.com/2018/04/point-to-site-vpn-client-install/";s:1:"r";s:1:"B";}
-  snap_isAutoPosted: '1522959366'
-  _snapPHST: a:1:{s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:60:"https://twitter.com/maikvandergaag/status/981988876658016256";s:2:"id";s:18:"981988876658016256";s:1:"d";s:19:"2018-04-05
-    20:16:07";s:1:"w";s:1:"s";}}}}
-  snapTW: s:394:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
-    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"981988876658016256";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/981988876658016256";s:5:"pDate";s:19:"2018-04-05
-    20:16:07";}}";
-  _wpas_done_all: '1'
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: VPN
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2018/04/point-to-site-vpn-client-install/"
+date: 2018-04-05 21:15:40.000000000 +02:00
+permalink: /2018/04/point-to-site-vpn-client-install/
+categories:
+- Administration
+status: publish
 ---
 <p>To connect an Azure App Service to a on-premise database you can make use of different solutions. Two of those solutions are:</p>
 <ul>
@@ -63,13 +23,13 @@ permalink: "/2018/04/point-to-site-vpn-client-install/"
 <p>&nbsp;</p>
 <h2>VPN Client Installation</h2>
 <p>When we tried to install the VPN Client nothing happened. After clicking, rebooting and trying for a while it still didn’t install and I opened the event viewer and found the following message:</p>
-<pre class="brush: bash;">Activation of app Microsoft.Windows.Apprep.ChxApp_cw5n1h2txyewy:App.AppXc99k5qnnsvxj5szemm7fp3g7y08we5vm.mca failed with error: This app can't be activated by the Built-in Administrator. See the Microsoft-Windows-TWinUI/Operational log for additional information.
+<pre class="highlight">Activation of app Microsoft.Windows.Apprep.ChxApp_cw5n1h2txyewy:App.AppXc99k5qnnsvxj5szemm7fp3g7y08we5vm.mca failed with error: This app can't be activated by the Built-in Administrator. See the Microsoft-Windows-TWinUI/Operational log for additional information.
 </pre>
 <p>&nbsp;</p>
 <p>This message remembered me off something I experienced a couple of years ago with an installer, I created myself. Because the installer is created from another machine the file is blocked by default and needs to be unblocked.</p>
 <p>&nbsp;</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2018/04/clip_image001.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Unblock" src="{{ site.baseurl }}/assets/archive/2018/04/clip_image001_thumb.png" alt="Unblock" width="610" height="343" border="0" /></a></p>
+<p><a href="/assets/archive/2018/04/clip_image001.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Unblock" src="/assets/archive/2018/04/clip_image001_thumb.png" alt="Unblock" width="610" height="343" border="0" /></a></p>
 <p>&nbsp;</p>
 <p>Beside that image I also created an animated version:</p>
-<p><a href="https://msftplayground.com/wp-content/uploads/2018/04/VPNClient.gif"><img class="alignnone" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="VPN Client Animated" src="{{ site.baseurl }}/assets/archive/2018/04/VPNClient_thumb.gif" alt="VPN Client Animated" width="169" height="240" border="0" /></a></p>
+<p><a href="/assets/archive/2018/04/VPNClient.gif"><img class="alignnone" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="VPN Client Animated" src="/assets/archive/2018/04/VPNClient_thumb.gif" alt="VPN Client Animated" width="169" height="240" border="0" /></a></p>
 <p>After unblocking the installer the VPN installation worked perfectly.</p>

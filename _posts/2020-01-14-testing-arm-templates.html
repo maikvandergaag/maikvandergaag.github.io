@@ -1,107 +1,75 @@
 ---
-layout: post
 title: Testing ARM templates
-date: 2020-01-14 13:38:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - ARM
 - Azure
-meta:
-  _publicize_twitter_user: "@maikvandergaag"
-  _thumbnail_id: '5915'
-  _edit_last: '3'
-  _yoast_wpseo_primary_category: '323'
-  _yoast_wpseo_focuskw: ARM
-  _yoast_wpseo_metadesc: Testing ARM templates is very hard. The PowerShell module
-    ARM-TTK makes this very easy, but how do we use this preview module.
-  _yoast_wpseo_linkdex: '65'
-  _yoast_wpseo_content_score: '90'
-  spay_email: ''
-  _wpas_mess: 'Checking #Azure #ARM templates with ARM-TTK. Check this Post!'
-  _wpas_done_all: '1'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: ARM
-  _wds_title: ''
-  _wds_metadesc: Testing ARM templates is very hard. The PowerShell module ARM-TTK
-    makes this very easy, but how do we use this preview module.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2020/01/testing-arm-templates/"
+date: 2020-01-14 13:38:00.000000000 +01:00
+permalink: /2020/01/testing-arm-templates/
+categories:
+- Azure
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>A few weeks ago I was looking at ways how I could test my ARM<br />
 templates. During my work I create a lot of these templates and it always a lot<br />
 of work to check them and comply with the best practices. Especially when we<br />
 work in teams and everybody has his own way of creating the templates.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>After some research I found a blog <a href="https://dev.to/omiossec/arm-template-what-s-new-for-2020-4kli" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">post</a> of: Olivier Miossec (a Microsoft Azure MVP). He was mentioning a tool called “ARM-TTK” which is being developed by Microsoft and is still in preview.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Reading this made me test the tool out.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>ARM-TTK</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>ARM-TTK is written as a PowerShell Module that can be run in<br />
 Windows or Linux. When using Linux PowerShell Core needs to be installed.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The module is still in preview but Microsoft is actively<br />
 developing it on GitHub. Using this option everyone is allowed to test it and use<br />
 it in there on scenario’s.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To test it download the folder from the GitHub repository:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li><a href="https://github.com/Azure/azure-quickstart-templates/tree/master/test/arm-ttk">https://github.com/Azure/azure-quickstart-templates/tree/master/test/arm-ttk</a></li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>As you may know with the downloaded folder you can Import the module. As there is no online location yet you have to reference the file name.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code --></p>
-<pre class="wp-block-syntaxhighlighter-code">Import-Module '[Path to the Module]'</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:heading --></p>
+
+
+<pre class="highlight">Import-Module '[Path to the Module]'</pre>
+
+
 <h2>Executing ARM-TTK</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With the module loaded in our PowerShell session it is time to execute some test against some of the ARM templates I have. To run a test run the following command:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
-<pre class="wp-block-syntaxhighlighter-code"> Test-AzTemplate 'D:\temp\azuredeploy.json'</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<pre class="highlight"> Test-AzTemplate 'D:\temp\azuredeploy.json'</pre>
+
+
 <p>Running this command will give a result like the image below.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":5917,"sizeSlug":"large"} --></p>
-<figure class="wp-block-image size-large"><img src="{{ site.baseurl }}/assets/archive/2020/01/2020-01-06_13-37-19.png" alt="ARM-TTK" class="wp-image-5917" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image size-large"><img src="/assets/archive/2020/01/2020-01-06_13-37-19.png" alt="ARM-TTK" class="wp-image-5917" /></figure>
+
+
 <p>The tool uses a testing framework called Pester to test<br />
 certain scenario’s against the ARM template. Besides that the tool doesn’t use<br />
 the Azure context at this moment making it a very quick test framework with a<br />
 lot of great result. Some of the things it checks are:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>JSON validation</li>
 <li><strong>apiVersions<br />
@@ -113,10 +81,10 @@ the template.</li>
 <li>Parameters Property Must Exist</li>
 <li>Virtual Machines Should Not Be Preview</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>All together this looks like a really great tool that can be<br />
 extended very quickly and is really useful. Next step is creating this<br />
 extension within a Azure DevOps Pipeline task in order to use it CI and CD<br />
 scenario’s.</p>
-<p><!-- /wp:paragraph --></p>
+

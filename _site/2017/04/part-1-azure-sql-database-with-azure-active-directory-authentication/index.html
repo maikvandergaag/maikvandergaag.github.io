@@ -1,0 +1,719 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Part 1 – Azure SQL Database with Azure Active Directory Authentication - Microsoft Playground</title>
+<meta name="description" content="This post is the first post in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to an API and then to an Azure SQL Database. In this post we setup an Azure SQL Database and enable Azure Active Directory authentication on the database. Create Azure SQL Database First step is to create a new Azure SQL Database.  Open the azure portal (https://portal.azure.com) Click on “New” and search for SQL Database.    Click on SQL Database. In the next blade that appears click “Create” In the “New” SQL Database blade fill in the correct properties. For this example you could use the AdventureWorks database. Wait for the Azure SQL Database deployment to be done.  Enable Azure Active Directory Authentication  With the Azure SQL Database that is created you also create an Azure SQL Server or you have chosen to use an existing one. Within the portal navigate to the Azure SQL Server. In the Azure SQL Server blade click on “Active Directory admin” under “Settings”    Click on &quot; “Set admin” in the “Active Directory Admin” blade.    Add the Active Directory user that you want to use as admin and click on “Select”. In the Active Directory Admin blade click on “Save” to save the settings.  Add user to the Azure SQL Database With the Active Directory Admin set for the Azure SQL Server you are able to login to the SQL server with SQL Server Management Studio. On all client machines, from which your applications or users connect to Azure SQL Database or Azure SQL Data Warehouse using Azure Active Directory  users / applications, you must install the following software:  .NET Framework 4.6 or later from https://msdn.microsoft.com/library/5a4x27ek.aspx. Azure Active Directory Authentication Library for SQL Server (ADALSQL.DLL) is available in multiple languages (both x86 and amd64) from the download center at Microsoft Active Directory Authentication Library for Microsoft SQL Server.  You can meet these requirements by:  Installing either SQL Server 2016 Management Studio or SQL Server Data Tools for Visual Studio 2015 meets the .NET Framework 4.6 requirement. SSMS installs the x86 version of ADALSQL.DLL. SSDT installs the amd64 version of ADALSQL.DLL. The latest Visual Studio from Visual Studio Downloads meets the .NET Framework 4.6 requirement, but does not install the required amd64 version of ADALSQL.DLL.  If you have installed the software and you met the requirements take the following steps to add other users.  Make sure your Client IP address is added to the allowed addresses within the firewall of the Azure SQL Server. (Adding your Client IP to the Azure SQL server firewall) Open SQL Server Management Studio as Administrator. In the connect window fill in the Azure SQL Server and select “Active Directory Universal Authentication” as the authentication method.    Clicking on “Connect” will make a authentication dialog appear, fill in the right credentials (the credentials for the Active Directory Admin) and click on login. Open a new Query window in SQL Management studio and perform the following query.  Create user [User] from external provider   This query will add a User, Application or Group out of Azure Active Directory to the SQL Server Users. You can use the below SQL query to check if the user is added.  SELECT * FROM sys.sysusers;   By adding the user it  does not have read rights on the Azure SQL Database. Perform the next query to give the user the data reader role.  ALTER ROLE db_datareader ADD MEMBER [User]   You can now login with the added user by using SQL Server Management studio but make sure you set the initial database for the connection by clicking options.   If you do not configure the initial database you will get the following exception: Login failed for user “NT AUTHORITY\ANONYMOUS LOGIN”. (Microsoft SQL Server, Error: 18456).  In the next post we will  create a Azure API Application to query the Azure SQL Database.">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Part 1 – Azure SQL Database with Azure Active Directory Authentication">
+<meta property="og:url" content="http://localhost:4000/2017/04/part-1-azure-sql-database-with-azure-active-directory-authentication/">
+
+
+  <meta property="og:description" content="This post is the first post in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to an API and then to an Azure SQL Database. In this post we setup an Azure SQL Database and enable Azure Active Directory authentication on the database. Create Azure SQL Database First step is to create a new Azure SQL Database.  Open the azure portal (https://portal.azure.com) Click on “New” and search for SQL Database.    Click on SQL Database. In the next blade that appears click “Create” In the “New” SQL Database blade fill in the correct properties. For this example you could use the AdventureWorks database. Wait for the Azure SQL Database deployment to be done.  Enable Azure Active Directory Authentication  With the Azure SQL Database that is created you also create an Azure SQL Server or you have chosen to use an existing one. Within the portal navigate to the Azure SQL Server. In the Azure SQL Server blade click on “Active Directory admin” under “Settings”    Click on &quot; “Set admin” in the “Active Directory Admin” blade.    Add the Active Directory user that you want to use as admin and click on “Select”. In the Active Directory Admin blade click on “Save” to save the settings.  Add user to the Azure SQL Database With the Active Directory Admin set for the Azure SQL Server you are able to login to the SQL server with SQL Server Management Studio. On all client machines, from which your applications or users connect to Azure SQL Database or Azure SQL Data Warehouse using Azure Active Directory  users / applications, you must install the following software:  .NET Framework 4.6 or later from https://msdn.microsoft.com/library/5a4x27ek.aspx. Azure Active Directory Authentication Library for SQL Server (ADALSQL.DLL) is available in multiple languages (both x86 and amd64) from the download center at Microsoft Active Directory Authentication Library for Microsoft SQL Server.  You can meet these requirements by:  Installing either SQL Server 2016 Management Studio or SQL Server Data Tools for Visual Studio 2015 meets the .NET Framework 4.6 requirement. SSMS installs the x86 version of ADALSQL.DLL. SSDT installs the amd64 version of ADALSQL.DLL. The latest Visual Studio from Visual Studio Downloads meets the .NET Framework 4.6 requirement, but does not install the required amd64 version of ADALSQL.DLL.  If you have installed the software and you met the requirements take the following steps to add other users.  Make sure your Client IP address is added to the allowed addresses within the firewall of the Azure SQL Server. (Adding your Client IP to the Azure SQL server firewall) Open SQL Server Management Studio as Administrator. In the connect window fill in the Azure SQL Server and select “Active Directory Universal Authentication” as the authentication method.    Clicking on “Connect” will make a authentication dialog appear, fill in the right credentials (the credentials for the Active Directory Admin) and click on login. Open a new Query window in SQL Management studio and perform the following query.  Create user [User] from external provider   This query will add a User, Application or Group out of Azure Active Directory to the SQL Server Users. You can use the below SQL query to check if the user is added.  SELECT * FROM sys.sysusers;   By adding the user it  does not have read rights on the Azure SQL Database. Perform the next query to give the user the data reader role.  ALTER ROLE db_datareader ADD MEMBER [User]   You can now login with the added user by using SQL Server Management studio but make sure you set the initial database for the connection by clicking options.   If you do not configure the initial database you will get the following exception: Login failed for user “NT AUTHORITY\ANONYMOUS LOGIN”. (Microsoft SQL Server, Error: 18456).  In the next post we will  create a Azure API Application to query the Azure SQL Database.">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Part 1 – Azure SQL Database with Azure Active Directory Authentication">
+  <meta name="twitter:description" content="This post is the first post in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to an API and then to an Azure SQL Database. In this post we setup an Azure SQL Database and enable Azure Active Directory authentication on the database. Create Azure SQL Database First step is to create a new Azure SQL Database.  Open the azure portal (https://portal.azure.com) Click on “New” and search for SQL Database.    Click on SQL Database. In the next blade that appears click “Create” In the “New” SQL Database blade fill in the correct properties. For this example you could use the AdventureWorks database. Wait for the Azure SQL Database deployment to be done.  Enable Azure Active Directory Authentication  With the Azure SQL Database that is created you also create an Azure SQL Server or you have chosen to use an existing one. Within the portal navigate to the Azure SQL Server. In the Azure SQL Server blade click on “Active Directory admin” under “Settings”    Click on &quot; “Set admin” in the “Active Directory Admin” blade.    Add the Active Directory user that you want to use as admin and click on “Select”. In the Active Directory Admin blade click on “Save” to save the settings.  Add user to the Azure SQL Database With the Active Directory Admin set for the Azure SQL Server you are able to login to the SQL server with SQL Server Management Studio. On all client machines, from which your applications or users connect to Azure SQL Database or Azure SQL Data Warehouse using Azure Active Directory  users / applications, you must install the following software:  .NET Framework 4.6 or later from https://msdn.microsoft.com/library/5a4x27ek.aspx. Azure Active Directory Authentication Library for SQL Server (ADALSQL.DLL) is available in multiple languages (both x86 and amd64) from the download center at Microsoft Active Directory Authentication Library for Microsoft SQL Server.  You can meet these requirements by:  Installing either SQL Server 2016 Management Studio or SQL Server Data Tools for Visual Studio 2015 meets the .NET Framework 4.6 requirement. SSMS installs the x86 version of ADALSQL.DLL. SSDT installs the amd64 version of ADALSQL.DLL. The latest Visual Studio from Visual Studio Downloads meets the .NET Framework 4.6 requirement, but does not install the required amd64 version of ADALSQL.DLL.  If you have installed the software and you met the requirements take the following steps to add other users.  Make sure your Client IP address is added to the allowed addresses within the firewall of the Azure SQL Server. (Adding your Client IP to the Azure SQL server firewall) Open SQL Server Management Studio as Administrator. In the connect window fill in the Azure SQL Server and select “Active Directory Universal Authentication” as the authentication method.    Clicking on “Connect” will make a authentication dialog appear, fill in the right credentials (the credentials for the Active Directory Admin) and click on login. Open a new Query window in SQL Management studio and perform the following query.  Create user [User] from external provider   This query will add a User, Application or Group out of Azure Active Directory to the SQL Server Users. You can use the below SQL query to check if the user is added.  SELECT * FROM sys.sysusers;   By adding the user it  does not have read rights on the Azure SQL Database. Perform the next query to give the user the data reader role.  ALTER ROLE db_datareader ADD MEMBER [User]   You can now login with the added user by using SQL Server Management studio but make sure you set the initial database for the connection by clicking options.   If you do not configure the initial database you will get the following exception: Login failed for user “NT AUTHORITY\ANONYMOUS LOGIN”. (Microsoft SQL Server, Error: 18456).  In the next post we will  create a Azure API Application to query the Azure SQL Database.">
+  <meta name="twitter:url" content="http://localhost:4000/2017/04/part-1-azure-sql-database-with-azure-active-directory-authentication/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2017-04-25T17:00:03+02:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2017/04/part-1-azure-sql-database-with-azure-active-directory-authentication/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Part 1 – Azure SQL Database with Azure Active Directory Authentication">
+    <meta itemprop="description" content='This post is the first post in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to an API and then to an Azure SQL Database. In this post we setup an Azure SQL Database and enable Azure Active Directory authentication on the database.Create Azure SQL DatabaseFirst step is to create a new Azure SQL Database.Open the azure portal (https://portal.azure.com)Click on “New” and search for SQL Database.Click on SQL Database.In the next blade that appears click “Create”In the “New” SQL Database blade fill in the correct properties. For this example you could use the AdventureWorks database.Wait for the Azure SQL Database deployment to be done.Enable Azure Active Directory AuthenticationWith the Azure SQL Database that is created you also create an Azure SQL Server or you have chosen to use an existing one. Within the portal navigate to the Azure SQL Server.In the Azure SQL Server blade click on “Active Directory admin” under “Settings”Click on " “Set admin” in the “Active Directory Admin” blade.Add the Active Directory user that you want to use as admin and click on “Select”.In the Active Directory Admin blade click on “Save” to save the settings.Add user to the Azure SQL DatabaseWith the Active Directory Admin set for the Azure SQL Server you are able to login to the SQL server with SQL Server Management Studio. On all client machines, from which your applications or users connect to Azure SQL Database or Azure SQL Data Warehouse using Azure Active Directory  users / applications, you must install the following software:.NET Framework 4.6 or later from https://msdn.microsoft.com/library/5a4x27ek.aspx.Azure Active Directory Authentication Library for SQL Server (ADALSQL.DLL) is available in multiple languages (both x86 and amd64) from the download center at Microsoft Active Directory Authentication Library for Microsoft SQL Server.You can meet these requirements by:Installing either SQL Server 2016 Management Studio or SQL Server Data Tools for Visual Studio 2015 meets the .NET Framework 4.6 requirement.SSMS installs the x86 version of ADALSQL.DLL.SSDT installs the amd64 version of ADALSQL.DLL.The latest Visual Studio from Visual Studio Downloads meets the .NET Framework 4.6 requirement, but does not install the required amd64 version of ADALSQL.DLL.If you have installed the software and you met the requirements take the following steps to add other users.Make sure your Client IP address is added to the allowed addresses within the firewall of the Azure SQL Server. (Adding your Client IP to the Azure SQL server firewall)Open SQL Server Management Studio as Administrator.In the connect window fill in the Azure SQL Server and select “Active Directory Universal Authentication” as the authentication method.Clicking on “Connect” will make a authentication dialog appear, fill in the right credentials (the credentials for the Active Directory Admin) and click on login.Open a new Query window in SQL Management studio and perform the following query.Create user [User] from external providerThis query will add a User, Application or Group out of Azure Active Directory to the SQL Server Users. You can use the below SQL query to check if the user is added.SELECT * FROM sys.sysusers;By adding the user it  does not have read rights on the Azure SQL Database. Perform the next query to give the user the data reader role.ALTER ROLE db_datareader ADD MEMBER [User]You can now login with the added user by using SQL Server Management studio but make sure you set the initial database for the connection by clicking options.If you do not configure the initial database you will get the following exception: Login failed for user “NT AUTHORITY\ANONYMOUS LOGIN”. (Microsoft SQL Server, Error: 18456).In the next post we will  create a Azure API Application to query the Azure SQL Database.'>
+    <meta itemprop="datePublished" content="2017-04-25T17:00:03+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Part 1 – Azure SQL Database with Azure Active Directory Authentication
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>This post is the first post in a series of three posts and will help you with the creation of identity pass-through authentication from a client application to an API and then to an Azure SQL Database. In this post we setup an Azure SQL Database and enable Azure Active Directory authentication on the database.</p>
+<h2>Create Azure SQL Database</h2>
+<p>First step is to create a new Azure SQL Database.</p>
+<ol>
+<li>Open the azure portal (<a href="https://portal.azure.com" target="_blank" rel="noopener noreferrer">https://portal.azure.com</a>)</li>
+<li>Click on “New” and search for SQL Database.</li>
+</ol>
+<p><a href="/assets/archive/2017/04/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure SQL Database" src="/assets/archive/2017/04/image_thumb.png" alt="Azure SQL Database" width="788" height="358" border="0"></a></p>
+<ol start="3">
+<li>Click on SQL Database.</li>
+<li>In the next blade that appears click “Create”</li>
+<li>In the “New” SQL Database blade fill in the correct properties. For this example you could use the AdventureWorks database.</li>
+<li>Wait for the Azure SQL Database deployment to be done.</li>
+</ol>
+<h2>Enable Azure Active Directory Authentication</h2>
+<ol>
+<li>With the Azure SQL Database that is created you also create an Azure SQL Server or you have chosen to use an existing one. Within the portal navigate to the Azure SQL Server.</li>
+<li>In the Azure SQL Server blade click on “Active Directory admin” under “Settings”</li>
+</ol>
+<p><a href="/assets/archive/2017/04/image-1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="/assets/archive/2017/04/image_thumb-1.png" alt="image" width="1010" height="577" border="0"></a></p>
+<ol start="3">
+<li>Click on " “Set admin” in the “Active Directory Admin” blade.</li>
+</ol>
+<p><a href="/assets/archive/2017/04/image-2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Active Directory Admin" src="/assets/archive/2017/04/image_thumb-2.png" alt="Active Directory Admin" width="922" height="346" border="0"></a></p>
+<ol start="4">
+<li>Add the Active Directory user that you want to use as admin and click on “Select”.</li>
+<li>In the Active Directory Admin blade click on “Save” to save the settings.</li>
+</ol>
+<h2>Add user to the Azure SQL Database</h2>
+<p>With the Active Directory Admin set for the Azure SQL Server you are able to login to the SQL server with SQL Server Management Studio. On all client machines, from which your applications or users connect to Azure SQL Database or Azure SQL Data Warehouse using Azure Active Directory  users / applications, you must install the following software:</p>
+<ul>
+<li>.NET Framework 4.6 or later from <a href="https://msdn.microsoft.com/library/5a4x27ek.aspx" target="_blank" rel="noopener noreferrer">https://msdn.microsoft.com/library/5a4x27ek.aspx</a>.</li>
+<li>Azure Active Directory Authentication Library for SQL Server (<strong>ADALSQL.DLL</strong>) is available in multiple languages (both x86 and amd64) from the download center at <a href="http://www.microsoft.com/download/details.aspx?id=48742" target="_blank" rel="noopener noreferrer">Microsoft Active Directory Authentication Library for Microsoft SQL Server</a>.</li>
+</ul>
+<p>You can meet these requirements by:</p>
+<ul>
+<li>Installing either <a href="https://msdn.microsoft.com/library/mt238290.aspx" target="_blank" rel="noopener noreferrer">SQL Server 2016 Management Studio</a> or <a href="https://msdn.microsoft.com/library/mt204009.aspx" target="_blank" rel="noopener noreferrer">SQL Server Data Tools for Visual Studio 2015</a> meets the .NET Framework 4.6 requirement.</li>
+<li>SSMS installs the x86 version of <strong>ADALSQL.DLL</strong>.</li>
+<li>SSDT installs the amd64 version of <strong>ADALSQL.DLL</strong>.</li>
+<li>The latest Visual Studio from <a href="https://www.visualstudio.com/downloads/download-visual-studio-vs" target="_blank" rel="noopener noreferrer">Visual Studio Downloads</a> meets the .NET Framework 4.6 requirement, but does not install the required amd64 version of <strong>ADALSQL.</strong>DLL.</li>
+</ul>
+<p>If you have installed the software and you met the requirements take the following steps to add other users.</p>
+<ol>
+<li>Make sure your Client IP address is added to the allowed addresses within the firewall of the Azure SQL Server. (<a href="https://msftplayground.com/2017/01/adding-your-client-ip-to-the-azure-sql-server-firewall/" target="_blank" rel="noopener noreferrer">Adding your Client IP to the Azure SQL server firewall</a>)</li>
+<li>Open SQL Server Management Studio as Administrator.</li>
+<li>In the connect window fill in the Azure SQL Server and select “Active Directory Universal Authentication” as the authentication method.</li>
+</ol>
+<p><a href="/assets/archive/2017/04/image-3.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Connect to Server" src="/assets/archive/2017/04/image_thumb-3.png" alt="Connect to Server" width="689" height="459" border="0"></a></p>
+<ol start="3">
+<li>Clicking on “Connect” will make a authentication dialog appear, fill in the right credentials (the credentials for the Active Directory Admin) and click on login.</li>
+<li>Open a new Query window in SQL Management studio and perform the following query.</li>
+</ol>
+<pre class="highlight">Create user [User] from external provider
+</pre>
+<ol start="5">
+<li>This query will add a User, Application or Group out of Azure Active Directory to the SQL Server Users. You can use the below SQL query to check if the user is added.</li>
+</ol>
+<pre class="highlight">SELECT * FROM sys.sysusers;
+</pre>
+<ol start="6">
+<li>By adding the user it  does not have read rights on the Azure SQL Database. Perform the next query to give the user the data reader role.</li>
+</ol>
+<pre class="highlight">ALTER ROLE db_datareader ADD MEMBER [User]
+</pre>
+<ol start="7">
+<li>You can now login with the added user by using SQL Server Management studio but make sure you set the initial database for the connection by clicking options.</li>
+</ol>
+<p><a href="/assets/archive/2017/04/image-4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Initial Database" src="/assets/archive/2017/04/image_thumb-4.png" alt="Initial Database" width="492" height="537" border="0"></a></p>
+<p>If you do not configure the initial database you will get the following exception: Login failed for user “NT AUTHORITY\ANONYMOUS LOGIN”. (Microsoft SQL Server, Error: 18456).</p>
+<p><a href="/assets/archive/2017/04/image-5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="SQL Authentication Error" src="/assets/archive/2017/04/image_thumb-5.png" alt="SQL Authentication Error" width="961" height="248" border="0"></a></p>
+<p>In the next post we will  create a Azure API Application to query the Azure SQL Database.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure-active-directory" class="page__taxonomy-item" rel="tag">Azure Active Directory</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure-sql-server" class="page__taxonomy-item" rel="tag">Azure SQL Server</a><span class="sep">, </span>
+    
+      <a href="/tags/#identity" class="page__taxonomy-item" rel="tag">Identity</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#administration" class="page__taxonomy-item" rel="tag">Administration</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-04-25T17:00:03+02:00">April 25, 2017</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Part+1+%26ndash%3B+Azure+SQL+Database+with+Azure+Active+Directory+Authentication%20http%3A%2F%2Flocalhost%3A4000%2F2017%2F04%2Fpart-1-azure-sql-database-with-azure-active-directory-authentication%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2017%2F04%2Fpart-1-azure-sql-database-with-azure-active-directory-authentication%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2017%2F04%2Fpart-1-azure-sql-database-with-azure-active-directory-authentication%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/04/global-azure-bootcamp-pass-through-authentication-with-an-azure-api-application/" class="pagination--pager" title="Global Azure Bootcamp - Pass-through authentication with an Azure API Application
+">Previous</a>
+    
+    
+      <a href="/2017/05/part-2-azure-api-application-to-query-the-azure-sql-database/" class="pagination--pager" title="Part 2 – Azure API Application to query the Azure SQL Database
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

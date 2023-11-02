@@ -1,37 +1,14 @@
 ---
-layout: post
 title: Problems with SharePoint 2007 Migration to SharePoint 2010
-date: 2010-12-14 05:27:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
+tags:
+- Migration
+date: 2010-12-14 05:27:00.000000000 +01:00
+permalink: /2010/12/problems-with-sharepoint-2007-migration-to-sharepoint-2010/
 categories:
 - Administration
 - SharePoint
-tags:
-- Migration
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SharePoint
-  _yoast_wpseo_focuskw: SharePoint
-  _yoast_wpseo_linkdex: '74'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2010/12/problems-with-sharepoint-2007-migration-to-sharepoint-2010/"
+status: publish
 ---
 <div class="ExternalClass1CFAEA6F1C9A4ADF8ED59256EB32AEF8">
 <p>At the office one of mine colleagues (Jos van Vlimmeren) was trying to perform a migration of a SharePoint 2007 site to SharePoint 2010. He had a backup of the database and attached it into the SQL Server of the SharePoint 2010 farm. Before he mounted the content database to the web application he used the Test-SPContentDatabase PowerShell cmdlet to check if the database was ok. From the test he got several errors on out of the box webparts like the following:</p>
@@ -39,11 +16,11 @@ permalink: "/2010/12/problems-with-sharepoint-2007-migration-to-sharepoint-2010/
 <p>Category : MissingWebPart <br />Error : True <br />UpgradeBlocking : False <br />Message : WebPart class [bc877bd0-b48e-3165-7c9e-1e2f98c2a42a] is referenced [30] times in the database [SP_ContentDb], but is not installed on the current farm. Please install any feature/solution which contains this web part. <br />Remedy : One or more web parts are referenced in the database [SP_ContentDb], but are not installed on the current farm. Please install any feature or solution which contains these webparts. </p>
 <p>----------------------------------------------------------------------------------------------------------------- </p>
 <p>To find more information about the errors he used a tool to verify which webparts were giving the errors. The tool works with the output file you get from the Test-SPContentdatabase cmdlet. To get a output file from the cmdlet you can do the following: </p>
-<pre class="brush: powershell;">Test-SPContentdatabase -name SP_ContentDb_Operations -WebApplication http://localhost | Out-file c:\TestSP_Content_Operation.txt </pre>
+<pre class="highlight">Test-SPContentdatabase -name SP_ContentDb_Operations -WebApplication http://localhost | Out-file c:\TestSP_Content_Operation.txt </pre>
 <p>The output file can be read out by the tool that comes from codeplex. The tool will state the names of the webparts and the urls of the sites on which the webparts reside. The tool can be found on the following location (http://sp2010extmigrareport.codeplex.com/). The tool can be used in the command prompt with the following syntax:</p>
 <p>sharepoint2007migration.console.exe "C:\TestSP_Content_Operations.txt" c:\ReportSP_ContentDb_Operations.txt </p>
 <p>After he had run the Test-SPContentDatabase he mounted the content database with the Mount-SPContentDatabase PowerShell cmdlet to attach the database to an existing web application. When he saw that the site wasn’t working he realized that something was wrong. Like the errors the webparts were still referencing the webpart assemblies in version 12. So you have to change the references to the 14 version assemblies. This can be done by adding a couple of binding redirects. The bindings we had to add to the web.config were:</p>
-<pre class="brush: xml;">     &lt;dependentAssembly xmlns="urn:schemas-microsoft-com:asm.v1"&gt;
+<pre class="highlight">     &lt;dependentAssembly xmlns="urn:schemas-microsoft-com:asm.v1"&gt;
         &lt;assemblyIdentity name="Microsoft.SharePoint.Portal" publicKeyToken="71e9bce111e9429c" culture="neutral" /&gt;
         &lt;bindingRedirect oldVersion="11.0.0.0-12.0.0.0" newVersion="14.0.0.0" /&gt;
       &lt;/dependentAssembly&gt;

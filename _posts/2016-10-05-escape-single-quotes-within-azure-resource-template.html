@@ -1,72 +1,28 @@
 ---
-layout: post
 title: Escape Single Quotes within Azure Resource Template
-date: 2016-10-05 09:47:05.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure DevOps
 tags:
 - Azure
 - Azure Resource Template
 - Development
 - Escape
-meta:
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: Azure
-  _yoast_wpseo_focuskw: Azure
-  _yoast_wpseo_linkdex: '66'
-  _yoast_wpseo_content_score: '60'
-  _yoast_wpseo_primary_category: ''
-  _thumbnail_id: '2209'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:412:"a:1:{i:0;a:13:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doFB";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1774770319466960";s:5:"pDate";s:19:"2016-10-05
-    08:49:32";}}";
-  snapLI: s:308:"a:1:{i:0;a:10:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";s:1:"1";s:11:"isPrePosted";s:1:"1";}}";
-  snap_isAutoPosted: '1'
-  snapTW: s:299:"a:1:{i:0;a:10:{s:2:"do";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE% -
-    %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:4:"doTW";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"783589950986018816";s:5:"pDate";s:19:"2016-10-05
-    08:49:37";}}";
-  _wpas_done_all: '1'
-  rop_post_url_twitter: https://msftplayground.com/2016/10/escape-single-quotes-within-azure-resource-template/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  rop_post_url_facebook: https://msftplayground.com/2016/10/escape-single-quotes-within-azure-resource-template/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
-  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2016/10/escape-single-quotes-within-azure-resource-template/"
+date: 2016-10-05 09:47:05.000000000 +02:00
+permalink: /2016/10/escape-single-quotes-within-azure-resource-template/
+categories:
+- Azure DevOps
+status: publish
 ---
 <p>In some situations you will get into problems when creating a Azure Resource Template. I was creating a solution for a customer and had to add a Logic App to our template. That isn’t that hard I thought but when adding a Logic App to your template and making it parameterized and depending on other resources you can come into scenario’s were you will have to escape single quotes.</p>
 <p>Looking into the documentation about azure resource templates you will not find any solution (I haven’t) so I tried a couple of escape characters and they didn’t work.</p>
 <p>The last resort was a solution that isn’t that pretty but it works, I hope that in new releases this will be fixed.</p>
 <h2>Create a Variable</h2>
 <p>The first step for the solution is to create a variable in the template that contains a single quote.</p>
-<pre class="brush: js;">"variables": {
+<pre class="highlight">"variables": {
   "singlequote": "'"
 }
 </pre>
 <h2>Use the variable</h2>
 <p>After you created the variable you can use this to combine you string values.</p>
-<pre class="brush: js;"> "uri": "[concat('https://', reference(concat('Microsoft.Web/sites/', parameters('api_Name'))).defaultHostName, '/api/Item/', '@{encodeURIComponent(body(',variables('singlequote'), 'HTTP_GetItem',variables('singlequote'), ')?[', variables('singlequote'),'itemid_value', variables('singlequote'), '])}')]"
+<pre class="highlight"> "uri": "[concat('https://', reference(concat('Microsoft.Web/sites/', parameters('api_Name'))).defaultHostName, '/api/Item/', '@{encodeURIComponent(body(',variables('singlequote'), 'HTTP_GetItem',variables('singlequote'), ')?[', variables('singlequote'),'itemid_value', variables('singlequote'), '])}')]"
 </pre>
 <p>As you can see in the above code snip it we set the “uri” property of a Logic App component. In this specific snipt it we dynamically get the hostname of a Azure Web Site the Logic App depends on. Further up in the “uri” we need single quotes as you can see by adding the variable ‘singlequote’.</p>

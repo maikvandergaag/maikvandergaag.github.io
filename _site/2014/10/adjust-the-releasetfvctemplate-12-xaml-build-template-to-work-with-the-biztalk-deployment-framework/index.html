@@ -1,0 +1,675 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Adjust the ReleaseTfvcTemplate.12.xaml build template to work with the BizTalk Deployment Framework - Microsoft Playground</title>
+<meta name="description" content="If you want to use the BizTalk Deployment framework in combination with Release Management you need to adjust the default build template that comes with Release Management. If you did not find it already you can find the default build template in the installation folder of release management. C:\Program Files (x86)\Microsoft Visual Studio 12.0\Release Management\Client\bin\ReleaseTfvcTemplate.12.xaml Copy this template to TFS and open it to make a small adjustment. In the workflow explorer Navigate to the following sequence component: “Overall Build Process” – “Run on Agent” – “Try” – “Compile, Test and Publish”. Whit this component selected, select “Variable” in the lower left corner.  In the popup window create a new “Variable” by clicking “Create Variable” and call it “BinariesDirectory” and make it of the type “String”.  This variable will be used to save the directory in which the Deployment Framework components can be found. Next step is to add a “GetEnviromentVariable&lt;T&gt;” action just above the “Run MSBuild” action. Select the type “String” and call the action “Get Binaries Directory”. To get the Binaries Directory we want to make use of a WellKnownEnvironmentVariable (MSDN). To use such a variable you need to import a assembly reference. You can add a assembly reference by clicking on “Import” next to “Arguments” in the footer of the workflow screen.  Import the “Microsoft.TeamFoundation.Build.Activities.Extensions” namespace to make use of the WellKnownEnvironmentVariables. Know you can set the properties of the “Get Binaries Directory” action to get the “WellKnownEnvironmentVariables.BinariesDirectory” environment variable.  With this value we can change the MSBuild argument to build the MSI from the BizTalk Deployment Framework. Select the “Run MSBuild” action and adjust the “CommandLineArguments” property to the following value. String.Format(&quot;/p:SkipInvalidConfigurations=true;TeamBuildOutDir=&quot;&quot;{0}&quot;&quot; {1}&quot;, BinariesDirectory, AdvancedBuildSettings.GetValue(Of String)(&quot;MSBuildArguments&quot;, String.Empty))  Save and Check In the build template. If you use this build template to define a build definition you are able to use a Release within Release Management that uses the output of this build. One thing to keep in mind that you will have to set the following properties on your build definition:  MSBuild platform: X86 Output location: AsConfigured">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Adjust the ReleaseTfvcTemplate.12.xaml build template to work with the BizTalk Deployment Framework">
+<meta property="og:url" content="http://localhost:4000/2014/10/adjust-the-releasetfvctemplate-12-xaml-build-template-to-work-with-the-biztalk-deployment-framework/">
+
+
+  <meta property="og:description" content="If you want to use the BizTalk Deployment framework in combination with Release Management you need to adjust the default build template that comes with Release Management. If you did not find it already you can find the default build template in the installation folder of release management. C:\Program Files (x86)\Microsoft Visual Studio 12.0\Release Management\Client\bin\ReleaseTfvcTemplate.12.xaml Copy this template to TFS and open it to make a small adjustment. In the workflow explorer Navigate to the following sequence component: “Overall Build Process” – “Run on Agent” – “Try” – “Compile, Test and Publish”. Whit this component selected, select “Variable” in the lower left corner.  In the popup window create a new “Variable” by clicking “Create Variable” and call it “BinariesDirectory” and make it of the type “String”.  This variable will be used to save the directory in which the Deployment Framework components can be found. Next step is to add a “GetEnviromentVariable&lt;T&gt;” action just above the “Run MSBuild” action. Select the type “String” and call the action “Get Binaries Directory”. To get the Binaries Directory we want to make use of a WellKnownEnvironmentVariable (MSDN). To use such a variable you need to import a assembly reference. You can add a assembly reference by clicking on “Import” next to “Arguments” in the footer of the workflow screen.  Import the “Microsoft.TeamFoundation.Build.Activities.Extensions” namespace to make use of the WellKnownEnvironmentVariables. Know you can set the properties of the “Get Binaries Directory” action to get the “WellKnownEnvironmentVariables.BinariesDirectory” environment variable.  With this value we can change the MSBuild argument to build the MSI from the BizTalk Deployment Framework. Select the “Run MSBuild” action and adjust the “CommandLineArguments” property to the following value. String.Format(&quot;/p:SkipInvalidConfigurations=true;TeamBuildOutDir=&quot;&quot;{0}&quot;&quot; {1}&quot;, BinariesDirectory, AdvancedBuildSettings.GetValue(Of String)(&quot;MSBuildArguments&quot;, String.Empty))  Save and Check In the build template. If you use this build template to define a build definition you are able to use a Release within Release Management that uses the output of this build. One thing to keep in mind that you will have to set the following properties on your build definition:  MSBuild platform: X86 Output location: AsConfigured">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Adjust the ReleaseTfvcTemplate.12.xaml build template to work with the BizTalk Deployment Framework">
+  <meta name="twitter:description" content="If you want to use the BizTalk Deployment framework in combination with Release Management you need to adjust the default build template that comes with Release Management. If you did not find it already you can find the default build template in the installation folder of release management. C:\Program Files (x86)\Microsoft Visual Studio 12.0\Release Management\Client\bin\ReleaseTfvcTemplate.12.xaml Copy this template to TFS and open it to make a small adjustment. In the workflow explorer Navigate to the following sequence component: “Overall Build Process” – “Run on Agent” – “Try” – “Compile, Test and Publish”. Whit this component selected, select “Variable” in the lower left corner.  In the popup window create a new “Variable” by clicking “Create Variable” and call it “BinariesDirectory” and make it of the type “String”.  This variable will be used to save the directory in which the Deployment Framework components can be found. Next step is to add a “GetEnviromentVariable&lt;T&gt;” action just above the “Run MSBuild” action. Select the type “String” and call the action “Get Binaries Directory”. To get the Binaries Directory we want to make use of a WellKnownEnvironmentVariable (MSDN). To use such a variable you need to import a assembly reference. You can add a assembly reference by clicking on “Import” next to “Arguments” in the footer of the workflow screen.  Import the “Microsoft.TeamFoundation.Build.Activities.Extensions” namespace to make use of the WellKnownEnvironmentVariables. Know you can set the properties of the “Get Binaries Directory” action to get the “WellKnownEnvironmentVariables.BinariesDirectory” environment variable.  With this value we can change the MSBuild argument to build the MSI from the BizTalk Deployment Framework. Select the “Run MSBuild” action and adjust the “CommandLineArguments” property to the following value. String.Format(&quot;/p:SkipInvalidConfigurations=true;TeamBuildOutDir=&quot;&quot;{0}&quot;&quot; {1}&quot;, BinariesDirectory, AdvancedBuildSettings.GetValue(Of String)(&quot;MSBuildArguments&quot;, String.Empty))  Save and Check In the build template. If you use this build template to define a build definition you are able to use a Release within Release Management that uses the output of this build. One thing to keep in mind that you will have to set the following properties on your build definition:  MSBuild platform: X86 Output location: AsConfigured">
+  <meta name="twitter:url" content="http://localhost:4000/2014/10/adjust-the-releasetfvctemplate-12-xaml-build-template-to-work-with-the-biztalk-deployment-framework/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2014-10-20T14:46:30+02:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2014/10/adjust-the-releasetfvctemplate-12-xaml-build-template-to-work-with-the-biztalk-deployment-framework/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Adjust the ReleaseTfvcTemplate.12.xaml build template to work with the BizTalk Deployment Framework">
+    <meta itemprop="description" content='If you want to use the BizTalk Deployment framework in combination with Release Management you need to adjust the default build template that comes with Release Management.If you did not find it already you can find the default build template in the installation folder of release management.C:\Program Files (x86)\Microsoft Visual Studio 12.0\Release Management\Client\bin\ReleaseTfvcTemplate.12.xamlCopy this template to TFS and open it to make a small adjustment. In the workflow explorer Navigate to the following sequence component:“Overall Build Process” – “Run on Agent” – “Try” – “Compile, Test and Publish”.Whit this component selected, select “Variable” in the lower left corner.In the popup window create a new “Variable” by clicking “Create Variable” and call it “BinariesDirectory” and make it of the type “String”.This variable will be used to save the directory in which the Deployment Framework components can be found.Next step is to add a “GetEnviromentVariable&lt;T&gt;” action just above the “Run MSBuild” action. Select the type “String” and call the action “Get Binaries Directory”.To get the Binaries Directory we want to make use of a WellKnownEnvironmentVariable (MSDN). To use such a variable you need to import a assembly reference. You can add a assembly reference by clicking on “Import” next to “Arguments” in the footer of the workflow screen.Import the “Microsoft.TeamFoundation.Build.Activities.Extensions” namespace to make use of the WellKnownEnvironmentVariables. Know you can set the properties of the “Get Binaries Directory” action to get the “WellKnownEnvironmentVariables.BinariesDirectory” environment variable.With this value we can change the MSBuild argument to build the MSI from the BizTalk Deployment Framework. Select the “Run MSBuild” action and adjust the “CommandLineArguments” property to the following value.String.Format("/p:SkipInvalidConfigurations=true;TeamBuildOutDir=""{0}"" {1}", BinariesDirectory, AdvancedBuildSettings.GetValue(Of String)("MSBuildArguments", String.Empty))Save and Check In the build template. If you use this build template to define a build definition you are able to use a Release within Release Management that uses the output of this build.One thing to keep in mind that you will have to set the following properties on your build definition:MSBuild platform: X86Output location: AsConfigured'>
+    <meta itemprop="datePublished" content="2014-10-20T14:46:30+02:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Adjust the ReleaseTfvcTemplate.12.xaml build template to work with the BizTalk Deployment Framework
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>If you want to use the BizTalk Deployment framework in combination with Release Management you need to adjust the default build template that comes with Release Management.</p>
+<p>If you did not find it already you can find the default build template in the installation folder of release management.</p>
+<p><i>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Release Management\Client\bin\</i><i>ReleaseTfvcTemplate.12.xaml</i></p>
+<p>Copy this template to TFS and open it to make a small adjustment. In the workflow explorer Navigate to the following sequence component:</p>
+<p><em>“Overall Build Process” – “Run on Agent” – “Try” – “Compile, Test and Publish”.</em></p>
+<p>Whit this component selected, select “Variable” in the lower left corner.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image10.png" target="_blank" rel="noopener noreferrer"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb10.png" alt="image" width="303" height="211" border="0"></a></p>
+<p>In the popup window create a new “Variable” by clicking “Create Variable” and call it “BinariesDirectory” and make it of the type “String”.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image11.png" target="_blank" rel="noopener noreferrer"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb11.png" alt="image" width="320" height="223" border="0"></a></p>
+<p>This variable will be used to save the directory in which the Deployment Framework components can be found.</p>
+<p>Next step is to add a “GetEnviromentVariable&lt;T&gt;” action just above the “Run MSBuild” action. Select the type “String” and call the action “Get Binaries Directory”.</p>
+<p>To get the Binaries Directory we want to make use of a WellKnownEnvironmentVariable (<a href="http://msdn.microsoft.com/en-us/library/microsoft.teamfoundation.build.activities.extensions.wellknownenvironmentvariables.aspx" target="_blank" rel="noopener noreferrer">MSDN</a>). To use such a variable you need to import a assembly reference. You can add a assembly reference by clicking on “Import” next to “Arguments” in the footer of the workflow screen.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image12.png" target="_blank" rel="noopener noreferrer"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb12.png" alt="image" width="335" height="234" border="0"></a></p>
+<p>Import the “Microsoft.TeamFoundation.Build.Activities.Extensions” namespace to make use of the WellKnownEnvironmentVariables. Know you can set the properties of the “Get Binaries Directory” action to get the “WellKnownEnvironmentVariables.BinariesDirectory” environment variable.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image13.png" target="_blank" rel="noopener noreferrer"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb13.png" alt="image" width="587" height="120" border="0"></a></p>
+<p>With this value we can change the MSBuild argument to build the MSI from the BizTalk Deployment Framework. Select the “Run MSBuild” action and adjust the “CommandLineArguments” property to the following value.</p>
+<pre class="highlight">String.Format("/p:SkipInvalidConfigurations=true;TeamBuildOutDir=""{0}"" {1}", BinariesDirectory, AdvancedBuildSettings.GetValue(Of String)("MSBuildArguments", String.Empty))
+</pre>
+<p>Save and Check In the build template. If you use this build template to define a build definition you are able to use a Release within Release Management that uses the output of this build.</p>
+<p>One thing to keep in mind that you will have to set the following properties on your build definition:</p>
+<ul>
+<li>
+<strong>MSBuild platform:</strong> X86</li>
+<li>
+<strong>Output location: </strong>AsConfigured</li>
+</ul>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image14.png" target="_blank" rel="noopener noreferrer"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb14.png" alt="image" width="593" height="420" border="0"></a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#biztalk-deployment-framework" class="page__taxonomy-item" rel="tag">BizTalk Deployment Framework</a><span class="sep">, </span>
+    
+      <a href="/tags/#build-template" class="page__taxonomy-item" rel="tag">Build Template</a><span class="sep">, </span>
+    
+      <a href="/tags/#release-management" class="page__taxonomy-item" rel="tag">Release Management</a><span class="sep">, </span>
+    
+      <a href="/tags/#tfs" class="page__taxonomy-item" rel="tag">TFS</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#devops" class="page__taxonomy-item" rel="tag">DevOps</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-10-20T14:46:30+02:00">October 20, 2014</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Adjust+the+ReleaseTfvcTemplate.12.xaml+build+template+to+work+with+the+BizTalk+Deployment+Framework%20http%3A%2F%2Flocalhost%3A4000%2F2014%2F10%2Fadjust-the-releasetfvctemplate-12-xaml-build-template-to-work-with-the-biztalk-deployment-framework%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2014%2F10%2Fadjust-the-releasetfvctemplate-12-xaml-build-template-to-work-with-the-biztalk-deployment-framework%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2014%2F10%2Fadjust-the-releasetfvctemplate-12-xaml-build-template-to-work-with-the-biztalk-deployment-framework%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2014/10/customize-the-release-management-build-template-part-1/" class="pagination--pager" title="Customize the Release Management Build template – Part 1
+">Previous</a>
+    
+    
+      <a href="/2014/11/article-published-diwug-magazine-14-management-of-host-named-site-collections/" class="pagination--pager" title="Article Published DIWUG Magazine 14 – Management of Host Named Site Collections
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

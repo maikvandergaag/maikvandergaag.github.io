@@ -1,69 +1,16 @@
 ---
-layout: post
-title: Adjust the ReleaseTfvcTemplate.12.xaml build template to work with the BizTalk
-  Deployment Framework
-date: 2014-10-20 14:46:30.000000000 +02:00
+title: Adjust the ReleaseTfvcTemplate.12.xaml build template to work with the BizTalk Deployment Framework
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- DevOps
 tags:
 - BizTalk Deployment Framework
 - Build Template
 - Release Management
 - TFS
-meta:
-  snap_isAutoPosted: '1'
-  _wp_jd_bitly: http://bit.ly/ZCM6aH
-  _wp_jd_target: http://msftplayground.com/2014/10/adjust-the-releasetfvctemplate-12-xaml-build-template-to-work-with-the-biztalk-deployment-framework/
-  _jd_wp_twitter: 'a:3:{i:0;s:130:"New post: Adjust the ReleaseTfvcTemplate.12.xaml
-    build template to work with the BizTalk Deployment Framework http://bit.ly/ZCM6aH";i:1;s:133:"Post
-    Edited: Adjust the ReleaseTfvcTemplate.12.xaml build template to work with the
-    BizTalk Deployment Framework http://bit.ly/ZCM6aH";i:2;s:133:"Post Edited: Adjust
-    the ReleaseTfvcTemplate.12.xaml build template to work with the BizTalk Deployment
-    Framework http://bit.ly/ZCM6aH";}'
-  _wpt_status_message: Tweet sent successfully.
-  _edit_last: '1'
-  _yoast_wpseo_focuskw: BizTalk
-  _yoast_wpseo_title: Adjust the ReleaseTfvcTemplate.12.xaml build template to work
-    with the BizTalk Deployment Framework
-  _yoast_wpseo_metadesc: Adjust the ReleaseTfvcTemplate.12.xaml build template to
-    work with the BizTalk Deployment Framework.
-  _jd_twitter: ''
-  _jd_tweet_this: 'yes'
-  _yoast_wpseo_linkdex: '84'
-  _thumbnail_id: '1010'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:395:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1481432608800734";s:5:"pDate";s:19:"2014-10-20
-    14:46:38";s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
-  snapLI: s:292:"a:1:{i:0;a:9:{s:11:"isPrePosted";s:1:"1";s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
-  _oembed_b954b96bf2e22976c1f9bfb1e80f3497: "{{unknown}}"
-  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: BizTalk
-  _wds_title: Adjust the ReleaseTfvcTemplate.12.xaml build template to work with the
-    BizTalk Deployment Framework
-  _wds_metadesc: Adjust the ReleaseTfvcTemplate.12.xaml build template to work with
-    the BizTalk Deployment Framework.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2014/10/adjust-the-releasetfvctemplate-12-xaml-build-template-to-work-with-the-biztalk-deployment-framework/"
+date: 2014-10-20 14:46:30.000000000 +02:00
+permalink: /2014/10/adjust-the-releasetfvctemplate-12-xaml-build-template-to-work-with-the-biztalk-deployment-framework/
+categories:
+- DevOps
+status: publish
 ---
 <p>If you want to use the BizTalk Deployment framework in combination with Release Management you need to adjust the default build template that comes with Release Management.</p>
 <p>If you did not find it already you can find the default build template in the installation folder of release management.</p>
@@ -71,17 +18,17 @@ permalink: "/2014/10/adjust-the-releasetfvctemplate-12-xaml-build-template-to-wo
 <p>Copy this template to TFS and open it to make a small adjustment. In the workflow explorer Navigate to the following sequence component:</p>
 <p><em>“Overall Build Process” – “Run on Agent” – “Try” – “Compile, Test and Publish”.</em></p>
 <p>Whit this component selected, select “Variable” in the lower left corner.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image10.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb10.png" alt="image" width="303" height="211" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image10.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb10.png" alt="image" width="303" height="211" border="0" /></a></p>
 <p>In the popup window create a new “Variable” by clicking “Create Variable” and call it “BinariesDirectory” and make it of the type “String”.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image11.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb11.png" alt="image" width="320" height="223" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image11.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb11.png" alt="image" width="320" height="223" border="0" /></a></p>
 <p>This variable will be used to save the directory in which the Deployment Framework components can be found.</p>
 <p>Next step is to add a “GetEnviromentVariable&lt;T&gt;” action just above the “Run MSBuild” action. Select the type “String” and call the action “Get Binaries Directory”.</p>
 <p>To get the Binaries Directory we want to make use of a WellKnownEnvironmentVariable (<a href="http://msdn.microsoft.com/en-us/library/microsoft.teamfoundation.build.activities.extensions.wellknownenvironmentvariables.aspx">MSDN</a>). To use such a variable you need to import a assembly reference. You can add a assembly reference by clicking on “Import” next to “Arguments” in the footer of the workflow screen.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image12.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb12.png" alt="image" width="335" height="234" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image12.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb12.png" alt="image" width="335" height="234" border="0" /></a></p>
 <p>Import the “Microsoft.TeamFoundation.Build.Activities.Extensions” namespace to make use of the WellKnownEnvironmentVariables. Know you can set the properties of the “Get Binaries Directory” action to get the “WellKnownEnvironmentVariables.BinariesDirectory” environment variable.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image13.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb13.png" alt="image" width="587" height="120" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image13.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb13.png" alt="image" width="587" height="120" border="0" /></a></p>
 <p>With this value we can change the MSBuild argument to build the MSI from the BizTalk Deployment Framework. Select the “Run MSBuild” action and adjust the “CommandLineArguments” property to the following value.</p>
-<pre class="brush: powershell;">String.Format("/p:SkipInvalidConfigurations=true;TeamBuildOutDir=""{0}"" {1}", BinariesDirectory, AdvancedBuildSettings.GetValue(Of String)("MSBuildArguments", String.Empty))
+<pre class="highlight">String.Format("/p:SkipInvalidConfigurations=true;TeamBuildOutDir=""{0}"" {1}", BinariesDirectory, AdvancedBuildSettings.GetValue(Of String)("MSBuildArguments", String.Empty))
 </pre>
 <p>Save and Check In the build template. If you use this build template to define a build definition you are able to use a Release within Release Management that uses the output of this build.</p>
 <p>One thing to keep in mind that you will have to set the following properties on your build definition:</p>
@@ -89,4 +36,4 @@ permalink: "/2014/10/adjust-the-releasetfvctemplate-12-xaml-build-template-to-wo
 <li><strong>MSBuild platform:</strong> X86</li>
 <li><strong>Output location: </strong>AsConfigured</li>
 </ul>
-<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image14.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/10/image_thumb14.png" alt="image" width="593" height="420" border="0" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/10/image14.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="/assets/archive/2014/10/image_thumb14.png" alt="image" width="593" height="420" border="0" /></a></p>

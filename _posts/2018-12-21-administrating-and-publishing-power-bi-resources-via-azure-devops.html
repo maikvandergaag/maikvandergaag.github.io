@@ -1,109 +1,27 @@
 ---
-layout: post
 title: Administrating and publishing Power BI resources via Azure DevOps
-date: 2018-12-21 11:48:48.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure DevOps
-- Power BI
 tags:
 - Azure
 - Azure DevOps
 - Power BI
-meta:
-  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";s:64:"https://cdn-images-1.medium.com/fit/c/400/400/0*AxSPiq5RxgMb62vG";s:10:"author_url";s:34:"https://medium.com/@maikvandergaag";s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";s:3:"yes";s:2:"id";s:12:"a8a0941202b3";s:21:"follower_notification";s:3:"yes";s:7:"license";s:19:"all-rights-reserved";s:14:"publication_id";s:2:"-1";s:6:"status";s:6:"public";s:3:"url";s:113:"https://medium.com/@maikvandergaag/administrating-and-publishing-power-bi-resources-via-azure-devops-a8a0941202b3";}
-  _edit_last: '3'
-  _yoast_wpseo_primary_category: '535'
-  _yoast_wpseo_content_score: '30'
-  _oembed_07582cba59254770b58d437a16d90906: "{{unknown}}"
-  _oembed_123e4cb98ac2e77ee164b3f2353a8b29: '<blockquote class="wp-embedded-content"
-    data-secret="3bHobghHnQ"><a href="https://msftplayground.com/extensions/">Extensions</a></blockquote><iframe
-    class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="position:
-    absolute; clip: rect(1px, 1px, 1px, 1px);" src="https://msftplayground.com/extensions/embed/#?secret=3bHobghHnQ"
-    data-secret="3bHobghHnQ" width="600" height="338" title="&#8220;Extensions&#8221;
-    &#8212; Microsoft Playground" frameborder="0" marginwidth="0" marginheight="0"
-    scrolling="no"></iframe>'
-  _oembed_time_123e4cb98ac2e77ee164b3f2353a8b29: '1545390897'
-  _yoast_wpseo_focuskw: Azure DevOps
-  _yoast_wpseo_linkdex: '71'
-  _yoast_wpseo_metadesc: Power BI started as a self-service tool and has become a
-    part of the enterprise reporting tooling. Managing reports centrally can be done
-    with Azure DevOps.
-  _nxs_slinks: a:1:{s:32:"b4199848603044a993df9f2fdb4939bc";s:21:"http://bit.ly/2BwjSUg";}
-  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2BwjSUg";s:1:"t";s:101:"https://msftplayground.com/2018/12/administrating-and-publishing-power-bi-resources-via-azure-devops/";s:1:"r";s:1:"B";}
-  snap_isAutoPosted: '1545389329'
-  _wpas_done_all: '1'
-  _thumbnail_id: '4451'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
-    - %HCATS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1076068021461045249";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1076068021461045249";s:5:"pDate";s:19:"2018-12-21
-    10:53:03";}}";
-  _snapPHST: a:2:{s:2:"tw";a:1:{i:0;a:2:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1076066958884462592";s:2:"id";s:19:"1076066958884462592";s:1:"d";s:19:"2018-12-21
-    10:48:50";s:1:"w";s:1:"s";}i:1;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1076068021461045249";s:2:"id";s:19:"1076068021461045249";s:1:"d";s:19:"2018-12-21
-    10:53:03";s:1:"w";s:1:"a";}}}s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:50:"www.linkedin.com/updates?topic=6481834322880970752";s:2:"id";s:0:"";s:1:"d";s:19:"2018-12-21
-    10:55:29";s:1:"w";s:1:"a";}}}}
-  snapLI: s:401:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:61:"New post has
-    been published on %SITENAME% - %TITLE% - %HCATS%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:0:"";s:7:"postURL";s:50:"www.linkedin.com/updates?topic=6481834322880970752";s:5:"pDate";s:19:"2018-12-21
-    10:55:29";}}";
-  _oembed_8c7e25af96df250d185c78b3ee216611: '<blockquote class="wp-embedded-content"
-    data-secret="QJkuPhPibR"><a href="https://msftplayground.com/extensions/">Extensions</a></blockquote><iframe
-    class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="position:
-    absolute; clip: rect(1px, 1px, 1px, 1px);" src="https://msftplayground.com/extensions/embed/#?secret=QJkuPhPibR"
-    data-secret="QJkuPhPibR" width="600" height="338" title="&#8220;Extensions&#8221;
-    &#8212; Microsoft Playground" frameborder="0" marginwidth="0" marginheight="0"
-    scrolling="no"></iframe>'
-  _oembed_time_8c7e25af96df250d185c78b3ee216611: '1546001993'
-  _oembed_36bd0c8b4ca886ebb8f61d5b86a94e22: '<blockquote class="wp-embedded-content"
-    data-secret="GvCUNjgAzt"><a href="https://msftplayground.com/extensions/">Extensions</a></blockquote><iframe
-    class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="position:
-    absolute; clip: rect(1px, 1px, 1px, 1px);" src="https://msftplayground.com/extensions/embed/#?secret=GvCUNjgAzt"
-    data-secret="GvCUNjgAzt" width="600" height="338" title="&#8220;Extensions&#8221;
-    &#8212; Microsoft Playground" frameborder="0" marginwidth="0" marginheight="0"
-    scrolling="no"></iframe>'
-  _oembed_time_36bd0c8b4ca886ebb8f61d5b86a94e22: '1548371657'
-  _oembed_025fb139def410bc795a1b3ffbbbde9b: '<blockquote class="wp-embedded-content"
-    data-secret="jQsWtdnim1"><a href="https://msftplayground.com/extensions/">Extensions</a></blockquote><iframe
-    title="&#8220;Extensions&#8221; &#8212; Microsoft Playground" class="wp-embedded-content"
-    sandbox="allow-scripts" security="restricted" style="position: absolute; clip:
-    rect(1px, 1px, 1px, 1px);" src="https://msftplayground.com/extensions/embed/#?secret=jQsWtdnim1"
-    data-secret="jQsWtdnim1" width="600" height="338" frameborder="0" marginwidth="0"
-    marginheight="0" scrolling="no"></iframe>'
-  _oembed_time_025fb139def410bc795a1b3ffbbbde9b: '1576676463'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Azure DevOps
-  _wds_title: ''
-  _wds_metadesc: Power BI started as a self-service tool and has become a part of
-    the enterprise reporting tooling. Managing reports centrally can be done with
-    Azure DevOps.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2018/12/administrating-and-publishing-power-bi-resources-via-azure-devops/"
+date: 2018-12-21 11:48:48.000000000 +01:00
+permalink: /2018/12/administrating-and-publishing-power-bi-resources-via-azure-devops/
+categories:
+- Azure DevOps
+- Power BI
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>While Power BI started as a self-service tool, it has become a part of the enterprise reporting tooling. With enterprise reporting strong governance can quickly become necessary. This will mean that the reports are being created and managed centrally. When this happens there needs to be a method for managing requirement, changes and bugs.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>For this process Azure DevOps can be used. Together with a Power BI extension for CI and CD you can manage the process from creating the report and publishing it to PowerBI.com.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Last year I published the extension called “Power BI Actions”. Today I released a new major version with new capabilities, features and enhancements. The new version of the extension contains the following features:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Publish a Power BI dashboard (pbix file).</li>
 <li>Create a Power BI workspace.</li>
@@ -112,45 +30,45 @@ permalink: "/2018/12/administrating-and-publishing-power-bi-resources-via-azure-
 <li>Update the connection of a Power BI report. (SQL, Azure Analysis Services, SharePoint, OData)</li>
 <li>Refresh a dataset.</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Together with the new version the authentication towards Power BI has changed. In version 2 you needed a Native Azure Active Directory application and configure it within the task itself. In version 3 you still need the application but you also need to create a “Power BI Service Connection”. By using a Power BI Service connection, the authentication information does not have to be added to each task. The Power BI service connection is included in the extensions. All information regarding the authentication is saved within the service connection.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With the Power BI Service connection, it has become easier to maintain the authentication information. Besides that the connection can be used in any pipeline within the project.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Getting started</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The following steps will get you started with automating the process for Power BI:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list {"ordered":true} --></p>
+
+
 <ol>
 <li>Go to the Azure DevOps market place: <a href="https://marketplace.visualstudio.com/azuredevops">https://marketplace.visualstudio.com/azuredevops</a></li>
 <li>Search for the extension: “Power BI Actions” or use this direct link: <a href="https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-power-bi-actions">https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-power-bi-actions</a></li>
 <li>Click on the “Get It Free” button and follow the installation instructions for the extension.</li>
 </ol>
-<p><!-- /wp:list --></p>
-<p><!-- wp:image {"id":4431} --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/archive/2018/12/powerbi-extension-1024x223.png" alt="" class="wp-image-4431" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
+<figure class="wp-block-image"><img src="/assets/archive/2018/12/powerbi-extension-1024x223.png" alt="" class="wp-image-4431" /></figure>
+
+
 <h3>Azure Active Directory application</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>One of the other prerequisites is a Native Azure Active Directory application that has access to the Power BI API’s. The manual for setting up this type of application can be found on the Microsoft docs site:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><a href="https://docs.microsoft.com/en-us/power-bi/developer/register-app">https://docs.microsoft.com/en-us/power-bi/developer/register-app</a></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>Power BI Service Connection</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With the extension installed a Power BI service connection can be added to your project in Azure DevOps.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list {"ordered":true} --></p>
+
+
 <ol>
 <li>Open the project were the service connection needs to be added.</li>
 <li>Click on “Project Settings” in the lower left corner.</li>
@@ -158,39 +76,39 @@ permalink: "/2018/12/administrating-and-publishing-power-bi-resources-via-azure-
 <li>Click on “New Service Connection” and find “Power BI”</li>
 <li>Fill in all the ClientId of the Native application and the user that will perform the actions. Make sure that this user does not have multi factor authentication enabled.</li>
 </ol>
-<p><!-- /wp:list --></p>
-<p><!-- wp:image {"id":4437} --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/archive/2018/12/powerbi-serviceconnection.png" alt="" class="wp-image-4437" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image"><img src="/assets/archive/2018/12/powerbi-serviceconnection.png" alt="" class="wp-image-4437" /></figure>
+
+
 <p>Now that all the prerequisites are setup the task can be added to a pipeline. Search for a task called “Power BI Actions” and start using the extension.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":4439} --></p>
-<figure class="wp-block-image"><img src="{{ site.baseurl }}/assets/archive/2018/12/powerbi-task.png" alt="" class="wp-image-4439" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
+<figure class="wp-block-image"><img src="/assets/archive/2018/12/powerbi-task.png" alt="" class="wp-image-4439" /></figure>
+
+
 <h2>Support</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>I maintain the extension in my free time and the sources of the extension can be found GitHub. If you encounter any issues or would like to see different features, please let me know by adding an issue to GitHub repository.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li><a href="https://github.com/maikvandergaag/msft-extensions/issues">https://github.com/maikvandergaag/msft-extensions/issues</a></li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Extensions</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Besides this extension I created several others. More information about these extension can be found here:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:embed {"url":"https://msftplayground.com/extensions/","type":"rich","providerNameSlug":"microsoft-playground","className":""} --></p>
+
+
 <figure class="wp-block-embed is-type-rich is-provider-microsoft-playground">
 <div class="wp-block-embed__wrapper">
 https://msftplayground.com/extensions/
 </div>
 </figure>
-<p><!-- /wp:embed --></p>
-<p><!-- wp:paragraph --></p>
-<p><!-- /wp:paragraph --></p>
+
+
+

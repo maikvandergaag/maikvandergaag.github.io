@@ -1,134 +1,91 @@
 ---
-layout: post
 title: Running bicep within Azure DevOps Pipelines
-date: 2021-03-10 12:27:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
-- Azure DevOps
 tags:
 - ARM
 - Azure
 - Azure DevOps
 - bicep
 - IaC
-meta:
-  _edit_last: '3'
-  _yoast_wpseo_content_score: '30'
-  _yoast_wpseo_estimated-reading-time-minutes: '2'
-  _thumbnail_id: '6153'
-  _yoast_wpseo_primary_category: '323'
-  _yoast_wpseo_focuskw: bicep
-  _yoast_wpseo_metadesc: Bicep isn't an experimental version anymore. How to use bicep
-    within your Azure DevOps pipelines to generate ARM templates.
-  _yoast_wpseo_linkdex: '40'
-  snap_MYSURL: a:3:{s:1:"s";s:79:"https://msftplayground.com/2021/03/running-bicep-within-azure-devops-pipelines/";s:1:"t";s:79:"https://msftplayground.com/2021/03/running-bicep-within-azure-devops-pipelines/";s:1:"r";s:1:"B";}
-  snap_isAutoPosted: '1615375661'
-  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6775376596565037056";s:2:"id";s:32:"urn:li:share:6775376596565037056";s:1:"d";s:19:"2021-03-10
-    11:27:41";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1369610908234878978";s:2:"id";s:19:"1369610908234878978";s:1:"d";s:19:"2021-03-10
-    11:27:41";s:1:"w";s:1:"s";}}}}
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapLI: s:447:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
-    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:32:"urn:li:share:6775376596565037056";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6775376596565037056";s:5:"pDate";s:19:"2021-03-10
-    11:27:41";}}";
-  snapTW: s:426:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
-    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1369610908234878978";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1369610908234878978";s:5:"pDate";s:19:"2021-03-10
-    11:27:41";}}";
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: bicep
-  _wds_title: ''
-  _wds_metadesc: Bicep isn't an experimental version anymore. How to use bicep within
-    your Azure DevOps pipelines to generate ARM templates.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2021/03/running-bicep-within-azure-devops-pipelines/"
+date: 2021-03-10 12:27:00.000000000 +01:00
+permalink: /2021/03/running-bicep-within-azure-devops-pipelines/
+categories:
+- Azure
+- Azure DevOps
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>During Ignite Microsoft released bicep version <a href="https://github.com/Azure/bicep" target="_blank" rel="noreferrer noopener">0.3.1</a>. With this version the bicep language is not experimental any more. Some pointer about this version are:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Parity with ARM Templates</li>
 <li>Integration with Azure CLI (v2.20.0+) and Azure PowerShell (v5.6.0+)</li>
 <li>De-compiler</li>
 <li>Supported by Microsoft</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>If you want to get started with bicep you can read my <a href="https://msftplayground.com/2020/10/getting-started-with-project-bicep-for-azure-arm/" target="_blank" rel="noreferrer noopener">post</a> about bicep I wrote a few months ago. When building ARM templates you may also want to start building the templates in the bicep language and execute the build within a automated pipelines to for example perform testing against the template with the ARM-TTK tooling. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Support</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>At the time of writing this post there is no default support for bicep in Azure DevOps. As mentioned above it is integrated within Azure CLI and Azure PowerShell but the CLI task and Azure PowerShell task in Azure DevOps do not already contain the latest version of the tool to support bicep.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Running bicep in a pipeline</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>So how do we run bicep then within a pipeline? To get started the tooling needs to be installed on the agent. As I normally use the Microsoft hosted agent the bicep tooling needs to be installed on each run as we do not have access to the agents.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>This brings us to the first task for the pipeline that will perform the install. To install bicep the following bash code is used.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+
+
+<pre class="highlight">curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
 chmod +x ./bicep
 sudo mv ./bicep /usr/local/bin/bicep
 bicep --help</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The script it self  needs to be performed on a Linux machine to install the bicep tooling and configure bicep into the PATH variable.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Doing this in a Azure DevOps Pipeline is very easy by using the bash task:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">- bash: |
+
+
+<pre class="highlight">- bash: |
    curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
    chmod +x ./bicep
    sudo mv ./bicep /usr/local/bin/bicep
    bicep --help
    
   displayName: 'Install bicep'</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With bicep installed the bicep commands can be executed. In my Pipelines a regularly do this in a separate task but the bash code could be added to the previous task as well.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">- bash: |
+
+
+<pre class="highlight">- bash: |
    bicep build $(System.DefaultWorkingDirectory)/storage.bicep
    
   displayName: 'Build bicep file'</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>In the above task the bicep file in my repository is build and saved in the same location.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Completing the pipeline</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With the possibility to build the bicep files in the pipeline the pipeline can be completed to copy the generated ARM templates to for example the pipeline artifacts location. These last steps are included in the sample pipeline shown below. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">trigger:
+
+
+
+
+<pre class="highlight">trigger:
 - main
 
 pool:
@@ -157,7 +114,3 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(build.artifactstagingdirectory)/arm'
-    artifact: 'drop'
-    publishLocation: 'pipeline'</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>

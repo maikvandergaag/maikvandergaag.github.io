@@ -1,45 +1,20 @@
 ---
-layout: post
 title: Virtual Earth WebPart
-date: 2009-01-27 06:46:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
 tags:
 - Javascript
 - Virtual Earth
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: Virtual Earth
-  _yoast_wpseo_focuskw: Virtual Earth
-  _yoast_wpseo_linkdex: '84'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Virtual Earth
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2009/01/virtual-earth-webpart/"
+date: 2009-01-27 06:46:00.000000000 +01:00
+permalink: /2009/01/virtual-earth-webpart/
+categories:
+- Development
+status: publish
 ---
 <div class="ExternalClassC44252D53BD44B6C9FDDF209FC1A4565">
 <p>After reading a post on the blog of Wesley Bakker I thought by myself maybe it is fun to create a webpart in which we can load a map from Virtual Earth.</p>
 <p>And so I did I began with creating a webpart with certain properties so that you can also add a location and a pushpin for that location.</p>
 <p>First you have to think off a way to get the virtual earth map in the webpart. I have done this by writing the JavaScript to the page in the render method off the webpart.</p>
-<pre class="brush: csharp;">[Guid("d2a82f7b-d32b-4154-8370-2a2bae4f7af7")]
+<pre class="highlight">[Guid("d2a82f7b-d32b-4154-8370-2a2bae4f7af7")]
   public class VirtualEarthWebPart : System.Web.UI.WebControls.WebParts.WebPart
   {
          public VirtualEarthWebPart()
@@ -169,7 +144,7 @@ permalink: "/2009/01/virtual-earth-webpart/"
      } </pre>
 <p>In the code displayed above I created a StringBuilder with the complete JavaScript and even a html section (div) for displaying the map. In the code above you can also see multiple checks for empty strings. This I have done for certain properties I have added to the webpart.</p>
 <p>The properties I have added to the webpart are written down at the end of this post. In the code section below I have added two examples off properties I created for the webpart.</p>
-<pre class="brush: csharp;"> public enum MapStyleEnum
+<pre class="highlight"> public enum MapStyleEnum
  {
        Road, Shaded, Aerial, Hybrid, Oblique, Birdseye, BirdseyeHybrid
  };
@@ -220,25 +195,3 @@ permalink: "/2009/01/virtual-earth-webpart/"
      customIconUrl = value;
     }
   }</pre>
-<p>In the code section above you can see the two examples off the properties I created. One of the properties is a enum because the Map style of a virtual earth map can only have a number of values (style). If you want to accomplish that you can create an enum with all the values. This will be displayed as a drop down box on the webpart properties screen. The other example is a string property where you can enter the URL in of a custom icon so that the pushpin will be replaced by that icon.</p>
-<p>In the final version off the webpart I created I added the following properties :</p>
-<ul>
-<li><strong>Location:</strong> The complete string off the location you want to view on the map. Example “Schiedam, the Netherlands” will display my home town
-</li>
-<li><strong>Location title:</strong> This will display when you hover over the location with your mouse.
-</li>
-<li><strong>Location description:</strong> This will also display when you hover over the location with your mouse.
-</li>
-<li><strong>Photo of the location:</strong> This is a URL of a photograph that will be displayed if you hover over the location with your mouse.
-</li>
-<li><strong>URL for more Information:</strong> This is the URL of a website for more information about the location.
-</li>
-<li><strong>Custom Icon URL:</strong> Normally it will display a pushpin. If you enter a URL of a icon it will display this icon instead of the pushpin.
-</li>
-<li><strong>Zoom level:</strong> This is the zoom level off the location.
-</li>
-<li><strong>Map Style:</strong> This represents the style off the map. Virtual earth has multiple map styles.
-</li>
-<li><strong>Map Mode:</strong> This represents the mode of the map. Virtual earth had two map modes (2d and 3d).</li>
-</ul>
-</div>

@@ -1,41 +1,15 @@
 ---
-layout: post
-title: Install SharePoint 2013 Public Beta on Windows Server 2012 RC &ndash; Part
-  VI &ndash; Configuring SharePoint 2013 on Windows Server 2012 RC
-date: 2012-08-03 07:24:00.000000000 +02:00
+title: Install SharePoint 2013 Public Beta on Windows Server 2012 RC &ndash; Part VI &ndash; Configuring SharePoint 2013 on Windows Server 2012 RC
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
 tags:
 - Configuration
 - SharePoint 2013
 - Windows Server 2012
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: SharePoint 2013
-  _yoast_wpseo_focuskw: SharePoint 2013
-  _yoast_wpseo_linkdex: '66'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint 2013
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2012/08/install-sharepoint-2013-public-beta-on-windows-server-2012-rc-part-vi-configuring-sharepoint-2013-on-windows-server-2012-rc/"
+date: 2012-08-03 07:24:00.000000000 +02:00
+permalink: /2012/08/install-sharepoint-2013-public-beta-on-windows-server-2012-rc-part-vi-configuring-sharepoint-2013-on-windows-server-2012-rc/
+categories:
+- Administration
+status: publish
 ---
 <div class="ExternalClass60B652077A4143FA86965C6B5EC0F18F">
 <p>Last week we finished the installation of SharePoint 2013. For us to test the new version off SharePoint we still have to do some configuration.</p>
@@ -92,7 +66,7 @@ permalink: "/2012/08/install-sharepoint-2013-public-beta-on-windows-server-2012-
 <li>With the Start Menu open select “DNS”. </li>
 </ol>
 <p>Select the forward lookup zone of your domain and add a new A Host record. For this machine I chose the following domain: sp2013.dev.local.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-DNS-Entry.png"><img title="SharePoint-2013---DNS-Entry" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---DNS-Entry" src="{{ site.baseurl }}/assets/archive/2012/08/SharePoint-2013-DNS-Entry_thumb.png" width="240" height="202" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-DNS-Entry.png"><img title="SharePoint-2013---DNS-Entry" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---DNS-Entry" src="/assets/archive/2012/08/SharePoint-2013-DNS-Entry_thumb.png" width="240" height="202" /></a></p>
 <p>For us to access this URL this machine we will also have to disable the LoopBackCheck, this is because Windows Server 2012 also had the same security enabled as Windows Server 2008 R2. To disable the LoopBackCheck check this blog post:</p>
 <p><a title="http://msftplayground.com/Lists/Posts/Post.aspx?ID=52" href="/2009/04/access-denied-while-crawling-sites/">http://msftplayground.com/2009/04/access-denied-while-crawling-sites/</a></p>
 <p>Now that we have done these configurations we can start with the last configuration steps off SharePoint. First off we will create some managed accounts:</p>
@@ -104,7 +78,7 @@ permalink: "/2012/08/install-sharepoint-2013-public-beta-on-windows-server-2012-
 <li>Select “Configure Managed Accounts”&nbsp; under “General Security”.  </li>
 <li>Then add managed accounts for all the accounts we created in the AD besides the spcontentaccess account. </li>
 </ol>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-Managed-Accounts.png"><img title="SharePoint-2013---Managed-Accounts" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---Managed-Accounts" src="{{ site.baseurl }}/assets/archive/2012/08/SharePoint-2013-Managed-Accounts_thumb.png" width="355" height="299" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-Managed-Accounts.png"><img title="SharePoint-2013---Managed-Accounts" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---Managed-Accounts" src="/assets/archive/2012/08/SharePoint-2013-Managed-Accounts_thumb.png" width="355" height="299" /></a></p>
 <p>With the managed accounts in place it is time to create our web application.</p>
 <p><strong>Create Web Application</strong></p>
 <p>To create a new web application follow these steps:</p>
@@ -156,7 +130,7 @@ permalink: "/2012/08/install-sharepoint-2013-public-beta-on-windows-server-2012-
 </table>
 <p>&nbsp;</p>
 <p>Press ‘Ok’ to create the web application.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-New-Web-Applciation-Waiting.png"><img title="SharePoint-2013---New-Web-Applciation---Waiting" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---New-Web-Applciation---Waiting" src="{{ site.baseurl }}/assets/archive/2012/08/SharePoint-2013-New-Web-Applciation-Waiting_thumb.png" width="379" height="319" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-New-Web-Applciation-Waiting.png"><img title="SharePoint-2013---New-Web-Applciation---Waiting" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---New-Web-Applciation---Waiting" src="/assets/archive/2012/08/SharePoint-2013-New-Web-Applciation-Waiting_thumb.png" width="379" height="319" /></a></p>
 <p>When the web application is created we will define some managed paths to create site collections.</p>
 <p><strong>Define Managed Paths</strong></p>
 <ol>
@@ -612,5 +586,5 @@ permalink: "/2012/08/install-sharepoint-2013-public-beta-on-windows-server-2012-
 <p>Perform a reset off your VM to reset the security of the farm account. Then go back the “Manage services on server” and start the “User Profile Synchronization Service”.</p>
 <p>When you will start this service you will have to connect it to a Service Application. Connect it to the User Profile Service application we created above.</p>
 <p>With all these service applications and web applications in place you have a great environment to start testing SharePoint 2013. If you have any further question just leave a comment and I will get back to you!!</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-SP2013-Site-Colleciton.png"><img title="SharePoint-2013---SP2013-Site-Colleciton" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---SP2013-Site-Colleciton" src="{{ site.baseurl }}/assets/archive/2012/08/SharePoint-2013-SP2013-Site-Colleciton_thumb.png" width="419" height="353" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-SP2013-Site-Colleciton.png"><img title="SharePoint-2013---SP2013-Site-Colleciton" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---SP2013-Site-Colleciton" src="/assets/archive/2012/08/SharePoint-2013-SP2013-Site-Colleciton_thumb.png" width="419" height="353" /></a></p>
 </div>

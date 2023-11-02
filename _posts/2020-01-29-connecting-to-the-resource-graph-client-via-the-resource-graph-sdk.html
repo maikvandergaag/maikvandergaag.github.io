@@ -1,106 +1,62 @@
 ---
-layout: post
 title: Connecting to the Resource Graph Client via the Resource Graph SDK
-date: 2020-01-29 11:10:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
-- Development
 tags:
 - Azure
 - C#
 - Resources
-meta:
-  _publicize_twitter_user: "@maikvandergaag"
-  _thumbnail_id: '5905'
-  _edit_last: '3'
-  _yoast_wpseo_primary_category: '323'
-  _yoast_wpseo_focuskw: Resource Graph
-  _yoast_wpseo_title: "%%title%% %%page%% %%sep%%"
-  _yoast_wpseo_metadesc: The resource graph is a service that provides efficient and
-    performant Azure resource exploration. Read this post for the C# implementation.
-  _yoast_wpseo_linkdex: '62'
-  _yoast_wpseo_content_score: '60'
-  spay_email: ''
-  _wpas_mess: 'Curious about how you can retrieve #Azure resource information with
-    C# and the #ResourceGraph. Then read this post'
-  snapLI: 's:1193:"a:1:{i:0;a:24:{s:2:"do";s:1:"1";s:5:"nName";s:11:"LinkedIn #0";s:9:"msgFormat";s:61:"New
-    post (%TITLE%) has been published on %SITENAME% - %HTAGS%";s:10:"msgAFormat";s:0:"";s:11:"msgATFormat";s:0:"";s:8:"postType";s:1:"A";s:8:"apiToUse";s:4:"liv2";s:7:"fltrsOn";i:0;s:5:"fltrs";a:0:{}s:7:"proxyOn";i:0;s:7:"useSURL";i:0;s:1:"v";i:350;s:4:"pgID";s:32:"urn:li:share:6628227596352045056";s:11:"accessToken";s:350:"AQWRCzh0j53U2Iz4ZBcQfhz3OzRnysH_efKvjyLw93cnAuWWvdoJ17LoYn9j8-dKUlneDGG2q0xSyBqiHSLiZ2wi0LY_4OOX9Nq71Y62use_eXpjTOhzcLp8W1IqwXYKHLDDqFHOamoxJ04Ftt98-0rH2OBFEFstPTwCTOp1RB3iDSeTn6tgR_rvvbzBSXIjkNW6edM3o0l60ynrBxeon7Yw12T3n8jGbAPTso9XUGqQibXCIRtxUCNw9mJ3Mgd0NnuM7bQ5B6hsTLZCxIZpTYuSBPNzhROQZNbkOtKVRkyKmYL9hpJMCWB38d4G_LyNnwVUHiWrQV0ItefA-1kwWMJMTI1iag";s:14:"accessTokenExp";i:1584224482;s:8:"liUserID";s:10:"B-GH5Nmibm";s:10:"liUserInfo";s:29:"Maikvan
-    der Gaag (B-GH5Nmibm)";s:5:"proxy";a:2:{s:5:"proxy";s:0:"";s:2:"up";s:0:"";}s:9:"wpImgSize";s:4:"full";s:6:"appKey";s:14:"784x4hoq5vtn7c";s:6:"appSec";s:16:"FvSHvIXAilKaC1pe";s:8:"isPosted";s:1:"1";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6628227596352045056";s:5:"pDate";s:19:"2020-01-29
-    10:10:05";}}";'
-  snap_isAutoPosted: '1580292605'
-  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6628227596352045056";s:2:"id";s:32:"urn:li:share:6628227596352045056";s:1:"d";s:19:"2020-01-29
-    10:10:05";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1222461908965457920";s:2:"id";s:19:"1222461908965457920";s:1:"d";s:19:"2020-01-29
-    10:10:06";s:1:"w";s:1:"s";}}}}
-  snapTW: s:1458:"a:1:{i:0;a:44:{s:11:"rpstBtwDays";s:0:"";s:11:"rpstRndMins";s:0:"";s:12:"rpstPostIncl";s:0:"";s:8:"rpstType";s:1:"2";s:12:"rpstTimeType";s:1:"A";s:12:"rpstFromTime";s:0:"";s:10:"rpstToTime";s:0:"";s:10:"rpstOLDays";s:2:"30";s:10:"rpstNWDays";s:3:"365";s:10:"nxsCPTSeld";s:21:"a:1:{i:0;s:4:"post";}";s:7:"tagsSel";s:0:"";s:11:"rpstBtwHrsT";s:0:"";s:8:"tagsSelX";s:0:"";s:14:"rpstBtwHrsType";s:0:"";s:11:"rpstBtwHrsF";s:0:"";s:5:"nDays";s:0:"";s:4:"nHrs";s:0:"";s:5:"proxy";s:0:"";s:4:"nMin";s:0:"";s:5:"qTLng";s:0:"";s:1:"v";i:350;s:2:"do";s:1:"1";s:5:"nName";s:14:"maikvandergaag";s:8:"attchImg";i:0;s:9:"msgFormat";s:61:"New
-    post (%TITLE%) has been published on %SITENAME% - %HTAGS%";s:6:"appKey";s:49:"x5g9a14d4i43526u3t2l4b4y4q4v3z4w2q4b4w4l4l3u455d3";s:6:"appSec";s:89:"d3h0ag476j4z5j5e434s525n465s3z5d303a3t5i3b4m435g3e3p3q2v4h4f3c34564l376b4t4e444d4n303m3k5";s:5:"twURL";s:34:"https://twitter.com/maikvandergaag";s:11:"accessToken";s:50:"59074926-Z3IUS54c1YaHGUwte0qIzZ37aDTOenjCzfkHMIZSg";s:14:"accessTokenSec";s:42:"W6rcCimT8DWhSwPyriN0fI0e2ZNA7syyvb1fnpTovk";s:7:"imgSize";s:0:"";s:7:"fltrsOn";i:0;s:5:"fltrs";a:0:{}s:7:"proxyOn";i:0;s:9:"wpImgSize";s:4:"full";s:7:"useSURL";i:0;s:5:"tw140";i:0;s:10:"riComments";i:0;s:11:"riCommentsM";i:0;s:12:"riCommentsAA";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1222461908965457920";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1222461908965457920";s:5:"pDate";s:19:"2020-01-29
-    10:10:06";}}";
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Resource Graph
-  _wds_title: "%%title%% %%page%% %%sep%%"
-  _wds_metadesc: The resource graph is a service that provides efficient and performant
-    Azure resource exploration. Read this post for the C# implementation.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2020/01/connecting-to-the-resource-graph-client-via-the-resource-graph-sdk/"
+date: 2020-01-29 11:10:00.000000000 +01:00
+permalink: /2020/01/connecting-to-the-resource-graph-client-via-the-resource-graph-sdk/
+categories:
+- Azure
+- Development
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>In order to retrieve information from Azure Subscriptions someone at a client wanted to use the Resource Graph API. For this they were building an ASP.Net Core application and where using the C# SDK. The problem that they were having was related to the authentication. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Azure Resource Graph</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The resource graph is a service in Azure that is designed to extend Azure Resource Management by providing efficient and performant resource exploration with the ability to query at scale across a given set of subscriptions so that you can effectively govern your environment.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>For this you make use of <a href="https://docs.microsoft.com/en-us/azure/kusto/query/?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener" label="kusto  (opens in a new tab)">kusto </a>queries that you send to the API.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>More information about the Azure Resource Graph: <a href="https://docs.microsoft.com/en-us/azure/governance/resource-graph/overview?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener" label=" (opens in a new tab)">https://docs.microsoft.com/en-us/azure/governance/resource-graph/overview</a></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Implementation</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To connect to the Resource Graph an authentication object needs to exist. We wanted to use a service principal. The process using this code is a background job and did not have any user interaction.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To use the Resource Graph within a C# application add the following NuGet packages: </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li><a href="https://www.nuget.org/packages/Microsoft.Azure.Management.ResourceGraph/" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">Microsoft.Azure.Management.ResourceGraph</a>: SDK for C# applications. </li>
 <li> <a href="https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">Microsoft.Azure.Services.AppAuthentication</a>: Package for handling the authentication.</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The resource graph NuGet package contains the “ResourceGraphClient” that is needed to perform queries against the resource graph API. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To be able to initiate a “ResourceGraphClient” it requires an object called “ServiceClientCredentials”. The "ServiceClientCredentials" object is a base class for the "TokenCredentials" object that we can construct for the service principal.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:quote --></p>
+
+
 <blockquote class="wp-block-quote"><p><strong><em>Note:</em></strong><em> The demo code is a simple setup.</em> W<em>hen using this in production y</em>ou should save secure value in <em>a vault and configuration values in a config file.</em></p>
 </blockquote>
-<p><!-- /wp:quote --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>First off, we create a helper class with a method that will retrieve the "ServiceClientCredentials" object.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"csharp"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">using Microsoft.IdentityModel.Clients.ActiveDirectory;
+
+
+<pre class="highlight">using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Rest;
 using System.Threading.Tasks;
 
@@ -122,15 +78,15 @@ namespace GraphClient
         }
     }
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The class contains a method to retrieve the required object. This is done by specifying the authentication context (the Azure AD tenant) and retrieving a token by specifying the resource "https://management.core.windows.net" (default for the resource graph API), the client id and client secret. With the token we can initiate the "TokenCredentials" object that derives from the "ServiceClientCredentials" class.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With this class and method in place we will develop the other peace needed to perform the queries. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"csharp"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">using Microsoft.Azure.Management.ResourceGraph;
+
+
+<pre class="highlight">using Microsoft.Azure.Management.ResourceGraph;
 using Microsoft.Azure.Management.ResourceGraph.Models;
 using System;
 using System.Collections.Generic;
@@ -156,15 +112,7 @@ namespace GraphClient
         }
     }
 }</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>This part of the code initiates the "ResourceClient" class that will execute a Kusto query via the "Resources" mehod.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
-<p>For the complete code take a look at the repository on GitHub:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
-<ul>
-<li><a href="https://github.com/maikvandergaag/graphclientsample" target="_blank" rel="noreferrer noopener" aria-label=" (opens in a new tab)">https://github.com/maikvandergaag/graphclientsample</a></li>
-</ul>
-<p><!-- /wp:list --></p>
+

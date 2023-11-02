@@ -1,61 +1,20 @@
 ---
-layout: post
 title: Data Deduplication in Windows Server 2012 R2
-date: 2014-03-17 09:03:33.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
 tags:
 - Data
 - Deduplication
-meta:
-  _edit_last: '1'
-  _jd_tweet_this: 'yes'
-  snap_isAutoPosted: '1'
-  nxs_snap_sh_LI0_1395047016: a:38:{s:2:"ii";i:0;s:4:"doLI";i:1;s:5:"nName";s:0:"";s:8:"liAPIKey";s:14:"77vtw9cpof5jtv";s:8:"liAPISec";s:16:"E2OiH5iT1hPoxHXv";s:7:"liAttch";i:1;s:8:"catSelEd";s:0:"";s:5:"grpID";s:0:"";s:11:"liMsgFormat";s:41:"New
-    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:10:"liMsgAFrmt";s:0:"";s:6:"rpstOn";i:0;s:8:"rpstDays";s:1:"0";s:7:"rpstHrs";s:1:"2";s:8:"rpstMins";s:1:"0";s:11:"rpstRndMins";s:2:"15";s:12:"rpstPostIncl";s:1:"0";s:10:"rpstNxTime";i:1386086230;s:8:"rpstType";s:1:"2";s:12:"rpstTimeType";s:1:"A";s:12:"rpstFromTime";s:0:"";s:10:"rpstToTime";s:0:"";s:10:"rpstOLDays";s:2:"30";s:10:"rpstNWDays";s:3:"365";s:11:"rpstOnlyPUP";i:0;s:10:"nxsCPTSeld";s:21:"a:1:{i:0;s:4:"post";}";s:11:"rpstBtwDays";a:0:{}s:12:"liOAuthToken";s:40:"75--b112ee4e-e8e4-49b9-899d-ca2afaa54977";s:18:"liOAuthTokenSecret";s:36:"9eca19b2-df06-42e1-bcfb-113eb32b59da";s:15:"liOAuthVerifier";s:5:"60975";s:13:"liAccessToken";s:36:"5643875e-34f6-48c5-8ed0-8d9a187331cb";s:19:"liAccessTokenSecret";s:36:"f059e50b-3d60-4424-a710-57d21b5dbe15";s:10:"liUserInfo";s:30:"N_tJVLVMK6
-    - Maik van der Gaag";s:6:"catSel";s:1:"0";s:8:"isPosted";s:0:"";s:8:"imgToUse";s:0:"";s:8:"urlToUse";s:0:"";s:9:"timeToRun";i:1395047016;}
-  snap_MYURL: ''
-  snapEdIT: '1'
-  _wp_jd_bitly: http://bit.ly/OntWVi
-  _wp_jd_target: " "
-  _jd_wp_twitter: 'a:1:{i:0;s:75:"New post: Data Deduplication in Windows Server 2012
-    R2 http://bit.ly/OntWVi";}'
-  _wpt_status_message: Tweet sent successfully.
-  snapLI: s:292:"a:1:{i:0;a:9:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";}}";
-  _yoast_wpseo_focuskw_text_input: Windows Server 2012 R2
-  _yoast_wpseo_focuskw: Windows Server 2012 R2
-  _yoast_wpseo_linkdex: '74'
-  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
-  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Windows Server 2012 R2
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2014/03/data-deduplication-in-windows-server-2012-r2/"
+date: 2014-03-17 09:03:33.000000000 +01:00
+permalink: /2014/03/data-deduplication-in-windows-server-2012-r2/
+categories:
+- Administration
+status: publish
 ---
 <p>After reading a lot of information about Windows Server 2012 R2 I found out that it has a really nice feature if you are into virtualization as much as me. When using virtualization you may have a lot of virtual disks that contain a lot of the same data. For example you have four machines that have an installation of Windows Server 2012. </p>
 <p>All together this will take up a lot off disk space. I this situation you could also create a base image and use this base image for every virtual machine. But you will then still have the updates and you will have to maintain the base image.</p>
 <p>In Windows Server 2012 you already had the feature off Data Deduplication for File and Storage Servers. What it does is the following: It finds and removes duplication within data on a volume while ensuring that the data remains correct and complete. This makes it possible to store more file data in less space on the volume.</p>
 <p>A nice image created by Guido van Brakel in the following blog post: Data Deduplication in Windows Server 2012 really explains it:</p>
-<p>[caption id="attachment_876" align="alignnone" width="300"]<a href="http://msftplayground.com/wp-content/uploads/2014/03/IC564245.jpg"><img src="{{ site.baseurl }}/assets/archive/2014/03/IC564245-300x196.jpg" alt="Data Deduplication" width="300" height="196" class="size-medium wp-image-876" /></a> Data Deduplication[/caption]</p>
+<p>[caption id="attachment_876" align="alignnone" width="300"]<a href="http://msftplayground.com/wp-content/uploads/2014/03/IC564245.jpg"><img src="/assets/archive/2014/03/IC564245-300x196.jpg" alt="Data Deduplication" width="300" height="196" class="size-medium wp-image-876" /></a> Data Deduplication[/caption]</p>
 <p>In Windows Server 2012 R2 they have added a new functionality called:</p>
 <ul>
 <li>Data deduplication for remote storage of Virtual Desktop Infrastructure (VDI) workloads</li>

@@ -1,38 +1,15 @@
 ---
-layout: post
 title: Content Editor WebPart ControlAdapter
-date: 2009-02-04 06:42:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
-- SharePoint
 tags:
 - Content Editor
 - ControlAdapter
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: ControlAdapter
-  _yoast_wpseo_focuskw: ControlAdapter
-  _yoast_wpseo_linkdex: '71'
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: ControlAdapter
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2009/02/content-editor-webpart-controladapter/"
+date: 2009-02-04 06:42:00.000000000 +01:00
+permalink: /2009/02/content-editor-webpart-controladapter/
+categories:
+- Development
+- SharePoint
+status: publish
 ---
 <div class="ExternalClass8104489C4BF4408C8CE5113756534CE0">
 <p>One of our clients had a internet facing website. With this website we had a number of problems because it was deployed to our Internet facing farm with Content Deployment. The problem we had was that the Content Editor Web Part (for the rest of this article I will name it CEWP) does not allow relative URLs but saves the complete URL. </p>
@@ -44,7 +21,7 @@ permalink: "/2009/02/content-editor-webpart-controladapter/"
 <li>A browser file to set the Control Adapter. </li>
 </ul>
 <p>First lets make the browser file to set the Control Adapter to the CEWP: </p>
-<pre class="brush: xml;">&lt;browsers&gt;
+<pre class="highlight">&lt;browsers&gt;
     &lt;browser refID="Default"&gt;
         &lt;controlAdapters&gt;
             &lt;adapter controlType="Microsoft.SharePoint.WebPartPages.ContentEditorWebPart" adapterType="CEWPFIX.SharePoint.CEWPFIXAdapter, CEWPFIX.SharePoint, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1e8dcda25bf26f8e" /&gt;
@@ -53,7 +30,7 @@ permalink: "/2009/02/content-editor-webpart-controladapter/"
 &lt;/browsers&gt;</pre>
 <p>What you do in the browser file is that you assign a Adapter to the Microsoft.SharePoint.WebPartPages.ContentEditorWebPart and that is the CEWPFIXAdapter in the example above. </p>
 <p>The next step is to make the Control Adapter. So we created a class file and inherit from the System.Web.UI.Adapters. </p>
-<pre class="brush: csharp;">using System.Web;
+<pre class="highlight">using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.Adapters;

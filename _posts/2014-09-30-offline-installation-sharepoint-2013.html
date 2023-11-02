@@ -1,68 +1,22 @@
 ---
-layout: post
 title: Offline Installation SharePoint 2013
-date: 2014-09-30 09:26:46.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
 tags:
 - Offline
 - Powershell
 - Prerequisites
 - SharePoint 2013
 - SP1
-meta:
-  snap_isAutoPosted: '1'
-  _wp_jd_bitly: http://bit.ly/1pnFgwl
-  _wp_jd_target: http://msftplayground.com/2014/09/offline-installation-sharepoint-2013/
-  _jd_wp_twitter: 'a:1:{i:0;s:68:"New post: Offline Installation SharePoint 2013 http://bit.ly/1pnFgwl";}'
-  _wpt_status_message: Tweet sent successfully.
-  _edit_last: '1'
-  _yoast_wpseo_focuskw: SharePoint 2013
-  _yoast_wpseo_metadesc: Installation manual for a offline SharePoint 2013 installation.
-  _jd_twitter: ''
-  _jd_tweet_this: 'no'
-  _yoast_wpseo_linkdex: '74'
-  _thumbnail_id: '1014'
-  pplrpsts_post_views_count: '1'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  _yoast_wpseo_focuskw_text_input: SharePoint 2013
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:395:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1472823352994993";s:5:"pDate";s:19:"2014-09-30
-    09:26:53";s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
-  snapLI: s:316:"a:1:{i:0;a:10:{s:11:"isPrePosted";s:1:"1";s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"postType";s:1:"A";}}";
-  snapTW: s:145:"a:1:{i:0;a:5:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:15:"%TITLE%
-    - %URL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";}}";
-  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: SharePoint 2013
-  _wds_title: ''
-  _wds_metadesc: Installation manual for a offline SharePoint 2013 installation.
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2014/09/offline-installation-sharepoint-2013/"
+date: 2014-09-30 09:26:46.000000000 +02:00
+permalink: /2014/09/offline-installation-sharepoint-2013/
+categories:
+- Administration
+status: publish
 ---
 <p>In many situation you would like to do a offline installation of SharePoint 2013 or you are required to do a offline installation because you do not have a network connection on the server.</p>
 <p>The prerequisites installer of SharePoint 2013 downloads the requirements directly of the internet. So we will have to make sure this will not be done.</p>
 <p>But first off all we will have to install several Windows Server features. You can install these features by using the following PowerShell command:</p>
-<pre class="brush: powershell;">Import-Module ServerManager
+<pre class="highlight">Import-Module ServerManager
 Add-WindowsFeature Net-Framework-Features,Web-Server,Web-WebServer,Web-Common-Http,Web-Static-Content,Web-Default-Doc,Web-Dir-Browsing,Web-Http-Errors,Web-App-Dev,Web-Asp-Net,Web-Net-Ext,Web-ISAPI-Ext,Web-ISAPI-Filter,Web-Health,Web-Http-Logging,Web-Log-Libraries,Web-Request-Monitor,Web-Http-Tracing,Web-Security,Web-Basic-Auth,Web-Windows-Auth,Web-Filtering,Web-Digest-Auth,Web-Performance,Web-Stat-Compression,Web-Dyn-Compression,Web-Mgmt-Tools,Web-Mgmt-Console,Web-Mgmt-Compat,Web-Metabase,Application-Server,AS-Web-Support,AS-TCP-Port-Sharing,AS-WAS-Support, AS-HTTP-Activation,AS-TCP-Activation,AS-Named-Pipes,AS-Net-Framework,WAS,WAS-Process-Model,WAS-NET-Environment,WAS-Config-APIs,Web-Lgcy-Scripting,Web-AppInit,Windows-Identity-Foundation,Server-Media-Foundation,Xps-Viewer 
 </pre>
 <p><em><strong>Note:</strong>In this PowerShell command I also included: “Web-AppInit” . This is the Application Initialization feature (This is not a prerequisites) but can come very handy for warming up your web applications (<a title="http://blog.concentra.co.uk/2013/04/23/iis-application-initialisation-sharepoint-2013/" href="http://blog.concentra.co.uk/2013/04/23/iis-application-initialisation-sharepoint-2013/" target="_blank">IIS 8.0 Application Initialization reduces response time for SharePoint 2013</a>).</em></p>
@@ -122,7 +76,7 @@ Add-WindowsFeature Net-Framework-Features,Web-Server,Web-WebServer,Web-Common-Ht
 <li><a href="http://download.microsoft.com/download/9/1/D/91DA8796-BE1D-46AF-8489-663AB7811517/setup_msipc_x64.msi">Microsoft Information Protection and Control Client</a></li>
 <li><a href="http://download.microsoft.com/download/8/F/9/8F93DBBD-896B-4760-AC81-646F61363A6D/WcfDataServices.exe">Microsoft WCF Data Services 5.0</a></li>
 <li><a href="http://download.microsoft.com/download/1/C/A/1CAA41C7-88B9-42D6-9E11-3C655656DAB1/WcfDataServices.exe">Microsoft WCF Data Services 5.6</a> (Needed when doing a SP1 installation)After downloading the file we can make use of the following command to start the offline installation of the prerequisites:
-<pre class="brush: powershell;"> Start-Process "&lt;path&gt;\PrerequisiteInstaller.exe" -ArgumentList "`/SQLNCli:`"&lt;path&gt;\sqlncli.msi`" `
+<pre class="highlight"> Start-Process "&lt;path&gt;\PrerequisiteInstaller.exe" -ArgumentList "`/SQLNCli:`"&lt;path&gt;\sqlncli.msi`" `
                                                                   /IDFX:`"&lt;path&gt;\Windows6.1-KB974405-x64.msu`" `
                                                                   /IDFX11:`"&lt;path&gt;\MicrosoftIdentityExtensions-64.msi`" `
                                                                   /Sync:`"&lt;path&gt;\Synchronization.msi`" `

@@ -1,0 +1,754 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Securing an API app with an Application Identity - Part 2 - Microsoft Playground</title>
+<meta name="description" content="In the previous post the API app was configured and altered to support Application Identity security. The next step is to make a client application ready to call the API’s in a secured way. In order to do this the Azure Active Directory needs to be aware of the application. For this the needs be added to Active Directory. Azure Active Directory Open the old Azure portal : https://manage.windowsazure.com. Open up the Active Directory and click on the “Applications” tab.  In the bar at the bottom of the screen a new application can be added by selecting new. Selecting “New” will open a wizard were in you can add the API application.  Select the option “Add an application my organization is developing”.  Enter the name of the application and since our application is an Web App select “Web Application and/or Web API” and click next.  Fill-in a Sign-On URL if you do not have a specific sign-in URL fill in your default URL for example “https://example.com” (Note: The URL needs to be secured with SSL). The APP ID URI is a URL specific for your tenant, this URL will need to contain the tenant name. It needs to be constructed in the following way: https://[tenant-name]/[app-name] Save the options, the configuration screen of the application will be opened. On this screen we will need to do two things. Generate a App Key in order to authenticate the application and grant the application access to the API.  To generate a new App Key select a specific duration for example 2 years. After saving the configuration the App Key will be generated. Copy the App Key straight away because the App Key will not be visible after you navigate away from the page. If this happens a new key needs to be generated.  We now have to add a permission to other applications. For this click on “Add Application”.  In the dialog search for the application by first selecting “All Apps” in the show property and then selecting your application.  After saving the application is added to the list and the last step we need to take is to delegate the permissions to the API application, by selecting “Delegating Permissions”  Save the complete configuration. Now we need to make a few adjustments to the code in order to call the API. Code Changes First off all we need to add some configuration values to the web.config. &lt;add key=&quot;auth:ClientId&quot; value=&quot;[ClientID]&quot; /&gt; &lt;add key=&quot;auth:AppKey&quot; value=&quot;[AppKey]&quot; /&gt; &lt;add key=&quot;auth:Tenant&quot; value=&quot;[Tenant]&quot; /&gt; &lt;add key=&quot;auth:AADInstance&quot; value=&quot;https://login.microsoftonline.com/{0}&quot; /&gt;   ClientID: Unique identifier for the application in Azure. AppKey:Credential for the application to authenticate to Azure AD. Tenant:The name of the Azure AD tenant in which you registered the application ([tenant].onmicrosoft.com) AADInstance:This is the instance of Azure, for example public Azure or Azure China.  With these properties in the web.config we can start making calls to the API in a secured way. The first step in doing this is accruing the bearer token from Azure Active Directory. internal string GetBearerToken() {     string retVal = string.Empty;">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Securing an API app with an Application Identity - Part 2">
+<meta property="og:url" content="http://localhost:4000/2016/03/securing-api-app-application-identity-part-2/">
+
+
+  <meta property="og:description" content="In the previous post the API app was configured and altered to support Application Identity security. The next step is to make a client application ready to call the API’s in a secured way. In order to do this the Azure Active Directory needs to be aware of the application. For this the needs be added to Active Directory. Azure Active Directory Open the old Azure portal : https://manage.windowsazure.com. Open up the Active Directory and click on the “Applications” tab.  In the bar at the bottom of the screen a new application can be added by selecting new. Selecting “New” will open a wizard were in you can add the API application.  Select the option “Add an application my organization is developing”.  Enter the name of the application and since our application is an Web App select “Web Application and/or Web API” and click next.  Fill-in a Sign-On URL if you do not have a specific sign-in URL fill in your default URL for example “https://example.com” (Note: The URL needs to be secured with SSL). The APP ID URI is a URL specific for your tenant, this URL will need to contain the tenant name. It needs to be constructed in the following way: https://[tenant-name]/[app-name] Save the options, the configuration screen of the application will be opened. On this screen we will need to do two things. Generate a App Key in order to authenticate the application and grant the application access to the API.  To generate a new App Key select a specific duration for example 2 years. After saving the configuration the App Key will be generated. Copy the App Key straight away because the App Key will not be visible after you navigate away from the page. If this happens a new key needs to be generated.  We now have to add a permission to other applications. For this click on “Add Application”.  In the dialog search for the application by first selecting “All Apps” in the show property and then selecting your application.  After saving the application is added to the list and the last step we need to take is to delegate the permissions to the API application, by selecting “Delegating Permissions”  Save the complete configuration. Now we need to make a few adjustments to the code in order to call the API. Code Changes First off all we need to add some configuration values to the web.config. &lt;add key=&quot;auth:ClientId&quot; value=&quot;[ClientID]&quot; /&gt; &lt;add key=&quot;auth:AppKey&quot; value=&quot;[AppKey]&quot; /&gt; &lt;add key=&quot;auth:Tenant&quot; value=&quot;[Tenant]&quot; /&gt; &lt;add key=&quot;auth:AADInstance&quot; value=&quot;https://login.microsoftonline.com/{0}&quot; /&gt;   ClientID: Unique identifier for the application in Azure. AppKey:Credential for the application to authenticate to Azure AD. Tenant:The name of the Azure AD tenant in which you registered the application ([tenant].onmicrosoft.com) AADInstance:This is the instance of Azure, for example public Azure or Azure China.  With these properties in the web.config we can start making calls to the API in a secured way. The first step in doing this is accruing the bearer token from Azure Active Directory. internal string GetBearerToken() {     string retVal = string.Empty;">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Securing an API app with an Application Identity - Part 2">
+  <meta name="twitter:description" content="In the previous post the API app was configured and altered to support Application Identity security. The next step is to make a client application ready to call the API’s in a secured way. In order to do this the Azure Active Directory needs to be aware of the application. For this the needs be added to Active Directory. Azure Active Directory Open the old Azure portal : https://manage.windowsazure.com. Open up the Active Directory and click on the “Applications” tab.  In the bar at the bottom of the screen a new application can be added by selecting new. Selecting “New” will open a wizard were in you can add the API application.  Select the option “Add an application my organization is developing”.  Enter the name of the application and since our application is an Web App select “Web Application and/or Web API” and click next.  Fill-in a Sign-On URL if you do not have a specific sign-in URL fill in your default URL for example “https://example.com” (Note: The URL needs to be secured with SSL). The APP ID URI is a URL specific for your tenant, this URL will need to contain the tenant name. It needs to be constructed in the following way: https://[tenant-name]/[app-name] Save the options, the configuration screen of the application will be opened. On this screen we will need to do two things. Generate a App Key in order to authenticate the application and grant the application access to the API.  To generate a new App Key select a specific duration for example 2 years. After saving the configuration the App Key will be generated. Copy the App Key straight away because the App Key will not be visible after you navigate away from the page. If this happens a new key needs to be generated.  We now have to add a permission to other applications. For this click on “Add Application”.  In the dialog search for the application by first selecting “All Apps” in the show property and then selecting your application.  After saving the application is added to the list and the last step we need to take is to delegate the permissions to the API application, by selecting “Delegating Permissions”  Save the complete configuration. Now we need to make a few adjustments to the code in order to call the API. Code Changes First off all we need to add some configuration values to the web.config. &lt;add key=&quot;auth:ClientId&quot; value=&quot;[ClientID]&quot; /&gt; &lt;add key=&quot;auth:AppKey&quot; value=&quot;[AppKey]&quot; /&gt; &lt;add key=&quot;auth:Tenant&quot; value=&quot;[Tenant]&quot; /&gt; &lt;add key=&quot;auth:AADInstance&quot; value=&quot;https://login.microsoftonline.com/{0}&quot; /&gt;   ClientID: Unique identifier for the application in Azure. AppKey:Credential for the application to authenticate to Azure AD. Tenant:The name of the Azure AD tenant in which you registered the application ([tenant].onmicrosoft.com) AADInstance:This is the instance of Azure, for example public Azure or Azure China.  With these properties in the web.config we can start making calls to the API in a secured way. The first step in doing this is accruing the bearer token from Azure Active Directory. internal string GetBearerToken() {     string retVal = string.Empty;">
+  <meta name="twitter:url" content="http://localhost:4000/2016/03/securing-api-app-application-identity-part-2/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2016-03-22T08:00:58+01:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2016/03/securing-api-app-application-identity-part-2/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Securing an API app with an Application Identity - Part 2">
+    <meta itemprop="description" content='In the previous post the API app was configured and altered to support Application Identity security. The next step is to make a client application ready to call the API’s in a secured way.In order to do this the Azure Active Directory needs to be aware of the application. For this the needs be added to Active Directory.Azure Active DirectoryOpen the old Azure portal : https://manage.windowsazure.com. Open up the Active Directory and click on the “Applications” tab.In the bar at the bottom of the screen a new application can be added by selecting new. Selecting “New” will open a wizard were in you can add the API application.Select the option “Add an application my organization is developing”.Enter the name of the application and since our application is an Web App select “Web Application and/or Web API” and click next.Fill-in a Sign-On URL if you do not have a specific sign-in URL fill in your default URL for example “https://example.com” (Note: The URL needs to be secured with SSL).The APP ID URI is a URL specific for your tenant, this URL will need to contain the tenant name. It needs to be constructed in the following way: https://[tenant-name]/[app-name]Save the options, the configuration screen of the application will be opened.On this screen we will need to do two things. Generate a App Key in order to authenticate the application and grant the application access to the API.To generate a new App Key select a specific duration for example 2 years. After saving the configuration the App Key will be generated. Copy the App Key straight away because the App Key will not be visible after you navigate away from the page. If this happens a new key needs to be generated.We now have to add a permission to other applications. For this click on “Add Application”.In the dialog search for the application by first selecting “All Apps” in the show property and then selecting your application.After saving the application is added to the list and the last step we need to take is to delegate the permissions to the API application, by selecting “Delegating Permissions”Save the complete configuration. Now we need to make a few adjustments to the code in order to call the API.Code ChangesFirst off all we need to add some configuration values to the web.config.&lt;add key="auth:ClientId" value="[ClientID]" /&gt;&lt;add key="auth:AppKey" value="[AppKey]" /&gt;&lt;add key="auth:Tenant" value="[Tenant]" /&gt;&lt;add key="auth:AADInstance" value="https://login.microsoftonline.com/{0}" /&gt;ClientID: Unique identifier for the application in Azure.AppKey:Credential for the application to authenticate to Azure AD.Tenant:The name of the Azure AD tenant in which you registered the application ([tenant].onmicrosoft.com)AADInstance:This is the instance of Azure, for example public Azure or Azure China.With these properties in the web.config we can start making calls to the API in a secured way. The first step in doing this is accruing the bearer token from Azure Active Directory.internal string GetBearerToken() {    string retVal = string.Empty;'>
+    <meta itemprop="datePublished" content="2016-03-22T08:00:58+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Securing an API app with an Application Identity - Part 2
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>In the previous <a href="https://msftplayground.com/?p=1747" target="_blank" rel="noopener noreferrer">post</a> the API app was configured and altered to support Application Identity security. The next step is to make a client application ready to call the API’s in a secured way.</p>
+<p>In order to do this the Azure Active Directory needs to be aware of the application. For this the needs be added to Active Directory.</p>
+<h2>Azure Active Directory</h2>
+<p>Open the old Azure portal : <a href="https://manage.windowsazure.com" target="_blank" rel="noopener noreferrer">https://manage.windowsazure.com</a>. Open up the Active Directory and click on the “Applications” tab.</p>
+<p><a href="/assets/archive/2016/03/image_thumb14_thumb10.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb14_thumb10" src="/assets/archive/2016/03/image_thumb14_thumb10_thumb.png" alt="image_thumb14_thumb10" width="514" height="14" border="0"></a></p>
+<p>In the bar at the bottom of the screen a new application can be added by selecting new. Selecting “New” will open a wizard were in you can add the API application.</p>
+<p><a href="/assets/archive/2016/03/image_thumb20_thumb2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb20_thumb2" src="/assets/archive/2016/03/image_thumb20_thumb2_thumb.png" alt="image_thumb20_thumb2" width="353" height="259" border="0"></a></p>
+<p>Select the option “Add an application my organization is developing”.</p>
+<p><a href="/assets/archive/2016/03/image_thumb28_thumb2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb28_thumb2" src="/assets/archive/2016/03/image_thumb28_thumb2_thumb.png" alt="image_thumb28_thumb2" width="355" height="246" border="0"></a></p>
+<p>Enter the name of the application and since our application is an Web App select “Web Application and/or Web API” and click next.</p>
+<p><a href="/assets/archive/2016/03/image_thumb7.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image_thumb7" src="/assets/archive/2016/03/image_thumb7_thumb.png" alt="image_thumb7" width="357" height="258" border="0"></a></p>
+<p>Fill-in a Sign-On URL if you do not have a specific sign-in URL fill in your default URL for example “https://example.com” (<strong>Note: </strong>The URL needs to be secured with SSL).</p>
+<p>The APP ID URI is a URL specific for your tenant, this URL will need to contain the tenant name. It needs to be constructed in the following way: https://[tenant-name]/[app-name]</p>
+<p>Save the options, the configuration screen of the application will be opened.</p>
+<p>On this screen we will need to do two things. Generate a App Key in order to authenticate the application and grant the application access to the API.</p>
+<p><a href="/assets/archive/2016/03/image-2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="/assets/archive/2016/03/image_thumb-2.png" alt="image" width="554" height="40" border="0"></a></p>
+<p>To generate a new App Key select a specific duration for example 2 years. After saving the configuration the App Key will be generated. Copy the App Key straight away because the App Key will not be visible after you navigate away from the page. If this happens a new key needs to be generated.</p>
+<p><a href="/assets/archive/2016/03/image-3.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="App Keys Azure Active Directory" src="/assets/archive/2016/03/image_thumb-3.png" alt="App Keys Azure Active Directory" width="552" height="58" border="0"></a></p>
+<p>We now have to add a permission to other applications. For this click on “Add Application”.</p>
+<p><a href="/assets/archive/2016/03/image-4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Add Azure Application Permission" src="/assets/archive/2016/03/image_thumb-4.png" alt="Add Azure Application Permission" width="574" height="80" border="0"></a></p>
+<p>In the dialog search for the application by first selecting “All Apps” in the show property and then selecting your application.</p>
+<p><a href="/assets/archive/2016/03/image-5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="/assets/archive/2016/03/image_thumb-5.png" alt="image" width="512" height="313" border="0"></a></p>
+<p>After saving the application is added to the list and the last step we need to take is to delegate the permissions to the API application, by selecting “Delegating Permissions”</p>
+<p><a href="/assets/archive/2016/03/image-6.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="/assets/archive/2016/03/image_thumb-6.png" alt="image" width="587" height="110" border="0"></a></p>
+<p>Save the complete configuration. Now we need to make a few adjustments to the code in order to call the API.</p>
+<h2>Code Changes</h2>
+<p>First off all we need to add some configuration values to the web.config.</p>
+<pre class="highlight">&lt;add key="auth:ClientId" value="[ClientID]" /&gt;
+&lt;add key="auth:AppKey" value="[AppKey]" /&gt;
+&lt;add key="auth:Tenant" value="[Tenant]" /&gt;
+&lt;add key="auth:AADInstance" value="https://login.microsoftonline.com/{0}" /&gt;
+</pre>
+<ul>
+<li>
+<strong>ClientID</strong>: Unique identifier for the application in Azure.</li>
+<li>
+<strong>AppKey</strong>:Credential for the application to authenticate to Azure AD.</li>
+<li>
+<strong>Tenant</strong>:The name of the Azure AD tenant in which you registered the application ([tenant].onmicrosoft.com)</li>
+<li>
+<strong>AADInstance</strong>:This is the instance of Azure, for example public Azure or Azure China.</li>
+</ul>
+<p>With these properties in the web.config we can start making calls to the API in a secured way. The first step in doing this is accruing the bearer token from Azure Active Directory.</p>
+<pre class="highlight">internal string GetBearerToken() {
+    string retVal = string.Empty;
+
+    AuthenticationContext authContext = new AuthenticationContext(AuthConfiguration.Authority);
+    ClientCredential clientCredential = new ClientCredential(AuthConfiguration.ClientId, AuthConfiguration.AppKey);
+
+    int retryCount = 0;
+    bool retry = false;
+    AuthenticationResult authResult = null;
+    do {
+        retry = false;
+        try {
+            authResult = authContext.AcquireToken(AuthConfiguration.ResourceId, clientCredential);
+        } catch (AdalException ex) {
+            //log or retry
+        }
+
+    } while ((retry == true) &amp;&amp; (retryCount &lt; 3));
+
+    retVal = authResult.AccessToken;
+    return retVal;
+}
+</pre>
+<p>The “AuthConfiguration” class is a object that retrieves the Authentication settings from the web.config.</p>
+<p>When you required a bearer token you can try to “Get” information or “Post” information to the API.</p>
+<pre class="highlight">public T GetObjectsSecured&lt;T&gt;(string endpoint) {
+    T retVal = default(T);
+
+    string token = GetBearerToken();
+
+    if (!string.IsNullOrEmpty(token)) {
+        using (WebClient webClient = new WebClient()) {
+            webClient.Encoding = Encoding.UTF8;
+            webClient.Headers.Add(HeaderConsts.ContentType, HeaderConsts.JsonContentType);
+            webClient.Headers.Add(HttpRequestHeader.Authorization, HeaderConsts.Bearer + " " + token);
+            string returnJson = webClient.DownloadString(endpoint);
+
+            retVal = JsonConvert.DeserializeObject&lt;T&gt;(returnJson);
+        }
+    }
+
+    return retVal;
+}
+
+public bool UpdateObjectSecured&lt;T&gt;(T item, string endpoint) {
+
+    bool retVal = false;
+    Uri endpointUri = new Uri(endpoint);
+    string serialized = JsonConvert.SerializeObject(item);
+
+    string token = GetBearerToken();
+
+    if (!string.IsNullOrEmpty(token)) {
+        using (HttpClient webClient = new HttpClient()) {
+            webClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(HeaderConsts.Bearer, token);
+            using (HttpRequestMessage inputMessage = new HttpRequestMessage()) {
+                inputMessage.Content = new StringContent(serialized, Encoding.UTF8, HeaderConsts.JsonContentType);
+                inputMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(HeaderConsts.JsonContentType));
+                HttpResponseMessage message = webClient.PostAsync(endpointUri, inputMessage.Content).Result;
+
+                if (message.StatusCode == HttpStatusCode.OK) {
+                    retVal = true;
+                }
+            }
+        }
+
+        
+      </pre></section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#aad" class="page__taxonomy-item" rel="tag">AAD</a><span class="sep">, </span>
+    
+      <a href="/tags/#api" class="page__taxonomy-item" rel="tag">API</a><span class="sep">, </span>
+    
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#development" class="page__taxonomy-item" rel="tag">Development</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-03-22T08:00:58+01:00">March 22, 2016</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Securing+an+API+app+with+an+Application+Identity+-+Part+2%20http%3A%2F%2Flocalhost%3A4000%2F2016%2F03%2Fsecuring-api-app-application-identity-part-2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2016%2F03%2Fsecuring-api-app-application-identity-part-2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2016%2F03%2Fsecuring-api-app-application-identity-part-2%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2016/03/attending-microsoft-build-2016/" class="pagination--pager" title="Attending Microsoft Build 2016
+">Previous</a>
+    
+    
+      <a href="/2016/04/azure-web-application-fundamentals/" class="pagination--pager" title="Azure Web Application Fundamentals
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

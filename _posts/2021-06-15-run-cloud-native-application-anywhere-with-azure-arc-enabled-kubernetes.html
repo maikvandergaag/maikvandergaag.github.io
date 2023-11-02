@@ -1,68 +1,25 @@
 ---
-layout: post
 title: Run cloud native application anywhere with Azure Arc enabled Kubernetes
-date: 2021-06-15 12:00:00.000000000 +02:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Azure
 tags:
 - Arc
 - Azure
 - Azure App Services
 - Kubernetes
 - mvpbuzz
-meta:
-  _edit_last: '3'
-  _yoast_wpseo_content_score: '30'
-  _yoast_wpseo_estimated-reading-time-minutes: '9'
-  _thumbnail_id: '6317'
-  _yoast_wpseo_primary_category: '323'
-  _yoast_wpseo_focuskw: Kubernetes
-  _yoast_wpseo_metadesc: Running cloud native application anywhere is now possible
-    with Azure Arc enabled Kubernetes read how to get started with App Services
-  _yoast_wpseo_linkdex: '73'
-  _snap_forceSURL: '1'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snap_MYSURL: a:3:{s:1:"s";s:107:"https://msftplayground.com/2021/06/run-cloud-native-application-anywhere-with-azure-arc-enabled-kubernetes/";s:1:"t";s:107:"https://msftplayground.com/2021/06/run-cloud-native-application-anywhere-with-azure-arc-enabled-kubernetes/";s:1:"r";s:1:"B";}
-  snapLI: s:418:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:26:"%TITLE% - %HTAGS%
-    - %SURL%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:32:"urn:li:share:6810506270290784256";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6810506270290784256";s:5:"pDate";s:19:"2021-06-15
-    10:00:28";}}";
-  snap_isAutoPosted: '1623751228'
-  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6810506270290784256";s:2:"id";s:32:"urn:li:share:6810506270290784256";s:1:"d";s:19:"2021-06-15
-    10:00:28";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1404740582187147264";s:2:"id";s:19:"1404740582187147264";s:1:"d";s:19:"2021-06-15
-    10:00:28";s:1:"w";s:1:"s";}}}}
-  snapTW: s:397:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:26:"%TITLE% - %HTAGS%
-    - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1404740582187147264";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1404740582187147264";s:5:"pDate";s:19:"2021-06-15
-    10:00:28";}}";
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Kubernetes
-  _wds_title: ''
-  _wds_metadesc: Running cloud native application anywhere is now possible with Azure
-    Arc enabled Kubernetes read how to get started with App Services
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2021/06/run-cloud-native-application-anywhere-with-azure-arc-enabled-kubernetes/"
+date: 2021-06-15 12:00:00.000000000 +02:00
+permalink: /2021/06/run-cloud-native-application-anywhere-with-azure-arc-enabled-kubernetes/
+categories:
+- Azure
+status: publish
 ---
-<p><!-- wp:paragraph --></p>
+
 <p>At the beginning of this year Microsoft released Azure Arc enabled Kubernetes, this enabled you to attach conformant&nbsp;Kubernetes&nbsp;clusters to Azure for management.&nbsp;With a new preview release Microsoft introduced the capabilities of running Azure application services on Kubernetes anywhere you want. This could be on a Kubernetes cluster on the google cloud, AWS, on-premises or even on Azure it self. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The services that you are able to deploy in this preview are: </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Azure App Services</li>
 <li>Azure Logic Apps</li>
@@ -70,146 +27,146 @@ permalink: "/2021/06/run-cloud-native-application-anywhere-with-azure-arc-enable
 <li>Azure Event Grid</li>
 <li>Azure API Management</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>This functions opens up a lot of new possibilities to developers and also opens up option for using other cloud platforms next to Azure.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>How to get started</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To get started you are required to have a running Kubernetes cluster, this can be on any cloud platform, on-premises or even on your laptop. For this example I have used a local Kubernetes cluster running on my laptop with the use of Docker for Windows and a Kubernetes cluster within one of my Azure subscriptions.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To be able to deploy app services within Kubernetes we have to perform two main tasks: Connect the Kubernetes cluster to Azure Arc and create a custom location within the Azure platform.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To perform these steps we need the following prerequisites:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>az cli version 2.16.0 or later (you can upgrade the cli via the below command)</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az upgrade</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:list --></p>
+
+
+<pre class="highlight">az upgrade</pre>
+
+
 <ul>
 <li>Latest version of Helm</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">choco install kubernetes-helm</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:image {"id":6293,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-1024x44.png" alt="install helm" class="wp-image-6293" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:list --></p>
+
+
+<pre class="highlight">choco install kubernetes-helm</pre>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image.png" /><img src="/assets/archive/2021/06/image-1024x44.png" alt="install helm" class="wp-image-6293" /></figure>
+
+
 <ul>
 <li>Kubernetes context connected to the Kubernetes cluster you want to connect to</li>
 <li>az cli extensions: connectedk8s, k8s-extension, customlocation</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az extension add --name connectedk8s
+
+
+<pre class="highlight">az extension add --name connectedk8s
 az extension add --name k8s-extension
 az extension add --name customlocation</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:quote --></p>
+
+
 <blockquote class="wp-block-quote"><p>Custom locations for Azure services are only supported in the below regions at the time of writing this article:<br />- East US<br />- West Europe</p>
 </blockquote>
-<p><!-- /wp:quote --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Connect Kubernetes cluster to Azure Arc</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To connect the Kubernetes cluster to Azure Arc specific resource providers need to be registered on the subscriptions were you want to deploy Azure Arc to. The required resource providers are: Microsoft.Kubernetes, Microsoft.KubernetesConfiguration, Microsoft.ExtendedLocation.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>These registration can be done via the Azure Portal but in this article we will use the Azure CLI to perform all the steps.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az provider register --namespace [provider]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<pre class="highlight">az provider register --namespace [provider]</pre>
+
+
 <p>Perform the command for all three providers and wait for the registration to finish. In total this could take up to 30 minutes to complete. The status can be monitored by using this command.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az provider show -n [provider] -o table</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:image {"id":6295,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-1.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-1-1024x76.png" alt="provider registration" class="wp-image-6295" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<pre class="highlight">az provider show -n [provider] -o table</pre>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-1.png" /><img src="/assets/archive/2021/06/image-1-1024x76.png" alt="provider registration" class="wp-image-6295" /></figure>
+
+
 <p>Azure Arc it self is a Azure resource that needs to be deployed to an Azure Resource group. That is why we will also create a resource group.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az group create -n [group name]-l [location] -o table</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<pre class="highlight">az group create -n [group name]-l [location] -o table</pre>
+
+
 <p>Next step is to connect the Kubernetes cluster to Azure Arc. In this step all required resources will be deployed to Kubernetes and Azure were the Azure Arc resource will be created.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az connectedk8s connect -n [Azure Arc Instance name] `
+
+
+<pre class="highlight">az connectedk8s connect -n [Azure Arc Instance name] `
 -g [Resource group name]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:image {"id":6299,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-3.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-3-1024x106.png" alt="" class="wp-image-6299" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-3.png" /><img src="/assets/archive/2021/06/image-3-1024x106.png" alt="" class="wp-image-6299" /></figure>
+
+
 <p>This command will initiate a new deployment to the Kubernetes cluster via Helm and as you see in the screenshot the deployment done there was to my AKS cluster. Were it is specified that you only have to connect to Azure Arc for enabled services because Azure Monitor and Defender are natively support within AKS.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>When this deployment is succeeded the cluster is connected to Azure Arc. In the below screenshots you can see the differences in deployments on the cluster before connecting to Azure Arc and after connecting it to Azure Arc.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>Before</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:image {"id":6301,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-4.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-4-1024x277.png" alt="Kubernetes deployments before connecting to Azure Arc" class="wp-image-6301" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-4.png" /><img src="/assets/archive/2021/06/image-4-1024x277.png" alt="Kubernetes deployments before connecting to Azure Arc" class="wp-image-6301" /></figure>
+
+
 <h3>After</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:image {"id":6303,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-5.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-5-1024x441.png" alt="Kubernetes deployments before connecting to Azure Arc" class="wp-image-6303" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-5.png" /><img src="/assets/archive/2021/06/image-5-1024x441.png" alt="Kubernetes deployments before connecting to Azure Arc" class="wp-image-6303" /></figure>
+
+
 <h2>Adding custom location to Azure</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With the Kubernetes cluster connected to Azure Arc a custom location can be added. Adding this location is done in two easy steps by using the extensions on the Azure CLI.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading {"level":3} --></p>
+
+
 <h3>Enable custom locations</h3>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>To use custom locations the functionality has to be activated on the cluster it self. So make sure u are connected to Azure and still have the active context to the Kubernetes cluster that you would like to connect.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az connectedk8s enable-features -n [cluster name] `
+
+
+<pre class="highlight">az connectedk8s enable-features -n [cluster name] `
 -g [Resource group name] `
 --features cluster-connect custom-locations</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>After enabling the feature the custom location can be activated for three different service instances:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Azure Arc enabled Data Services</li>
 <li>Azure App Service on Azure Arc</li>
 <li>Event Grid on Kubernetes</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Each of these have there own specific command for the activation:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><strong>Azure Arc enabled Data Services</strong></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az k8s-extension create --name [name for the extension] `
+
+
+<pre class="highlight">az k8s-extension create --name [name for the extension] `
 --extension-type microsoft.arcdataservices `
 --cluster-type connectedClusters `
 -c [name of the Kubernetes cluster] `
@@ -217,12 +174,12 @@ az extension add --name customlocation</pre>
 -scope cluster
 --release-namespace arc `
 --config Microsoft.CustomLocation.ServiceAccount=sa-bootstrapper</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><strong>Azure App Service on Azure Arc</strong></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az k8s-extension create --name [name for the extension] `
+
+
+<pre class="highlight">az k8s-extension create --name [name for the extension] `
 --extension-type microsoft.arcdataservices `
 --cluster-type connectedClusters `
 -c [name of the Kubernetes cluster] `
@@ -230,12 +187,12 @@ az extension add --name customlocation</pre>
 --scope cluster `
 --release-namespace arc `
 --config Microsoft.CustomLocation.ServiceAccount=sa-bootstrapper</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><strong>Event Grid on Kubernetes</strong></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az k8s-extension create --name [name for the extension] `
+
+
+<pre class="highlight">az k8s-extension create --name [name for the extension] `
 --extension-type Microsoft.EventGrid `
 --cluster-type connectedClusters `
 -c [name of the Kubernetes cluster] `
@@ -244,15 +201,15 @@ az extension add --name customlocation</pre>
 --release-namespace eventgrid-ext `
 --configuration-protected-settings-file protected-settings-extension.json `
 --configuration-settings-file settings-extension.json</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:image {"id":6307,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-6.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-6-1024x388.png" alt="Enable data services extension" class="wp-image-6307" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-6.png" /><img src="/assets/archive/2021/06/image-6-1024x388.png" alt="Enable data services extension" class="wp-image-6307" /></figure>
+
+
 <p>The scripts shown above are all standard scripts to get started with the extension. If you for example want to deploy Azure App Services additional configuration is required. To start using App Service try the following command to configure the extension.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az k8s-extension create --resource-group [resource group name] `
+
+
+<pre class="highlight">az k8s-extension create --resource-group [resource group name] `
 --name [name for the extension] `
 --cluster-type connectedClusters `
 --cluster-name [cluster name] `
@@ -270,57 +227,57 @@ az extension add --name customlocation</pre>
 --configuration-settings "buildService.storageAccessMode=ReadWriteOnce" `
 --configuration-settings "customConfigMap=[namespace]/kube-environment-config" `
 --configuration-settings "envoy.annotations.service.beta.kubernetes.io/azure-load-balancer-resource-group=[kubernetes infra resource group name]"</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With the extension created some information needs to be retrieved to be able to do the final step. For the final step the resourceId of the Azure Arc enabled Kubernetes cluster is required and the same for the extension that has been activated on the cluster</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><strong>Resource Id connected cluster</strong></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az connectedk8s show -n [Azure Arc enabled cluster] `
+
+
+<pre class="highlight">az connectedk8s show -n [Azure Arc enabled cluster] `
 -g [Resource group name]  `
 --query id -o tsv</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><strong>Resource Id extension for connected cluster</strong></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az k8s-extension show --name [name of the extension] `
+
+
+<pre class="highlight">az k8s-extension show --name [name of the extension] `
 --cluster-type connectedClusters `
 -c [Azure Arc enabled cluster] `
 -g [Resource group name]  `
 --query id -o tsv</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>With this information retrieved the cluster can be defined as a custom location:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az customlocation create -n [location name] `
+
+
+<pre class="highlight">az customlocation create -n [location name] `
 -g [Resource group name] `
 --namespace [namespace in Kubernetes] `
 --host-resource-id [cluster id] `
 --cluster-extension-ids [extension id]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Things to be aware of when you process the above command:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li>Per connection a different namespace needs to be defined.</li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Next Step</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>After following the above steps your cluster is connected to Azure Arc and should be available as a custom location. The existing custom location can be checked with the below command.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az customlocation list -o table</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:image {"id":6309,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-7.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-7-1024x157.png" alt="100%<br />
+
+
+<pre class="highlight">az customlocation list -o table</pre>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-7.png" /><img src="/assets/archive/2021/06/image-7-1024x157.png" alt="100%<br />
 az customlocation list —o<br />
 table<br />
 Command<br />
@@ -357,65 +314,65 @@ Succeeded<br />
 Succeeded<br />
 Succeeded<br />
 Succeeded " class="wp-image-6309" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>These location can also be found by opening the Azure Arc blade within the Azure portal and clicking on custom locations.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6313,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-9.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-9-1024x417.png" alt="Azure Arc custom locations" class="wp-image-6313" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:paragraph --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-9.png" /><img src="/assets/archive/2021/06/image-9-1024x417.png" alt="Azure Arc custom locations" class="wp-image-6313" /></figure>
+
+
 <p>As shown in the screenshots four different locations are added to Azure. Two to a local cluster installed on my own laptop and two for the Kubernetes cluster hosted in Azure.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:heading --></p>
+
+
 <h2>Enable Azure App Services in Kubernetes</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>Creating services in the specified location requires you to have Azure App Services Kubernetes environment. By creating this environment the cluster is enabled to receive new request for app services.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az appservice kube create --resource-group [resource group] `
+
+
+<pre class="highlight">az appservice kube create --resource-group [resource group] `
 --name [name for the environment] `
 --custom-location [Id of the custom location] `
 --static-ip [static ip used in the extension installation]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The custom location id used in the above command can be retrieved with the following script.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">$customLocationId=$(az customlocation show --resource-group [resource group name] `
+
+
+<pre class="highlight">$customLocationId=$(az customlocation show --resource-group [resource group name] `
 --name [location name] `
 --query id `
 --output tsv)</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><em><strong>Note: </strong>If the "az appservice kube" command does not work make sure you install a defined version with the following script.</em></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az extension remove --name appservice-kube
+
+
+<pre class="highlight">az extension remove --name appservice-kube
 az extension add --yes `
 --source "https://aka.ms/appsvc/appservice_kube-latest-py2.py3-none-any.whl"</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>When done all kind of new services will have appeared in the resource group used during the connection.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6311,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-8.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-8.png" alt="Resources in resource group for Kubernetes" class="wp-image-6311" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-8.png" /><img src="/assets/archive/2021/06/image-8.png" alt="Resources in resource group for Kubernetes" class="wp-image-6311" /></figure>
+
+
 <h2>Creating resources on the Kubernetes environment</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>The Kubernetes environment is now prepared for new Azure App Services. These services can be created through the portal or via the Azure CLI. </p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><strong>Azure CLI</strong></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>When using the Azure CLI the custom location id needs to be supplied when creating the hosting plan and the web application for example.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
-<pre class="wp-block-syntaxhighlighter-code">az appservice plan create -g [resource group name] `
+
+
+<pre class="highlight">az appservice plan create -g [resource group name] `
 -n [name hosting plan] `
 --custom-location [custom location id] `
 --per-site-scaling `
@@ -427,29 +384,29 @@ az webapp create --plan [name hosting plan] `
 --name [web app name] `
 --custom-location [custom location id] `
 --runtime [runtime]</pre>
-<p><!-- /wp:syntaxhighlighter/code --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p><strong>Azure Portal</strong></p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>On every location were you are able to use custom location the location will appear on the locations drop down.</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:image {"id":6337,"sizeSlug":"large","linkDestination":"media"} --></p>
-<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-10.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-10.png" alt="Custom location in Azure Portal" class="wp-image-6337" /></figure>
-<p><!-- /wp:image --></p>
-<p><!-- wp:heading --></p>
+
+
+<figure class="wp-block-image size-large"><a href="/assets/archive/2021/06/image-10.png" /><img src="/assets/archive/2021/06/image-10.png" alt="Custom location in Azure Portal" class="wp-image-6337" /></figure>
+
+
 <h2>More to learn</h2>
-<p><!-- /wp:heading --></p>
-<p><!-- wp:paragraph --></p>
+
+
 <p>On docs.microsoft.com a lot more articles and information can be found about this subject. The below list points you to some interesting articles:</p>
-<p><!-- /wp:paragraph --></p>
-<p><!-- wp:list --></p>
+
+
 <ul>
 <li><a href="https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/?WT.mc_id=AZ-MVP-5004255">Azure Arc enabled Kubernetes</a></li>
 <li><a href="https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/custom-locations?WT.mc_id=AZ-MVP-5004255">Create and manage custom locations on Azure Arc enabled Kubernetes</a></li>
 <li><a href="https://docs.microsoft.com/en-us/azure/app-service/quickstart-arc?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener">Create a web app on Azure Arc - Azure App Service</a></li>
 <li><a href="https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration#app-service-kubernetes-environment?WT.mc_id=AZ-MVP-5004255">App Service on Azure Arc - Azure App Service</a></li>
 </ul>
-<p><!-- /wp:list --></p>
-<p><!-- wp:paragraph --></p>
-<p><!-- /wp:paragraph --></p>
+
+
+

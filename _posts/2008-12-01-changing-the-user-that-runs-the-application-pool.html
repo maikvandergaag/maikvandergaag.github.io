@@ -1,47 +1,22 @@
 ---
-layout: post
 title: Changing the user that runs the Application Pool
-date: 2008-12-01 06:55:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
-- SharePoint
 tags:
 - Accounts
 - Application Pool
 - SharePoint
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: Application Pool
-  _yoast_wpseo_focuskw: Application Pool
-  _yoast_wpseo_linkdex: '44'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Application Pool
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2008/12/changing-the-user-that-runs-the-application-pool/"
+date: 2008-12-01 06:55:00.000000000 +01:00
+permalink: /2008/12/changing-the-user-that-runs-the-application-pool/
+categories:
+- Administration
+- SharePoint
+status: publish
 ---
 <div class="ExternalClassB6699F7E30B449E2806ADB995DF5A2CF">
 <p>For a project we were working on we created a web application with a wrong application pool Identity. We wanted to set this correctly and we thought we could just change the application pool Identity in IIS, but we were wrong.</p>
 <p>What happens was that the application pool identity was changed back by SharePoint in a period off time. When we saw this happening we began to look how we could change the application pool account in SharePoint.</p>
 <p>Navigate to ‘Central Administration’ and click on the operations tab.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/centraladministrationoperations.png"><img title="centraladministrationoperations" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="centraladministrationoperations" src="{{ site.baseurl }}/assets/archive/2008/12/centraladministrationoperations_thumb.png" width="403" height="260" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/centraladministrationoperations.png"><img title="centraladministrationoperations" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="centraladministrationoperations" src="/assets/archive/2008/12/centraladministrationoperations_thumb.png" width="403" height="260" /></a></p>
 <p>Click on ‘Service Accounts’ that is highlighted in the image above. In the screen that follows change the boxes to the preferences you want. For a ‘Web Application’ Identity you have to select the radio button ‘Web Application pool’ and select the correct preferences.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/changeaccount.png"><img title="changeaccount" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="changeaccount" src="{{ site.baseurl }}/assets/archive/2008/12/changeaccount_thumb.png" width="430" height="188" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/changeaccount.png"><img title="changeaccount" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="changeaccount" src="/assets/archive/2008/12/changeaccount_thumb.png" width="430" height="188" /></a></p>
 </div>

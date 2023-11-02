@@ -1,50 +1,25 @@
 ---
-layout: post
 title: Disabling the MySite link for all your users
-date: 2008-12-02 06:53:00.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
-- SharePoint
 tags:
 - Disable
 - MySite
 - Security
 - SharePoint
-meta:
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: MySite
-  _yoast_wpseo_focuskw: MySite
-  _yoast_wpseo_linkdex: '69'
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: MySite
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2008/12/disabling-the-mysite-link-for-all-your-users/"
+date: 2008-12-02 06:53:00.000000000 +01:00
+permalink: /2008/12/disabling-the-mysite-link-for-all-your-users/
+categories:
+- Administration
+- SharePoint
+status: publish
 ---
 <div class="ExternalClass3ABEB542FA9640A7ABA193F9A56DB348">
 <p>Did you ever have a problem with your my site? Well we did! The customer wanted a Citrix webpart on their my site. I did not recommend it but still they wanted it. The performance off the my site fell down the roof and we had to disable the my site so we could do a proper investigation what they didn’t do in the accept environment.</p>
 <p>So how do you shut down the my site for all your users? What you can do is just stop the my site web application in IIS and all users will get a ‘Page Not Found’ error. This is not something a client will love so we did some research and found out that you can disable it by user or by user group.</p>
 <p>If you navigate to ‘Central Administration’ and click on the ‘Shared Service Provider’ of you web application on the left side of your screen.</p>
 <p>Under User Profiles and My sites you can click on ‘Personalization services permissions’.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/sharedserviceprovider.png"><img title="sharedserviceprovider" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="sharedserviceprovider" src="{{ site.baseurl }}/assets/archive/2008/12/sharedserviceprovider_thumb.png" width="375" height="100" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/sharedserviceprovider.png"><img title="sharedserviceprovider" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="sharedserviceprovider" src="/assets/archive/2008/12/sharedserviceprovider_thumb.png" width="375" height="100" /></a></p>
 <p>In the screen that follows click on the user ‘NTAuthority\Authenticated Users’. This group off users represents all authenticated users.</p>
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/user.png"><img title="user" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="user" src="{{ site.baseurl }}/assets/archive/2008/12/user_thumb.png" width="511" height="17" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/user.png"><img title="user" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="user" src="/assets/archive/2008/12/user_thumb.png" width="511" height="17" /></a></p>
 <p>Deselect ‘Create personal site’ in the upcoming screen and save your changes. Now the my site link will not be available to your users.</p>
 </div>

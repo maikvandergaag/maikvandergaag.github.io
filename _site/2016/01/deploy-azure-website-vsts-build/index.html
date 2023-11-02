@@ -1,0 +1,702 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.24.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Deploy your Azure Website with VSTS Build - Microsoft Playground</title>
+<meta name="description" content="From VSTS (Visual Studio Team Services) your can deploy to a Azure Website directly directly from a build. Setting this up will require a couple of steps. In this blog post I will help you trough these steps. Create New Build Navigate to VSTS within the browser and open the team page where a build definition needs to be added. From the team page select build to go to the build configuration section.  The build tab will show the status of current builds. On this page you are also able to create a new build. To create a new build select the + icon in the upper left corner.  Pressing the + icon will make a dialog appear. In this dialog you need to select what kind of build needs to be created. We want to deploy to Azure so we select the “Deployment”&nbsp; tab and then select “Azure WebSite”.  When selected press next. On the next screen you have to specify a couple of build settings settings. For example the “Repository type” on this screen you can also select a check box called “continuous integration: build each check-in”. Selecting this option will make sure a new build will be queued after a check-in.  Select the configuration depending on you situation and click on “Create”. In the background the build definition will be created and you will be navigated to a screen that contains all the steps in order to deploy to Azure. Configure the Build Definition Build Blocks">
+
+
+  <meta name="author" content="Maik van der Gaag">
+  
+  <meta property="article:author" content="Maik van der Gaag">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Microsoft Playground">
+<meta property="og:title" content="Deploy your Azure Website with VSTS Build">
+<meta property="og:url" content="http://localhost:4000/2016/01/deploy-azure-website-vsts-build/">
+
+
+  <meta property="og:description" content="From VSTS (Visual Studio Team Services) your can deploy to a Azure Website directly directly from a build. Setting this up will require a couple of steps. In this blog post I will help you trough these steps. Create New Build Navigate to VSTS within the browser and open the team page where a build definition needs to be added. From the team page select build to go to the build configuration section.  The build tab will show the status of current builds. On this page you are also able to create a new build. To create a new build select the + icon in the upper left corner.  Pressing the + icon will make a dialog appear. In this dialog you need to select what kind of build needs to be created. We want to deploy to Azure so we select the “Deployment”&nbsp; tab and then select “Azure WebSite”.  When selected press next. On the next screen you have to specify a couple of build settings settings. For example the “Repository type” on this screen you can also select a check box called “continuous integration: build each check-in”. Selecting this option will make sure a new build will be queued after a check-in.  Select the configuration depending on you situation and click on “Create”. In the background the build definition will be created and you will be navigated to a screen that contains all the steps in order to deploy to Azure. Configure the Build Definition Build Blocks">
+
+
+
+  <meta property="og:image" content="http://localhost:4000/assets/profile/profile.png">
+
+
+
+  <meta name="twitter:site" content="@maikvandergaag">
+  <meta name="twitter:title" content="Deploy your Azure Website with VSTS Build">
+  <meta name="twitter:description" content="From VSTS (Visual Studio Team Services) your can deploy to a Azure Website directly directly from a build. Setting this up will require a couple of steps. In this blog post I will help you trough these steps. Create New Build Navigate to VSTS within the browser and open the team page where a build definition needs to be added. From the team page select build to go to the build configuration section.  The build tab will show the status of current builds. On this page you are also able to create a new build. To create a new build select the + icon in the upper left corner.  Pressing the + icon will make a dialog appear. In this dialog you need to select what kind of build needs to be created. We want to deploy to Azure so we select the “Deployment”&nbsp; tab and then select “Azure WebSite”.  When selected press next. On the next screen you have to specify a couple of build settings settings. For example the “Repository type” on this screen you can also select a check box called “continuous integration: build each check-in”. Selecting this option will make sure a new build will be queued after a check-in.  Select the configuration depending on you situation and click on “Create”. In the background the build definition will be created and you will be navigated to a screen that contains all the steps in order to deploy to Azure. Configure the Build Definition Build Blocks">
+  <meta name="twitter:url" content="http://localhost:4000/2016/01/deploy-azure-website-vsts-build/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="http://localhost:4000/assets/profile/profile.png">
+    
+  
+
+  
+
+
+
+  <meta property="article:published_time" content="2016-01-05T10:29:05+01:00">
+
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/2016/01/deploy-azure-website-vsts-build/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Maik van der Gaag",
+      "url": "http://localhost:4000/",
+      "sameAs": ["https://twitter.com/maikvandergaag","https://github.com/maikvandergaag"]
+    
+  }
+</script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Microsoft Playground Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<link rel="stylesheet" href="/assets/css/custom.css">
+
+<!-- You can set your favicon here -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Microsoft Playground
+          <span class="site-subtitle">debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps');</span>
+        </a>
+        <ul class="visible-links">
+<li class="masthead__menu-item">
+              <a href="/about">About</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/extensions">Extensions</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/speaking">Speaking</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/year-archive">Posts</a>
+            </li>
+<li class="masthead__menu-item">
+              <a href="/categories">Categories</a>
+            </li>
+</ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/profile/profile.png" alt="Maik van der Gaag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Maik van der Gaag</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>I am <strong>Microsoft Azure MVP</strong>, <strong>Speaker</strong> and <strong>Father</strong>.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Schiedam, The Netherlands</span>
+        </li>
+      
+
+      
+        
+          
+            <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span class="label">Linkedin</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Deploy your Azure Website with VSTS Build">
+    <meta itemprop="description" content="From VSTS (Visual Studio Team Services) your can deploy to a Azure Website directly directly from a build. Setting this up will require a couple of steps. In this blog post I will help you trough these steps.Create New BuildNavigate to VSTS within the browser and open the team page where a build definition needs to be added. From the team page select build to go to the build configuration section.The build tab will show the status of current builds. On this page you are also able to create a new build. To create a new build select the + icon in the upper left corner.Pressing the + icon will make a dialog appear. In this dialog you need to select what kind of build needs to be created. We want to deploy to Azure so we select the “Deployment”  tab and then select “Azure WebSite”.When selected press next. On the next screen you have to specify a couple of build settings settings. For example the “Repository type” on this screen you can also select a check box called “continuous integration: build each check-in”. Selecting this option will make sure a new build will be queued after a check-in.Select the configuration depending on you situation and click on “Create”. In the background the build definition will be created and you will be navigated to a screen that contains all the steps in order to deploy to Azure.Configure the Build Definition Build Blocks">
+    <meta itemprop="datePublished" content="2016-01-05T10:29:05+01:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Deploy your Azure Website with VSTS Build
+</h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>From VSTS (Visual Studio Team Services) your can deploy to a Azure Website directly directly from a build. Setting this up will require a couple of steps. In this blog post I will help you trough these steps.</p>
+<h3>Create New Build</h3>
+<p>Navigate to VSTS within the browser and open the team page where a build definition needs to be added. From the team page select build to go to the build configuration section.</p>
+<p><a href="/assets/archive/2016/01/image.png"><img title="VSTS Team Page" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="VSTS Team Page" src="/assets/archive/2016/01/image_thumb.png" width="665" height="307"></a></p>
+<p>The build tab will show the status of current builds. On this page you are also able to create a new build. To create a new build select the + icon in the upper left corner.</p>
+<p><a href="/assets/archive/2016/01/image-1.png"><img title="Create Build" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Create Build" src="/assets/archive/2016/01/image_thumb-1.png" width="666" height="196"></a></p>
+<p>Pressing the + icon will make a dialog appear. In this dialog you need to select what kind of build needs to be created. We want to deploy to Azure so we select the “Deployment”  tab and then select “Azure WebSite”.</p>
+<p><a href="/assets/archive/2016/01/image-2.png"><img title="New Build" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="New Build" src="/assets/archive/2016/01/image_thumb-2.png" width="356" height="352"></a></p>
+<p>When selected press next. On the next screen you have to specify a couple of build settings settings. For example the “Repository type” on this screen you can also select a check box called “continuous integration: build each check-in”. Selecting this option will make sure a new build will be queued after a check-in.</p>
+<p><a href="/assets/archive/2016/01/image-3.png"><img title="Build Settings" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Build Settings" src="/assets/archive/2016/01/image_thumb-3.png" width="475" height="470"></a></p>
+<p>Select the configuration depending on you situation and click on “Create”. In the background the build definition will be created and you will be navigated to a screen that contains all the steps in order to deploy to Azure.</p>
+<h3>Configure the Build Definition Build Blocks</h3>
+
+<p><a href="/assets/archive/2016/01/image-4.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/01/image_thumb-4.png" width="670" height="352"></a></p>
+<p>The first two building blocks of the build definition can stay as they are by default. In the first building block there is a setting called “MSBuild Arguments”. This settings shows for example were the Web Deployment Package will be placed:</p>
+<pre class="highlight">/p:PackageLocation="$(build.artifactstagingdirectory)\\
+</pre>
+<p>The second block will execute tests if there are any in your solution. By default it will stop the build if there are tests that fail during the build. By selecting “Continue on error” the build will continue even if tests fail.</p>
+<p><a href="/assets/archive/2016/01/image-5.png"><img title="Test Building Block" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Test Building Block" src="/assets/archive/2016/01/image_thumb-5.png" width="666" height="334"></a></p>
+<p>The next block is the block that will execute the deployment. As you can see the block is red and that is because not all required properties are filled in.</p>
+<p>Select the building block you will notice that the Azure subscription isn’t filled.</p>
+<p>When starting with a new VSTS tenant you will not have any Azure subscriptions configured. The Azure Subscription can be configured by clicking on “Manage”.</p>
+<p><a href="/assets/archive/2016/01/image-6.png"><img title="Azure Deployment" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Azure Deployment" src="/assets/archive/2016/01/image_thumb-6.png" width="666" height="224"></a></p>
+<h3>Configure Azure Service Endpoint</h3>
+<p>Clicking on manage will open a new browser window will that brings you tot the services endpoint configuration page of VSTS. On this page a Azure Subscription needs to be added by selecting the + icon in the upper left corner, and then selecting Azure.</p>
+<p><a href="/assets/archive/2016/01/image-7.png"><img title="Add Azure Subscription" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Add Azure Subscription" src="/assets/archive/2016/01/image_thumb-7.png" width="644" height="299"></a></p>
+<p>In the dialog that appears authentication information for windows Azure subscription needs to be filled in. This information has to be retrieved and this can be done with the Azure PowerShell window.</p>
+<ul>
+<li>Open the Microsoft Azure PowerShell window in administrative mode
+</li>
+<li>Execute the following PowerShell command:</li>
+</ul>
+<pre class="highlight">Get-AzurePublishSettingsFile 
+</pre>
+<ul>
+<li>Executing the commend will open a web browser and automatically download your subscription file
+</li>
+<li>Open the subscription file (named [SubscriptionName]-[Date]-credentials.publishsettings)
+</li>
+<li>Find the Subscription ID and the ManagementCertificate in the file.</li>
+</ul>
+<p>In the dialog window select “Certificate Based” and copy and past all the right information.</p>
+<p><a href="/assets/archive/2016/01/image-8.png"><img title="Azure Subscription" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="Azure Subscription" src="/assets/archive/2016/01/image_thumb-8.png" width="448" height="228"></a></p>
+<p>Press “OK” to save the Service Endpoint and navigate back to the build tab in your browser.</p>
+<p>With the service endpoint configured the  Azure Subscription field needs to be refreshed. When the field is refreshed you can select the appropriate Azure Subscription.</p>
+<p>After setting the Azure Subscription the Web Site information needs to be added. The Web Deploy Package settings will deploy all zip files within your build it is also possible to specific a specific package if your know the name by altering the line.</p>
+<pre class="highlight">$(build.stagingDirectory)\MSFT-DEMO-WEBAPP.zip
+</pre>
+<p><a href="/assets/archive/2016/01/image-9.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/01/image_thumb-9.png" width="666" height="190"></a></p>
+<p>The last two building block have the right configuration by default. If you want you can also delete them from the build definition.</p>
+<p>Now that everything is setup correctly the build definition can be saved. When saving for the first time you will be able to give it a appropriate name.</p>
+<p><a href="/assets/archive/2016/01/image-10.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/01/image_thumb-10.png" width="397" height="152"></a></p>
+<p>When saved the build can be queued by selecting “Queue Build”.</p>
+<p><a href="/assets/archive/2016/01/image-11.png"><img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="/assets/archive/2016/01/image_thumb-11.png" width="669" height="223"></a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#azure" class="page__taxonomy-item" rel="tag">Azure</a><span class="sep">, </span>
+    
+      <a href="/tags/#build" class="page__taxonomy-item" rel="tag">Build</a><span class="sep">, </span>
+    
+      <a href="/tags/#deployment" class="page__taxonomy-item" rel="tag">Deployment</a><span class="sep">, </span>
+    
+      <a href="/tags/#vsts" class="page__taxonomy-item" rel="tag">VSTS</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#devops" class="page__taxonomy-item" rel="tag">DevOps</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2016-01-05T10:29:05+01:00">January 5, 2016</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=maikvandergaag&amp;text=Deploy+your+Azure+Website+with+VSTS+Build%20http%3A%2F%2Flocalhost%3A4000%2F2016%2F01%2Fdeploy-azure-website-vsts-build%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F2016%2F01%2Fdeploy-azure-website-vsts-build%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Flocalhost%3A4000%2F2016%2F01%2Fdeploy-azure-website-vsts-build%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2015/12/development-cycles-devops-office365/" class="pagination--pager" title="Development Cycles (DevOps) and Office365
+">Previous</a>
+    
+    
+      <a href="/2016/01/azure-hybrid-connection/" class="pagination--pager" title="Azure Hybrid Connection
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/" rel="permalink">Creating a Logic App API Connection that uses the Managed Identity using Bicep
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connec...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2023/03/unlocking-the-power-of-azure-app-registrations-a-guide-to-exposing-your-app-as-an-api-with-user-assignments-required-turned-on/" rel="permalink">“Exposing Azure App Registrations as Secure APIs: A Guide to Authentication with ‘User Assignments Required’ Turned On”
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Azure App Registrations are a powerful tool for managing resource access and integrating applications with Microsoft's cloud services. While these registrati...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/12/centrally-manage-your-app-configurations/" rel="permalink">Centrally manage your App Configurations
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          10 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">The application landscape in Azure has grown significantly in recent years, with a wide range of tools and services available to help businesses build, deplo...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2022/10/shift-left-security-with-microsoft-security-devops-msdo/" rel="permalink">Shift Left Security with Microsoft Security DevOps (MSDO)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">With the new capabilities released add Ignite, you are now even more capable of shifting security checks further to the left. In this article, I explain how ...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap">
+<form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term...">
+  </form>
+  <div id="results" class="results"></div>
+</div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <script src="/assets/scripts/sidebarcontent.js"></script>
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/maikvandergaag" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/maikvandergaag/" rel="nofollow noopener noreferrer noopener noreferrer" target="_blank"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i> Linkedin</a></li>
+        
+      
+    
+
+    
+      <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+    
+  </ul>
+</div>
+
+<div class="page__footer-copyright">© 2023 Maik van der Gaag. Powered by <a href="https://jekyllrb.com" rel="nofollow noopener noreferrer" target="_blank">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow noopener noreferrer" target="_blank">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

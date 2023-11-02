@@ -1,48 +1,20 @@
 ---
-layout: post
-title: 'System.ServiceModel.FaultException: The server was unable to process the request
-  due to an internal error.'
-date: 2011-11-17 06:10:00.000000000 +01:00
+title: 'System.ServiceModel.FaultException: The server was unable to process the request due to an internal error.'
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Administration
 tags:
 - FaultException
 - Troubleshouting
-meta:
-  pplrpsts_post_views_count: '1'
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: FaultException
-  _yoast_wpseo_focuskw: FaultException
-  _yoast_wpseo_linkdex: '67'
-  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463222102;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:798;}i:1;a:1:{s:2:"id";i:427;}i:2;a:1:{s:2:"id";i:803;}}}}
-  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
-  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: FaultException
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2011/11/system-servicemodel-faultexception-the-server-was-unable-to-process-the-request-due-to-an-internal-error/"
+date: 2011-11-17 06:10:00.000000000 +01:00
+permalink: /2011/11/system-servicemodel-faultexception-the-server-was-unable-to-process-the-request-due-to-an-internal-error/
+categories:
+- Administration
+status: publish
 ---
 <div class="ExternalClass0A9998B884754C0494A1DE913031D676">
 <p>For one of our clients we are working with a claims based web application. This web application has a custom membership provider that is registered at the web application, central administration and security token service level.</p>
 <p>When we navigate to the site everything works perfectly but when we try to login with valid credentials we would receive an error like below:</p>
 <p><strong><span style="color: #ff0000;">Server Error in '/' Application. </span></strong></p>
-<p><strong><span style="color: #ff0000;"> </span></strong></p>
+<p><strong></strong></p>
 <hr size="1" />
 <p>&nbsp;</p>
 <p><em>Runtime Error</em> <strong>Description</strong>: An application error occurred on the server. The current custom error</p>
@@ -70,10 +42,10 @@ System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boo
 <p>In our situation this error occurs within in the “Security Token Service Application”. The problem with this error message is that it isn’t the exact message of what is going wrong. To receive that error message that is occurring do the following:</p>
 <ol>
 <li>Open IIS and navigate to “SharePoint Web Services” under “Sites”. Click the node open and select “SecurityTokenServiceApplication” use your other mouse button to open the context menu and select “Explore”.
-<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/image2.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2011/11/image_thumb2.png" alt="image" width="182" height="240" border="0" /></a></li>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/image2.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="image" src="/assets/archive/2011/11/image_thumb2.png" alt="image" width="182" height="240" border="0" /></a></li>
 <li>Windows explorer will open a new window. In this window you will see a web.config file. Open this file within a text editor and look for the following section:</li>
 </ol>
-<pre class="brush: xml;">&lt;behaviors&gt;
+<pre class="highlight">&lt;behaviors&gt;
   &lt;serviceBehaviors&gt;
     &lt;behavior name="SecurityTokenServiceBehavior"&gt;
       &lt;!-- The serviceMetadata behavior allows one to enable metadata (endpoints, bindings, services) publishing.
@@ -87,9 +59,9 @@ System.Web.UI.Page.ProcessRequestMain(Boolean includeStagesBeforeAsyncPoint, Boo
   &lt;/serviceBehaviors&gt;
 &lt;/behaviors&gt;</pre>
 <p>In this section we will place a extra debug tag to include the errors that are occurring. The tag looks like this:</p>
-<pre class="brush: xml;">&lt;serviceDebug httpHelpPageEnabled="true" includeExceptionDetailInFaults="true" /&gt;</pre>
+<pre class="highlight">&lt;serviceDebug httpHelpPageEnabled="true" includeExceptionDetailInFaults="true" /&gt;</pre>
 <p>This tag needs to be placed in the behavior tag. After you place the tag in the section it will look like this:</p>
-<pre class="brush: xml;">&lt;behaviors&gt;
+<pre class="highlight">&lt;behaviors&gt;
   &lt;serviceBehaviors&gt;
     &lt;behavior name="SecurityTokenServiceBehavior"&gt;
       &lt;!-- The serviceMetadata behavior allows one to enable metadata (endpoints, bindings, services) publishing.

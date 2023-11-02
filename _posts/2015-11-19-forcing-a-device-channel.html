@@ -1,57 +1,16 @@
 ---
-layout: post
 title: Forcing a Device Channel
-date: 2015-11-19 08:30:43.000000000 +01:00
 type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Development
-- SharePoint
 tags:
 - C#
 - Device Channel
 - SharePoint 2013
-meta:
-  snap_isAutoPosted: '1'
-  _wpt_short_url: http://bit.ly/1MWrTxW
-  _wp_jd_target: http://msftplayground.com/2015/11/forcing-a-device-channel/
-  _jd_wp_twitter: 'a:2:{i:0;s:56:"New post: Forcing a Device Channel http://bit.ly/1MWrTxW";i:1;s:59:"Post
-    Edited: Forcing a Device Channel http://bit.ly/1MWrTxW";}'
-  _wpt_status_message: Tweet sent successfully.
-  _edit_last: '1'
-  _yoast_wpseo_focuskw_text_input: Device Channel
-  _yoast_wpseo_focuskw: Device Channel
-  _yoast_wpseo_linkdex: '81'
-  _snap_forceSURL: '2'
-  snap_MYURL: ''
-  snapEdIT: '1'
-  snapFB: s:395:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1641917569418903";s:5:"pDate";s:19:"2015-11-19
-    08:30:50";s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
-    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
-  snapLI: s:289:"a:1:{i:0;a:9:{s:11:"isPrePosted";s:1:"1";s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
-    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
-  _jd_twitter: ''
-  _jd_tweet_this: 'yes'
-  pplrpsts_post_views_count: '1'
-  _oembed_1ba82f062134c494a889e607d118caea: "{{unknown}}"
-  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
-  _wds_focus-keywords: Device Channel
-  _wds_title: ''
-  _wds_metadesc: ''
-  _wds_meta-robots-adv: ''
-  _wds_meta-robots-nofollow: ''
-  _wds_canonical: ''
-author:
-  login: maik@familie-vandergaag.nl
-  email: maik@familie-vandergaag.nl
-  display_name: Maik van der Gaag
-  first_name: Maik
-  last_name: van der Gaag
-permalink: "/2015/11/forcing-a-device-channel/"
+date: 2015-11-19 08:30:43.000000000 +01:00
+permalink: /2015/11/forcing-a-device-channel/
+categories:
+- Development
+- SharePoint
+status: publish
 ---
 <p>Device channels are a way of using different master pages for different devices. MSDN describes the functionality as followed:</p>
 <p>&nbsp;</p>
@@ -70,7 +29,7 @@ permalink: "/2015/11/forcing-a-device-channel/"
 <p>&nbsp;</p>
 <p>You can set this cookie in code in order to persist the use of the master page.</p>
 <p>&nbsp;</p>
-<pre class="brush: csharp;">if (HttpContext.Current.Request.Cookies["DeviceChannel"] == null) {
+<pre class="highlight">if (HttpContext.Current.Request.Cookies["DeviceChannel"] == null) {
 
     string url = HttpContext.Current.Request.Url.ToString();
     using (SPSite site = new SPSite(url)) {
@@ -88,4 +47,3 @@ permalink: "/2015/11/forcing-a-device-channel/"
         }
     }               
 }
-</pre>
