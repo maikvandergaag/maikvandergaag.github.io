@@ -1,0 +1,85 @@
+---
+layout: post
+title: Deployment scripts to perform data operations
+date:
+type: post
+parent_id: '0'
+published: false
+password: ''
+status: draft
+categories:
+- Azure
+tags: []
+meta:
+  _edit_last: '7'
+  _yoast_wpseo_primary_category: '323'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_wordproof_timestamp: ''
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: ''
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+  _wds_readability: a:4:{s:5:"score";i:49;s:9:"raw_score";i:49;s:11:"is_readable";b:0;s:5:"error";b:0;}
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/"
+---
+<p><!-- wp:paragraph --></p>
+<p>In different platforms a lot off people are using some kind of Infrastructure as Code to perform operations on for example Microsoft Azure. When working with Azure I prefer writing Infrastructure as Code in Bicep.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the Azure platform some things can not be done with using for example ARM of Bicep. On these occasions you can use deploymentScripts  how the resource is called within the platform.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>deploymentScripts</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>With the resource type deploymentScripts users can execute scripts in template deployments and review execution results. For example you could use deploymentscripts to perform specific operations in Azure Active Directory. The place were I use them often is performing operations within in Azure SQL, for example creating and adding users to be able to login to Azure SQL.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">resource script 'Microsoft.Resources/deploymentScripts@2020-10-01'={
+  name: 'deploymentscript'
+  kind:'AzurePowerShell'
+  location: location
+  properties:{
+    retentionInterval: 'P1D'
+    azPowerShellVersion: '6.4'
+    arguments: '-name \\"${argumentNameValue}\\"'
+    environmentVariables: [
+      {
+        name: 'envValue1'
+        value: 'test'
+      }
+      {
+        name: 'envValue2'
+        secureValue: 'test 2'
+      }
+    ]
+    scriptContent: scriptContent
+  }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>The above snippet shows an example for a deploymentScript resource type of the kind "Azure PowerShell". With this deployment script you can perform Azure PowerShell operations. The snippet also show a couple of environment values that you can use within the script. The script content it self can be loaded into the bicep file by using the "loadTextContent" function within bicep.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Adding users into Azure SQL</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>For now we will use a concrete example: With Bicep we will deploy an Azure SQL Database to Azure and allow Azure AD authentication to this database. For this we will need to add additional users / applications to the database with a specific role.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Script</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>To be able to do these actions, we start by creating a PowerShell script that is able to perform SQL commands. As we need to be able to perform a SQL command to add new users to the database as is stated in this <a href="https://learn.microsoft.com/en-us/archive/blogs/sqldw/adding-ad-users-and-security-groups-to-azure-sql-data-warehouse?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener">article</a>.</p>
+<p><!-- /wp:paragraph --></p>

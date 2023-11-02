@@ -1,0 +1,83 @@
+---
+layout: post
+title: HTTPS only for Azure Websites
+date: 2015-12-04 08:23:15.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- Url Rewrite
+- Website
+meta:
+  snap_isAutoPosted: '1'
+  _wpt_short_url: http://bit.ly/1XMxQ6L
+  _wp_jd_target: http://msftplayground.com/2015/12/https-only-for-azure-websites/
+  _jd_wp_twitter: 'a:2:{i:0;s:61:"New post: HTTPS only for Azure Websites http://bit.ly/1XMxQ6L";i:1;s:64:"Post
+    Edited: HTTPS only for Azure Websites http://bit.ly/1XMxQ6L";}'
+  _wpt_status_message: This tweet is identical to another Tweet recently sent to this
+    account. Twitter requires all Tweets to be unique.
+  _thumbnail_id: '1119'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Azure HTTPS
+  _yoast_wpseo_focuskw: Azure HTTPS
+  _yoast_wpseo_linkdex: '50'
+  _snap_forceSURL: '2'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:395:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1646164722327521";s:5:"pDate";s:19:"2015-12-04
+    08:23:22";s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
+  snapLI: s:289:"a:1:{i:0;a:9:{s:11:"isPrePosted";s:1:"1";s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
+  _jd_twitter: ''
+  _jd_tweet_this: 'yes'
+  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:64:"Post Edited: HTTPS only
+    for Azure Websites http://bit.ly/1XMxQ6L";s:5:"error";s:113:"This tweet is identical
+    to another Tweet recently sent to this account. Twitter requires all Tweets to
+    be unique.";s:4:"code";i:403;s:9:"timestamp";i:1449218016;}'
+  _jetpack_related_posts_cache: a:0:{}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure HTTPS
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2015/12/https-only-for-azure-websites/"
+---
+<p>In some situations you would like your Azure website to only work under HTTPS. By default a Azure website will work under HTTP and HTTPS. Today I was searching for a option how to disable HTTP traffic. Looking in de old and new portal did not help at all.</p>
+<p>&nbsp;</p>
+<p>The next option was to rewrite the URL. You can if you need to rewrite the URL from your web.config file. If you place a “rewrite” element within the “system.webServer” element of your web.config file you can specify rules in order to rewrite your URL.</p>
+<p>Take a look at my example for rewriting to HTTPS.</p>
+<p>&nbsp;</p>
+<pre class="brush: xml;">&lt;system.webServer&gt;
+  &lt;rewrite&gt;
+    &lt;rules&gt;
+      &lt;rule name="Redirect HTTP to HTTPS"&gt;
+        &lt;match url="(.*)" /&gt;
+        &lt;conditions&gt;
+          &lt;add input="{HTTPS}" pattern="off" ignoreCase="true" /&gt;
+        &lt;/conditions&gt;
+        &lt;action type="Redirect" url="https://{HTTP_HOST}/{R:1}" redirectType="Permanent"/&gt;
+      &lt;/rule&gt;
+    &lt;/rules&gt;
+    &lt;/rewrite&gt;
+&lt;/system.webServer&gt;
+</pre>
+<p>&nbsp;</p>
+<p>The rule is named “Redirect HTTP to HTTPS”  and matches all URLs. Based on the input conditions the rule will not be applied on HTTPS traffic.  The action will then rewrite the URL to HTTPS.</p>
+<p>&nbsp;</p>
+<p><span style="font-size: small;">With help from:</span></p>
+<p><a href="http://blogs.msdn.com/b/benjaminperkins/archive/2014/01/07/https-only-on-windows-azure-web-sites.aspx" target="_blank"><span style="font-size: small;">Benjamin Perkins</span></a></p>

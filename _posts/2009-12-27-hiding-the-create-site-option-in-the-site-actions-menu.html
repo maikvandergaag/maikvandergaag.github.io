@@ -1,0 +1,61 @@
+---
+layout: post
+title: Hiding the &lsquo;Create Site&rsquo; option in the Site Actions menu
+date: 2009-12-27 06:52:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- SharePoint
+tags:
+- Custom Action
+- ID
+- SharePoint
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '70'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/12/hiding-the-create-site-option-in-the-site-actions-menu/"
+---
+<div class="ExternalClass0A6219B9CAE74C95A478D280D66341F2">
+<p>Within SharePoint you have something called <a href="http://msdn.microsoft.com/en-us/library/ms465980.aspx">custom actions</a>. You can use custom actions to create custom menu items within SharePoint. Besides custom actions you also have <a href="http://msdn.microsoft.com/en-us/library/ms414790.aspx">hide custom actions</a> to hide custom actions. With the hide custom actions you can only hide custom actions that have been created with a CustomAction schema file.</p>
+<p>The ‘Create Site’ menu options and also the ‘Create Page’ option are not created with a custom actions but on a different way. To hide these custom actions you can alter a file that resides in the masterpages gallery within a site collection.</p>
+<p>In the masterpages gallery there is a folder called ‘Editing Menu’ in this folder there are four files you can use to alter certain menu options.</p>
+<ul>
+<li><a href="http://msdn.microsoft.com/en-us/library/aa674506.aspx">CustomEditingMenu.xml : Used to customize the page editing toolbar</a>.  </li>
+<li><a href="/2009/12/hiding-the-create-site-option-in-the-site-actions-menu/">CustomQuickAccess.xml: Used to customize the quick access actions</a>.  </li>
+<li><a href="#">CustomSiteAction.xml: Used to alter the site actions menu</a>.  </li>
+<li><a href="http://msdn.microsoft.com/en-us/library/ms520217.aspx">RTE2ToolbarExtension.xml: Used to customize the HTML Editor Field control</a>.</li>
+</ul>
+<p>When you would like to hide the ‘Create Site’ action in the site actions menu you have to alter the CustomSiteAction.xml file by adding several nodes. Below there is an example of a CustomSiteAction.xml file that hides the ‘Create Site’ action:</p>
+<pre class="brush: xml;">&lt;xml version="1.0" encoding="utf-8" ?&gt;
+&lt;Console&gt;
+    &lt;references&gt;
+&lt;reference TagPrefix="cms" assembly="Microsoft.SharePoint.Publishing, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c"   namespace="Microsoft.SharePoint.Publishing.WebControls.EditingMenuActions" /&gt;
+    &lt;/references&gt;
+    &lt;structure&gt;
+     &lt;ConsoleNode ConfigMenu="Delete" ChangedNodeID="wsaCreateSite" /&gt;
+    &lt;/structure&gt;
+&lt;/Console&gt;</pre>
+<p>The reference is to a SharePoint assembly that creates the custom actions. The ‘ConsoleNode’ stated what should happen with a certain menu action in the above example it is ‘ChangeNodeID’ which is ‘wsaCreateSite’ (This id can be found be looking in the source of the page). If you would also like to hide the ‘Create Page’ action you add the following line to the CustomSiteAction file:</p>
+<pre class="brush: xml;">&lt;consolenode changednodeid="wsaCreatePage" configmenu="Delete" /&gt;</pre>
+<p>These changes can also be done with a feature and a feature receiver if you guys would like to have a example how to accomplish this let me now and also if you would like to see some examples for the other files. </p>
+</div>

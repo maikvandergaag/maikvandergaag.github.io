@@ -1,0 +1,43 @@
+---
+layout: post
+title: Failure in loading assembly
+date: 2010-02-22 06:59:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- SharePoint
+- Troubleshooting
+tags:
+- Error
+- Failure
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Failure
+  _yoast_wpseo_focuskw: Failure
+  _yoast_wpseo_linkdex: '61'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Failure
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2010/02/failure-in-loading-assembly/"
+---
+<div class="ExternalClass6D5E6E53CFB04344AE8BCC73381C6AF1">
+<p>In the application event log I found several errors that were pointing to assemblies that I wasn’t using anymore. The error looks like the message below: Error: Failure in loading assembly: Assembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=Token.</p>
+<p>The application was trying to load an assembly that I wasn’t in the GAC or in the BIN folder. This causes the error so I searched trough the complete solution for references to the specified assembly but couldn’t find any. After searching I opened the web.config file of the web application and the one from central administration and saw that there were safecontrols registered to assemblies that I wasn’t using anymore. </p>
+<pre class="brush: csharp;">&lt;SafeControl Assembly="Assembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=Token" Namespace="Namespace" TypeName="*" Safe="True" /&gt;</pre>
+<p>By deleting these safecontrol the problem was solved.</p>
+</div>

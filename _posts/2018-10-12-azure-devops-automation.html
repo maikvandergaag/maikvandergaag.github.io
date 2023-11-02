@@ -1,0 +1,194 @@
+---
+layout: post
+title: Azure DevOps Automation
+date: 2018-10-12 10:37:08.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure DevOps
+tags:
+- ARM
+- Azure
+- Azure DevOps
+- VSTS
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _edit_last: '3'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: '535'
+  _yoast_wpseo_focuskw: Azure DevOps
+  _yoast_wpseo_metadesc: Automation is getting more important every day. For the automation
+    different tools can be used but can tools like Azure DevOps be automated as well.
+  _yoast_wpseo_linkdex: '42'
+  _nxs_slinks: a:1:{s:32:"0bbf9d71d3c85514811e36cf4f8b5856";s:21:"http://bit.ly/2CFLUQf";}
+  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2CFLUQf";s:1:"t";s:59:"https://msftplayground.com/2018/10/azure-devops-automation/";s:1:"r";s:1:"B";}
+  snap_isAutoPosted: '1539337060'
+  _snapPHST: a:1:{s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1050681904616361984";s:2:"id";s:19:"1050681904616361984";s:1:"d";s:19:"2018-10-12
+    09:37:41";s:1:"w";s:1:"s";}}}}
+  _wpas_done_all: '1'
+  _thumbnail_id: '4785'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapLI: s:228:"a:1:{i:0;a:8:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;}}";
+  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1050681904616361984";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1050681904616361984";s:5:"pDate";s:19:"2018-10-12
+    09:37:41";}}";
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1576668728;s:7:"payload";a:0:{}}}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure DevOps
+  _wds_title: ''
+  _wds_metadesc: Automation is getting more important every day. For the automation
+    different tools can be used but can tools like Azure DevOps be automated as well.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2018/10/azure-devops-automation/"
+---
+<p>A couple of weeks ago the rename / rebranding of Visual Studio Team Services to Azure DevOps was announced. The rebranding is a great step forward into positioning the product even better and have more value for example for open source projects.</p>
+<p>The service know exists out of five services that can be used independent&nbsp;of each other as long as you have an Azure DevOps Project.</p>
+<ul>
+<li><strong>Azure Pipelines:&nbsp;</strong>CI/CD that works with any language, platform, and cloud.</li>
+<li><strong>Azure Boards: </strong>Work tracking with Kanban boards.</li>
+<li><strong>Azure Artifacts: </strong>Public or private package repository</li>
+<li><strong>Azure Repos: </strong>Private / public Git repos</li>
+<li><strong>Azure Test Plans: </strong>Testing solution.</li>
+</ul>
+<p>The above services can be specific for each project. All projects have the options to turn off a specific services. So if you for example are using Git you can start using Azure DevOps for the Builds and Release pipelines.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/09/AzureDevOpsProject.png"><img class="alignnone size-medium wp-image-4085" src="{{ site.baseurl }}/assets/archive/2018/10/AzureDevOpsProject-300x177.png" alt="Azure DevOps Project" width="300" height="177" /></a></p>
+<p>&nbsp;</p>
+<p>When using Azure DevOps a lot and also having to set up and administrate multiple environments automation comes in handy. How can we automate things around Azure DevOps?</p>
+<h2>ARM</h2>
+<p>For almost every service in Azure ARM (Azure Resource Manager) templates can be used this is no different for Azure DevOps.</p>
+<h3>Azure DevOps Organization</h3>
+<pre class="brush: js;">{
+   "type": "Microsoft.VisualStudio/account",
+   "name": "[parameters('accountName')]",
+   "apiVersion": "2014-02-26",
+   "location": "[parameters('location')]",
+   "tags": {},
+   "scale": null,
+   "properties": {
+    "operationType": "Create",
+    "accountName": "[parameters('accountName')]"
+  },  
+  "dependsOn": []
+}</pre>
+<h3>Azure DevOps Project</h3>
+<pre class="brush: js;">{
+  "name": "[concat(parameters('accountName'), '/', parameters('projectName'))]",
+  "type": "Microsoft.VisualStudio/account/project",
+  "location": "[parameters('location')]",
+  "apiVersion": "2014-02-26",
+  "properties": {
+    "ProcessTemplateId": "[parameters('processTemplateId')]",
+    "VersionControlOption": "[parameters('versionControlOption')]"
+  }
+}</pre>
+<h2>Azure DevOps</h2>
+<p>Combining the two resources adds the ability to create an organization and project from one template.</p>
+<h3>Azure DevOps Organization and Project</h3>
+<pre class="brush: js;">{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "accountName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the Visual Studio Team Services account, if it doesn't exist it will be created."
+      }
+    },
+    "projectName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the Visual Studio Team Services project."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for all resources."
+      }
+    },
+    "processTemplateId": {
+      "type": "string",
+      "defaultValue": "6B724908-EF14-45CF-84F8-768B5384DA45",
+      "allowedValues": [
+        "6B724908-EF14-45CF-84F8-768B5384DA45",
+        "ADCC42AB-9882-485E-A3ED-7678F01F66BC",
+        "27450541-8E31-4150-9947-DC59F998FC01"
+      ],
+      "metadata": {
+        "description": "Scrum: 6B724908-EF14-45CF-84F8-768B5384DA45 / Agile: ADCC42AB-9882-485E-A3ED-7678F01F66BC / CMMI: 27450541-8E31-4150-9947-DC59F998FC01"
+      }
+    },
+    "versionControlOption": {
+      "type": "string",
+      "defaultValue": "Git",
+      "allowedValues": [
+        "Git",
+        "Tfvc"
+      ],
+      "metadata": {
+        "description": "The version control of the Visual Studio Team Services project's source code: Git or Tfvc."
+      }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Location for all resources."
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "type": "Microsoft.VisualStudio/account",
+      "name": "[parameters('accountName')]",
+      "apiVersion": "2014-02-26",
+      "location": "[parameters('location')]",
+      "tags": {},
+      "scale": null,
+      "properties": {
+        "operationType": "Create",
+        "accountName": "[parameters('accountName')]"
+      },
+      "dependsOn": [],
+      "resources": [
+        {
+          "name": "[concat(parameters('accountName'), '/', parameters('projectName'))]",
+          "type": "Microsoft.VisualStudio/account/project",
+          "location": "[parameters('location')]",
+          "apiVersion": "2014-02-26",
+          "properties": {
+            "ProcessTemplateId": "[parameters('processTemplateId')]",
+            "VersionControlOption": "[parameters('versionControlOption')]"
+          }
+        }
+      ]
+
+    }
+  ]
+}
+</pre>
+<p>With the below PowerShell script its quick and easy to deploy these own resources.</p>
+<pre class="brush: powershell;">New-AzureRmResourceGroupDeployment -ResourceGroupName [ResourceGroup Name] -TemplateFile [Template Path] -accountName [Organization name] -location [Location] -projectName [Project name] -versionControlOption Git -processTemplateId "6B724908-EF14-45CF-84F8-768B5384DA45"</pre>
+<p>Together with the Rest API you can complete the whole process.</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/rest/api/vsts/?view=vsts-rest-5.0" target="_blank" rel="noopener">Azure DevOps Rest Api Reference</a></li>
+</ul>
+<p>Leave a comments if you would like to see more articles on Azure DevOps automation.</p>

@@ -1,0 +1,88 @@
+---
+layout: post
+title: Setting the API Definition URL and CORS value with ARM
+date: 2016-08-31 16:11:49.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- ARM
+- Azure
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _thumbnail_id: '2182'
+  snap_isAutoPosted: '1'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:412:"a:1:{i:0;a:13:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doFB";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1758516201092372";s:5:"pDate";s:19:"2016-08-31
+    15:12:07";}}";
+  snapLI: s:308:"a:1:{i:0;a:10:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";s:1:"1";s:11:"isPrePosted";s:1:"1";}}";
+  snapTW: s:299:"a:1:{i:0;a:10:{s:2:"do";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE% -
+    %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:4:"doTW";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"771002639840583680";s:5:"pDate";s:19:"2016-08-31
+    15:12:08";}}";
+  _yoast_wpseo_primary_category: ''
+  _yoast_wpseo_focuskw_text_input: ARM
+  _yoast_wpseo_focuskw: ARM
+  _yoast_wpseo_linkdex: '64'
+  _yoast_wpseo_content_score: '30'
+  _wpas_done_all: '1'
+  _jetpack_dont_email_post_to_subs: '1'
+  rop_post_url_twitter: https://msftplayground.com/2016/08/setting-api-definition-url-cors-value-arm/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
+  rop_post_url_facebook: https://msftplayground.com/2016/08/setting-api-definition-url-cors-value-arm/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: ARM
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2016/08/setting-api-definition-url-cors-value-arm/"
+---
+<p>When working with Azure services, you will combine services together. For one of mine integration cases I had to create a LogicApp where in I needed to use one of my own API’s in order to perform some actions.</p>
+<p>In order for the Logic apps designer to parse your Swagger and notice your API as connector, it's necessary that you enable CORS and set the APIDefinition properties of the web application you want to use. Using the portal this is very easy to set. </p>
+<ul>
+<li>Open the settings blade of your Web App</li>
+<li>Under the API section set the 'API Definition' to the URL of your swagger.json file (this is usually https://{name}.azurewebsites.net/swagger/docs/v1).</li>
+<li>Add a CORS policy for '*' to allow for requests from the Logic apps Designer.</li>
+</ul>
+<p>These settings can also be set when you use a Azure Resource Management template to deploy your resources.</p>
+<p>It’s very simple as well you need to add the “apiDefinition” “url” property and the “cors” property to the web config section.</p>
+<pre class="brush: xml;">{
+  "name": "web",
+  "type": "config",
+  "apiVersion": "[variables('defaultApiVersion')]",
+  "dependsOn": [
+    "[concat('Microsoft.Web/sites/', parameters('api_Name'))]"
+  ],
+  "tags": {
+    "displayName": "WebSettings"
+  },
+  "properties": {
+    "cors": {
+      "allowedOrigins": [
+        "*"
+      ]
+    },
+    "apiDefinition": {
+      "url": "[concat('https://', reference(concat('Microsoft.Web/sites/', parameters('api_Name'))).defaultHostName, '/swagger/docs/v1')]"
+    }
+  }
+}
+</pre>
+<p>In de code snippet above check the value of the “url” property of the “apiDefinition” it is a concatenation of parameters and created resources within my resource template making the URL property dynamic.</p>

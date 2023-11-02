@@ -1,0 +1,164 @@
+---
+layout: post
+title: Creating a Logic App API Connection that uses the Managed Identity using Bicep
+date: 2023-05-11 10:33:30.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+- Development
+tags:
+- Azure
+- bicep
+- Logic Apps
+meta:
+  _wds_readability: a:4:{s:5:"score";i:32;s:9:"raw_score";i:32;s:11:"is_readable";b:0;s:5:"error";b:0;}
+  _edit_last: '3'
+  _wds_trimmed_excerpt: Logic Apps in Azure provides a platform for building workflows
+    that integrate with various services and APIs. When creating Logic Apps, you must
+    often conne ...
+  _wds_ignored_checks: a:1:{i:0;s:11:"readability";}
+  _wds_analysis: ''
+  _wds_analysis_extra: ''
+  _thumbnail_id: '7019'
+  _encloseme: '1'
+  wds_primary_category: '323'
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2023/05/creating-a-logic-app-api-connection-that-uses-the-managed-identity-using-bicep/"
+---
+<p><!-- wp:paragraph --></p>
+<p>Logic Apps in Azure provides a platform for building workflows that integrate with various services and APIs. When creating Logic Apps, you must often connect securely to other services like the Azure Service Bus and Azure Storage Accounts. Managed Identity is a recommended way to accomplish this.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Creating these API Connections with Infrastructure as Code isn't documented well and is challenging to figure out. It took me some time, but I figured it out by looking at the API requests that the portal does.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading">Figuring it out</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The steps I have taken to figure it out can be applied in different scenarios for Logic Apps but, for example, also on other parts of the portal.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol><!-- wp:list-item --></p>
+<li>Create a new Logic App in the Azure portal. </li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>Add an Identity to the Logic App and give that identity access to the Azure Service you want to use. In this example, we will be using an Azure Service Bus.</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>Add a Service Bus trigger to the Logic App and fill in the information below.</li>
+<p><!-- /wp:list-item --></ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"id":6949,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-full"><a href="https://msftplayground.com/wp-content/uploads/2023/05/image.png" /><img src="{{ site.baseurl }}/assets/archive/2023/05/image.png" alt="" class="wp-image-6949" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:list {"ordered":true,"start":4} --></p>
+<ol start="4"><!-- wp:list-item --></p>
+<li>Before you click 'create,' open de Edge DevTools (F12) and open de network tab</li>
+<p><!-- /wp:list-item --></ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"id":7009,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2023/05/image-1.png" /><img src="{{ site.baseurl }}/assets/archive/2023/05/image-1-1024x400.png" alt="" class="wp-image-7009" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:list {"ordered":true,"start":5} --></p>
+<ol start="5"><!-- wp:list-item --></p>
+<li>Clear the network items list and click 'Create.'</li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li>When the trigger is refreshed, stop the network trace and search for an item that puts information into Azure. When using the Service Bus, the item will look like below.</li>
+<p><!-- /wp:list-item --></ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"id":7011,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2023/05/image-2.png" /><img src="{{ site.baseurl }}/assets/archive/2023/05/image-2-1024x533.png" alt="" class="wp-image-7011" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:list {"ordered":true,"start":7} --></p>
+<ol start="7"><!-- wp:list-item --></p>
+<li>On the right side of the network trace, click on the Payload tab to find the information sent to the Azure Resource Manager. This contains the information that needs to be used in Bicep.</li>
+<p><!-- /wp:list-item --></ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"id":7013,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-full"><a href="https://msftplayground.com/wp-content/uploads/2023/05/image-3.png" /><img src="{{ site.baseurl }}/assets/archive/2023/05/image-3.png" alt="" class="wp-image-7013" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"xml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">{
+  "id": "/subscriptions/f124b668-7e3d-4b53-ba80-09c364def1f3/providers/Microsoft.Web/locations/westeurope/managedApis/servicebus",
+  "parameterValueSet": {
+    "name": "managedIdentityAuth",
+    "values": {
+      "namespaceEndpoint": {
+        "value": "sb://azsb-temp.servicebus.windows.net"
+      }
+    }
+  },
+  "displayName": "servicebus-auth",
+  "kind": "V1",
+  "location": "westeurope"
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading">The outcome in Bicep</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>With the findings, the specific Bicep code can be written. Below are three different API connections that use Managed Identities for the connection.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 class="wp-block-heading">Azure Storage Account API Connection with Managed Identity</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">resource storageaccountApiConnectionAuth 'Microsoft.Web/connections@2016-06-01'= {
+  name: 'azuretables-auth'
+  location: location
+  properties: {
+    api: {
+      id: 'subscriptions/${subscription().subscriptionId}/providers/Microsoft.Web/locations/${location}/managedApis/azuretables'
+    }
+    parameterValueSet: {
+      name: 'managedIdentityAuth'
+      values: {}
+    }
+    displayName: 'azuretables-auth'
+  }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:heading --></p>
+<h2 class="wp-block-heading">Azure Service Bus API Connection with Managed Identity</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">resource azla_apiconnection_servicebus_auth 'Microsoft.Web/connections@2016-06-01' = {
+  name: 'servicebus-auth'
+  location: location
+  properties: {
+    displayName: 'servicebus-auth'
+    api: {
+      id: subscriptionResourceId('Microsoft.Web/locations/managedApis', location, 'servicebus')
+    }
+    parameterValueSet: {
+      name: 'managedIdentityAuth'
+      values: {
+        namespaceEndpoint: {
+          value: 'sb://${serviceBus}.servicebus.windows.net/'
+        }
+      }
+    }
+  }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>I hope that this helps you in creating epic Bicep files. If you are looking for more information, be sure to look at the following:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul><!-- wp:list-item --></p>
+<li><a href="https://learn.microsoft.com/azure/azure-resource-manager/bicep/learn-bicep?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener">Learn Bicep</a></li>
+<p><!-- /wp:list-item --></p>
+<p><!-- wp:list-item --></p>
+<li><a href="https://learn.microsoft.com/en-us/azure/templates/microsoft.web/connections?pivots=deployment-language-bicep&amp;WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener">Microsoft.Web connections</a></li>
+<p><!-- /wp:list-item --></ul>
+<p><!-- /wp:list --></p>

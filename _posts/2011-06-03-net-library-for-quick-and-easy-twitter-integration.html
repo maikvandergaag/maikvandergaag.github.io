@@ -1,0 +1,83 @@
+---
+layout: post
+title: ".NET Library for quick and easy Twitter integration"
+date: 2011-06-03 05:46:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- ASP.net
+- Library
+- Twitter
+meta:
+  _yoast_wpseo_title: ".NET Library for quick and easy Twitter integration"
+  pplrpsts_post_views_count: '1'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Twitter
+  _yoast_wpseo_focuskw: Twitter
+  _yoast_wpseo_linkdex: '76'
+  _oembed_d6f817e11664c79713a996a605fbfbff: "{{unknown}}"
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _oembed_3a62d396aa85a30360e0766e9b9bd0d2: "{{unknown}}"
+  _oembed_932628be2693044ab81a8a828727ad01: "{{unknown}}"
+  _oembed_6353325b2b2be4ce3535d67e290313ec: "{{unknown}}"
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Twitter
+  _wds_title: ".NET Library for quick and easy Twitter integration"
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2011/06/net-library-for-quick-and-easy-twitter-integration/"
+---
+<div class="ExternalClass7DCE49E71C83459FA9DB944B074E78DC">
+<p>A few days ago I wanted to create a solution to automatically tweet new blog posts. Because I did not have enough time to write a custom component to communicate to twitter I started looking for a .NET Twitter library.</p>
+<p>After some time I found a very simple and effective library named Twitterizer. With Twitterizer you can easily implement the OAuth security mechanism.</p>
+<p>After adding the reference to the Twitterizer library I created a ItemEventReceiver that starts on the ItemAdded event. In that event I post the title and the url to twitter.</p>
+<pre class="brush: csharp;">public override void ItemAdded(SPItemEventProperties properties)
+{
+    base.ItemAdded(properties);
+
+    string message = string.Format(CultureInfo.InvariantCulture, "New post #msftplayground :{0} - {1}", ToTinyURLS(properties.Web.Site.Url, properties.ListItem), properties.ListItem.Title);
+
+    //TODO Get OAuth from web
+    OAuthTokens tokens = GetTwitterToken(properties);
+    TwitterResponse&lt;TwitterStatus&gt; response = TwitterStatus.Update(tokens, message);
+}
+
+private OAuthTokens GetTwitterToken(SPItemEventProperties properties)
+{
+    OAuthTokens retVal = null;
+    
+    string consumerKeySecret = EncryptionUtility.DecryptedString(properties.Web.GetPropertyBagProperty(Constants.PropertyBagKeyConsumerKeySecret, string.Empty));
+    string consumerKey = EncryptionUtility.DecryptedString(properties.Web.GetPropertyBagProperty(Constants.PropertyBagKeyConsumerKey, string.Empty));
+    string accessToken = EncryptionUtility.DecryptedString(properties.Web.GetPropertyBagProperty(Constants.PropertyBagKeyAccessToken, string.Empty));
+    string accessTokenSecret = EncryptionUtility.DecryptedString(properties.Web.GetPropertyBagProperty(Constants.PropertyBagKeyAccessTokenSecret, string.Empty));
+
+    if (!string.IsNullOrEmpty(consumerKeySecret) | !string.IsNullOrEmpty(consumerKey) | !string.IsNullOrEmpty(accessToken) | !string.IsNullOrEmpty(accessTokenSecret))
+    {
+        retVal  = new OAuthTokens();
+        retVal.AccessToken = accessToken;
+        retVal.AccessTokenSecret = accessTokenSecret;
+        retVal.ConsumerKey = consumerKey;
+        retVal.ConsumerSecret = consumerKeySecret;
+    }
+    return retVal;
+
+}</pre>
+<p>In the code above you see the registration of the event. Within the event I retrieve the OAuthTokens for the security to Twitter. The tokens I need for the authentication are saved within the property bag of the current web.</p>
+<p>As you can see in the code it is quite easy to post a status update to twitter with Twitterizer. On the site you can find more examples:</p>
+<p>http://www.twitterizer.net/</p>
+</div>

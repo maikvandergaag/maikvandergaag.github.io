@@ -1,0 +1,215 @@
+---
+layout: post
+title: Google Maps Display Template &ndash; SharePoint 2013 &ndash; Part 2
+date: 2013-05-15 07:25:40.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Design
+- Development
+- Javascript
+- SharePoint
+tags:
+- Display Tempaltes
+- Google
+- SharePoint 2013
+- SharePoint Designer
+meta:
+  _wp_jd_bitly: http://bit.ly/10hvt3U
+  _wp_jd_target: http://msftplayground.com/2013/05/google-maps-display-template-sharepoint-2013-part-2/
+  _jd_wp_twitter: 'a:1:{i:0;s:94:"Post Edited: Google Maps Display Template – SharePoint
+    2013 – Part 2 http://bit.ly/10hvt3U";}'
+  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:94:"Post Edited: Google Maps
+    Display Template – SharePoint 2013 – Part 2 http://bit.ly/10hvt3U";s:5:"error";s:71:"This
+    tweet is identical to another Tweet recently sent to this account.";s:4:"code";i:403;s:9:"timestamp";i:1371202008;}'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Google Maps
+  _yoast_wpseo_focuskw: Google Maps
+  _yoast_wpseo_linkdex: '81'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463235537;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:743;}i:1;a:1:{s:2:"id";i:343;}i:2;a:1:{s:2:"id";i:798;}}}}
+  _oembed_b954b96bf2e22976c1f9bfb1e80f3497: "{{unknown}}"
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Google Maps
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2013/05/google-maps-display-template-sharepoint-2013-part-2/"
+---
+<p>As described in <a href="http://msftplayground.com/2013/05/google-maps-display-template-sharepoint-2013-part-1/">my previous post</a> we will be creating a display template for Google maps. When you did not have the change to read part 1 you can do this by using the below link:</p>
+<p><a href="http://msftplayground.com/2013/05/google-maps-display-template-sharepoint-2013-part-1/">Google Maps Display Template – SharePoint 2013 – Part 1</a>&nbsp;</p>
+<p>In part one we created the item display template and because we could not insert the JavaScript of adding markers to the map in the display template we have inserted the information in hidden inputs.</p>
+<p>First of there is 1 important thing to notice. If you would like to use Google maps on you page you have to add a JavaScript file on you page. Within display control template you can use a specific method called “$includeScript();”. This method will include the script to the page for you. But there is a catch for as far as I could investigate if your JavaScript file doesn’t end&nbsp; with “.js” it will not be included on the page. The Google maps API is a file that does not end with “.js”. The only option you have is to add the Google API file by using a script editor.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/06/image.png"><img title="Embed Code Toolbar" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="Embed Code Toolbar" src="{{ site.baseurl }}/assets/archive/2013/05/image_thumb.png" width="480" height="114" /></a> </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/06/image1.png"><img title="Embed code" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="Embed code" src="{{ site.baseurl }}/assets/archive/2013/05/image_thumb1.png" width="332" height="165" /></a> </p>
+<pre class="brush: xml;">&lt;script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"&gt;&lt;/script&gt;
+
+</pre>
+<p>In the control template we will begin by reading out that information and placing them on the map.</p>
+<p>To get a new control template you will need to copy an existing control template, for this example we will create a copy of the “Control_List.html” and rename it to “Control_GoogleMaps.html”.</p>
+<p>On each hidden input we have specified an id in order to retrieve the values, the id consist of a text value and the number of the result. In the Control Display Template we can retrieve the number of the result by using the “ctx” object and the property “CurrentItemIdx”. Each marker will become an Item in the “markers” array and will be a array itself. In the iteration we also construct the information window for each marker.</p>
+<pre class="brush: js;">var markers = new Array();
+
+for(var i=0;i&lt;=ctx.CurrentItemIdx;i++){
+    var inputValue = document.getElementById(i+'-Location').value
+    var itemArray = inputValue.split(";");
+
+     var contentString = '&lt;div style="height:100px;" id="content"&gt;'+ 
+     '&lt;b&gt;' + itemArray[0] + '&lt;/b&gt;'+
+     '&lt;hr&gt;&lt;div id="bodyDescription" style="margin-top:2px;"&gt;'+ itemArray[3] + '&lt;/div&gt;' +
+     '&lt;div id="bodyAddress" style="margin-top:2px;"&gt;'+ itemArray[4] + '&lt;/div&gt;' +
+     '&lt;a href="'+ itemArray[5] + '"&gt;&lt;div style="font-weight:bold;margin-top:5px;"&gt;Office Information&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;';
+
+     itemArray[3] = contentString;
+     markers[i] = itemArray;             
+}
+
+</pre>
+<p>When we have the information of the markers we can start by placing the markers on the map. For more information on how to use the Google Maps API go <a href="https://developers.google.com/maps/documentation/javascript/?hl=nl">here</a>.</p>
+<pre class="brush: js;">var mapOptions = {
+     zoom: 4,
+     mapTypeId: google.maps.MapTypeId.HYBRID
+}
+
+var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+var bounds = new google.maps.LatLngBounds();
+
+var infowindow = new google.maps.InfoWindow(), marker, i;
+for (i = 0; i &lt; markers.length; i++) {  
+    
+    var title = markers[i][0];
+    var latitude = markers[i][1];
+    var longitude = markers[i][2];
+    var pointLatlng = new google.maps.LatLng(latitude,longitude);
+    bounds.extend(pointLatlng);
+        
+    marker = new google.maps.Marker({
+                position: pointLatlng ,
+                map: map,
+                title:title,
+                icon:'/PublishingImages/point.png'
+    });
+    
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+        infowindow.setContent(markers[i][3]);
+        infowindow.open(map, marker);
+      }
+    })(marker, i));
+}
+
+map.fitBounds(bounds);
+
+</pre>
+<p>By saving each point within a LatLngBounds object in the example above the bounds object we can specify on the map that it has to load all point within the first view by using the method “map.fitBounds(bounds)”.&nbsp; </p>
+<p>When tying this all together you will get a control display template like below:</p>
+<pre class="brush: js;">&lt;html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"&gt; 
+&lt;head&gt;
+&lt;title&gt;Google Maps&lt;/title&gt;
+
+&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+&lt;mso:CustomDocumentProperties&gt;
+&lt;mso:TemplateHidden msdt:dt="string"&gt;0&lt;/mso:TemplateHidden&gt;
+&lt;mso:MasterPageDescription msdt:dt="string"&gt;This is the default Maps Display Template that will show a map with all of the items. For this map you should have managed properties with the longtitude and latitude of locations. Also make sure you reference the google map api: (https://maps.googleapis.com/maps/api/js?v=3.exp)&lt;/mso:MasterPageDescription&gt;
+&lt;mso:ContentTypeId msdt:dt="string"&gt;0x0101002039C03B61C64EC4A04F5361F385106601&lt;/mso:ContentTypeId&gt;
+&lt;mso:TargetControlType msdt:dt="string"&gt;;#Content Web Parts;#&lt;/mso:TargetControlType&gt;
+&lt;mso:HtmlDesignAssociated msdt:dt="string"&gt;1&lt;/mso:HtmlDesignAssociated&gt;
+&lt;/mso:CustomDocumentProperties&gt;
+&lt;/xml&gt;&lt;![endif]--&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    
+    &lt;script&gt;
+        $includeLanguageScript(this.url, "~sitecollection/_catalogs/masterpage/Display Templates/Language Files/{Locale}/CustomStrings.js");
+    &lt;/script&gt;
+
+    &lt;div id="Control_List"&gt;
+    &lt;!--#_ 
+    if (!$isNull(ctx.ClientControl) &amp;&amp; !$isNull(ctx.ClientControl.shouldRenderControl) &amp;&amp; !ctx.ClientControl.shouldRenderControl()){
+        return "";
+    }
+
+    ctx.ListDataJSONGroupsKey = "ResultTables";
+    var $noResults = Srch.ContentBySearch.getControlTemplateEncodedNoResultsMessage(ctx.ClientControl);
+    var noResultsClassName = "ms-srch-result-noResults";
+    _#--&gt;
+    
+         _#= ctx.RenderGroups(ctx) =#_
+        
+    &lt;!--#_
+
+    function initialize() {
+
+          var mapOptions = {
+                zoom: 4,
+              mapTypeId: google.maps.MapTypeId.HYBRID
+          }
+
+          var markers = new Array();
+          var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+          var bounds = new google.maps.LatLngBounds();
+
+          for(var i=0;i&lt;=ctx.CurrentItemIdx;i++){
+              var inputValue = document.getElementById(i+'-Location').value
+              var itemArray = inputValue.split(";");
+
+              var contentString = '&lt;div style="height:100px;" id="content"&gt;'+ 
+                 '&lt;b&gt;' + itemArray[0] + '&lt;/b&gt;'+
+                 '&lt;hr&gt;&lt;div id="bodyDescription" style="margin-top:2px;"&gt;'+ itemArray[3] + '&lt;/div&gt;' +
+                 '&lt;div id="bodyAddress" style="margin-top:2px;"&gt;'+ itemArray[4] + '&lt;/div&gt;' +
+                 '&lt;a href="'+ itemArray[5] + '"&gt;&lt;div style="font-weight:bold;margin-top:5px;"&gt;Office Information&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;';
+
+            itemArray[3] = contentString;
+            markers[i] = itemArray;             
+          }
+    
+          var infowindow = new google.maps.InfoWindow(), marker, i;
+    
+          for (i = 0; i &lt; markers.length; i++) {  
+
+               var title = markers[i][0];
+               var latitude = markers[i][1];
+               var longitude = markers[i][2];
+               var pointLatlng = new google.maps.LatLng(latitude,longitude);
+               bounds.extend(pointLatlng);
+        
+               marker = new google.maps.Marker({
+                  position: pointLatlng ,
+                  map: map,
+                  title:title,
+                  icon:'/PublishingImages/point.png'
+               });
+    
+               google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                  return function() {
+                     infowindow.setContent(markers[i][3]);
+                     infowindow.open(map, marker);
+               }
+            })(marker, i));
+        }
+        map.fitBounds(bounds);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+    _#--&gt;
+
+        &lt;div id="map-canvas" style="height:500px;"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</pre></p>
+<p>And finally when you place this all on a page it will look something like this:</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/06/image2.png"><img title="Google Maps Display Template" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="Google Maps Display Template" src="{{ site.baseurl }}/assets/archive/2013/05/image_thumb2.png" width="624" height="229" /></a></p>

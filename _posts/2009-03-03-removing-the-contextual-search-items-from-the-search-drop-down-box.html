@@ -1,0 +1,80 @@
+---
+layout: post
+title: Removing the Contextual Search items from the Search Drop Down Box
+date: 2009-03-03 06:30:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- SharePoint
+tags:
+- Contextual
+- Search Drop Down
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '59'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/03/removing-the-contextual-search-items-from-the-search-drop-down-box/"
+---
+<div class="ExternalClass6CAEF2CF0EB74C25967E7B9892CCFED2">
+<p>For one of our clients we were looking for a solution to remove or replace the search result page that is used by the contextual searches from the Search DropDownBox. This because the contextual search let to a page “/_layouts/osssearchresults.aspx” or “/_layouts/searchresults.aspx” depending on whether you use WSS or MOSS. </p>
+<p>Because this page has another layout then the search center they thought people would get confused. So they wanted to remove the contextual search or let them go to the custom search center.</p>
+<p>When I was searching over the internet for a solution I found <a href="http://blogs.msdn.com/markarend/archive/2007/01/24/search-results-page-may-be-different-per-search-scope.aspx">this</a> post from Mark Arend. What he does in his post is change the out of the box page and let it redirect to his custom Search Center. This looks like a great solution but I won’t recommend you to edit out of the box pages from SharePoint so we went looking for another solution.</p>
+<p>We thought that there would be a certain property for disabling the searches. But there isn’t, you have to create a custom feature were in you define a new search area where in you want to disable the contextual search.</p>
+<p>You can define it like this:</p>
+<p><strong>feature.xml</strong></p>
+<pre class="brush: xml;"> &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+ &lt;Feature  Id="89FC9564-0E82-490f-AD47-8678A619AB75A"
+           Title="CustomSearchBox"
+           Description="$Resources:EnhancedSearch_Feature_Description;"
+           DefaultResourceFile="spscore"
+           Version="12.0.0.0"
+           Scope="WebApplication"
+           xmlns="http://schemas.microsoft.com/sharepoint/"&gt;
+     &lt;ElementManifests&gt;
+         &lt;ElementManifest Location="searcharea.xml"/&gt;
+     &lt;/ElementManifests&gt;
+ &lt;/Feature&gt; </pre>
+<p>This is the code you need for the feature. In de searcharea.xml the xml defines the search area:</p>
+<p><strong>SearchArea.xml</strong></p>
+<pre class="brush: xml;"> &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+ &lt;Elements xmlns="http://schemas.microsoft.com/sharepoint/"&gt;
+     &lt;Control
+         Id="SmallSearchInputBox"
+         Sequence="5"
+         ControlClass="Microsoft.SharePoint.Portal.WebControls.SearchBoxEx" ControlAssembly="Microsoft.SharePoint.Portal, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c"&gt;
+         &lt;Property Name="GoImageUrl"&gt;/_layouts/images/gosearch.gif&lt;/Property&gt;
+         &lt;Property Name="GoImageUrlRTL"&gt;/_layouts/images/goRTL.gif&lt;/Property&gt;
+         &lt;Property Name="GoImageActiveUrl"&gt;/_layouts/images/gosearch.gif&lt;/Property&gt;
+         &lt;Property Name="GoImageActiveUrlRTL"&gt;/_layouts/images/goRTL.gif&lt;/Property&gt;
+                           &lt;Property Name="UseSiteDefaults"&gt;true&lt;/Property&gt;
+         &lt;Property Name="DropDownMode"&gt;ShowDD_NoContextual&lt;/Property&gt;
+         &lt;Property Name="ScopeDisplayGroupName"&gt;Facilicom&lt;/Property&gt;
+         &lt;Property Name="FrameType"&gt;None&lt;/Property&gt;
+                          &lt;Property Name="ShowAdvancedSearch"&gt;false&lt;/Property&gt;
+     &lt;/Control&gt;
+ &lt;/Elements&gt; </pre>
+<p>In the above example you can see that there are many properties available for the search area. The most properties found <a href="http://msdn.microsoft.com/en-us/library/microsoft.sharepoint.portal.webcontrols.searchboxex_members.aspx">this</a> page.</p>
+<p>For not showing the Contextual search you have to set the DropDownMode to: ShowDD_NoContextual. </p>
+<p>Tanks to <a href="http://blogs.msdn.com/mortens">Mortens</a></p>
+</div>

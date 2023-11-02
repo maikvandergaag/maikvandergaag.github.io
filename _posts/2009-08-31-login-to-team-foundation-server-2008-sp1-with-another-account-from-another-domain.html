@@ -1,0 +1,51 @@
+---
+layout: post
+title: Login to Team Foundation Server 2008 SP1 with another account / from another
+  domain
+date: 2009-08-31 09:34:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- DevOps
+tags:
+- '2008'
+- SP1
+- TFS
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Team Foundation Server
+  _yoast_wpseo_focuskw: Team Foundation Server
+  _yoast_wpseo_linkdex: '63'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Team Foundation Server
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/08/login-to-team-foundation-server-2008-sp1-with-another-account-from-another-domain/"
+---
+<div class="ExternalClass5C6708FEC90C44D48AC04691E25FE512">
+<p>A few days ago I and my colleague Wesley had a lot of problems installing of Team Foundation Server on Windows Server 2008 with a Separate SQL Server 2008 and SharePoint Farm. After a couple days of hard work we finally got it running.</p>
+<p>When we completed the installation we began testing it on our local systems. On our local system everything went fine but when we tried it on a Virtual Machine that we use for developing solution for SharePoint we could not connect to the Team Foundation Server. </p>
+<p>The problem here was that the Virtual Machine has its own domain so the account that you are logged in with could not authenticate to the TFS server.</p>
+<p>To get around this you have to specify a network account by following the following steps (Windows Server 2008):</p>
+<p><strong>1:</strong> Start – Control Panel <br /><strong>2:</strong> In the Control Panel select User Accounts. <br /><strong>3:</strong> On the left side of the screen select Manage your network passwords.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/NetworkAccounts.png"><img title="NetworkAccounts" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="NetworkAccounts" src="{{ site.baseurl }}/assets/archive/2009/08/NetworkAccounts_thumb.png" width="240" height="236" /></a></p>
+<p><strong>4:</strong> Click add and insert the right information.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/networkcredentials.png"><img title="networkcredentials" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="networkcredentials" src="{{ site.baseurl }}/assets/archive/2009/08/networkcredentials_thumb.png" width="205" height="240" /></a></p>
+<p><strong>5:</strong> Click “Ok” when you are done and on the other screen select “close”</p>
+<p>Try connecting to the Team Foundation Server again. Now everything should work perfectly.</p>
+</div>

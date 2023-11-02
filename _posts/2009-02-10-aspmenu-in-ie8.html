@@ -1,0 +1,53 @@
+---
+layout: post
+title: ASP:Menu in IE8
+date: 2009-02-10 06:35:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- ASP.net
+- IE8
+- Menu
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: IE8
+  _yoast_wpseo_focuskw: IE8
+  _yoast_wpseo_linkdex: '56'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: IE8
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/02/aspmenu-in-ie8/"
+---
+<div class="ExternalClass24C39A70C3904468A7BE789DF8A05368">
+<p>Since a few days I have installed Internet Explorer 8 on my computer and I was curious how it would display certain sites. Till a few hours ago everything looked nice. </p>
+<p>When navigating to an internet site we had just developed for one of our clients I noticed a strange thing. On the default page we added a custom control that inherits from the ASP Menu. The hover of that menu wasn’t working anymore in IE8.</p>
+<p>After searching on Google I found an solution for this problem ( here ) and I also found another possible solution (<a href="http://weblogs.asp.net/mhildreth/archive/2009/01/26/testing.aspx">here tanks to Mark Hildreth’s</a>). The problem is caused by IE8 because it does not handle the z-index off the page right. You can fix this problem by doing the following:</p>
+<p>Create a new class in your CSS file or place it in your web page:</p>
+<pre class="brush: css;"> .aspmenufix
+ {
+     z-index: 1;
+ }</pre>
+<p>In the ASP menu control you have to add the following:</p>
+<pre class="brush: xml;">&lt;asp:Menu ID="Menu1" runat="server"&gt;
+    &lt;DynamicMenuStyle CssClass="aspmenufix" /&gt;
+&lt;/asp:Menu&gt;</pre>
+<p>I hope this will help everyone who uses the ASP Menu in his website!</p>
+</div>

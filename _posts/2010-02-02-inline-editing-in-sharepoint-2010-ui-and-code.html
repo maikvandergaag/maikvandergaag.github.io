@@ -1,0 +1,60 @@
+---
+layout: post
+title: Inline Editing in SharePoint 2010 (UI and Code)
+date: 2010-02-02 07:02:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+- Development
+- SharePoint
+tags:
+- Inline Editing
+- SharePoint 2010
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '77'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2010/02/inline-editing-in-sharepoint-2010-ui-and-code/"
+---
+<div class="ExternalClassAD1CB38440A447E8AD672089F82F6D6B">
+<p>Within SharePoint 2010 it is possible to enable inline editing on list items. This can be done by changing properties on a view of a SharePoint library what can be done in code and trough the user interface. To allow inline editing trough the user interface you have to do the following: Navigate to the list for which you want to allow inline editing: </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/ListSettings.png"><img title="ListSettings" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="ListSettings" src="{{ site.baseurl }}/assets/archive/2010/02/ListSettings_thumb.png" width="240" height="143" /></a></p>
+<p>Click on list and then list settings. On the list settings screen click on the list view you would like to edit on the bottom of the screen: </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/ListSettingsScreen.png"><img title="ListSettingsScreen" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="ListSettingsScreen" src="{{ site.baseurl }}/assets/archive/2010/02/ListSettingsScreen_thumb.png" width="240" height="143" /></a></p>
+<p>In the view screen you have a section called: Inline editing. Within that section you have a checkbox to allow inline editing: </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/ViewSettings.png"><img title="ViewSettings" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="ViewSettings" src="{{ site.baseurl }}/assets/archive/2010/02/ViewSettings_thumb.png" width="240" height="159" /></a></p>
+<p>When you have enabled this checkbox you can inline edit the items in your list: </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/InlineEditing.png"><img title="InlineEditing" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="InlineEditing" src="{{ site.baseurl }}/assets/archive/2010/02/InlineEditing_thumb.png" width="240" height="143" /></a></p>
+<p>Inline editing can also be enabled trough code. You can do this by following the code example below: </p>
+<pre class="brush: csharp;">using(SPSite site = new SPSite("URL of the site"))
+{
+    SPWeb web = site.RootWeb;
+    SPList list = web.Lists["Name of the list"];
+
+    SPView view  = list.Views["Title of the view"];
+    view.InlineEdit = "TRUE";
+    view.Update();
+}</pre>
+<p>The ‘InlineEdit’ property on the view is in the public beta version of SharePoint 2010 a string value. Hopefully they will change this to a Boolean value in the final version.</p>
+</div>

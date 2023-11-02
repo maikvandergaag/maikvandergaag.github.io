@@ -1,0 +1,119 @@
+---
+layout: post
+title: Using the ConditionedActivityGroup in Workflow Foundation 3.5
+date: 2011-11-04 06:05:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- ActivityGroup
+- Workflow
+- WWF 3.5
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Workflow
+  _yoast_wpseo_focuskw: Workflow
+  _yoast_wpseo_linkdex: '74'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Workflow
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2011/11/using-the-conditionedactivitygroup-in-workflow-foundation-3-5/"
+---
+<div class="ExternalClassC36407739B904E00A30243B60C84C097">
+<p>When you create a SharePoint approval workflow the While activity is often used to check if a Task is approved by placing the “OnTaskChanged” activity within the While Activity.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/workflow.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="workflow" src="{{ site.baseurl }}/assets/archive/2011/11/workflow_thumb.png" alt="workflow" width="298" height="149" border="0" /></a></p>
+<p>When you also want to check if the Moderation status on the workflow item is approved you can’t do this in the same While activity.</p>
+<p>If you only check the task status there will be situation in which the item is approved and the approval workflow is still running because the item was approved directly. If you would like to check de moderation status of an item and the task status you can use a “ConditionedActivityGroup”.</p>
+<p>The “ConditionedActivityGroup” will cause the workflow to continue when the moderation status is changed or when the status of the task is changed. To use the “ConditionedActivityGroup” drag the activity within the workflow designer.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Workflow_ConditionedActivityGroup.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="Workflow_ConditionedActivityGroup" src="{{ site.baseurl }}/assets/archive/2011/11/Workflow_ConditionedActivityGroup_thumb.png" alt="Workflow_ConditionedActivityGroup" width="282" height="243" border="0" /></a></p>
+<p>Next drop the activities you want to check within the small window at the top that states “Drop Activities Here”. For our example we will use the “OnTaskChanged” and the “OnWorkflowItemChanged” activities.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Workflow_ConditionedActivityGroup_Activities_2.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="Workflow_ConditionedActivityGroup_Activities_2" src="{{ site.baseurl }}/assets/archive/2011/11/Workflow_ConditionedActivityGroup_Activities_2_thumb.png" alt="Workflow_ConditionedActivityGroup_Activities_2" width="273" height="253" border="0" /></a></p>
+<p>Open the workflow in code view and add three boolean properties:</p>
+<ul>
+<li>IsFinished</li>
+<li>EnableItemChanged</li>
+<li>EnableTaskChanged</li>
+</ul>
+<pre class="brush: csharp;">public bool IsFinished { get; set; }
+
+public bool EnableItemChanged { get; set; }
+
+public bool EnableTaskChanged { get; set; }</pre>
+<p>These properties will be used to activate the conditions within the condition group. The “IsFinshed” property will be used to finish the conditioned group. To activate the conditions we will also have to set the “EnableItemChanged” and “EnableTaskChanged” properties to true within the initialization of the workflow.</p>
+<pre class="brush: csharp;">/// &lt;summary&gt;
+/// Initializes a new instance of the worfklow.
+/// &lt;/summary&gt;
+public Workflow1() {
+    InitializeComponent();
+    this.EnableItemChanged = true;
+    this.EnableTaskChanged = true;
+}</pre>
+<p>&nbsp;</p>
+<p>After writing those lines of code open the workflow designer and select the “ConditionedActivityGroup” and change the “UntilCondition” property of the activity to: Declarative Rule Condition.</p>
+<p>Select the “…” at the end of the “ConditionName” property and create a new “Condition”. The value of the condition has to be “this.IsFinished”.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Condition.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="Condition" src="{{ site.baseurl }}/assets/archive/2011/11/Condition_thumb.png" alt="Condition" width="501" height="273" border="0" /></a></p>
+<p>This will mean that the ConditionedActivityGroup is finished when “IsFinished” equals true.</p>
+<p>The next step is to set the “WhenCondition” on the activities that are in the group activity. These properties we also be a “Declarative Rule Condition” and set the condition values to “this.EnableTaskChanged” for the task activity and “this.EnableItemChanged” for the item activity.</p>
+<p>Besides this we will also set the “Invoked” property of the activities to perform a code action when the event take place (You can also let Visual Studio do this by double clicking the activities).</p>
+<p>&nbsp;</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/WhenCondition.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="WhenCondition" src="{{ site.baseurl }}/assets/archive/2011/11/WhenCondition_thumb.png" alt="WhenCondition" width="481" height="263" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>With all this in place when can start to write some code for the invoke methods. Because the “WhenCondition” mean that when they are set to true these conditions can occur. We will have to set these properties to true each time a Condition is met because the Workflow instance will automatically set them to false. In our example this will occur when the task status is set to approved or the item is approved.</p>
+<pre class="brush: csharp;">public const string FieldId = "YourFieldID";
+
+/// &lt;summary&gt;
+/// Tasks the item changed.
+/// &lt;/summary&gt;
+/// &lt;param name="sender"&gt;The sender.&lt;/param&gt;
+/// &lt;param name="e"&gt;The &lt;see cref="System.Workflow.Activities.ExternalDataEventArgs"/&gt; instance containing the event data.&lt;/param&gt;
+private void TaskItemChanged(object sender, ExternalDataEventArgs e) {
+    //retrieve the task and check its status
+    SPListItem task = workflowProperties.TaskList.GetItemById(CreateTaskActivity.ListItemId);
+    string status = task[YourFieldID] != null ? task[YourFieldID].ToString() : string.Empty;
+
+    if (status.ToUpperInvariant() != "PENDING") {
+        IsFinished = true;
+        EnableTaskChanged = false;
+    } else {
+        IsFinished = false;
+        EnableTaskChanged = true;
+    }
+}
+
+/// &lt;summary&gt;
+/// Workflows the item changed.
+/// &lt;/summary&gt;
+/// &lt;param name="sender"&gt;The sender.&lt;/param&gt;
+/// &lt;param name="e"&gt;The &lt;see cref="System.Workflow.Activities.ExternalDataEventArgs"/&gt; instance containing the event data.&lt;/param&gt;
+private void WorkflowItemChanged(object sender, ExternalDataEventArgs e) {
+    //View the moderation status of the workflow item
+    SPModerationStatusType type = workflowProperties.Item.ModerationInformation.Status;
+    Status = type.ToString();
+    if (type == SPModerationStatusType.Approved || type == SPModerationStatusType.Denied) {
+        IsFinished = true;
+        EnableItemChanged = false;
+    } else {
+        IsFinished = false;
+        EnableItemChanged = true;
+    }
+}</pre>
+<p>&nbsp;</p>
+<p>When you set the “IsFinished” property to true the “ConditionedActivityGroup” will finish. And by setting the “EnableItemChanged” and the “EnableTaskChanged” property to true you inform the “ConditionedActivityGroup” that that condition can occur again.</p>
+</div>

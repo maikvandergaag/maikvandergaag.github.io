@@ -1,0 +1,130 @@
+---
+layout: post
+title: Install SharePoint 2013 Public Beta on Windows Server 2012 RC &ndash; Part
+  IV &ndash; Installation of the Prerequisites on Windows Server 2012 RC
+date: 2012-07-23 07:10:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+tags:
+- Beta
+- Developer Tools
+- Development
+- SharePoint 2013
+- Windows Server 2012
+meta:
+  _wp_jd_bitly: http://bit.ly/1ATEn6R
+  _wp_jd_target: http://msftplayground.com/2012/07/install-sharepoint-2013-public-beta-on-windows-server-2012-rc-part-iv-installation-of-the-prerequisites-on-windows-server-2012-rc/
+  _jd_wp_twitter: 'a:1:{i:0;s:132:"Post Edited: Install SharePoint 2013 Public Beta
+    on Windows Server 2012 RC – Part IV – Installation of the http://bit.ly/1ATEn6R";}'
+  _wpt_status_message: Tweet sent successfully.
+  pplrpsts_post_views_count: '1'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint 2013
+  _yoast_wpseo_focuskw: SharePoint 2013
+  _yoast_wpseo_linkdex: '75'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint 2013
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2012/07/install-sharepoint-2013-public-beta-on-windows-server-2012-rc-part-iv-installation-of-the-prerequisites-on-windows-server-2012-rc/"
+---
+<div class="ExternalClassAA5D8695B8AF4E2495E411E8D465623D">
+<p>With the new version of SharePoint in Public Beta (<a href="/2012/07/holiday-sharepoint-2013-public-beta/" target="_blank">links</a>). It is time to start with the installation of the prerequisites.</p>
+<p>When you do not already have the image of the SharePoint 2013 Public Beta download it. The link for the download can be found in my previous <a href="/2012/07/holiday-sharepoint-2013-public-beta/" target="_blank">post</a>.</p>
+<p>This post will point to the installation of the prerequisites for SharePoint 2013. The prerequisites that we will install is a bit more than the prerequisites that are on the image off the SharePoint 2013 Preview.</p>
+<p>Because the machine will be a dev/test machine we will do a lot of research on it so we will also install the following:</p>
+<ul>
+<li><strong>ILSPY:</strong> <a title="http://wiki.sharpdevelop.net/ILSpy.ashx" href="http://wiki.sharpdevelop.net/ILSpy.ashx">http://wiki.sharpdevelop.net/ILSpy.ashx</a> we will use this to look into some SharePoint dll’s.</li>
+<li><strong>Microsoft Office Professional Plus 2013 Preview:</strong> You can download this from MSDN http://msdn.microsoft.com/nl-nl/subscriptions/downloads/default(en-us).aspx.</li>
+<li><strong>Microsoft Office Visio 2013 Preview:</strong> You can download this from MSDN http://msdn.microsoft.com/nl-nl/subscriptions/downloads/default(en-us).aspx.</li>
+<li><strong>SharePoint Designer 2013:</strong> SharePoint Designer 2013 is the tool of choice for the rapid development of SharePoint applications. http://www.microsoft.com/en-us/download/details.aspx?id=30346</li>
+<li><strong>SharePoint 2013 Technical Library in Compiled Help:</strong> Downloadable CHM version of SharePoint 2013 content on TechNet. <a title="http://www.microsoft.com/en-us/download/details.aspx?id=30382" href="http://www.microsoft.com/en-us/download/details.aspx?id=30382">http://www.microsoft.com/en-us/download/details.aspx?id=30382</a></li>
+<li><strong>SharePoint Server 2013 Client Components SDK:</strong> The SharePoint Server 2013 Client Components SDK can be used to enable remote and local development with SharePoint Server 2013. http://www.microsoft.com/en-us/download/details.aspx?id=30355.</li>
+</ul>
+<p>First off we will create a new Admin user called SharePoint Administrator. With this user we will perform the SharePoint installation but we will also use this user to login on the Beta machine.</p>
+<p>Open Active Directory Users or Computer by doing the following:</p>
+<ol>
+<li>Go to the Start Menu by using the Windows button or by going to the low left corner with your mouse.</li>
+<li>With the Start Menu open select “Active Directory Users and Computers”.</li>
+</ol>
+<p>Open the Users OU and use your other mouse button to add a new user. When you have the “New Object - User” window open create the following user.</p>
+<table border="0" width="517" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td valign="top" width="100"><strong>First name</strong></td>
+<td valign="top" width="100"><strong>Last name</strong></td>
+<td valign="top" width="185"><strong>User Logon name</strong></td>
+<td valign="top" width="130"><strong>User logon name</strong></td>
+</tr>
+<tr>
+<td valign="top" width="100">SharePoint</td>
+<td valign="top" width="100">Administrator</td>
+<td valign="top" width="185">spadmin</td>
+<td valign="top" width="130">spadmin</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>Make sure you select the options:</p>
+<ul>
+<li>User cannot change password.</li>
+<li>Password never expires.</li>
+</ul>
+<p>With this user in place search for the domain administrators group and add the current user to that group.</p>
+<p>Now logoff the current user and login in with the SharePoint Administrator account to install the prerequisites.</p>
+<p>Download ILSPY from the ILSPY website and place the zip file on your virtual machine. Extract the file and place it in a easy location. For easy use I have placed a shortcut on my desktop.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/ILSPY.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="ILSPY" src="{{ site.baseurl }}/assets/archive/2012/07/ILSPY_thumb.png" alt="ILSPY" width="240" height="202" border="0" /></a></p>
+<p>Next up is the Microsoft Office Professional Plus 2013 Preview. If you have downloaded the image add it to the virtual machine. If you do not have the image just skip this step.</p>
+<p>The first step of the Installation is the acceptance off the license terms. Accept the terms and click continue.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/office-2013-license-terms.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="office-2013-license-terms" src="{{ site.baseurl }}/assets/archive/2012/07/office-2013-license-terms_thumb.png" alt="office-2013-license-terms" width="240" height="195" border="0" /></a></p>
+<p>The setup will continue with a step that is know when you have ever installed Office for know we will select “Customize”  because I want to check what it will be installing.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/office-2013-installtion-type.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="office-2013---installtion-type" src="{{ site.baseurl }}/assets/archive/2012/07/office-2013-installtion-type_thumb.png" alt="office-2013---installtion-type" width="240" height="195" border="0" /></a></p>
+<p>In the customize installation window you can see all the component the install will install on you machine. Notice that Microsoft Lync is a new one. Looks like it is now integrated in the Office Suite <img class="wlEmoticon wlEmoticon-smile" style="border-style: none;" src="{{ site.baseurl }}/assets/archive/2012/07/wlEmoticon-smile1.png" alt="Glimlach" />.</p>
+<p>Make sure you do not install the Visio Viewer, this because we will also install the complete version. Select “Install Now”  to start the installation.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/office-2013-installation.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="office-2013-installation" src="{{ site.baseurl }}/assets/archive/2012/07/office-2013-installation_thumb.png" alt="office-2013-installation" width="240" height="195" border="0" /></a></p>
+<p>When the installation is done start the installation off the full version of Visio. The Visio installation will also start with the license term screen. Accept the license again and click “Continue” to Continue. This time we will just click “Install Now” to Install Visio.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/visio-2013-installatio.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="visio-2013-installatio" src="{{ site.baseurl }}/assets/archive/2012/07/visio-2013-installatio_thumb.png" alt="visio-2013-installatio" width="240" height="196" border="0" /></a></p>
+<p>Next up is the preview release of SharePoint designer double click the exe file to start the installation. This will also start with the “License Terms” screen. Accept the license and click “Continue”. On this installation we will also use the “Install Now” option. With the installation ready it is time to place the documentation on the machine.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-Designer-2013-Installation-Ready.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="SharePoint-Designer-2013-Installation-Ready" src="{{ site.baseurl }}/assets/archive/2012/07/SharePoint-Designer-2013-Installation-Ready_thumb.png" alt="SharePoint-Designer-2013-Installation-Ready" width="240" height="195" border="0" /></a></p>
+<p>Place the TechNet documentation file (CHM) on your desktop and start the Installation of the Client Components SDK. Don’t forget to “Unblock” the chm file on your desktop or else you will not be able to read the file.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/unblock-chm.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="unblock-chm" src="{{ site.baseurl }}/assets/archive/2012/07/unblock-chm_thumb.png" alt="unblock-chm" width="240" height="202" border="0" /></a></p>
+<p>With that all in place we will install the prerequisites of SharePoint. Mount the image on the server to start the installation. The installation will have a splash screen like the one in SharePoint 2010.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/sharepoint-2013-splash.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="sharepoint-2013-splash" src="{{ site.baseurl }}/assets/archive/2012/07/sharepoint-2013-splash_thumb.jpg" alt="sharepoint-2013-splash" width="240" height="180" border="0" /></a></p>
+<p>Select “Install Software Prerequisites” to start the installation of the Prerequisites.</p>
+<p>This will start another installer that will install and configure the following components:</p>
+<ul>
+<li>Microsoft .NET Framework 4.5</li>
+<li>Windows Management Framework 3.0 (CTP2)</li>
+<li>Application Server Role, Web Server (IIS) Role</li>
+<li>Microsoft SQL Server 2008 R2 SP1 Native Client</li>
+<li>Microsoft Sync Framework Runtime v1.0 SP1 (x64)</li>
+<li>Windows Server AppFabric</li>
+<li>Microsoft Identity Extensions</li>
+<li>Microsoft Information Protection and Control Client</li>
+<li>Microsoft WCF Data Services 5.0</li>
+<li>Cumulative Update Package 1 for Microsoft AppFabric 1.1 for Windows Server (KB2671763)</li>
+</ul>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/prerequisites.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="prerequisites" src="{{ site.baseurl }}/assets/archive/2012/07/prerequisites_thumb.png" alt="prerequisites" width="240" height="181" border="0" /></a></p>
+<p>Click next to start the installation off these component. I myself are quite happy to see that SharePoint 2013 requires .Net Framework 4.5 <img class="wlEmoticon wlEmoticon-smile" style="border-style: none;" src="{{ site.baseurl }}/assets/archive/2012/07/wlEmoticon-smile1.png" alt="Glimlach" /></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-Prerequisites-License-Terms.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="SharePoint-2013---Prerequisites---License-Terms" src="{{ site.baseurl }}/assets/archive/2012/07/SharePoint-2013-Prerequisites-License-Terms_thumb.png" alt="SharePoint-2013---Prerequisites---License-Terms" width="240" height="180" border="0" /></a></p>
+<p>Accept the license terms and click next to continue. This will start the installation of the prerequisites.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-Prerequisites-Install.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="SharePoint-2013---Prerequisites---Install" src="{{ site.baseurl }}/assets/archive/2012/07/SharePoint-2013-Prerequisites-Install_thumb.png" alt="SharePoint-2013---Prerequisites---Install" width="240" height="182" border="0" /></a></p>
+<p>With the installation off the prerequisites done it is time to install SharePoint 2013. We will discuss the installation off SharePoint 2013 in the following post.</p>
+</div>

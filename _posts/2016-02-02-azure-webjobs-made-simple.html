@@ -1,0 +1,108 @@
+---
+layout: post
+title: Azure WebJobs made simple
+date: 2016-02-02 20:41:16.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- Azure
+- Azure Web Apps
+- Office Mix
+- WebJobs
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Azure WebJobs
+  _yoast_wpseo_focuskw: Azure WebJobs
+  _yoast_wpseo_linkdex: '80'
+  snap_isAutoPosted: '1'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:395:"a:1:{i:0;a:12:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1667803290163664";s:5:"pDate";s:19:"2016-02-02
+    20:41:28";}}";
+  snapLI: s:537:"a:1:{i:0;a:13:{s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6100387371356868609";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=6100387371356868609&amp;type=U&amp;a=9XzE";s:5:"pDate";s:19:"2016-02-02
+    20:41:29";}}";
+  snapTW: s:271:"a:1:{i:0;a:9:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:15:"%TITLE%
+    - %URL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"694621685568376837";s:5:"pDate";s:19:"2016-02-02
+    20:41:30";}}";
+  _oembed_b954b96bf2e22976c1f9bfb1e80f3497: "{{unknown}}"
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure WebJobs
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2016/02/azure-webjobs-made-simple/"
+---
+<p>The last couple of weeks I have been playing around with <a href="https://mix.office.com/" target="_blank">Office Mix</a>. For those who don’t know Office Mix, Office Mix is a add-in for PowerPoint that is in preview to easily create and share interactive online videos.</p>
+<p>With this add-in it is very easy to create a Video of your presentations and also insert screen recordings. For a first pilot I created a PowerPoint presentation called: “Azure WebJobs made simple”.</p>
+<p>With Azure WebJobs you have options to run different background tasks. The WebJobs will be hosted on the same virtual machine as you Azure Web App.</p>
+<p>The following file types can be used as a Azure WebJob:</p>
+<ul>
+<li>.exe - .NET assemblies</li>
+<li>.cmd, .bat, .exe (using windows cmd)</li>
+<li>.sh (using bash)</li>
+<li>.php (using php)</li>
+<li>.py (using python)</li>
+<li>.js (using node)</li>
+</ul>
+<p>For this blog post and for the video I created a simple Console Application that executes the following code.</p>
+<pre class="brush: csharp;">class Program {
+    static void Main(string[] args) {
+
+        Console.WriteLine("Starting Web Job Application");
+
+        Stopwatch timer = new Stopwatch();
+        timer.Start();
+
+        Console.WriteLine(DateTime.Now);
+
+        for (int i = 0; i &lt; 15; i++) {
+            WriteInfo(i);
+            Thread.Sleep(500);
+        }
+
+        timer.Stop();
+        Console.WriteLine("Web Job Procession took: " + timer.Elapsed.Seconds + " seconds");
+
+        Console.WriteLine("Finished Web Job Application");
+    }
+
+    static void WriteInfo(int number) {
+        Console.WriteLine("Working on item: " + number);
+    }
+}
+</pre>
+<p>With the use of “Console.WriteLine” you can post message on the WebJob console. Within Azure there are two types of WebJobs.</p>
+<ul>
+<li>Continuous: Actions are taken when for example a item is added in a Queue.</li>
+<li>On demand: Actions run on demand.</li>
+</ul>
+<p>Besides these two option you are also able to schedule WebJobs. This can be done by using the old portal or by publishing the WebJob with Visual Studio.</p>
+<p>The following actions are displayed in the video:</p>
+<ul>
+<li>What can run on Azure</li>
+<li>Create a Azure Web App</li>
+<li>Upload the Azure Web Job</li>
+<li>The Web Job Management Portal</li>
+<li>Schedule a Azure WebJob</li>
+<li>Deploy via Visual Studio</li>
+</ul>
+<p><iframe src="https://www.youtube.com/embed/s5GjT6HZ1UE" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>

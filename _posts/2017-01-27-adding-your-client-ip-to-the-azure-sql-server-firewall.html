@@ -1,0 +1,83 @@
+---
+layout: post
+title: Adding your Client IP to the Azure SQL server firewall
+date: 2017-01-27 17:11:48.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- IP
+- SQL
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Azure SQL database
+  _yoast_wpseo_focuskw: Azure SQL database
+  _yoast_wpseo_metadesc: One of the first things that need to be done when you create
+    a Azure SQL database is adding the Client IP address to the firewall of the Azure
+    SQL server.
+  _yoast_wpseo_linkdex: '76'
+  _yoast_wpseo_content_score: '90'
+  _yoast_wpseo_primary_category: ''
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:543:"a:1:{i:0;a:14:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doFB";s:1:"1";s:9:"msgFormat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1833638763580115";s:7:"postURL";s:61:"http://www.facebook.com/msftplayground/posts/1833638763580115";s:5:"pDate";s:19:"2017-01-27
+    16:12:37";}}";
+  snapLI: s:573:"a:1:{i:0;a:14:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";s:1:"1";s:9:"msgFormat";s:41:"New
+    post has been published on %SITENAME%";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6230779348115431424";s:7:"postURL";s:104:"https://www.linkedin.com/updates?discuss=&scope=22692038&stype=M&topic=6230779348115431424&type=U&a=hA-5";s:5:"pDate";s:19:"2017-01-27
+    16:12:39";}}";
+  snap_isAutoPosted: '1'
+  snapTW: s:449:"a:1:{i:0;a:13:{s:2:"do";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE% -
+    %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:4:"doTW";s:1:"1";s:9:"msgFormat";s:25:"%TITLE%
+    - %URL% - %HTAGS%";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"825013662087774209";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/825013662087774209";s:5:"pDate";s:19:"2017-01-27
+    16:12:39";}}";
+  _wpas_done_all: '1'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1576667504;s:7:"payload";a:0:{}}}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure SQL database
+  _wds_title: ''
+  _wds_metadesc: One of the first things that need to be done when you create a Azure
+    SQL database is adding the Client IP address to the firewall of the Azure SQL
+    server.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2017/01/adding-your-client-ip-to-the-azure-sql-server-firewall/"
+---
+<p>One of the first things that need to be done when you create a Azure SQL database is adding the Client IP address to the firewall of the Azure SQL server. By default all traffic between Azure services are allowed but traffic from another machine is disallowed. Connecting to the server with for example SQL Management Studio will result in the following error:</p>
+<p>&nbsp;</p>
+<p>“<em>Cannot open server [servername] requested by the login. Client with IP address [IP Address] is not allowed to access the server.</em>”</p>
+<p>&nbsp;</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/01/image-4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2017/01/image_thumb-4.png" alt="image" width="953" height="381" border="0" /></a></p>
+<h2>Steps</h2>
+<p>When you open the Azure SQL Database within Visual Studio it will prompt you the question if you would like to add your Client IP to the firewall in order to access the database.  If you prefer another tool like SQL Server Management studio you will have to configure this within the Azure Portal (as mentioned in the error):</p>
+<ol>
+<li>Open the Azure Portal: <a href="https://portal.azure.com">https://portal.azure.com</a>.</li>
+<li>Click on Resource Groups and then the resource group of the SQL server.</li>
+<li>In the Resource Group blade click on the SQL server.</li>
+<li>Within the “Security” Category click on “Firewall”.</li>
+<li>Add your Client IP within this blade.</li>
+<li>Click on save to save the settings.</li>
+</ol>
+<p>&nbsp;</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/01/image-5.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Azure SQL Firewall" src="{{ site.baseurl }}/assets/archive/2017/01/image_thumb-5.png" alt="Azure SQL Firewall" width="725" height="644" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>Until today I navigated to the website: <a title="https://www.whatismyip.com/" href="https://www.whatismyip.com/">https://www.whatismyip.com/</a> to retrieve my external IP and add it via the steps mentioned above but today I noticed another option (I think it already was there for quite some time). Within the firewall blade you can click on “Add client IP” to add your current client IP.</p>
+<p>&nbsp;</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/01/image-6.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Add Client IP" src="{{ site.baseurl }}/assets/archive/2017/01/image_thumb-6.png" alt="Add Client IP" width="1577" height="131" border="0" /></a></p>

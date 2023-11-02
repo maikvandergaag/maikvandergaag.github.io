@@ -1,0 +1,63 @@
+---
+layout: post
+title: This Page has been modified since you opened it. You must open the page again.
+date: 2008-09-11 07:10:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+- Development
+- SharePoint
+tags:
+- Modified
+- Page
+- Publishing
+- SharePoint
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Page
+  _yoast_wpseo_focuskw: Page
+  _yoast_wpseo_linkdex: '48'
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";s:1:"0";}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Page
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2008/09/this-page-has-been-modified-since-you-opened-it-you-must-open-the-page-again/"
+---
+<div class="ExternalClass74C19C46C5EB435F96D5615E15542C6C">
+<p>In one of our development environments we came across a very annoying error in SharePoint, when we were using a custom site definition:</p>
+<p>“This Page has been modified since you opened it. You must open the page again.”</p>
+<p>This error was getting very annoying because we came across it on a lot of site, and we had no idea how to solve this error.</p>
+<p>After searching a lot and trying out various things we came across a difference between our custom definitions and the default definitions from Microsoft.</p>
+<p>When you are using publishing in SharePoint you have a pages library with pages that have a specific page layout. Those page layouts have to inherit from Microsoft.SharePoint.Publishing.PublishingLayoutPage and not from Microsoft.Sharepoint.Pages.WebpartPages as what we had done. Besides that we also forgot to insert the pages in the pages library with a Page Layout.</p>
+<p>Below you will see the mistake we made in the onet.xml file of our custom site definition.</p>
+<pre class="brush: xml;"> &lt;Module Path="" Url="$Resources:cmscore,List_Pages_UrlName;" Name="DefaultBlank"&gt;
+    &lt;File Url="default.aspx" Level="Approved" Type="GhostableInLibrary"&gt;
+      &lt;Property Name="Title" Value="Default"&gt;&lt;/Property&gt;
+      &lt;Property Name="ContentType" Value="$Resources:cmscore,contenttype_pagelayout_name;"&gt;&lt;/Property&gt;
+    &lt;/File&gt;
+ &lt;/Module&gt; </pre>
+<p>You have to add a property to the page you are adding. That property is called ‘PublishingPageLayout’ and should have the page layout you want to use as the value. The page layout you want to use has to inherit from Microsoft.SharePoint.Publishing.PublishingLayoutPage, and must reside in the masterpages gallery of your site collection.</p>
+<pre class="brush: xml;">&lt;Module Path="" Url="$Resources:cmscore,List_Pages_UrlName;" Name="DefaultBlank"&gt;
+    &lt;File Url="default.aspx" Level="Approved" Type="GhostableInLibrary"&gt;
+      &lt;Property Name="Title" Value="Default"&gt;&lt;/Property&gt;
+      &lt;Property Name="PublishingPageLayout" Value="~SiteCollection/_catalogs/masterpage/WelcomeLinks.aspx, ~SiteCollection/_catalogs/masterpage/Contact.aspx"&gt;&lt;/Property&gt;
+      &lt;Property Name="ContentType" Value="$Resources:cmscore,contenttype_pagelayout_name;"&gt;&lt;/Property&gt;
+    &lt;/File&gt;
+ &lt;/Module&gt;</pre>
+<p>So the most Important thing you should remember is that the Page Layout Inherits from <strong>Microsoft.SharePoint.Publishing.PublishingLayoutPage</strong>.</p>
+</div>

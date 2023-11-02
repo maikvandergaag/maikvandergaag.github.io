@@ -1,0 +1,78 @@
+---
+layout: post
+title: Starting a workflow through code
+date: 2009-06-08 09:47:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- SharePoint
+tags:
+- SharePoint
+- Start
+- Workflow
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Code
+  _yoast_wpseo_focuskw: Code
+  _yoast_wpseo_linkdex: '81'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Code
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/06/starting-a-workflow-through-code/"
+---
+<div class="ExternalClass644D97734F8B4808B484646DCF2DF43D">
+<p>Within SharePoint there can be situation in which you would like to start a workflow through code, like in an event receiver. But how do you start a workflow trough code? In the following minutes I will explain how you can accomplish this.</p>
+<p>Before you can start a workflow you will have to have a SPListItem for which you want to start the workflow and something to retrieve the SPWorkflowAssociation with. In this example we will use the BaseID of the workflow. The BaseID of a workflow is defined in the elements manifest of the workflow feature.</p>
+<p>If you have the two properties you ready to think about the restrictions you have when you start a workflow. The restriction is that a workflow can only be started once on an item. If it is already running and you still try to activate it you will get an exception (Exception from HRESULT: 0×8102009B).</p>
+<p>This means that before we can start the workflow we have to check if the workflow isn’t running. In the code block below you see a method for this.</p>
+<p><em><strong>Important:</strong> In this method is written with an extension for the .Net Framework called <a href="http://msdn.microsoft.com/en-us/netframework/aa904594.aspx">Linq</a>. If you want to use Linq you will have to build your project as a 3.5 Framework project and add a Reference to System.Linq.dll.</em></p>
+<pre class="brush: csharp;"> public static SPWorkflowAssociation GetWorkflowAssociationByID(SPList list, Guid id)
+ {
+    var query = from SPWorkflowAssociation asso in list.WorkflowAssociations
+                    where asso.BaseId == id
+                    select asso;
+
+    return query.FirstOrDefault();
+ } </pre>
+<p>In the above method we use a query to find a workflow based on the BaseID. With the SPWorkflowState.Running we check if the workflow is running. <br />After the executing of the query we have the results and check if it has objects. If there are more than zero SPWorkflow objects in the results a workflow with our BaseID is currently running.</p>
+<p>When we have checked this we will have to find the SPWorkflowAssociation of our workflow so that we can start the workflow with this association. <br />The workflow association can also be find with the BaseID.</p>
+<pre class="brush: csharp;"> public static SPWorkflowAssociation GetWorkflowAssociationByID(SPList list, Guid id)
+ {
+    var query = from SPWorkflowAssociation asso in list.WorkflowAssociations
+                    where asso.BaseId == id
+                    select asso;
+
+    return query.FirstOrDefault();
+ } </pre>
+<p>In the above method we find the workflow association with the BaseID on the list of the item and return the first or default. We return the first or default because there can only be one association and it will return null by default when there are no associations.</p>
+<p><em><strong>Important:</strong> If you want to start a workflow trough code the workflow has to be associated with the parent list of the item.</em></p>
+<p>After performing these actions we can finally start our workflow.</p>
+<pre class="brush: csharp;"> public static void StartWorkflow(SPItem item, Guid BaseID){
+    SPList list = item.ParentList;
+    SPWeb web = item.ParentList.ParentWeb;
+
+    if(!IsWorkflowRunning(item, BaseID){
+       SPWorkflowAssociation workflowAsso = GetWorkflowAssociationByID(list, BaseID);
+
+       if(workflowAsso != null){
+          web.Site.WorkflowManager.StartWorkflow(item, workflowAsso, "");
+       }
+    }
+ }</pre>
+<p>In the code block above you will find the complete solution to start the workflow. First we check if the workflow isn’t already running. When it isn’t running we receive the association and start the workflow by using the WorkflowManager on the parent site of the item.</p>
+</div>

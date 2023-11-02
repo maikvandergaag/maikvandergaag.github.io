@@ -1,0 +1,103 @@
+---
+layout: post
+title: Building and Deploying Azure DevOps extensions with Azure Pipelines
+date: 2018-11-20 12:00:18.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure DevOps
+tags:
+- Azure DevOps
+- Azure Pipelines
+- Extensions
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";s:64:"https://cdn-images-1.medium.com/fit/c/400/400/0*AxSPiq5RxgMb62vG";s:10:"author_url";s:34:"https://medium.com/@maikvandergaag";s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";s:3:"yes";s:2:"id";s:12:"1b87ebc3e273";s:21:"follower_notification";s:3:"yes";s:7:"license";s:19:"all-rights-reserved";s:14:"publication_id";s:2:"-1";s:6:"status";s:6:"public";s:3:"url";s:115:"https://medium.com/@maikvandergaag/building-and-deploying-azure-devops-extensions-with-azure-pipelines-1b87ebc3e273";}
+  _edit_last: '3'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: '535'
+  _thumbnail_id: '4353'
+  _yoast_wpseo_focuskw: Azure DevOps
+  _yoast_wpseo_metadesc: Azure DevOps extensions can be build and deployed by using
+    Azure Pipelines. In the Azure DevOps marketplace there is a extension that will
+    help you start.
+  _yoast_wpseo_linkdex: '81'
+  _nxs_slinks: a:1:{s:32:"7c3b99053851eaa0a7c3c9db9b6694be";s:21:"http://bit.ly/2DOgIik";}
+  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2DOgIik";s:1:"t";s:103:"https://msftplayground.com/2018/11/building-and-deploying-azure-devops-extensions-with-azure-pipelines/";s:1:"r";s:1:"B";}
+  snap_isAutoPosted: '1542711628'
+  _snapPHST: a:1:{s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1064835865535553537";s:2:"id";s:19:"1064835865535553537";s:1:"d";s:19:"2018-11-20
+    11:00:28";s:1:"w";s:1:"s";}}}}
+  _wpas_done_all: '1'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapLI: s:228:"a:1:{i:0;a:8:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;}}";
+  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1064835865535553537";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1064835865535553537";s:5:"pDate";s:19:"2018-11-20
+    11:00:28";}}";
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure DevOps
+  _wds_title: ''
+  _wds_metadesc: Azure DevOps extensions can be build and deployed by using Azure
+    Pipelines. In the Azure DevOps marketplace there is a extension that will help
+    you start.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2018/11/building-and-deploying-azure-devops-extensions-with-azure-pipelines/"
+---
+<p>Azure DevOps extensions can be build and deployed by using Azure Pipelines. In the Azure DevOps marketplace there is a extension available that will help us to get everything up and running. In this blog post we will use the following extensions from the Marketplace:</p>
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-devlabs.vsts-developer-tools-build-tasks" target="_blank" rel="noopener">Azure DevOps Extension Tasks</a>: Task made by "Microsoft DevLabs" for constructing Azure DevOps extension packages and deploying them to the marketplace.</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-versioncounter" target="_blank" rel="noopener">Version number counter</a>: Task made by myself that will help with controlling the version number of the extensions. More information about this task can be found on my <a href="https://msftplayground.com/2018/11/version-number-counter-for-azure-devops/">blog</a>.</li>
+</ul>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/2018-10-26_08-37-41.png"><img class="alignnone size-large wp-image-4315" src="{{ site.baseurl }}/assets/archive/2018/11/2018-10-26_08-37-41-1024x364.png" alt="Azure DevOps Extension Task" width="640" height="228" /></a></p>
+<h2>Building the Azure Build Pipeline</h2>
+<p>With the extensions installed create a new build pipeline.  In the new build pipeline window choose the visual designer option.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/2018-10-26_08-46-33.png"><img class="alignnone wp-image-4317 size-medium" src="{{ site.baseurl }}/assets/archive/2018/11/2018-10-26_08-46-33-300x125.png" alt="New pipeline" width="300" height="125" /></a></p>
+<p>In the screen that follows choose GitHub as we will use GitHub as the source location. If you want to use Azure Repos that isn't a problem. Authorize the connection and make sure you select the correct project and branch.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/2018-10-26_08-48-22.png"><img class="alignnone size-medium wp-image-4319" src="{{ site.baseurl }}/assets/archive/2018/11/2018-10-26_08-48-22-300x137.png" alt="Azure Pipeline Source" width="300" height="137" /></a></p>
+<p>The build pipeline will open up. The first thing we will configure is the trigger of the build. Because I save multiple extensions within the same repository I have enabled the "Continuous Integration" option and also apply a branch filter and a path filter. The path filter is used to make sure the build is only started when something has changed within the specified path.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/2018-10-26_08-50-56.png"><img class="alignnone size-medium wp-image-4321" src="{{ site.baseurl }}/assets/archive/2018/11/2018-10-26_08-50-56-300x123.png" alt="Build trigger" width="300" height="123" /></a></p>
+<p>Next up are the "Variables". We add a variable called "buildversion" that the "Version number counter" extension will use to increment the version number.  Besides that the variable will be used as the build number format (under the options tab).</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/build-variables-1.png"><img class="alignnone size-large wp-image-4323" src="{{ site.baseurl }}/assets/archive/2018/11/build-variables-1-1024x259.png" alt="build variables" width="640" height="162" /></a></p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/Build-Options.png"><img class="alignnone size-large wp-image-4325" src="{{ site.baseurl }}/assets/archive/2018/11/Build-Options-1024x369.png" alt="Build Options" width="640" height="231" /></a></p>
+<p>With all these configuration setup we can start adding tasks. For this build pipeline we will use three tasks.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/Build-tasks.png"><img class="alignnone size-medium wp-image-4331" src="{{ site.baseurl }}/assets/archive/2018/11/Build-tasks-300x105.png" alt="" width="300" height="105" /></a></p>
+<h3><strong>Version number counter</strong></h3>
+<p>This extension will be used to increment the version number of the extension. The option "Automatically update minor number" is disabled because I want to update this number manually.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/version-number-counter.png"><img class="alignnone size-large wp-image-4329" src="{{ site.baseurl }}/assets/archive/2018/11/version-number-counter-1024x397.png" alt="version number counter" width="640" height="248" /></a></p>
+<h3><strong>Package Extension</strong></h3>
+<p>Packaging a extension into a vsix file is done via this extension. In this extension we override some specific values like the "publisher" and the "extension version". The extension version is overwritten with the $(Build.BuildNumber) which is the same as $(buildversion) that we increment each time a build runs.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/Package-Extension.png"><img class="alignnone wp-image-4333 size-large" src="{{ site.baseurl }}/assets/archive/2018/11/Package-Extension-1024x894.png" alt="Package Extension" width="640" height="559" /></a></p>
+<h3><strong>Publish Artifact</strong></h3>
+<p>The last task will be used to save the package to the artifact location called "azurerbac". The path that will be published is a variable called: "$(Extension.OutputPath)". This variable is a output variable from the "Package Extension" tasks  and represents the location of the vsix file.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/Publish-Build-Artifact.png"><img class="alignnone wp-image-4337 size-large" src="{{ site.baseurl }}/assets/archive/2018/11/Publish-Build-Artifact-1024x441.png" alt="Publish Build Artifact" width="640" height="276" /></a></p>
+<p>This completes the Azure build pipeline. You can test your pipeline by queuing the build.</p>
+<h2>Building the Azure Release Pipeline</h2>
+<p>With the build complete we will create a release pipeline that adds the packaged extension to the marketplace. Setting up the pipeline is done in two easy steps:</p>
+<h3><strong>Adding the artifact</strong></h3>
+<p>In a new release pipeline add a artifact. For simplicity set the "Default version" to "Latest version" and add a short alias name. Make sure the artifact will trigger the deployment of the stage that will be added during the next step.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/Release-Artifact.png"><img class="alignnone size-large wp-image-4341" src="{{ site.baseurl }}/assets/archive/2018/11/Release-Artifact-1024x742.png" alt="Release Artifact" width="640" height="464" /></a></p>
+<h3><strong>Setup the Stage</strong></h3>
+<p>In the release add an empty stage and add a single task named: "Publish Extension". To get this extension up and running a Visual Studio Marketplace service connections needs to be added. Do this by clicking the "New" button next to "Visual Studio Marketplace connection" when you just added the tasks to the stage.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/2018-10-26_09-17-33.png"><img class="alignnone size-full wp-image-4345" src="{{ site.baseurl }}/assets/archive/2018/11/2018-10-26_09-17-33.png" alt="Marketplace service connection" width="594" height="505" /></a></p>
+<p>To use this connection type you will need to generate a Personal Access Token for a user that has access to your Marketplace. The specific PAT requirements are shown at the bottom of the image. With this configured you can setup the task completely. Pay good attention to the visibility and pricing parameters of the task.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/Publish-extension.png"><img class="alignnone size-large wp-image-4347" src="{{ site.baseurl }}/assets/archive/2018/11/Publish-extension-1024x974.png" alt="Publish extension" width="640" height="609" /></a></p>
+<p>Save the release pipeline and run the complete process when complete you will notice that your extension has been added to the Visual Studio Marketplace.</p>
+<h2>Extending your Azure Release Pipeline</h2>
+<p>When this is up and running you can easily extend the pipeline to also deploy a private version of your extension the complete pipeline could look like the image below.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/11/Release-Pipeline.png"><img class="alignnone size-large wp-image-4349" src="{{ site.baseurl }}/assets/archive/2018/11/Release-Pipeline-1024x462.png" alt="Release Pipeline" width="640" height="289" /></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

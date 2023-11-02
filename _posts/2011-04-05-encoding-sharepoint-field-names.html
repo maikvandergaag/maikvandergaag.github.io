@@ -1,0 +1,47 @@
+---
+layout: post
+title: Encoding SharePoint Field names.
+date: 2011-04-05 08:01:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- Encoding
+- Fields
+- XMLConvert
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: field
+  _yoast_wpseo_focuskw: field
+  _yoast_wpseo_linkdex: '56'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: field
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2011/04/encoding-sharepoint-field-names/"
+---
+<div class="ExternalClass2FFF1A9D23B0417FB575C4D4105DB0E9">
+<p>During my last projects I have been asked the same questions. The question was how can you get the normal name of a SharePoint field name that is encoded like this: Test_x0020_ Name.</p>
+<p>The field names get encoded because XML elements names can’t contain spaces or other different characters. In the example above the x0020 represents the space and the _ represents a delimiter.</p>
+<p>You can decode those SharePoint fields by using:</p>
+<pre class="brush: csharp;">System.XML.XmlConvert.DecodeName("[Fieldname]") ;</pre>
+<p>You can encode fieldnames if you would like by using:</p>
+<pre class="brush: csharp;">System.XML.XmlConvert.EncodeName("[FieldName]")</pre>
+</div>
+<p>Hope this helps you when developing for SharePoint and remember when you have questions about Microsoft technology don't be afraid to ask.</p>

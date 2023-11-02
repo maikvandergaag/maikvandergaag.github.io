@@ -1,0 +1,241 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your entire site, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# `jekyll serve`. If you change this file, please restart the server process.
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+plugins:
+  - jekyll-remote-theme # add this line to the plugins list if you already have one
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+  - jekyll-redirect-from
+# mimic GitHub Pages with --safe
+whitelist:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jekyll-include-cache
+  - jekyll-redirect-from
+minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+# Site Settings
+locale: "en-US"
+title: "Chris's Tech ADHD"
+title_separator: "-"
+subtitle: ""
+name: "Chris Ayers"
+description: "This will be a place where I occasionally blog about things that interest me. I play around with lots of tech, from apps to containers, devops to iot."
+url: # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+baseurl: "/"
+repository: "codebytes/codebytes.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+teaser: # path of fallback teaser image, e.g. "/assets/images/500x300.png"
+# logo                     : "/assets/images/apple-touch-icon.png" # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
+# masthead_title           : "Chris's Blog" # overrides the website title displayed in the masthead, use " " for no title
+# breadcrumbs            : false # true, false (default)
+future: true
+words_per_minute: 200
+comments:
+  provider: # false (default), "disqus", "discourse", "facebook", "staticman", "utterances", "giscus", "custom"
+  disqus:
+    shortname: # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
+  discourse:
+    server: # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
+  facebook:
+    # https://developers.facebook.com/docs/plugins/comments
+    appid:
+    num_posts: # 5 (default)
+    colorscheme: # "light" (default), "dark"
+  utterances:
+    theme: # "github-light" (default), "github-dark"
+    issue_term: # "pathname" (default)
+  giscus:
+    repo_id: # Shown during giscus setup at https://giscus.app
+    category_name: # Full text name of the category
+    category_id: # Shown during giscus setup at https://giscus.app
+    discussion_term: # "pathname" (default), "url", "title", "og:title"
+    reactions_enabled: # '1' for enabled (default), '0' for disabled
+    theme: # "light" (default), "dark", "dark_dimmed", "transparent_dark", "preferred_color_scheme"
+  staticman:
+    branch: # "master"
+    endpoint: # "https://{your Staticman v3 API}/v3/entry/github/"
+atom_feed:
+  path: # blank (default) uses feed.xml
+search: true # true, false (default)
+search_full_content: true # true, false (default)
+search_provider: "lunr"
+lunr:
+  search_within_pages: true
+algolia:
+  application_id: "K4SQKA6GLC"
+  index_name: "codebytes"
+  search_only_api_key: "1091922810703fa1af45c321d1710e4e"
+  powered_by: true
+# SEO Related
+google_site_verification:
+bing_site_verification:
+yandex_site_verification:
+# Social Sharing
+twitter:
+  username: "chris_l_ayers"
+facebook:
+  username:
+  app_id:
+  publisher:
+og_image: "/assets/images/bio-photo.jpg"
+# For specifying social profiles
+# - https://developers.google.com/structured-data/customize/social-profiles
+social:
+  type: # Person or Organization (defaults to Person)
+  name: # If the user or organization name differs from the site's name
+  links: # An array of links to social media profiles
+    - https://twitter.com/
+    - https://github.com/
+# Analytics
+analytics:
+  provider: false # false (default), "google", "google-universal", "google-gtag", "custom"
+  google:
+    tracking_id:
+appinsights:
+clarity: 
+# Site Author
+author:
+  name: "Chris Ayers"
+  avatar: "/assets/headshot/floating-head.png"
+  bio: "I am a **father**, **nerd**, **gamer**, and **speaker**."
+  location: "Tampa, FL"
+  links:
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/chris_l_ayers"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/codebytes"
+    - label: "Linkedin"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/chris-l-ayers/"
+    - label: "Mastodon"
+      icon: "fab fa-brands fa-mastodon"
+      url: "https://hachyderm.io/@Chrisayers"
+# Site Footer
+footer:
+  links:
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/chris_l_ayers"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/codebytes"
+    - label: "Linkedin"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/chris-l-ayers/"
+    - label: "Mastodon"
+      icon: "fab fa-brands fa-mastodon"
+      url: "https://hachyderm.io/@Chrisayers"
+# Reading Files
+include:
+  - .htaccess
+  - _pages
+exclude:
+  - "*.sublime-project"
+  - "*.sublime-workspace"
+  - vendor
+  - .asset-cache
+  - .bundle
+  - .jekyll-assets-cache
+  - .sass-cache
+  - assets/js/plugins
+  - assets/js/_main.js
+  - assets/js/vendor
+  - Capfile
+  - CHANGELOG
+  - config
+  - Gemfile
+  - Gruntfile.js
+  - gulpfile.js
+  - LICENSE
+  - log
+  - node_modules
+  - package.json
+  - Rakefile
+  - README
+  - tmp
+keep_files:
+  - .git
+  - .svn
+encoding: "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
+# Liquid
+strict_front_matter: true
+liquid:
+  error_mode: strict
+# Conversion
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
+# Markdown Processing
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  smart_quotes: lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+# Sass/SCSS
+sass:
+  sass_dir: _sass
+  style: compressed # http://sass-lang.com/documentation/file.SASS_REFERENCE.html#output_style
+# Outputting
+permalink: /:categories/:title/
+paginate: 5 # amount of posts to show
+paginate_path: /page:num/
+timezone: # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+# Archives
+#  Type
+#  - GitHub Pages compatible archive pages built with Liquid ~> type: liquid (default)
+#  - Jekyll Archives plugin archive pages ~> type: jekyll-archives
+#  Path (examples)
+#  - Archive page should exist at path when using Liquid method or you can
+#    expect broken links (especially with breadcrumbs enabled)
+#  - <base_path>/tags/my-awesome-tag/index.html ~> path: /tags/
+#  - <base_path>/categories/my-awesome-category/index.html ~> path: /categories/
+#  - <base_path>/my-awesome-category/index.html ~> path: /
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+
+# HTML Compression
+# - http://jch.penibelst.de/
+compress_html:
+  clippings: all
+  ignore:
+    envs: development
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      share: true
+      related: true
+  # _pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: single
+      author_profile: true

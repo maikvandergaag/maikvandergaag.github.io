@@ -1,0 +1,58 @@
+---
+layout: post
+title: 'Exception: The Execute method of job definition Microsoft.Office.Server. Search.Administration.
+  QueryClassificationDictionaryUpdateTimerJobDefinition (ID ad81e6cd-51ef-4baa-aedc-d529219368b5)
+  threw an exception'
+date: 2013-05-13 07:56:31.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- SharePoint
+- Troubleshooting
+tags:
+- Managed Metadata
+- SharePoint 2013
+- Troubleshooting
+meta:
+  _wp_jd_bitly: http://bit.ly/15EyttI
+  _wp_jd_target: ''
+  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:140:"New post: Exception: The
+    Execute method of job definition Microsoft.Office.Server.Search.Administration.QueryClassific
+    http://bit.ly/15EyttI";s:5:"error";s:204:"403 Forbidden: The request is understood,
+    but it has been refused by Twitter. Reasons: Too many Tweets in a short time or
+    the same Tweet was submitted twice, among others. Not an error from WP to Twitter.";s:4:"code";i:403;s:9:"timestamp";i:1368431798;}'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Search Exception
+  _yoast_wpseo_focuskw: Search Exception
+  _yoast_wpseo_linkdex: '44'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463221616;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:450;}i:1;a:1:{s:2:"id";i:666;}i:2;a:1:{s:2:"id";i:846;}}}}
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Search Exception
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2013/05/exception-the-execute-method-of-job-definition-microsoft-office-server-search-administration-queryclassificationdictionaryupdatetimerjobdefinition-id-ad81e6cd-51ef-4baa-aedc-d529219368b5-threw-an-e/"
+---
+<p>When investigating the errors in the event log today I stumbled upon a strange error:</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/05/eventID6398.png"><img title="event ID 6398" style="border-left-width: 0px; border-right-width: 0px; border-bottom-width: 0px; display: inline; border-top-width: 0px" border="0" alt="event ID 6398" src="{{ site.baseurl }}/assets/archive/2013/05/eventID6398_thumb.png" width="331" height="154" /></a> </p>
+<p><strong><font color="#c0c0c0">The Execute method of job definition Microsoft.Office.Server.Search.Administration.QueryClassificationDictionaryUpdateTimerJobDefinition (ID ad81e6cd-51ef-4baa-aedc-d529219368b5) threw an exception. More information is included below. </font></strong>
+<p><strong><font color="#c0c0c0">Expected 1 Managed Metadata Proxy which is default keyword taxonomy for SSA 96233017-f26a-49b7-9950-1b8577beb4f8, but located 2</font></strong></p>
+<p>I new I had configured 2 Managed Metadata Service applications but what is the error about. After thinking about the problem for a hour it hit me that you need to specify a default Metadata service application.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/05/ManagedServiceConnection.png"><img title="Managed Service Connection" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="Managed Service Connection" src="{{ site.baseurl }}/assets/archive/2013/05/ManagedServiceConnection_thumb.png" width="479" height="172" /></a> </p>
+<p>This can be done by selecting the proxy of the Managed Metadata service application and selecting the “Properties” button in the ribbon. The mistake that I made was that I selected “This service application is the default storage location for Keywords” and “This service application is the default storage for column specific term sets” for both of the service applications and neglected the warning message that SharePoint shows you. </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/05/ManagedServiceConnectionErrors.png"><img title="Managed Service Connection Errors" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="Managed Service Connection Errors" src="{{ site.baseurl }}/assets/archive/2013/05/ManagedServiceConnectionErrors_thumb.png" width="456" height="198" /></a> </p>
+<p>This resolved in the error messages that were in the event log. By deselecting the options for one of the service applications the error messages were gone.</p></p>

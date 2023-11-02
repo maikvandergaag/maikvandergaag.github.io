@@ -1,0 +1,49 @@
+---
+layout: post
+title: Do not start Server Manager automatically at Logon &ndash; Windows Server 2012
+date: 2012-06-20 06:47:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+tags:
+- Server Manager
+- Windows Server 2012
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Windows Server 2012
+  _yoast_wpseo_focuskw: Windows Server 2012
+  _yoast_wpseo_linkdex: '54'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463267646;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:656;}i:1;a:1:{s:2:"id";i:666;}i:2;a:1:{s:2:"id";i:180;}}}}
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Windows Server 2012
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2012/06/do-not-start-server-manager-automatically-at-logon-windows-server-2012/"
+---
+<div class="ExternalClassABBC50CD37EF4AEDAAD99CEE67863A3F">
+<p>After the installation of the new Windows Server version (Windows Server 2012 RC) it was annoying for me that the “Server Manager” started every time when I logged in to the machine.</p>
+<p>In Windows Server 2008 R2 you could disable the auto start option from the home screen.<a href="http://msftplayground.com/wp-content/uploads/2012/10/Server-Manager-Manage-Menu.png"><img style="background-image: none; float: right; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="Server-Manager---Manage-Menu" src="{{ site.baseurl }}/assets/archive/2012/06/Server-Manager-Manage-Menu_thumb.png" alt="Server-Manager---Manage-Menu" width="240" height="168" align="right" border="0" /></a> I started searching for the option but couldn’t find it. After half an hour  I found the solution:</p>
+<ol>
+<li>Open the “Server Manager”.</li>
+<li>Select “Manage” on the top bar.</li>
+<li>Select “Server Manager Properties” from the drop down menu.</li>
+<li>Select the option “Do not start Server Manager automatically at logon”.</li>
+</ol>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Server-Manager-Disable-automatically-logon.png"><img style="background-image: none; float: none; padding-top: 0px; padding-left: 0px; margin-left: auto; display: block; padding-right: 0px; margin-right: auto; border: 0px;" title="Server-Manager---Disable-automatically-logon" src="{{ site.baseurl }}/assets/archive/2012/06/Server-Manager-Disable-automatically-logon_thumb.png" alt="Server-Manager---Disable-automatically-logon" width="507" height="234" border="0" /></a></p>
+</div>

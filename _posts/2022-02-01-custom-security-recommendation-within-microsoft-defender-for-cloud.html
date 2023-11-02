@@ -1,0 +1,326 @@
+---
+layout: post
+title: Custom security recommendation within Microsoft Defender for Cloud
+date: 2022-02-01 13:00:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- Azure Policy
+- Defender
+- Governance
+meta:
+  _edit_last: '3'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '6'
+  _yoast_wpseo_primary_category: '323'
+  _thumbnail_id: '6521'
+  _yoast_wpseo_focuskw: Security policy
+  _yoast_wpseo_metadesc: Microsoft Defender for Cloud offers an option to include
+    custom security recommendations. This blog explains how.
+  _yoast_wpseo_linkdex: '60'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapTW: s:213:"a:1:{i:0;a:8:{s:2:"do";s:1:"1";s:9:"msgFormat";s:26:"%TITLE% - %HTAGS%
+    - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;}}";
+  _wp_to_buffer_last_sent: '1643720440'
+  _wp_to_buffer_success: '1'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Security policy
+  _wds_title: ''
+  _wds_metadesc: Microsoft Defender for Cloud offers an option to include custom security
+    recommendations. This blog explains how.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2022/02/custom-security-recommendation-within-microsoft-defender-for-cloud/"
+---
+<p><!-- wp:paragraph --></p>
+<p>Microsoft Defender for Cloud offers the option to include custom security recommendations. For custom security recommendations you can think of corporate security guidelines that need to be configured on cloud resources.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 id="microsoft-defender-for-cloud">Microsoft Defender for Cloud</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Microsoft defender for cloud is a combination of already existing tools within the Azure platform. It combines Azure Security Center and Azure Defender. When you would like to read more regarding this rename I would suggest you read <a href="https://www.microsoft.com/security/blog/2021/11/02/protect-your-business-with-microsoft-securitys-comprehensive-protection/" target="_blank" rel="noreferrer noopener">this</a> post from Microsoft.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Defender for Cloud is the tool for security posture management and threat protection. It helps you to strengthen the security posture of cloud resources. Defender for Cloud offers the tooling to harden your resources with security recommendations.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Microsoft Defender for Cloud helps streamline the process for meeting regulatory compliance requirements, using the&nbsp;regulatory compliance dashboard. Within this dashboard, there are by default a couple of Industry &amp; regulatory standards already present to help you keep compliance.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>On that dashboard, the <a href="https://docs.microsoft.com/en-us/security/benchmark/azure?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener">Azure Security Benchmark</a> is activated by default.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6509,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2022/01/image-6.png" /><img src="{{ site.baseurl }}/assets/archive/2022/02/image-6-1024x520.png" alt="Industry &amp; regulatory standards Azure" class="wp-image-6509" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>The screenshot above shows a couple of regulatory standards that are activated within my environment but you also have the option to add additional standards by choosing the "add more standards" button.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2 id="custom-security-policy">Custom security policy</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Within organizations, there are security regulations that need to be followed. In a perfect situation, you want to be able to add these standards and security policies to the Azure platform. This can be done by defining Azure Policies and Azure Policy Initiatives.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 id="azure-policies">Azure Policies</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Azure Policies can be defined within bicep and via this way also deployed to the Azure Platform. The snippet below shows an Azure Policy that audits Azure resource groups for specific tags. When a resource group for example has the tag "environment" and the value is set to "production" the resource group should have a resource lock configured.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">targetScope = 'managementGroup'
+
+param policyCategory string = 'Custom'
+param policySource string = 'Guardrails'
+
+resource bicepAuditResourceLock 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
+  name: 'Audit resource locks based on tags'
+  properties: {
+    displayName: 'Audit Resource Locks on Resource Groups based on Tags'
+    description: 'Audit the use of resource locks on resource groups based on tags used'
+    policyType: 'Custom'
+    mode: 'All'
+    metadata: {
+      category: policyCategory
+      source: policySource
+      version: '0.1.0'
+      securityCenter: {
+        RemediationDescription: 'The resource group should have a resource locks assigned. Go to the resource group and assign a resource lock or adjust the tag value'
+        Severity: 'High'
+      }
+    }
+    parameters: {
+      tagName: {
+        type: 'String'
+        metadata: {
+          displayName: 'Tag Name'
+          description: 'The Tag name to audit against (i.e. Environment, CostCenter, etc.)'
+         }
+      }
+      tagValue: {
+        type: 'String'
+        metadata: {
+         displayName: 'Tag Value'
+         description: 'Value of the tag to audit against (i.e. Prod/UAT/TEST, 12345, etc.)'
+        }
+       }
+    }
+    policyRule: {
+      if: {
+        allOf: [
+         {
+          field: 'type'
+          equals: 'Microsoft.Resources/subscriptions/resourceGroups'
+         }
+         {
+          field: '[concat(\'tags[\', parameters(\'tagName\'), \']\')]'
+          equals: '[parameters(\'tagValue\')]'
+         }
+        ]
+       }
+       then: {
+        effect: 'auditIfNotExists'
+        details: {
+         type: 'Microsoft.Authorization/locks'
+         existenceCondition: {
+          field: 'Microsoft.Authorization/locks/level'
+          equals: 'CanNotDelete'
+         }
+        }
+       }
+    }
+  }
+}
+
+output policyDefId string = bicepAuditResourceLock.id</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 id="policy-initiatives">Policy initiatives</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>If there are a lot of policies that need to be configured, these policies can be grouped into policy initiatives. This helps you manage the policies in groups and also check the compliance groups on for example a specific category.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The below snippet shows a bicep file for a policy initiative that contains several policies but also a policy initiative where the policy is linked.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code --></p>
+<pre class="wp-block-syntaxhighlighter-code">targetScope = 'managementGroup'
+
+param policyCategory string = 'Custom'
+param policySource string = 'Guardrails'
+
+//tag parameters
+param lockTag string = 'environment'
+param lockValue string = 'prd'
+
+module auditPolicy '../audit_hybrid_use_benefit/policy.bicep' = {
+  name: 'auditPolicy'
+  params: {
+    policyCategory: policyCategory
+    policySource: policySource
+  }
+}
+
+module auditResourceLock '../audit_resource_locks_on_resource_groups_based_on_tags/policy.bicep' = {
+  name: 'auditResourceLock'
+  params: {
+    policyCategory: policyCategory
+    policySource: policySource
+  }
+}
+
+module deployResourceLock '../deploy_resource_locks_on_resource_groups_based_on_tags/policy.bicep' = {
+  name: 'deployResourceLock'
+  params: {
+    policyCategory: policyCategory
+    policySource: policySource
+  }
+}
+
+resource corporateInitiative 'Microsoft.Authorization/policySetDefinitions@2021-06-01' = {
+  name: 'corporate_initiative'
+  properties: {
+    policyType: 'Custom'
+    displayName: 'Corporate Initiative'
+    description: 'Corporate Initiative containing all corporate guardrails'
+    metadata: {
+      category: policyCategory
+      source: policySource
+      version: '0.1.0'
+    }
+    parameters: {}
+    policyDefinitions: [
+      {
+        policyDefinitionId: auditPolicy.outputs.policyDefId
+        parameters: {}
+      }
+      {
+        policyDefinitionId: auditResourceLock.outputs.policyDefId
+        parameters: {
+          tagName: {
+            value: lockTag
+          }
+          tagValue: {
+            value: lockValue
+          }
+        }
+      }
+      {
+        policyDefinitionId: deployResourceLock.outputs.policyDefId
+        parameters: {
+          tagName: {
+            value: lockTag
+          }
+          tagValue: {
+            value: lockValue
+          }
+        }
+      }
+    ]
+  }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 id="deploy-initiative">Deploy initiative</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The initiative shown above can be deployed in a couple of ways. The best approach is to configure an Azure DevOps / GitHub project to manage and deploy the configuration but for a short reference, we will use PowerShell.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">Login-AzAccount
+
+bicep build ".\policies\corporate_initiative\initiative.bicep"
+$tempFile = ".\policies\corporate_initiative\initiative.json"
+$mgId = "mgid"
+
+New-AzManagementGroupDeployment -Name "DeployInitiative" -ManagementGroupId $mgId -TemplateFile $tempFile -Location "WestEurope"</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>The script deploys the initiative to an Azure Management Group high in the hierarchy. This gives the ability to use the initiative and policies on a lower level as well.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 id="security-settings">Security Settings</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>If the platform contains a policy initiative with the security guardrails of the organization, this initiative can be used as a custom security policy within Microsoft Defender for Cloud.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>This custom initiative can be configured with the following steps:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<li>Go to "Microsoft Defender for Cloud" within the Azure portal.</li>
+<li>Click on "Environment Settings" on the left side of the "Microsoft Defender for Cloud" blade</li>
+<li>Click on the correct environment that needs to be configured.</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"id":6513,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2022/01/image-7.png" /><img src="{{ site.baseurl }}/assets/archive/2022/02/image-7-1024x483.png" alt="Microsoft Defender for Cloud environment configuration." class="wp-image-6513" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:list {"ordered":true,"start":4} --></p>
+<ol start="4">
+<li>Within the environment settings blade make sure the "Security policy" is selected.</li>
+<li>On the "Security policy" blade scroll down to "Your custom initiatives" and click on "Add a custom initiative"</li>
+<li>On the next blade select your custom initiative and click add.</li>
+<li>The policy initiative will be configured and assigned to the environment.</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now that the initiative is configured it takes some time to show up correctly within the portal but when it does you can, for example, find it under "Regulatory compliance".</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6515,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2022/01/image-8.png" /><img src="{{ site.baseurl }}/assets/archive/2022/02/image-8-1024x497.png" alt="Custom regulatory compliance" class="wp-image-6515" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3 id="custom-remediation-steps">Custom remediation steps</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the OOTB security policies remediation steps can be found to remediate the issues. Within custom policies, there is also an option. Within the policy code, additional data needs to be supplied in the "metadata" property.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">resource bicepAuditResourceLock 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
+  name: 'Audit resource locks based on tags'
+  properties: {
+    displayName: 'Audit Resource Locks on Resource Groups based on Tags'
+    description: 'Audit the use of resource locks on resource groups based on tags used'
+    policyType: 'Custom'
+    mode: 'All'
+    metadata: {
+      category: policyCategory
+      source: policySource
+      version: '0.1.0'
+      securityCenter: {
+        RemediationDescription: 'The resource group should have a resource locks assigned. Go to the resource group and assign a resource lock or adjust the tag value'
+        Severity: 'High'
+      }
+    }</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>The above snippet is a small section of the policy that contains the "metadata" property. Within the metadata property, there is the option to specify Security Center specific information like the remediation description. Additional options can be found in the <a href="https://docs.microsoft.com/en-us/rest/api/securitycenter/assessmentsmetadata/createinsubscription#examples?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener">security center API reference</a>.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>By setting these properties there will be more information within the security policy summary blade.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6517,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2022/01/image-9.png" /><img src="{{ site.baseurl }}/assets/archive/2022/02/image-9-1024x357.png" alt="Security blade policy" class="wp-image-6517" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>All code shown on this blog can be found on my personal <a href="https://github.com/maikvandergaag" target="_blank" rel="noreferrer noopener">GitHub</a> account. </p>
+<p><!-- /wp:paragraph --></p>

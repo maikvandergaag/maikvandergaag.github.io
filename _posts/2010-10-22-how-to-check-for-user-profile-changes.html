@@ -1,0 +1,105 @@
+---
+layout: post
+title: How to check for User Profile changes in SharePoint
+date: 2010-10-22 05:30:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- SharePoint
+tags:
+- User Profile
+- UserProfileChangeCollection
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '65'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2010/10/how-to-check-for-user-profile-changes/"
+---
+<div class="ExternalClass92E0404F88044AEF90EC708848FFF154">
+<p>In SharePoint each user has a User profile and has the ability to change profile properties. In certain situations you would like to see what the users has changed on their profile, but how do you accomplish this? Within SharePoint the user profile manager or the user profile of a user has a collection called <a href="http://msdn.microsoft.com/en-us/library/microsoft.office.server.userprofiles.userprofilechangecollection.aspx">'UserProfileChangeCollection'</a> in this collection you can find a complete log of changed user profiles. When a change is for example of the type <a href="http://msdn.microsoft.com/en-us/library/microsoft.office.server.userprofiles.userprofilesinglevaluechange.aspx">'UserProfileSingleValueChange'</a> you can read out the values that have been changed in the profile. Beneath here is a little example to read out all of the changes: </p>
+<pre class="brush: csharp;"> using (SPSite site = new SPSite("yoursite"))
+            {
+                SPServiceContext serviceContext = SPServiceContext.GetContext(site.WebApplication.ServiceApplicationProxyGroup, SPSiteSubscriptionIdentifier.Default);
+                UserProfileManager profileConfigManager = new UserProfileManager(serviceContext);
+                try
+                {
+                    UserProfileChangeCollection collection = profileConfigManager.GetChanges(query);
+                    foreach (UserProfileChange change in collection)
+                    {
+                        Console.WriteLine(change.AccountName);
+                        Console.WriteLine(change.ChangedProfile);
+                        Console.WriteLine(change.ChangeType);
+                        Console.WriteLine(change.EventTime);
+                        Console.WriteLine(change.Id);
+                        Console.WriteLine(change.ObjectType);
+
+                        if (change is UserProfileSingleValueChange)
+                        {
+                            UserProfileSingleValueChange propertyChange = (UserProfileSingleValueChange)change;
+                            Console.WriteLine(propertyChange.ProfileProperty.Name);
+                        }
+                    }
+                }
+                catch (UserNotFoundException)
+                {
+                }</pre>
+<p>With this you have the ability to find all of the changes that have occurred. But this can become a great list of changes. To find the changes you want you can also specify a <a href="http://msdn.microsoft.com/en-us/library/microsoft.office.server.userprofiles.userprofilechangequery.aspx">UserProfileChangeQuery</a>. </p>
+<pre class="brush: csharp;"> using (SPSite site = new SPSite("yoursite"))
+            {
+                SPServiceContext serviceContext = SPServiceContext.GetContext(site.WebApplication.ServiceApplicationProxyGroup, SPSiteSubscriptionIdentifier.Default);
+                UserProfileManager profileConfigManager = new UserProfileManager(serviceContext);
+                try
+                {
+                    UserProfileChangeQuery query = new UserProfileChangeQuery(true, true);
+                    query.Add = false;
+                    query.Custom = false;
+                    query.Delete = false;
+                    query.MultiValueProperty = false;
+                    query.SingleValueProperty = true;
+                    query.Update = true;
+                    query.UpdateMetadata = true;
+                    
+                    UserProfileChangeCollection collection = profileConfigManager.GetChanges(query);
+                    foreach (UserProfileChange change in collection)
+                    {
+                        Console.WriteLine(change.AccountName);
+                        Console.WriteLine(change.ChangedProfile);
+                        Console.WriteLine(change.ChangeType);
+                        Console.WriteLine(change.EventTime);
+                        Console.WriteLine(change.Id);
+                        Console.WriteLine(change.ObjectType);
+
+                        if (change is UserProfileSingleValueChange)
+                        {
+                            UserProfileSingleValueChange propertyChange = (UserProfileSingleValueChange)change;
+                            Console.WriteLine(propertyChange.ProfileProperty.Name);
+                        }                       
+                    }
+                }
+                catch (UserNotFoundException)
+                {
+                }
+            }</pre>
+<p>&nbsp;</p>
+<p>On the query object you can set several properties to find the changes you want. The properties you can define you can find <a href="http://msdn.microsoft.com/en-us/library/microsoft.office.server.userprofiles.userprofilechangequery_members.aspx">here</a>. Happy SharePointing! </p>
+</div>

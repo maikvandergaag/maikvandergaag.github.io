@@ -1,0 +1,182 @@
+---
+layout: post
+title: Warm Up Form Based Web Application
+date: 2014-04-08 17:59:59.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- FBA
+- Powershell
+- SharePoint
+- Warm Up
+meta:
+  _edit_last: '1'
+  _jd_twitter: ''
+  _jd_tweet_this: 'yes'
+  snap_isAutoPosted: '1'
+  _nxs_snap_sh_LI0_1396980007: a:38:{s:2:"ii";i:0;s:4:"doLI";i:1;s:5:"nName";s:0:"";s:8:"liAPIKey";s:14:"77vtw9cpof5jtv";s:8:"liAPISec";s:16:"E2OiH5iT1hPoxHXv";s:7:"liAttch";i:1;s:8:"catSelEd";s:0:"";s:5:"grpID";s:0:"";s:11:"liMsgFormat";s:41:"New
+    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:10:"liMsgAFrmt";s:0:"";s:6:"rpstOn";i:0;s:8:"rpstDays";s:1:"0";s:7:"rpstHrs";s:1:"2";s:8:"rpstMins";s:1:"0";s:11:"rpstRndMins";s:2:"15";s:12:"rpstPostIncl";s:1:"0";s:10:"rpstNxTime";i:1386086230;s:8:"rpstType";s:1:"2";s:12:"rpstTimeType";s:1:"A";s:12:"rpstFromTime";s:0:"";s:10:"rpstToTime";s:0:"";s:10:"rpstOLDays";s:2:"30";s:10:"rpstNWDays";s:3:"365";s:11:"rpstOnlyPUP";i:0;s:10:"nxsCPTSeld";s:21:"a:1:{i:0;s:4:"post";}";s:11:"rpstBtwDays";a:0:{}s:12:"liOAuthToken";s:40:"75--b112ee4e-e8e4-49b9-899d-ca2afaa54977";s:18:"liOAuthTokenSecret";s:36:"9eca19b2-df06-42e1-bcfb-113eb32b59da";s:15:"liOAuthVerifier";s:5:"60975";s:13:"liAccessToken";s:36:"5643875e-34f6-48c5-8ed0-8d9a187331cb";s:19:"liAccessTokenSecret";s:36:"f059e50b-3d60-4424-a710-57d21b5dbe15";s:10:"liUserInfo";s:30:"N_tJVLVMK6
+    - Maik van der Gaag";s:6:"catSel";s:1:"0";s:8:"isPosted";s:0:"";s:8:"imgToUse";s:0:"";s:8:"urlToUse";s:0:"";s:9:"timeToRun";i:1396980007;}
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _wp_jd_bitly: http://bit.ly/1iqCEcU
+  _wp_jd_target: http://msftplayground.com/2014/04/warm-up-form-based-web-application/
+  _jd_wp_twitter: 'a:1:{i:0;s:66:"New post: Warm Up Form Based Web Application http://bit.ly/1iqCEcU";}'
+  _wpt_status_message: Tweet sent successfully.
+  snapLI: s:292:"a:1:{i:0;a:9:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";}}";
+  _yoast_wpseo_focuskw_text_input: Web Application
+  _yoast_wpseo_focuskw: Web Application
+  _yoast_wpseo_linkdex: '73'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
+  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Web Application
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2014/04/warm-up-form-based-web-application/"
+---
+<p>Normal warm up scripts for SharePoint open a site object or web object and make a request to that specific site. When you use form based authentication and do not allow anonymous access, you would only warm up the login page.</p>
+<p>In order to warm up a application form based SharePoint site you would have to apply your credentials. All off this can be done by using PowerShell and specific COM objects. This script can then be scheduled with “<a href="http://technet.microsoft.com/en-us/library/cc721871.aspx">Task Scheduler</a>” that is included in windows.</p>
+<pre class="brush: powershell;">function Warm-FBASite{
+    [CmdletBinding()]
+    param (
+        [string] $RootUrl = $(Read-Host -prompt "Root Url"),
+        [string] $LoginUrl = $(Read-Host -prompt "Login Url"),
+        [string] $SiteUrl = $(Read-Host -prompt "Site Url"),
+        [string] $UserName = $(Read-Host -prompt "Username"),
+        [string] $Password = $(Read-Host -prompt "Password"),
+        [bool] $loggedIn = $(Read-Host -prompt "Already logged in")
+    )
+    $ieMain=New-Object -ComObject "InternetExplorer.Application";
+    if($loggedIn -ne $true){
+        Login-FBA -RootUrl $RootUrl -LoginUrl $LoginUrl -UserName $UserName -Password $Password -Browser $ieMain;
+    }
+    Navigate-Site -RootUrl $RootUrl -SiteUrl $SiteUrl;
+    $ieMain.Quit();
+
+}
+</pre>
+<p>The Warm-FBASite function is the main function that calls other functions. This function needs the following parameters:</p>
+<ul>
+<li><strong>RootUrl: </strong>The root URL of the application you would like to warm up.
+</li>
+<li><strong>LoginUrl:</strong> The relative URL to the login page.
+</li>
+<li><strong>SiteUrl: </strong>The relative URL to the site you would like to warm up.
+</li>
+<li><strong>UserName: </strong>The username off the forms user.
+</li>
+<li><strong>Password: </strong>The password off the forms user.
+</li>
+<li><strong>LogginIn: </strong>Boolean value whether the user has already been logged in.</li>
+</ul>
+<p>In this function we open a Com object of internet explorer and provide it as a parameter to the function “Login-FBA”.</p>
+<pre class="brush: powershell;">function Login-FBA{
+    [CmdletBinding()]
+    param (
+        [string] $RootUrl = $(Read-Host -prompt "Root Url"),
+        [string] $LoginUrl = $(Read-Host -prompt "Login Url"),
+        [string] $UserName = $(Read-Host -prompt "Username"),
+        [string] $Password = $(Read-Host -prompt "Password"),
+        $Browser = $(Read-Host -prompt "Browser")
+    )
+
+    $url = $RootUrl + $LoginUrl;
+
+    Write-Host "Trying to login the user:" $UserName " on the Url: " $url -ForegroundColor Green
+    $Browser.navigate($url);
+    $Browser.visible=$false;
+
+    if ((Wait-Browser $Browser -Url $url ) -eq $false){
+        Write-Host "Something went wrong with requesting the page";
+        return
+    }else{
+        $doc=$Browser.Document
+    }
+
+    $txtUsername=$doc.getElementByID("ctl00_PlaceHolderMain_signInControl_UserName"); #Replace by your own ID
+    $txtPassword=$doc.getElementByID("ctl00_PlaceHolderMain_signInControl_password"); #Replace by your own ID
+    $btnSubmit=$doc.getElementByID("ctl00_PlaceHolderMain_signInControl_login"); #Replace by your own ID
+    
+    $txtUsername.value=$UserName;
+    $txtPassword.value=$Password;
+    $btnSubmit.click();
+    if ((Wait-Browser $Browser -Url $url ) -eq $false){
+        return;
+    }
+}
+</pre>
+<p>This function tries to open the login page in the com object you send in the parameters. When this page is loaded it inserts the username and password in the login controls by finding these controls by there id.</p>
+<p>In this function you will have to insert your own Id’s of the username textbox, password textbox and submit button. In this function you also see a reference to the “Wait-Browser” function. This function is created to make sure the site you are requesting in the COM object is fully loaded.</p>
+<pre class="brush: powershell;">function Wait-Browser{
+    [CmdletBinding()]
+    param (
+            $Browser = $(Read-Host -prompt "Browser"),
+            $Url = $(Read-Host -prompt "Url")
+    )
+
+    $maxRetries=50;
+    $retry = 2;
+    $retryCount = 0;
+
+    while ($Browser.Busy -eq $true){  
+        Write-Host "Waiting for browser: " $URl  -ForeGroundColor Yellow;
+        
+        if ($retryCount -gt $maxRetries){
+            return $false;
+        }
+        
+        $retryCount++;
+        start-sleep $retry ;
+    } 
+
+    return $true;
+}
+</pre>
+<p>When the login request succeeds it is time to open the site and let that document load within the COM object. When the site is loaded it will write the page title to the PowerShell window.</p>
+<pre class="brush: powershell;">function Navigate-Site{
+    [CmdletBinding()]
+    param (
+        [string] $RootUrl = $(Read-Host -prompt "Root Url"),
+        [string] $SiteUrl = $(Read-Host -prompt "Site Url")
+    )
+
+    $url = $RootUrl + $SiteUrl;
+
+    $iePage=New-Object -ComObject "InternetExplorer.Application";
+    $iePage.navigate($url);
+    $iePage.visible=$false;
+    $retryCounter=0
+    
+     if ((Wait-Browser $iePage -Url $url ) -eq $false){
+        Write-Host "Something went wrong with requesting the page" -ForegroundColor Red;
+        return
+    }else{
+        $doc=$iePage.Document
+        Write-Host "Site Loaded: " $doc.title -ForegroundColor Green;
+    }
+
+    $iePage.Quit();    
+}
+</pre>
+<p> To make use of these functions you only have to add these functions in PowerShell and call the “Warm-FBASite” function just like below.</p>
+<pre class="brush: powershell;">Warm-FBASite -RootUrl "https://sharepointsite.com"  -LoginUrl "/_layouts/15/login.aspx" -SiteUrl "/client/35" -UserName "[form account name]" -Password "[password]" -LoggedIn $false;
+</pre>

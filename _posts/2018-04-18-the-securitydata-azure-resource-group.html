@@ -1,0 +1,98 @@
+---
+layout: post
+title: The securitydata Azure resource group
+date: 2018-04-18 21:15:21.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- Governance
+- Resource Group
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '3'
+  _yoast_wpseo_focuskw_text_input: Azure
+  _yoast_wpseo_focuskw: Azure
+  _yoast_wpseo_linkdex: '74'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_primary_category: ''
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapLI: s:228:"a:1:{i:0;a:8:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;}}";
+  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2JXseri";s:1:"t";s:73:"https://msftplayground.com/2018/04/the-securitydata-azure-resource-group/";s:1:"r";s:1:"B";}
+  snap_isAutoPosted: '1524082571'
+  _snapPHST: a:1:{s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:60:"https://twitter.com/maikvandergaag/status/986699937936236544";s:2:"id";s:18:"986699937936236544";s:1:"d";s:19:"2018-04-18
+    20:16:11";s:1:"w";s:1:"s";}}}}
+  snapTW: s:394:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"986699937936236544";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/986699937936236544";s:5:"pDate";s:19:"2018-04-18
+    20:16:11";}}";
+  _wpas_done_all: '1'
+  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
+  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2018/04/the-securitydata-azure-resource-group/"
+---
+<p>Most of the times companies have rules in place for managing their Azure environment. The main rules that should be in place are “Azure Policies” and naming conventions. Naming convention should be used to easily identify Azure resources and making consistency within the Azure Portal. These naming convention could then also be written up into policies to make sure everyone is being compliant.</p>
+<p>To get started with the naming conventions you can take a look at the following article of Microsoft:</p>
+<ul>
+<li><a title="https://docs.microsoft.com/en-us/azure/architecture/best-practices/naming-conventions" href="https://docs.microsoft.com/en-us/azure/architecture/best-practices/naming-conventions" target="_blank" rel="noopener">Naming conventions</a></li>
+</ul>
+<h2>Resource Group naming convention</h2>
+<p>Most of the time (depending on the subscription setup) I use the following naming convention for the resource groups:</p>
+<pre class="brush: bash;">&lt;environment&gt;-rg-&lt;shortname&gt;
+
+</pre>
+<p>With this naming convention I can easily identify the resource group and also know for which environment it is. In a project we used the Azure Security Advisor and saw a resource group named “securitydata” appearing with a storage account in it. To comply with the rules we deleted the resource group and saw it appearing a few hours later.</p>
+<p>&nbsp;</p>
+<h2>Removing the securitydata resource group</h2>
+<p>Because the group kept appearing we looked into another option. The security advisor uses the storage account for saving data it found during the data collection. If you look at the data collection blade of the security advisor you see that there are two options:</p>
+<ul>
+<li>Use workspaces created by Security Center (default).</li>
+<li>Use another workspace</li>
+</ul>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/04/clip_image001-1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Data Collection" src="{{ site.baseurl }}/assets/archive/2018/04/clip_image001_thumb-1.png" alt="Data Collection" width="428" height="305" border="0" /></a></p>
+<p>The first option makes use of the storage account and the second one is bound to a “OMS” workspace. We already had a OMS workspace within our subscription so we bound the data collection to that workspace. If you do not have a OMS workspace you can easily created (it is also a free service depending on the abilities you use).</p>
+<p>To get everything in place follow the below steps:</p>
+<ol>
+<li>Create a Log Analytics service (OMS) if you don’t have one.  Make sure that you apply the naming convention rule <img class="wlEmoticon wlEmoticon-winkingsmile" style="border-style: none;" src="{{ site.baseurl }}/assets/archive/2018/04/wlEmoticon-winkingsmile.png" alt="Winking smile" />.</li>
+<li>Navigate to the Security Advisor.</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/04/clip_image00110.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Security Advisor" src="{{ site.baseurl }}/assets/archive/2018/04/clip_image00110_thumb.png" alt="Security Advisor" width="71" height="303" border="0" /></a></p>
+<ol start="3">
+<li>Within the Security Advisor blade click on “Security Policy”.</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/04/clip_image00112.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Security Advisor Blade" src="{{ site.baseurl }}/assets/archive/2018/04/clip_image00112_thumb.png" alt="Security Advisor Blade" width="304" height="203" border="0" /></a></p>
+<ol start="4">
+<li>Click on the subscription for which you want to collect data.</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/04/clip_image00114.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="clip_image001[14]" src="{{ site.baseurl }}/assets/archive/2018/04/clip_image00114_thumb.png" alt="clip_image001[14]" width="463" height="135" border="0" /></a></p>
+<ol start="5">
+<li>On the data collection blade, bind the security advisor data collection to your OMS workspace.</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/04/clip_image00116.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Bind to OMS workspace" src="{{ site.baseurl }}/assets/archive/2018/04/clip_image00116_thumb.png" alt="Bind to OMS workspace " width="345" height="244" border="0" /></a></p>
+<ol start="6">
+<li>Save the changes</li>
+<li>In the “Pricing tier” blade check if the correct tier is selected.</li>
+<li>When done delete the “securitydata” resource group.</li>
+</ol>

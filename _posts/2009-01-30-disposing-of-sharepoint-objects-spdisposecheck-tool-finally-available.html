@@ -1,0 +1,55 @@
+---
+layout: post
+title: Disposing of SharePoint Objects (SPDisposeCheck tool Finally Available!)
+date: 2009-01-30 06:44:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- SharePoint
+- Tools
+tags:
+- Disposing
+- SPDisposeCheck
+- Tool
+meta:
+  _edit_last: '1'
+  _jd_tweet_this: 'yes'
+  _wp_jd_bitly: http://bit.ly/YPBpKM
+  _wp_jd_target: http://msftplayground.com/2009/01/disposing-of-sharepoint-objects-spdisposecheck-tool-finally-available/
+  _jd_wp_twitter: 'a:1:{i:0;s:106:"Post Edited: Disposing of SharePoint Objects (SPDisposeCheck
+    tool Finally Available!) http://bit.ly/YPBpKM";}'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '57'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/01/disposing-of-sharepoint-objects-spdisposecheck-tool-finally-available/"
+---
+<div class="ExternalClass165A29555D304EB1A77AA041EB5292DC">
+<p><em><strong>Update:</strong> A new version of the tool is available as you can read <a href="/2010/12/new-version-spdisposecheck/">here</a></em></p>
+<p>On the internet you can find several excellent articles on the various design patterns for disposing of SharePoint or WSS objects.<br />
+Some of these objects can cause serious memory leaks if you don’t use them correctly. Normally you have to take care of three different objects: SPSite, SPWeb and Publishing.</p>
+<p>There are a couple of White Papers available on MSDN that you can read about this subject:</p>
+<p><a href="http://msdn.microsoft.com/en-us/library/aa973248.aspx">Best Practices: Using Disposable Windows SharePoint Services Objects </a><br />
+<a href="http://msdn.microsoft.com/en-us/library/bb687949.aspx">Best Practices: Common Coding Issues When Using the SharePoint Object Model.</a></p>
+<p>Yesterday a tool was released for checking if you dispose of the objects in a correct way. The tool is called SPDisposeCheck. SPDisposeCheck is a tool to help you check your assemblies that use the SharePoint API so that you can build better code. The tool may not show all memory leaks and further investigation is advised if you continue to experience issues.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/spdisposecheck.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="spdisposecheck" alt="spdisposecheck" src="{{ site.baseurl }}/assets/archive/2009/01/spdisposecheck_thumb.png" width="240" height="162" border="0" /></a></p>
+<p>You can download SPDisposeCheck <a href="http://code.msdn.microsoft.com/SPDisposeCheck">here</a>.</p>
+<p>I checked the tool out by applying it to one of our project and we found 21 problems. We fixed those problems and we certainly saw an improvement. So try this tool out and let it help you with building better code.</p>
+</div>

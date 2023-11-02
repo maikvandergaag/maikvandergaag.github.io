@@ -1,0 +1,88 @@
+---
+layout: post
+title: Export existing Azure resources to Bicep
+date: 2021-12-29 17:11:07.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- bicep
+- biceplang
+meta:
+  _thumbnail_id: '6457'
+  _edit_last: '3'
+  snapLI: a:1:{i:0;a:1:{s:2:"do";s:1:"1";}}
+  snap_isAutoPosted: '1640790670'
+  snap_MYSURL: a:3:{s:1:"s";s:76:"https://msftplayground.com/2021/12/export-existing-azure-resources-to-bicep/";s:1:"t";s:76:"https://msftplayground.com/2021/12/export-existing-azure-resources-to-bicep/";s:1:"r";s:1:"B";}
+  _yoast_wpseo_primary_category: '323'
+  _yoast_wpseo_focuskw: Bicep
+  _yoast_wpseo_metadesc: Exporting resources to ARM was already possible. By using
+    Visual Studio Code it is now also possible to export to Bicep.
+  _yoast_wpseo_linkdex: '27'
+  _yoast_wpseo_content_score: '90'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _snapPHST: a:1:{s:2:"tw";a:1:{i:0;a:2:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1476209181757689857";s:2:"id";s:19:"1476209181757689857";s:1:"d";s:19:"2021-12-29
+    15:11:10";s:1:"w";s:1:"s";}i:1;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1476214603134775299";s:2:"id";s:19:"1476214603134775299";s:1:"d";s:19:"2021-12-29
+    15:32:42";s:1:"w";s:1:"a";}}}}
+  snapTW: s:397:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:26:"%TITLE% - %HTAGS%
+    - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1476214603134775299";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1476214603134775299";s:5:"pDate";s:19:"2021-12-29
+    15:32:42";}}";
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Bicep
+  _wds_title: ''
+  _wds_metadesc: Exporting resources to ARM was already possible. By using Visual
+    Studio Code it is now also possible to export to Bicep.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2021/12/export-existing-azure-resources-to-bicep/"
+---
+<p><!-- wp:paragraph --></p>
+<p>With the new release of Bicep (<a href="https://github.com/Azure/bicep/releases/tag/v0.4.1124" target="_blank" rel="noreferrer noopener">v0.4.1124</a>) it is now possible to export existing Azure resources to Bicep code. This means you do not have to export your resources to ARM and then do a decompile.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Exporting your existing resources is very easy and can be done within Visual Studio Code.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Get Resource ID</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>To be able to export the resource to Bicep you need to have the resource ID of the resource. You can find this resource very easily by opening the resource within Azure and opening the "properties" blade. One of the properties in this blade is the Resource ID</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6455,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/12/image.png" /><img src="{{ site.baseurl }}/assets/archive/2021/12/image-1024x46.png" alt="" class="wp-image-6455" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading --></p>
+<h2>Export Bicep</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>To export the template follow these steps:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<li>Open Visual Studio Code</li>
+<li>Open an existing "bicep" file or create a new one.</li>
+<li>Press ctrl+shift+p or open the command pallet.</li>
+<li>Search for "Bicep" and select the option "Insert resource".</li>
+<li>This will ask for the resource ID. Paste the resource ID and press enter.</li>
+<li>The resource is now imported within your Bicep file.</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"id":6457,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-full"><a href="https://msftplayground.com/wp-content/uploads/2021/12/insert-resource.gif" /><img src="{{ site.baseurl }}/assets/archive/2021/12/insert-resource.gif" alt="" class="wp-image-6457" /></figure>
+<p><!-- /wp:image --></p>

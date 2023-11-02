@@ -1,0 +1,96 @@
+---
+layout: post
+title: Custom Self Signed Certificate Identity Server
+date: 2016-10-31 20:39:48.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- Certificate
+- Identity Server
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  snap_isAutoPosted: '1'
+  _yoast_wpseo_focuskw_text_input: Identity Server
+  _yoast_wpseo_focuskw: Identity Server
+  _yoast_wpseo_linkdex: '58'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_primary_category: '23'
+  _wpas_done_all: '1'
+  _jetpack_dont_email_post_to_subs: '1'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:412:"a:1:{i:0;a:13:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doFB";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1788521738091818";s:5:"pDate";s:19:"2016-10-31
+    19:40:06";}}";
+  snapLI: s:555:"a:1:{i:0;a:14:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6198941427221749760";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=6198941427221749760&amp;type=U&amp;a=5-Ik";s:5:"pDate";s:19:"2016-10-31
+    19:40:07";}}";
+  snapTW: s:299:"a:1:{i:0;a:10:{s:2:"do";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE% -
+    %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:4:"doTW";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"793175741194207233";s:5:"pDate";s:19:"2016-10-31
+    19:40:08";}}";
+  rop_post_url_twitter: https://msftplayground.com/2016/10/custom-self-signed-certificate-identity-server/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
+  rop_post_url_facebook: https://msftplayground.com/2016/10/custom-self-signed-certificate-identity-server/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Identity Server
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2016/10/custom-self-signed-certificate-identity-server/"
+---
+<p>For Identity server to be able to sign the login request you can add a Test certificate from the Identity Server it self or you are able to generate a certificate your self.</p>
+<h2>Generate certificate</h2>
+<p>To generate a certificate compatible for Identity Server your self you can perform the following command in a “Developer Command Prompt”.</p>
+<pre class="brush: bash;">C:\Temp&gt;makecert -r -pe -n "CN=MSFTPlayground" -b 01/01/2015 -e 01/01/2099 -eku 1.3.6.1.5.5.7.3.3 -sky signature -a sha256 -len 2048 -ss Personal -sr LocalMachine
+</pre>
+<p>The command will generate a self signed certificate within your local computer certificate store.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/10/image_thumb48.png"><img title="image_thumb48" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image_thumb48" src="{{ site.baseurl }}/assets/archive/2016/10/image_thumb48_thumb.png" width="641" height="367" /></a></p>
+<p>Once generated you can export the certificate including the private key with the MMC-snapin.</p>
+<ol>
+<li>Open a Command Prompt window, in Administration Mode.
+</li>
+<li>Type <strong>mmc</strong> and press the ENTER key.
+</li>
+<li>On the <strong>File</strong> menu, click <strong>Add/Remove Snap In</strong>.
+</li>
+<li>Click <strong>Add</strong>.
+</li>
+<li>In the <strong>Add Standalone Snap-in</strong> dialog box, select <strong>Certificates</strong>.
+</li>
+<li>Click <strong>Add</strong>.
+</li>
+<li>In the <strong>Certificates snap-in</strong> dialog box, select <strong>Computer account</strong> and click <strong>Next</strong>.
+</li>
+<li>In the <strong>Select Computer</strong> dialog box, click <strong>Finish</strong>. (by default it will use “Local Computer”)
+</li>
+<li>In the <strong>Add Standalone Snap-in</strong> dialog box, click <strong>Ok</strong>. </li>
+</ol>
+<p>Within the Personal folder open the Certificates. Within that container you can see your certificate.</p>
+<h2></h2>
+<h2>PowerShell</h2>
+<p>As many of you may know the makecert application is deprecated. The new option to generate certificates is using PowerShell. With the method “New-SelfSignedCertificate” it is quite hard / pretty impossible to generate this kind of certificates.</p>
+<p><a href="https://social.technet.microsoft.com/profile/vadims%20podans/">Vadims Podans</a> created a helpful PowerShell extension for creating advanced certificates. The PowerShell extension can be downloaded from here:</p>
+<ul>
+<li><a title="https://gallery.technet.microsoft.com/scriptcenter/Self-signed-certificate-5920a7c6" href="https://gallery.technet.microsoft.com/scriptcenter/Self-signed-certificate-5920a7c6" target="_blank">Self-signed certificate generator (PowerShell)</a></li>
+</ul>
+<p>This will leaves you with implementing the following PowerShell script.</p>
+<pre class="brush: powershell;">.\New-SelfSignedCertificateEx.ps1
+
+New-SelfsignedCertificateEx -Subject "CN=MSFTPlayground" -EKU 1.3.6.1.5.5.7.3.3 -KeySpec "Signature" -KeyUsage "DigitalSignature" -SignatureAlgorithm "SHA256" -KeyLength 2048 -FriendlyName "MSFTPlayground Code Signing" -NotAfter $([System.DateTime]::Now.AddYears(15)) -Exportable
+</pre>

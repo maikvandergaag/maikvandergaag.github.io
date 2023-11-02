@@ -1,0 +1,51 @@
+---
+layout: post
+title: Access denied while crawling sites
+date: 2009-04-10 06:17:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+- SharePoint
+- Troubleshooting
+tags:
+- DisableLoopBackCheck
+- KB
+- SharePoint
+- Windows Server
+meta:
+  _yoast_wpseo_title: Access denied while crawling sites
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '68'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: Access denied while crawling sites
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/04/access-denied-while-crawling-sites/"
+---
+<div class="ExternalClassCC5573106E024988A02858163B244880">
+<p>Today I received the strangest error when I was configuring my SharePoint Virtual PC to crawl my websites. The crawler inserted a error for each web application containing the following text: Access Denied. </p>
+<p>Since this was a new environment and I certainly know that the accounts where set correctly I was a bit amassed about the fact it would give this error. Checking the default content access account rights in the “Policy for Web Application” in Central Administration I saw that is was set correctly to “Full Read”.</p>
+<p>I consulted one of my colleges but he also did not have an answer for this. The strange thing about all of this was that was a web application that was crawled. The difference between the application that was crawled and the other applications was that for the other applications I created a host name. The application that was crawled was using “Computername:Port number”. <br />After looking in de log files off SharePoint I found the following entry:</p>
+<p>Couldn’t retrieve server http://dev.motion10-dev.local policy, hr = 80041205 – File:d:\office\source\search\search\gather\protocols\sts3\sts3util.cxx Line:543</p>
+<p>Searching on this error with Google let me to a support page from Microsoft. The page states that when you are using Windows server 2003 SP1 or Windows XP SP2 authentication fails because Windows XP SP2 and Windows Server 2003 SP1 include a loopback check security feature that is designed to help prevent reflection attacks on your computer. Therefore, authentication fails if the FQDN or the custom host header that you use does not match the local computer name. <br />Poorly Microsoft states that this only occurs when you are using Windows Server 2003 SP1 or Windows XP SP2. As I found out it also occurs when you are working with Windows Server 2008!</p>
+<p>You can solve this problem by following one of the two solutions displayed below. I followed the second solution because I had this problem on a development machine. In a production environment I would have followed the first solution just like Microsoft recommends:</p>
+<p><strong>Solution 1:</strong> <br />1. Click Start, click Run, type regedit, and then click OK. <br />2. In Registry Editor, locate and then click the following registry key: <br />HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0 <br />3. Right-click MSV1_0, point to New, and then click Multi-String Value. <br />4. Type BackConnectionHostNames, and then press ENTER. <br />5. Right-click BackConnectionHostNames, and then click Modify. <br />6. In the Value data box, type the host name or the host names for the sites that are on the local computer, and then click OK. You do not have to use a separation character just separate then by pressing enter. <br />7. Quit Registry Editor, and then restart the IISAdmin service.</p>
+<p><strong>Solution 2:</strong> <br />1. Click Start, click Run, type regedit, and then click OK. <br />2. In Registry Editor, locate and then click the following registry key: <br />3. HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa <br />4. Right-click Lsa, point to New, and then click DWORD Value. <br />5. Type DisableLoopbackCheck, and then press ENTER. <br />6. Right-click DisableLoopbackCheck, and then click Modify. <br />7. In the Value data box, type 1, and then click OK. <br />8. Quit Registry Editor, and then restart your computer.</p>
+<p>You can read the complete Microsoft Support Page here: <a href="http://support.microsoft.com/kb/896861">http://support.microsoft.com/kb/896861</a></p>
+</div>

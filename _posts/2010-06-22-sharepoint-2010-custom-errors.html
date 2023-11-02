@@ -1,0 +1,57 @@
+---
+layout: post
+title: SharePoint 2010 Custom Errors
+date: 2010-06-22 06:50:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- SharePoint
+- Troubleshooting
+tags:
+- SharePoint 2010
+- web.config
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '70'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2010/06/sharepoint-2010-custom-errors/"
+---
+<div class="ExternalClass04F3CA322B8F4D2CAE561D8CA41C71AF">
+<p>About a year ago I wrote a <a href="/2008/04/disabling-sharepoint-errors-an-unexpected-error-has-occurred/">article</a> on deactivating the custom errors off SharePoint 2007. That had to be done in the following manner:</p>
+<p><strong>Step 1:</strong></p>
+<p>Change</p>
+<pre class="brush: xml;">&lt;SafeMode MaxControls="200" CallStack="false" &gt;</pre>
+<p>to
+<pre class="brush: xml;">&lt;SafeMode MaxControls="200" CallStack="true" &gt;</pre>
+<p><strong>Step 2:</strong>
+<pre class="brush: xml;">&lt;customerrors mode="Off" /&gt;</pre>
+<p>If you do this on a SharePoint 2010 installation you will still get the following error:</p>
+<p>&nbsp;<span style="font-size: medium; color: #ff0000">Server Error in '/' Application. </span></p>
+<hr size="1" />
+<em>Runtime Error</em> <strong>Description</strong>: An application error occurred on the server. The current custom error settings for this application prevent the details of the application error from being viewed. </p>
+<p><strong>Details</strong>: To enable the details of this specific error message to be viewable on the local server machine, please create a tag within a "web.config" configuration file located in the root directory of the current web application. This tag should then have its "mode" attribute set to "RemoteOnly". To enable the details to be viewable on remote machines, please set "mode" to "Off". </p>
+<p>This errors states that you did not make the change. This is because there is another web.config file that is being loaded. This file can be found in the following location:</p>
+<p>&nbsp;<em>C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\TEMPLATE\LAYOUTS\web.config</em></p>
+<p>If you change this file you will be able to see the .net errors. If you would like to see custom errors on Central Administration you will also have to change the web.config file in the admin folder off the 14 hive:</p>
+<p>&nbsp;<em>C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\14\TEMPLATE\ADMIN\web.config</em></p>
+<p>Happy Coding.</p>
+<pre></pre>
+</div>

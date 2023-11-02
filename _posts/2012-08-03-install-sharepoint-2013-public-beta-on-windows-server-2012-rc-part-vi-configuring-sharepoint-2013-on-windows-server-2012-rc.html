@@ -1,0 +1,616 @@
+---
+layout: post
+title: Install SharePoint 2013 Public Beta on Windows Server 2012 RC &ndash; Part
+  VI &ndash; Configuring SharePoint 2013 on Windows Server 2012 RC
+date: 2012-08-03 07:24:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+tags:
+- Configuration
+- SharePoint 2013
+- Windows Server 2012
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint 2013
+  _yoast_wpseo_focuskw: SharePoint 2013
+  _yoast_wpseo_linkdex: '66'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint 2013
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2012/08/install-sharepoint-2013-public-beta-on-windows-server-2012-rc-part-vi-configuring-sharepoint-2013-on-windows-server-2012-rc/"
+---
+<div class="ExternalClass60B652077A4143FA86965C6B5EC0F18F">
+<p>Last week we finished the installation of SharePoint 2013. For us to test the new version off SharePoint we still have to do some configuration.</p>
+<p>The first thing we will do is creating a couple of service accounts that we will use to create Service Application and Web Applications.</p>
+<p>Open Active Directory Users or Computer by doing the following:</p>
+<ol>
+<li>Go to the Start Menu by using the Windows button or by going to the low left corner with your mouse.  </li>
+<li>With the Start Menu open select “Active Directory Users and Computers”. </li>
+</ol>
+<p>Open the Users OU and use your other mouse button to add a new user. When you have the “New Object - User” window open create the following user.</p>
+<table cellspacing="0" cellpadding="2" width="517" border="0">
+<tbody>
+<tr>
+<td valign="top" width="100"><strong>First name</strong></td>
+<td valign="top" width="100"><strong>Last name</strong></td>
+<td valign="top" width="185"><strong>User Logon name</strong></td>
+<td valign="top" width="130"><strong>User logon name</strong></td>
+</tr>
+<tr>
+<td valign="top" width="100">SharePoint</td>
+<td valign="top" width="100">Application Pool</td>
+<td valign="top" width="185">svc_spapppool</td>
+<td valign="top" width="130">svc_spapppool</td>
+</tr>
+<tr>
+<td valign="top" width="100">SharePoint</td>
+<td valign="top" width="100">Services</td>
+<td valign="top" width="185">svc_spservices</td>
+<td valign="top" width="130">svc_spservices</td>
+</tr>
+<tr>
+<td valign="top" width="100">SharePoint</td>
+<td valign="top" width="100">Search</td>
+<td valign="top" width="185">svc_spsearch</td>
+<td valign="top" width="130">svc_spsearch</td>
+</tr>
+<tr>
+<td valign="top" width="100">SharePoint</td>
+<td valign="top" width="100">Content Access</td>
+<td valign="top" width="185">spcontentaccess</td>
+<td valign="top" width="130">spcontentaccess</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>Make sure you select the options, for all of the accounts:</p>
+<ul>
+<li>User cannot change password.  </li>
+<li>Password never expires. </li>
+</ul>
+<p>For us to create a new site we will also have to register a url within the DNS (You can also do this within your host file).&nbsp; To alter the DNS configuration do the following:</p>
+<ol>
+<li>Go to the Start Menu by using the Windows button or by going to the low left corner with your mouse.  </li>
+<li>With the Start Menu open select “DNS”. </li>
+</ol>
+<p>Select the forward lookup zone of your domain and add a new A Host record. For this machine I chose the following domain: sp2013.dev.local.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-DNS-Entry.png"><img title="SharePoint-2013---DNS-Entry" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---DNS-Entry" src="{{ site.baseurl }}/assets/archive/2012/08/SharePoint-2013-DNS-Entry_thumb.png" width="240" height="202" /></a></p>
+<p>For us to access this URL this machine we will also have to disable the LoopBackCheck, this is because Windows Server 2012 also had the same security enabled as Windows Server 2008 R2. To disable the LoopBackCheck check this blog post:</p>
+<p><a title="http://msftplayground.com/Lists/Posts/Post.aspx?ID=52" href="/2009/04/access-denied-while-crawling-sites/">http://msftplayground.com/2009/04/access-denied-while-crawling-sites/</a></p>
+<p>Now that we have done these configurations we can start with the last configuration steps off SharePoint. First off we will create some managed accounts:</p>
+<p><strong>Create Managed Accounts</strong></p>
+<p>To create managed accounts follow the following steps:</p>
+<ol>
+<li>Open “Central Administration”  </li>
+<li>Go to the Security section.  </li>
+<li>Select “Configure Managed Accounts”&nbsp; under “General Security”.  </li>
+<li>Then add managed accounts for all the accounts we created in the AD besides the spcontentaccess account. </li>
+</ol>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-Managed-Accounts.png"><img title="SharePoint-2013---Managed-Accounts" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---Managed-Accounts" src="{{ site.baseurl }}/assets/archive/2012/08/SharePoint-2013-Managed-Accounts_thumb.png" width="355" height="299" /></a></p>
+<p>With the managed accounts in place it is time to create our web application.</p>
+<p><strong>Create Web Application</strong></p>
+<p>To create a new web application follow these steps:</p>
+<ol>
+<li>With “Central Administration” opened go to the “Application Management” section.  </li>
+<li>Select “Manage web applications”.  </li>
+<li>On the toolbar select “New”&nbsp; within the toolbar.  </li>
+<li>Create the web application with the following information. </li>
+</ol>
+<table cellspacing="0" cellpadding="2" width="400" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">IIS Web Site</td>
+<td valign="top" width="200">Create a new IIS web site. <br /><strong>Name:</strong> SharePont – SP2013 <br /><strong>Port:</strong>80 <br /><strong>Host Header:</strong> sp2013.dev.local <br /><strong>Path:</strong> Keep the default value</td>
+</tr>
+<tr>
+<td valign="top" width="200">Security Configuration</td>
+<td valign="top" width="200"><strong>Allow Anonymous:</strong>false <br /><strong>Use Secure Sockets Layer(SSL): </strong>false</td>
+</tr>
+<tr>
+<td valign="top" width="200">Claims Authentication Type</td>
+<td valign="top" width="200">Integrated Windows Authentication: NTLM</td>
+</tr>
+<tr>
+<td valign="top" width="200">Sign In Page Url</td>
+<td valign="top" width="200">Default Sign In Page</td>
+</tr>
+<tr>
+<td valign="top" width="200">Public Url</td>
+<td valign="top" width="200"><strong>URL: </strong>http://sp2013.dev.local:80 <br /><strong>Zone: </strong>Default</td>
+</tr>
+<tr>
+<td valign="top" width="200">Application Pool</td>
+<td valign="top" width="200">Create new application pool: <br /><strong>Name:</strong> SharePoint Web Application <br /><strong>Configurable:</strong> DEV\sp_spapppool</td>
+</tr>
+<tr>
+<td valign="top" width="200">Database Name and Authentication</td>
+<td valign="top" width="200"><strong>Database Server:</strong> SQL2012_SP <br /><strong>Database Name:</strong> WSS_Content_2013 <br />Windows Authentication</td>
+</tr>
+<tr>
+<td valign="top" width="200">Service Application Connections</td>
+<td valign="top" width="200">Default</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>Press ‘Ok’ to create the web application.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-New-Web-Applciation-Waiting.png"><img title="SharePoint-2013---New-Web-Applciation---Waiting" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---New-Web-Applciation---Waiting" src="{{ site.baseurl }}/assets/archive/2012/08/SharePoint-2013-New-Web-Applciation-Waiting_thumb.png" width="379" height="319" /></a></p>
+<p>When the web application is created we will define some managed paths to create site collections.</p>
+<p><strong>Define Managed Paths</strong></p>
+<ol>
+<li>With “Central Administration” opened go to the “Application Management” section.  </li>
+<li>Select “Manage web applications”.  </li>
+<li>Select the web application for which you want to define the managed paths.  </li>
+<li>On the toolbar select “Managed Paths” within the toolbar.  </li>
+<li>In the Define Managed Paths window add the following Managed Paths: </li>
+</ol>
+<table cellspacing="0" cellpadding="2" width="400" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Path</strong></td>
+<td valign="top" width="200"><strong>Type</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">personal</td>
+<td valign="top" width="200">Explicit</td>
+</tr>
+<tr>
+<td valign="top" width="200">hub</td>
+<td valign="top" width="200">Explicit</td>
+</tr>
+<tr>
+<td valign="top" width="200">content</td>
+<td valign="top" width="200">Explicit</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>With the Managed Paths in place it is time to create a few site collections.</p>
+<p><strong>Create Site Collections</strong></p>
+<p>First off we will create a MySite host site collection. To start creating site collections follow these steps:</p>
+<ol>
+<li>With “Central Administration” opened go to the “Application Management” section.  </li>
+<li>Select "Create Site Collections"  </li>
+<li>Make the site collection with the following information: </li>
+</ol>
+<table cellspacing="0" cellpadding="2" width="400" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Web Application</td>
+<td valign="top" width="200">Make sure the right web application is selected</td>
+</tr>
+<tr>
+<td valign="top" width="200">Title and Description</td>
+<td valign="top" width="200"><strong>Title: </strong>SP2013 MySite <br /><strong>Description:</strong> MySite Host</td>
+</tr>
+<tr>
+<td valign="top" width="200">Web Site Address</td>
+<td valign="top" width="200"><strong>Url: </strong>http://sp2013.dev.local/personal </td>
+</tr>
+<tr>
+<td valign="top" width="200">Template Selection</td>
+<td valign="top" width="200">Enterprise - My Site Host</td>
+</tr>
+<tr>
+<td valign="top" width="200">Site Collection Administrators</td>
+<td valign="top" width="200">Choose the users you want to administrator the site collection. For this machine we will use dev\spadmin</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>Creating a site collection with these settings will create a my site host. We will also create a Team site and a Hub site.</p>
+<p>Settings for the Hub site</p>
+<table cellspacing="0" cellpadding="2" width="402" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Web Application</td>
+<td valign="top" width="200">Make sure the right web application is selected</td>
+</tr>
+<tr>
+<td valign="top" width="200">Title and Description</td>
+<td valign="top" width="200"><strong>Title: </strong>SP2013 Hub <br /><strong>Description:</strong> Hub Host</td>
+</tr>
+<tr>
+<td valign="top" width="200">Web Site Address</td>
+<td valign="top" width="200"><strong>Url: </strong>http://sp2013.dev.local/hub </td>
+</tr>
+<tr>
+<td valign="top" width="200">Template Selection</td>
+<td valign="top" width="200">Enterprise - My Site Host</td>
+</tr>
+<tr>
+<td valign="top" width="200">Site Collection Administrators</td>
+<td valign="top" width="200">Choose the users you want to administrator the site collection. For this machine we will use dev\spadmin</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>Settings for the Team site</p>
+<table cellspacing="0" cellpadding="2" width="402" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Web Application</td>
+<td valign="top" width="200">Make sure the right web application is selected</td>
+</tr>
+<tr>
+<td valign="top" width="200">Title and Description</td>
+<td valign="top" width="200"><strong>Title: </strong>SP2013 <br /><strong>Description:</strong> Team site</td>
+</tr>
+<tr>
+<td valign="top" width="200">Web Site Address</td>
+<td valign="top" width="200"><strong>Url: </strong>http://sp2013.dev.local/</td>
+</tr>
+<tr>
+<td valign="top" width="200">Template Selection</td>
+<td valign="top" width="200">Enterprise - My Site Host</td>
+</tr>
+<tr>
+<td valign="top" width="200">Site Collection Administrators</td>
+<td valign="top" width="200">Choose the users you want to administrator the site collection. For this machine we will use dev\spadmin</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>With the site collections in place we can start creating the several Service Applications.</p>
+<p><strong>Create User Profile Service&nbsp; Application</strong></p>
+<p>To create a User Profile Service Application follow the following steps:</p>
+<ol>
+<li>With “Central Administration” opened go to the “Application Management” section.  </li>
+<li>Select “Manage Service Applications”.  </li>
+<li>On the toolbar select "New"&nbsp; and select "User Profile Service Application"  </li>
+<li>Create the Application with the following settings. </li>
+</ol>
+<table cellspacing="0" cellpadding="2" width="400" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Name</td>
+<td valign="top" width="200">User Profile Service Application</td>
+</tr>
+<tr>
+<td valign="top" width="200">Application Pool</td>
+<td valign="top" width="200">Create new application pool: <br /><strong>Application pool name: <br /></strong>SharePoint Service Application Pool <br /><strong>Configurable: </strong>DEV\svc_spservices</td>
+</tr>
+<tr>
+<td valign="top" width="200">Synchronization Database</td>
+<td valign="top" width="200"><strong>Database Server:</strong> SQL2012_SP <br /><strong>Database Name: </strong>Sync_DB</td>
+</tr>
+<tr>
+<td valign="top" width="200">Profile Database</td>
+<td valign="top" width="200"><strong>Database Server:</strong> SQL2012_SP <br /><strong>Database Name: </strong>Profile_DB</td>
+</tr>
+<tr>
+<td valign="top" width="200">Social Tagging Database</td>
+<td valign="top" width="200"><strong>Database Server:</strong> SQL2012_SP <br /><strong>Database Name:</strong> Social_DB</td>
+</tr>
+<tr>
+<td valign="top" width="200">Profile Synchronization Instance</td>
+<td valign="top" width="200">DEV_BETA</td>
+</tr>
+<tr>
+<td valign="top" width="200">My Site Host Url</td>
+<td valign="top" width="200">http://sp2013.dev.local/personal </td>
+</tr>
+<tr>
+<td valign="top" width="200">My Site Managed Paths</td>
+<td valign="top" width="200">/content</td>
+</tr>
+<tr>
+<td valign="top" width="200">Site Naming Format</td>
+<td valign="top" width="200">User name</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><strong>Create Managed Metadata service Application </strong></p>
+<p>The following service application we will be creating is the Managed Metadata Service Application.</p>
+<p>Follow these steps:</p>
+<ol>
+<li>With “Central Administration” opened go to the “Application Management” section.  </li>
+<li>Select “Manage Service Applications”.  </li>
+<li>On the toolbar select "New" and select "Managed Metadata service application"  </li>
+<li>Create the Application with the following settings. </li>
+</ol>
+<table cellspacing="0" cellpadding="2" width="402" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Name</td>
+<td valign="top" width="200">Managed Metadata Service</td>
+</tr>
+<tr>
+<td valign="top" width="200">Database</td>
+<td valign="top" width="200"><strong>Database Server:</strong> SQL2012_SP <br /><strong>Database Name: </strong>SharePoint_Managed_Metadata</td>
+</tr>
+<tr>
+<td valign="top" width="200">Application Pool</td>
+<td valign="top" width="200">Use existing application pool: <br /><strong>Application pool name: <br /></strong>SharePoint Service Application Pool</td>
+</tr>
+<tr>
+<td valign="top" width="200">Content Type Hub</td>
+<td valign="top" width="200">http://sp2013.dev.local/hub <br />Select, Report Syndication import errors from site collections using this service application.</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><strong>Create App Management Service Application</strong></p>
+<p>Next up is a new service application called “App Management Service Application”. This service application will give you the ability to manage the new App solutions that are build into SharePoint 2013.</p>
+<p>Follow these steps to create this service application:</p>
+<ol>
+<li>With “Central Administration” opened go to the “Application Management” section.  </li>
+<li>Select “Manage Service Applications”.  </li>
+<li>On the toolbar select "New" and select "App Management Service"  </li>
+<li>Create the Application with the following settings. </li>
+</ol>
+<table cellspacing="0" cellpadding="2" width="402" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Name</td>
+<td valign="top" width="200">App Management Service Application</td>
+</tr>
+<tr>
+<td valign="top" width="200">Database</td>
+<td valign="top" width="200"><strong>Database Server:</strong> SQL2012_SP <br /><strong>Database Name: </strong>App_Managed_DB</td>
+</tr>
+<tr>
+<td valign="top" width="200">Application Pool</td>
+<td valign="top" width="200">Use existing application pool: <br /><strong>Application pool name: <br /></strong>SharePoint Service Application Pool</td>
+</tr>
+<tr>
+<td valign="top" width="200">Create App Management Service Application Proxy</td>
+<td valign="top" width="200">Select, create App Management Service Application Proxy and add it to the default proxy group.</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><strong>Create Business Data Connectivity Service Application</strong></p>
+<p>A service application that was also in SharePoint 2010 is the BDC Application.</p>
+<p>Follow these steps to create it:</p>
+<ol>
+<li>With “Central Administration” opened go to the “Application Management” section.  </li>
+<li>Select “Manage Service Applications”.  </li>
+<li>On the toolbar select "New" and select “Business Data Connectivity Service Application"  </li>
+<li>Create the Application with the following settings. </li>
+</ol>
+<table cellspacing="0" cellpadding="2" width="402" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Name</td>
+<td valign="top" width="200">Business Data Connectivity Service Application</td>
+</tr>
+<tr>
+<td valign="top" width="200">Database</td>
+<td valign="top" width="200"><strong>Database Server:</strong> SQL2012_SP <br /><strong>Database Name: </strong>BDC_Service_DB</td>
+</tr>
+<tr>
+<td valign="top" width="200">Application Pool</td>
+<td valign="top" width="200">Use existing application pool: <br /><strong>Application pool name: <br /></strong>SharePoint Service Application Pool</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>When I was creating this service application I received multiple errors. Even when I retried to create at went wrong with the same errors. When I checked the application everything looked fine and seem to be working correctly.</p>
+<p><strong>Create Machine Translation Service Application</strong></p>
+<p>Another new Service Application is the Machine Translation Service Application. This application give you the option to translate all kind off documents. The texts that are in the documents will be translated by the online Bing translation services.</p>
+<p>To create this application use the following steps:</p>
+<ol>
+<li>With “Central Administration” opened go to the “Application Management” section.  </li>
+<li>Select “Manage Service Applications”.  </li>
+<li>On the toolbar select "New" and select “Machine Translation Service Application"  </li>
+<li>Create the Application with the following settings. </li>
+</ol>
+<table cellspacing="0" cellpadding="2" width="402" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Name</td>
+<td valign="top" width="200">Machine Translation Service Application</td>
+</tr>
+<tr>
+<td valign="top" width="200">Application Pool</td>
+<td valign="top" width="200">Use existing application pool: <br /><strong>Application pool name: <br /></strong>SharePoint Service Application Pool</td>
+</tr>
+<tr>
+<td valign="top" width="200">Partition mode</td>
+<td valign="top" width="200">Don’t select this option.</td>
+</tr>
+<tr>
+<td valign="top" width="200">Add to default proxy list</td>
+<td valign="top" width="200">Select this option to add it to the default proxy list.</td>
+</tr>
+<tr>
+<td valign="top" width="200">Database</td>
+<td valign="top" width="200"><strong>Database Server:</strong> SQL2012_SP <br /><strong>Database Name: </strong>Machine_Translation_Service_DB</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><strong>Create Search Service Application</strong></p>
+<p>The Search Service Application is the next service application we will create. There changed a couple off small things to the search service application but creating is still the same.</p>
+<p>Follow these steps:</p>
+<ol>
+<li>With “Central Administration” opened go to the “Application Management” section.  </li>
+<li>Select “Manage Service Applications”.  </li>
+<li>On the toolbar select "New" and select “Search Service Application"  </li>
+<li>Create the Application with the following settings. </li>
+</ol>
+<table cellspacing="0" cellpadding="2" width="402" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Name</td>
+<td valign="top" width="200">Search Service Application</td>
+</tr>
+<tr>
+<td valign="top" width="200">Search Service Account</td>
+<td valign="top" width="200">DEV\svc_spsearch</td>
+</tr>
+<tr>
+<td valign="top" width="200">Application Pool for Search Admin Web Service</td>
+<td valign="top" width="200">Create New Application Pool. <br /><strong>Application pool name: <br /></strong>SharePoint – Admin Search Service. <br />Configurable: DEV\svc_spsearch</td>
+</tr>
+<tr>
+<td valign="top" width="200">Application Pool for Search Query &amp; Site Settings Web Service</td>
+<td valign="top" width="200">Create New Application Pool. <br /><strong>Application pool name: <br /></strong>SharePoint – Query and Site Settings Pool. <br />Configurable: DEV\svc_spsearch</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><strong>Create Secure Store Service</strong></p>
+<p>We will also create a Secure Store Service for when we would like to test connections to other systems like CRM.</p>
+<p>Follow these steps to create the application:</p>
+<ol>
+<li>With “Central Administration” opened go to the “Application Management” section.  </li>
+<li>Select “Manage Service Applications”.  </li>
+<li>On the toolbar select "New" and select “Secure Store Service Application"  </li>
+<li>Create the Application with the following settings. </li>
+</ol>
+<table cellspacing="0" cellpadding="2" width="402" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Name</td>
+<td valign="top" width="200">Secure Store Service Application</td>
+</tr>
+<tr>
+<td valign="top" width="200">Database</td>
+<td valign="top" width="200"><strong>Database Server:</strong> SQL2012_SP <br /><strong>Database Name: </strong>Secure_Store_Service_DB</td>
+</tr>
+<tr>
+<td valign="top" width="200">Application Pool</td>
+<td valign="top" width="200">Use existing application pool: <br /><strong>Application pool name: <br /></strong>SharePoint Service Application Pool</td>
+</tr>
+<tr>
+<td valign="top" width="200">Enable audit</td>
+<td valign="top" width="200">Enable the audit log and set the days until purge to 30.</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><strong>Create Work Management Service</strong></p>
+<p>The work management service is the last service application we will create trough the UI. This is also one off the new service applications. The work management service application will give users the ability to edit and change there tasks on one single place within the SharePoint farm. This service will take care of changing values on other places and aggregating the tasks. One off the great things it is also possible to synchronize exchange tasks!!!</p>
+<p>To create the Work Management Service follow these steps:</p>
+<ol>
+<li>With “Central Administration” opened go to the “Application Management” section.  </li>
+<li>Select “Manage Service Applications”.  </li>
+<li>On the toolbar select "New" and select “Work management Service Application"  </li>
+<li>Create the Application with the following settings. </li>
+</ol>
+<table cellspacing="0" cellpadding="2" width="402" border="0">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Setting</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Name</td>
+<td valign="top" width="200">Work Management Service Application</td>
+</tr>
+<tr>
+<td valign="top" width="200">Application Pool</td>
+<td valign="top" width="200">Use existing application pool: <br /><strong>Application pool name: <br /></strong>SharePoint Service Application Pool</td>
+</tr>
+<tr>
+<td valign="top" width="200">Service Application Proxy</td>
+<td valign="top" width="200">Select create proxy for this service application.</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>This were all off the service application we will create trough the UI will will have to create the State Service Application with PowerShell.</p>
+<p><strong>Create State Service application with PowerShell</strong></p>
+<ol>
+<li>Run the “SharePoint 2013 Management Shell” as Administrator.  </li>
+<li>Type: “New-SPStateServiceApplication”  </li>
+<li>Next enter the name for the service application “Name : State Service Application” </li>
+</ol>
+<p>With all the Service applications in place we will perform a IISReset make sure that all settings are refreshed.</p>
+<p>After the IISReset we can start the service by going to the following screen:</p>
+<ol>
+<li>Open “Central Administration”  </li>
+<li>Select “Application Management”  </li>
+<li>Then select “Manage services on server” </li>
+</ol>
+<p>With the Services screen open start the following services:</p>
+<ul>
+<li>App Management Service  </li>
+<li>Business Data Connectivity Service  </li>
+<li>Claims to Windows Token Service  </li>
+<li>Machine Translation Service  </li>
+<li>Managed Metadata Web Service  </li>
+<li>Request Management  </li>
+<li>Secure Store Service  </li>
+<li>User Profile Service  </li>
+<li>Work Management Service </li>
+</ul>
+<p>When these services are started we will make the farm account (svc_spfarm) local administrator. This is because off the same problem with SharePoint 2010.</p>
+<p>To make the svc_spfarm account local administrator do the following:</p>
+<p>Open Active Directory Users or Computer by doing the following:</p>
+<ol>
+<li>Go to the Start Menu by using the Windows button or by going to the low left corner with your mouse.  </li>
+<li>With the Start Menu open select “Active Directory Users and Computers”.  </li>
+<li>With Active Directory Users and Computers open open the domain and select the Builtin OU.  </li>
+<li>Within the Builtin OU find the administrators group and add the farm account to it. </li>
+</ol>
+<p>Perform a reset off your VM to reset the security of the farm account. Then go back the “Manage services on server” and start the “User Profile Synchronization Service”.</p>
+<p>When you will start this service you will have to connect it to a Service Application. Connect it to the User Profile Service application we created above.</p>
+<p>With all these service applications and web applications in place you have a great environment to start testing SharePoint 2013. If you have any further question just leave a comment and I will get back to you!!</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-2013-SP2013-Site-Colleciton.png"><img title="SharePoint-2013---SP2013-Site-Colleciton" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="SharePoint-2013---SP2013-Site-Colleciton" src="{{ site.baseurl }}/assets/archive/2012/08/SharePoint-2013-SP2013-Site-Colleciton_thumb.png" width="419" height="353" /></a></p>
+</div>

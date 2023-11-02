@@ -1,0 +1,261 @@
+---
+layout: post
+title: 'Scheduling SharePoint Backup : Part 2'
+date: 2009-02-06 06:38:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+tags:
+- Backup
+- Schedule
+- SharePoint 2007
+- VBScript
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Scheduling
+  _yoast_wpseo_focuskw: Scheduling
+  _yoast_wpseo_linkdex: '75'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Scheduling
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/02/scheduling-sharepoint-backup-part-2/"
+---
+<div class="ExternalClass73FC825636C64EF596B832A67662238B">A while ago I posted a <a href="/2008/12/scheduling-sharepoint-backup/">SharePoint Backup script</a> so that it is possible to schedule a SharePoint Backup. I had to make some adjustments to the script because it contains small errors. The adjustments I had to make were:
+<ul>
+<li>When you perform multiple differential backups in a week you will receive multiple e-mails for one backup.  </li>
+<li>I have created more properties so that you can alter the script from the top.  </li>
+<li>You do not have to delete a method when you choose the differential backup method  </li>
+<li>I cleaned the script up a little bit.</li>
+</ul>
+<pre class="brush: powershell;"> ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+ ''SharePoint Backup Script
+ ''
+ ''This is a VBScript for scheduling the SharePoint backup.
+ ''The script has the ability to be scheduled as an differential
+ ''backup or a full backup. This script will also send an email
+ ''when the job is finished.
+ ''
+ ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+ ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+ ''declaration off constants that are needed to perform the backup
+ ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+ 'email address from
+ Const strFrom = ""
+
+ 'email address to
+ Const strTo = ""
+
+ 'email subject timeout
+ Const strSubjectTimeOut = "Sharepoint Backup Process - Time Out"
+
+ 'message for the time out
+ Const strTimeOutMessage = "The SharePoint backup process has been running for over 60 minutes. Please check the progress of the backup. To make sure everything is going as it should be going."
+
+ 'email subject failed
+ Const strSubjectFailes = "Sharepoint Backup Process - Failed"
+
+ 'email message failed
+ Const strFailedMessage = "The SharePoint Backup Process failed with errors. Please check the errors and run the backup process again."
+
+ 'email subject success
+ Const strSubjectSucceeded = "Sharepoint Backup Process - Succeeded"
+
+ 'email message success
+ Const strSucceededMessage = "The SharePoint Backup Process completed without errors."
+
+ 'backup enviroment
+ Const strEnviroment = "Intranet"
+
+ 'url off the mail server
+ Const strMailserver = ""
+
+ 'backup location, this has to be a shared drive
+ Const strBackUpDir = ""
+
+ 'backupmethod full or differential
+ Const strBackUpMethod = "differential"
+
+ ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+ ''Beginning the backup process
+ ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+ 'object for checking succeeded update
+ bool = "false"
+
+ 'create windows shell object
+ Set objShell = CreateObject("WScript.Shell")
+
+ if strBackUpMethod = "full" Then
+     Call ClearFolder(strBackUpDir)
+ End If
+
+ 'retrieve the 12hive from sharepoint from the registery
+ strMossPath = objShell.RegRead ("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Shared Tools\Web Server Extensions\12.0\Location") &amp; "BIN\"
+
+ 'Define the path off the sharepoint location. This will point to the file with specific information about the backup.
+ SharPointBackupRestoreTable = strBackUpDir &amp; "\spbrtoc.xml"
+
+ 'Ensure that we run in the sharepoint folder
+ objShell.CurrentDirectory = strMossPath
+
+ 'Execute the stsadm backup command
+ objShell.Exec ("stsadm -o backup -directory " &amp; strBackUpDir &amp; " -backupmethod " &amp; strBackUpMethod &amp; " ")
+
+ ' This Do loop checks the status of the backup process every minute.
+ ' If the backup process hasn't completed within 60 minutes an email is sent to the
+ ' Sharepoint administrator notifying him/her about this, otherwise an email is sent
+ ' notifying the SharePoint Administrator of the outcome of the backup
+ Do
+
+ loopCounter = loopCounter + 1
+
+ If count &gt; 60 Then
+ 'Send the e-mail that it took 60 minutes
+ Call SendEmail(strSubject, strTimeOutMessage, strEnviroment)
+ End If
+ ' Wait for 1 minute
+ WScript.Sleep 60000
+
+ ' Check if the backup process (i.e. stsadm.exe) is currently running
+ strComputer = "."
+ Set objWMIService = GetObject("winmgmts:{impersonationLevel=impersonate}!\\" &amp; strComputer &amp; "\root\cimv2")
+ Set sharepointProcess = objWMIService.ExecQuery ("Select * from Win32_Process Where Name = 'stsadm.exe'")
+
+ If (sharepointProcess.count) = 0 Then
+ 'Backup process has ended therefore check the SharePoint Backup Restore Table to analyse the outcome of the backup
+ Set objXMLDoc = CreateObject("Microsoft.XMLDOM")
+ objXMLDoc.async = False
+ objXMLDoc.load(SharPointBackupRestoreTable)
+ Set NodeList = objXMLDoc.documentElement.selectNodes("//SPErrorCount")
+ 'check each node
+ For Each Node In NodeList
+ If (Node.text) &lt;&gt; "0" Then
+ bool = "false"
+ Else
+ bool = "true"
+ End If
+ Next
+
+ 'send message
+ If bool="false" Then
+ ' Backup errors were generated
+ Call SendEmail(strSubjectFailed, strFailedMessage, strEnviroment)
+ Else
+ ' No backup errors were generated
+ Call SendEmail(strSubjectSucceeded, strSucceededMessage, strEnviroment)
+ End If
+ Exit Do
+ End If
+
+ Loop
+
+ ''Method for cleaning out the backup folder. It will delete all the old backups
+ ''&lt;strfolder&gt;The String Off The Folder To Cleam&lt;/strfolder&gt;
+ Sub ClearFolder(strfolder)
+
+ 'Get file object
+ Set fso=CreateObject("Scripting.FileSystemObject")
+ CleanPath = fso.GetFolder(strfolder)
+
+ 'Delete all files
+ For Each file In fso.GetFolder(CleanPath).Files
+ file.delete
+ Next
+
+ 'Loop trough the subfolders and put them in an array
+ arrFolders = Array()
+ For Each oFolder In fso.GetFolder(strfolder).SubFolders
+ intCount = UBound(arrFolders) + 1
+ ReDim Preserve arrFolders(intCount)
+ arrFolders(intCount) = oFolder.Path
+ Next
+
+ 'Loop trough the array and delete the subfolders
+ For n = 0 To UBound(arrFolders)
+ fso.DeleteFolder arrFolders(n), True
+ Next
+
+ End Sub
+
+ ''Mehtod for sending the e-mail
+ ''&lt;subject&gt;The subject off the email&lt;/subject&gt;
+ ''&lt;body&gt;The Body text off the e-mail&lt;/body&gt;
+ Sub SendEmail (subject, body, enviroment)
+
+ 'create message
+ Set objEmail = CreateObject("CDO.Message")
+ objEmail.From = strFrom
+ objEmail.To = strTo
+ objEmail.Subject = subject &amp; " (" &amp; strBackUpMethod &amp; ") " &amp; "- " &amp; enviroment
+ objEmail.Textbody = body
+
+ 'Mail configuration
+ objEmail.Configuration.Fields.Item _
+ ("http://schemas.microsoft.com/cdo/configuration/sendusing") = 2
+ objEmail.Configuration.Fields.Item _
+ ("http://schemas.microsoft.com/cdo/configuration/smtpserver") = strMailserver
+ objEmail.Configuration.Fields.Item _
+ ("http://schemas.microsoft.com/cdo/configuration/smtpserverport") = 25
+ objEmail.Configuration.Fields.Update
+
+ 'Send E-mail
+ objEmail.Send
+ 'Write to the event log
+ Call WriteEvent(subject,body)
+ End Sub
+
+ ''Method for Logging the outcome off the backup to the application event log
+ ''&lt;subject&gt;The subject off the event&lt;/subject&gt;
+ ''&lt;body&gt;The Body text off the event&lt;/body&gt;
+ Sub WriteEvent(subject,body)
+ If subject = "SharePoint Backup Process Completed Successfully" Then
+ objShell.LogEvent 0, body
+ Else
+ objShell.LogEvent 1, body
+ end If
+ End Sub</pre>
+<p>If you want to change the settings off this VBScript you only have to change the values at the top off the file: </p>
+<ul>
+<li><strong>strFrom:</strong> The e-mail address off the person where you would like to send the e-mail.
+</li>
+<li><strong>strTo:</strong> The e-mail address of the person where the e-mail comes from.
+</li>
+<li><strong>strMailserver:</strong>The mail server for sending the e-mail.
+</li>
+<li><strong>strBackUpDir:</strong>Backup location.
+</li>
+<li><strong>BackUpMethod:</strong>The Backup method you can choose full or differential.
+</li>
+<li><strong>strEnviroment:</strong>The environment where you run the backup script. If you use multiple environments and send it to one address you can see about witch environment the message is about.
+</li>
+<li><strong>strSucceededMessage:</strong>The message when the backup is succeeded.
+</li>
+<li><strong>strSubjectTimeOut:</strong>The subject for the timeout email.
+</li>
+<li><strong>strTimeOutMessage:</strong>The message for the timeout email.
+</li>
+<li><strong>strSubjectFailes:</strong>The subject for the failed email.
+</li>
+<li><strong>strFailedMessage:</strong>The message for the failed email.
+</li>
+<li><strong>strSubjectSucceeded:</strong>The subject for the message when the backup succeeded</li>
+</ul>
+<p>If you want to schedule the execution off the VBScript you can read my previous post : <a href="/2008/12/scheduling-sharepoint-backup/">here</a>. If you want to download the file you can click here: <a href="/wp-content/uploads/2012/10/SharepointBackup.zip">SharePoint Backup</a></div>

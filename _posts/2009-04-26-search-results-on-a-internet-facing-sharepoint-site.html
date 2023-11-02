@@ -1,0 +1,50 @@
+---
+layout: post
+title: Search Results on a Internet Facing SharePoint Site
+date: 2009-04-26 06:47:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+- SharePoint
+tags:
+- Internet site
+- Search results
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Sharepoint
+  _yoast_wpseo_focuskw: Sharepoint
+  _yoast_wpseo_linkdex: '68'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463216812;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:846;}i:1;a:1:{s:2:"id";i:743;}i:2;a:1:{s:2:"id";i:25;}}}}
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Sharepoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/04/search-results-on-a-internet-facing-sharepoint-site/"
+---
+<div class="ExternalClass7A49FB60D3C04A9A843C9AC6A363FFCF">When you crawled a SharePoint site everything on that site will become visible on the search results page of your search center. If you have an internet facing SharePoint site you do not want to see list views or other background pages in the search results. These pages can be filtered out from your search results by making crawl rules in the Shared Service Provider. You can create crawl rules in the following steps: 1: Navigating to your Shared Service Provider. 2: Click search settings under Search. 3: Then click Crawl Rules. In this screen you can add new Crawl rules by selecting new crawl rule. If you want to exclude background pages from the search results you can insert some of the following crawl rules:
+<ul>
+<li><strong>*://*webfldr.aspx</strong> – This will exclude all explorer view pages if you choice it as a exclude rule.  </li>
+<li><strong>*://*mod-view.aspx*</strong> – This will exclude the Moderation view page if you choice it as a exclude rule.  </li>
+<li><strong>*://*my-sub.aspx*</strong> – This will exclude the page with your items if you choice it as a exlude rule.  </li>
+<li><strong>*://*allitems.aspx*</strong> – This will exclude the allitems page from the search results if you choice it as a exclude rule.  </li>
+<li><strong>*://*allforms.aspx*</strong> – This will exclude the all forms page from the search results if you choice it as a exclude rule.  </li>
+<li><strong>*://*/lists/*</strong> – This will exclude the list from the search results if you choice it as a exclude rule.  </li>
+<li><strong>*://*DispForm.aspx*</strong> – This will exclude the list display form from the search results if you choice it as a exclude rule.</li>
+</ul>
+<p>If you have entered these crawl rules in you shared service provider and you run a full crawl again you will notice that you have less items indexed.</p></div>

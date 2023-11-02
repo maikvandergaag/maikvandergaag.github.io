@@ -1,0 +1,115 @@
+---
+layout: post
+title: Version number counter now supports the build identity
+date: 2022-02-28 11:00:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure DevOps
+tags: []
+meta:
+  _edit_last: '3'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '2'
+  _yoast_wpseo_primary_category: '535'
+  _yoast_wpseo_focuskw: Version number
+  _yoast_wpseo_metadesc: I released a new version of the "Version number counter"
+    extension for ADO this week. With this version you can use the Build identity.
+  _yoast_wpseo_linkdex: '72'
+  _thumbnail_id: '6585'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Version number
+  _wds_title: ''
+  _wds_metadesc: I released a new version of the "Version number counter" extension
+    for ADO this week. With this version you can use the Build identity.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2022/02/version-number-counter-now-supports-the-build-identity/"
+---
+<p><!-- wp:paragraph --></p>
+<p>I released a new version of the "Version number counter" extension for Azure DevOps this week. The "Version number counter" extension for Azure Pipelines is an extension that automatically increments a version number on each run.&nbsp;</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-versioncounter">Version number counter - Visual Studio Marketplace</a></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>With this new version, I added another great feature. This addition includes the support of the build identity. By using the build identity, you do not have to specify a Personal Access Token for the authentication, but the authentication goes via OAuth of the build identity.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>How to use the extenstion</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>After installing the extension, the extension can be made available within your pipeline via the UI or your favorite IDE.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Permissions</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Specific permissions are required for both options (OAuth or PAT) to increment the version variable. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p id="oauth"><strong>OAuth</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>When using the OAuth system token. The build identity: Project Collection Build Service ({OrgName}) should have the "Edit build pipeline" permissions on the pipeline.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p id="personal-access-token"><strong>Personal Access Token</strong></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The minimal permissions required for a PAT are:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><strong>Build</strong>: Read &amp; Execute</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Classic</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>When using the classic pipelines, drag the extension to the pipeline and configure it correctly.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6579,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2022/02/image.png" /><img src="{{ site.baseurl }}/assets/archive/2022/02/image-1024x717.png" alt="" class="wp-image-6579" /><br />
+<figcaption>When using the OAuth token, ensure that the "Allow scripts to access the OAuth token" is configured on the agent job.</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"id":6581,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2022/02/image-1.png" /><img src="{{ site.baseurl }}/assets/archive/2022/02/image-1-1024x218.png" alt="" class="wp-image-6581" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Yaml</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The below snippet represents how to use the extension in YAML and make sure that it can use the OAuth token of the build identity.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">- task: versioncounter@2
+  inputs:
+    VersionVariable: 'versionnumber'
+    UseSystemAccessToken: true
+  env:
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>When you would like more information about job authorizations and the use of the build identity, take a look at the below article:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/devops/pipelines/process/access-tokens?view=azure-devops&amp;tabs=yaml&amp;WT.mc_id=DOP-MVP-5004255" target="_blank" rel="noreferrer noopener">Understand job access tokens - Azure Pipelines | Microsoft Docs</a></li>
+</ul>
+<p><!-- /wp:list --></p>

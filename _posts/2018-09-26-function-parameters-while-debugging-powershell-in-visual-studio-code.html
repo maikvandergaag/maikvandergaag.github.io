@@ -1,0 +1,92 @@
+---
+layout: post
+title: Function parameters while debugging PowerShell in Visual Studio Code
+date: 2018-09-26 10:51:33.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- Development
+- Powershell
+- Visual Studio Code
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '3'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_primary_category: '20'
+  _yoast_wpseo_focuskw: PowerShell
+  _yoast_wpseo_metadesc: Adding parameter values to PowerShell debugging in Visual
+    Studio Code is doable. This article explains how.
+  _yoast_wpseo_linkdex: '76'
+  _thumbnail_id: '4103'
+  _nxs_slinks: a:1:{s:32:"651295d6150b9452f6bde8054a8103b1";s:21:"http://bit.ly/2OfPnKD";}
+  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2OfPnKD";s:1:"t";s:104:"https://msftplayground.com/2018/09/function-parameters-while-debugging-powershell-in-visual-studio-code/";s:1:"r";s:1:"B";}
+  snap_isAutoPosted: '1537955550'
+  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:50:"www.linkedin.com/updates?topic=6450653114272935937";s:2:"id";s:0:"";s:1:"d";s:19:"2018-09-26
+    09:52:30";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1044887427578560518";s:2:"id";s:19:"1044887427578560518";s:1:"d";s:19:"2018-09-26
+    09:52:30";s:1:"w";s:1:"s";}}}}
+  _wpas_done_all: '1'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapLI: s:381:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:0:"";s:7:"postURL";s:50:"www.linkedin.com/updates?topic=6450653114272935937";s:5:"pDate";s:19:"2018-09-26
+    09:52:30";}}";
+  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1044887427578560518";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1044887427578560518";s:5:"pDate";s:19:"2018-09-26
+    09:52:30";}}";
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: PowerShell
+  _wds_title: ''
+  _wds_metadesc: Adding parameter values to PowerShell debugging in Visual Studio
+    Code is doable. This article explains how.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2018/09/function-parameters-while-debugging-powershell-in-visual-studio-code/"
+---
+<p>Visual Studio Code is becoming one of the tools that you need to use when developing PowerShell scripts. It allows you to debug your scripts. But how do you add parameters for debugging. The upcoming paragraphs will explain how.</p>
+<h2>PowerShell</h2>
+<p>Parameters are common when developing scripts. Most probably they are configured with the <code class="EnlighterJSRAW" data-enlighter-language="shell">Param</code> object. Just like this example:</p>
+<pre class="brush: powershell;">Param(
+    [String]$ParameterOne,
+    [String]$ParameterTwo
+)
+
+Write-Output "ParameterOne      :$ParameterOne"
+Write-Output "ParameterTwo      :$ParameterTwo"</pre>
+<p>Running this script called "msftplayground.ps1" within a PowerShell terminal <code class="EnlighterJSRAW" data-enlighter-language="shell">.\msftplayground.ps1</code>will result with no parameters set because they need to be specified.</p>
+<p>If you specify the parameters like this <code class="EnlighterJSRAW" data-enlighter-language="shell">.\msftplayground.ps1 -ParameterOne "Test value 1" -ParameterTwo "Test Value 2"</code> those values can then be used during the executing of file.</p>
+<p><a href="https://msftplayground.com/2018/09/function-parameters-while-debugging-powershell-in-visual-studio-code/powershell-parameters/" rel="attachment wp-att-4061"><img class="wp-image-4061 aligncenter" src="{{ site.baseurl }}/assets/archive/2018/09/PowerShell-Parameters-300x37.png" alt="PowerShell Parameters" width="478" height="59" /></a></p>
+<h2>Visual Studio Code</h2>
+<p>With the "Debug" and "Integrated PowerShell Terminal" Visual Studio Code became a real powerfull tool. Debugging sessions can be started by simply pressing "F5".</p>
+<p>When you press "F5" within the PowerShell file Visual Studio Code executes the file. So if we for example start the script that we used in this article the following output will be shown</p>
+<p><a href="https://msftplayground.com/2018/09/function-parameters-while-debugging-powershell-in-visual-studio-code/powershell-debugging/" rel="attachment wp-att-4063"><img class="size-full wp-image-4063 alignnone" src="{{ site.baseurl }}/assets/archive/2018/09/PowerShell-Debugging.png" alt="PowerShell Debugging" width="941" height="176" /></a></p>
+<p>This is expected behavior because the debugger does not know the parameters that can be used.</p>
+<h2>So how do you specify the parameters?</h2>
+<p>Parameters need to be specified within the debugger configuration. Opening the configuration can be done via the debugger bar. Pressing the settings icon will open the configuration.</p>
+<p><a href="https://msftplayground.com/2018/09/function-parameters-while-debugging-powershell-in-visual-studio-code/powershell-debugging-bar/" rel="attachment wp-att-4065"><img class="size-large wp-image-4065 alignnone" src="{{ site.baseurl }}/assets/archive/2018/09/PowerShell-Debugging-Bar-1024x172.png" alt="PowerShell Debugging Bar" width="860" height="144" /></a></p>
+<p>The configuration is done in a JSON file called "launch.json". In this file there are configurations for different situations. Choose the correct configuration for your situation and add your parameters in the "args" property.</p>
+<p>A single configuration could look like this:</p>
+<pre class="brush: js;">{
+   "type": "PowerShell",
+   "request": "launch",
+   "name": "PowerShell Launch Current File",
+   "script": "${file}",
+   "args": ["-ParameterOne 'Test value 1'  -ParameterTwo 'Test Value 2'"],
+   "cwd": "${file}"
+}</pre>
+<p>Save the configuration and press "F5" to start the debugger. The PowerShell terminal will know show the expected result.</p>
+<p><a href="https://msftplayground.com/2018/09/function-parameters-while-debugging-powershell-in-visual-studio-code/powershell-parameter-debudding/" rel="attachment wp-att-4067"><img class="size-large wp-image-4067 alignnone" src="{{ site.baseurl }}/assets/archive/2018/09/PowerShell-Parameter-Debudding-1024x116.png" alt="" width="860" height="97" /></a></p>

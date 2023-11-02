@@ -1,0 +1,162 @@
+---
+layout: post
+title: Azure Function CI &ndash; 1. Creating a Pre-Compiled Azure Function
+date: 2017-03-09 17:02:47.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- DevOps
+tags:
+- Azure
+- Azure Functions
+- CI
+- VSTS
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Azure Function
+  _yoast_wpseo_focuskw: Azure Function
+  _yoast_wpseo_metadesc: As mentioned in the overview Azure Function provide event-based
+    serverless computing that make it easy to develop and scale your application.
+  _yoast_wpseo_linkdex: '83'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: '272'
+  _thumbnail_id: '2881'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:421:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:51:"New post (%TITLE%)
+    has been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1854932331450758";s:7:"postURL";s:61:"http://www.facebook.com/msftplayground/posts/1854932331450758";s:5:"pDate";s:19:"2017-03-09
+    16:03:42";}}";
+  snapLI: s:441:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6245635001900240896";s:7:"postURL";s:104:"https://www.linkedin.com/updates?discuss=&scope=22692038&stype=M&topic=6245635001900240896&type=U&a=CjIY";s:5:"pDate";s:19:"2017-03-09
+    16:03:42";}}";
+  snap_isAutoPosted: '1'
+  snapTW: s:379:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"839869316765990913";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/839869316765990913";s:5:"pDate";s:19:"2017-03-09
+    16:03:44";}}";
+  _wpas_done_all: '1'
+  _jetpack_dont_email_post_to_subs: '1'
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure Function
+  _wds_title: ''
+  _wds_metadesc: As mentioned in the overview Azure Function provide event-based serverless
+    computing that make it easy to develop and scale your application.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2017/03/azure-function-ci-1-creating-a-pre-compiled-azure-function/"
+---
+<p>As mentioned in the overview Azure Function provide event-based serverless computing that make it easy to develop and scale your application, paying only for the resources your code consumes during execution. Since a couple of months Visual Studio contains a preview with the ability to create a function project in Visual Studio, add functions using <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview">any supported language</a>, run them locally, and publish them to Azure. But this project template does not make it completely possible to use the template with a CI scenario.</p>
+<p>Especially running the Azure Function locally offers a great functionality and gives you the option to debug the function before publishing it to Azure.</p>
+<h2>Prerequisites</h2>
+<p>This blog post is totally written using the Azure Function Visual Studio template. Information and the Azure Function tools download are listed below:</p>
+<ul>
+<li><a title="Install the updated version" href="https://aka.ms/azfunctiontools">Azure Function Tools</a></li>
+<li><a title="https://blogs.msdn.microsoft.com/webdev/2016/12/01/visual-studio-tools-for-azure-functions/" href="https://blogs.msdn.microsoft.com/webdev/2016/12/01/visual-studio-tools-for-azure-functions/">Information</a></li>
+</ul>
+<h2>Getting Started</h2>
+<p>When you have the Azure Function tools installed we can start creating a new project with Visual Studio. For this project make use of the “Azure Function (Preview)” template that is added when you have the Azure Function Tools installed.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb8.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image_thumb8" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb8_thumb.png" alt="image_thumb8" width="637" height="443" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>Give the project a appropriate name and also do this for your solution. Click “Ok”to create the project and solution. When the solution is created right click on the solution and add a new project. This time add a project of the “Class Library” template. We will use this project for the pre-compiled function.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb17.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image_thumb17" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb17_thumb.png" alt="image_thumb17" width="634" height="368" border="0" /></a></p>
+<p>If the project is created rename the “Class1” file to “MsftHttpTrigger” and also rename the class itself.</p>
+<p>Next step is to add the required NuGet packages in order to run the function itself, add the following NuGet Packages to the class library project:</p>
+<ul>
+<li>“Microsoft.Azure.WebJobs”</li>
+<li>“Microsoft.AspNet.WebApi.Client”</li>
+<li>“Microsoft.AspNet.WebApi.Core”</li>
+</ul>
+<p>&nbsp;</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb26.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image_thumb26" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb26_thumb.png" alt="image_thumb26" width="682" height="310" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>For this example we will use the default “Run” method you normally get within the “run.csx” copy and past it within the MsftHttpTrigger class.</p>
+<pre class="brush: csharp;">using Microsoft.Azure.WebJobs.Host;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+namespace Implementation {
+    public class MsftHttpTrigger
+    {
+        public static async Task&lt;HttpResponseMessage&gt; Run(HttpRequestMessage req, TraceWriter log) {
+            log.Info($"C# HTTP trigger function processed a request. RequestUri={req.RequestUri}");
+
+            string name = req.GetQueryNameValuePairs()
+                .FirstOrDefault(q =&gt; string.Compare(q.Key, "name", true) == 0)
+                .Value;
+
+            dynamic data = await req.Content.ReadAsAsync&lt;object&gt;();
+            name = name ?? data?.name;
+
+            return name == null ? req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a name on the query string or in the request body"): req.CreateResponse(HttpStatusCode.OK, "Hello " + name);
+        }
+    }
+}
+</pre>
+<h2>Function Project</h2>
+<p>With the pre-compiled function ready the adjustments can be made to the Azure Functions project.  We need to start by adding a new function to the function project by right clicking on the project and selecting “Add” – “New Azure Function”.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb34.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image_thumb34" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb34_thumb.png" alt="image_thumb34" width="535" height="417" border="0" /></a></p>
+<p>This option will open a dialog with a lot off different Azure Function options. Within this example we will use a HttpTrigger – C# function.</p>
+<p>&nbsp;</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb43.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image_thumb43" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb43_thumb.png" alt="image_thumb43" width="668" height="463" border="0" /></a></p>
+<p>After clicking “Create” the function will be created and we can delete the files we don’t need. The files that can be deleted are:</p>
+<ul>
+<li>“sample.dat”</li>
+<li>“run.csx”</li>
+<li>“readme.md”</li>
+</ul>
+<p>The other file within the function (function.json) needs to be changed to refer and load the pre-compiled function. This can be done by adding a “scriptfile” property and “entrypoint” that refers to the method within the “scriptfile”.</p>
+<pre class="brush: js;">{
+  "disabled": false,
+  "scriptFile": "bin\\Implementation.dll",
+  "entryPoint": "Implementation.MsftHttpTrigger.Run",
+  "bindings": [
+    {
+      "authLevel": "function",
+      "name": "req",
+      "type": "httpTrigger",
+      "direction": "in"
+    },
+    {
+      "name": "res",
+      "type": "http",
+      "direction": "out"
+    }
+  ]
+}
+</pre>
+<p>As specified in the code snip-it above the “scriptfile” (binary) is looked within the bin folder of the function.</p>
+<h2>Copy DLL</h2>
+<p>As specified within the function.json file the pre-compiled function resides within the “bin” folder of the function. This means we will need to populate the bin folder with the dll of the class library project. In order to get the binary file in place we will make use of the build events that can be specified in a project.</p>
+<p>Right click the project and select properties. Open the build events and add a post build event to copy the output to the functions bin folder.</p>
+<pre class="brush: bash;">SET FILEPATH=$(SolutionDir)MSFT.Function\MsftHttpTrigger\bin
+
+IF NOT EXIST "%FILEPATH%" (
+        GOTO MakeDir
+) ELSE (
+       GOTO CopyFiles
+)
+
+:MakeDir
+mkdir "%FILEPATH%"
+:CopyFiles
+xcopy /y "$(TargetPath)" "%FILEPATH%"
+
+</pre>
+<p>The post build event creates the “bin” directory within the function if it does not exist and copied the output file of the project to that directory.</p>
+<p>With this in place the function can be run locally by pressing “F5” and triggering it by using a tool like <a href="https://www.getpostman.com/">postman</a>.</p>
+<p>Next post will be on: <a href="https://msftplayground.com/2017/03/azure-function-ci-2-create-ci-build-azure-function/">Creating a CI Build for the Azure Function</a>.</p>

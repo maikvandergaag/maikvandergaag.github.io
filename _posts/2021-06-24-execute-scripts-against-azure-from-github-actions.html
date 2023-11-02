@@ -1,0 +1,140 @@
+---
+layout: post
+title: Execute scripts against Azure from GitHub Actions
+date: 2021-06-24 12:47:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- DevOps
+- GitHub Actions
+meta:
+  _edit_last: '3'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _thumbnail_id: '6347'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _yoast_wpseo_focuskw: GitHub
+  _yoast_wpseo_metadesc: Within Azure DevOps service connections are used for the
+    authentication against the Azure platform. In GitHub this works different.
+  _yoast_wpseo_linkdex: '75'
+  _yoast_wpseo_content_score: '60'
+  snap_MYSURL: a:3:{s:1:"s";s:85:"https://msftplayground.com/2021/06/execute-scripts-against-azure-from-github-actions/";s:1:"t";s:85:"https://msftplayground.com/2021/06/execute-scripts-against-azure-from-github-actions/";s:1:"r";s:1:"B";}
+  snapLI: s:418:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:26:"%TITLE% - %HTAGS%
+    - %SURL%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:32:"urn:li:share:6813779509112791040";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6813779509112791040";s:5:"pDate";s:19:"2021-06-24
+    10:47:09";}}";
+  snap_isAutoPosted: '1624531629'
+  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6813779509112791040";s:2:"id";s:32:"urn:li:share:6813779509112791040";s:1:"d";s:19:"2021-06-24
+    10:47:09";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1408013820891631623";s:2:"id";s:19:"1408013820891631623";s:1:"d";s:19:"2021-06-24
+    10:47:09";s:1:"w";s:1:"s";}}}}
+  snapTW: s:397:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:26:"%TITLE% - %HTAGS%
+    - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1408013820891631623";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1408013820891631623";s:5:"pDate";s:19:"2021-06-24
+    10:47:09";}}";
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: GitHub
+  _wds_title: ''
+  _wds_metadesc: Within Azure DevOps service connections are used for the authentication
+    against the Azure platform. In GitHub this works different.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2021/06/execute-scripts-against-azure-from-github-actions/"
+---
+<p><!-- wp:paragraph --></p>
+<p>Within Azure DevOps service connections are used for the authentication against the Azure platform but in GitHub this works a little bit different. Let me explain how to setup a connection to your Azure Subscription to execute scripts.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>GitHub Secret</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The information for the authentication is saved within so called <a href="https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions?WT.mc_id=DT-MVP-5004255" target="_blank" rel="noreferrer noopener">secrets</a> that are encrypted within GitHub that are saved on the organization, repository or repository environment level. The credential information for the authentication against Azure is saved in a json object.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">{
+    "clientId": "[clientId]",
+    "clientSecret": "[clientSecret]",
+    "subscriptionId": "[subscription id]",
+    "tenantId": "[Azure Active Directory Tenant Id]"
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>As you can see in the above snippet a Service Principal is used to authenticate against Azure. So to get started make sure you have a service principal or that you create one. Documentation about that can be found on docs.microsoft.com:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal?WT.mc_id=DT-MVP-5004255">Create an Azure AD app &amp; service principal in the portal</a></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>Follow the below steps to create a repository secret:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<li>Within the GitHub repository go to settings and then secrets.</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"id":6347,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-11.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-11-1024x548.png" alt="GitHub Secrets" class="wp-image-6347" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:list {"ordered":true,"start":2} --></p>
+<ol start="2">
+<li>Click on "new repository secret"</li>
+<li>Fill in a name for the secret and use the json object for the value of the secret.</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"id":6349,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-12.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-12-1024x337.png" alt="GitHub Actions Secret" class="wp-image-6349" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading --></p>
+<h2>Use the Azure steps within GitHub Actions</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>With the secret in the repository the actions to communicate with Azure can be added to the workflow. First up is adding the Azure Login action.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6351,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/06/image-13.png" /><img src="{{ site.baseurl }}/assets/archive/2021/06/image-13.png" alt="GitHub Actions - Azure Login" class="wp-image-6351" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In this action the secret needs to be referenced by  "${{ secrets.[Secret Name] }}". The action will make sure that you are loggedin.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">- name: Azure Login	
+  uses: Azure/login@v1
+  with:
+	creds: ${{ secrets.AZURE_CREDENTIALS_SPONSORSHIP }}
+</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:quote --></p>
+<blockquote class="wp-block-quote"><p><strong>Note: </strong>If you want to make use of Azure PowerShell make sure to add the following property: "enable-AzPSSession: true"</p>
+</blockquote>
+<p><!-- /wp:quote --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now that you are authenticated the script can be executed against Azure using the context that was initiated via the Azure Login action. There is no need for additional configuration of the context.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The following actions creates a Azure Template Spec for example.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">- name: Azure CLI Action	
+	uses: Azure/cli@1.0.4
+	with:
+	inlineScript: az ts create --name az-tempspec-bicepmodulestorage-github --version "1.0" 
+    --resource-group sponsor-rg-templatespecs --location "westeurope" --template-file 
+    "./04-bicepmoduletemplatespec/04-bicepmoduletemplatespec.json"
+</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>

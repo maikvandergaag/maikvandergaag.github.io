@@ -1,0 +1,52 @@
+---
+layout: post
+title: CRM 4.0 SDK
+date: 2011-01-10 07:40:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Documentation
+tags:
+- CRM 4.0
+- SDK
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint .Net
+  _yoast_wpseo_focuskw: SharePoint .Net
+  _yoast_wpseo_linkdex: '44'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint .Net
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2011/01/crm-4-0-sdk/"
+---
+<div class="ExternalClass41C15422401B49AD9013E018866A0471">
+<p>In the last couple of projects I have been at we had a lot of integration question and development request to integrate several objects from CRM. Not In all project I think the right solution was chosen because one of my colleagues pointed me to the <a href="http://www.microsoft.com/downloads/en/details.aspx?FamilyID=82e632a7-faf9-41e0-8ec1-a2662aae9dfb&amp;displaylang=en">CRM 4.0 SDK</a>.</p>
+<p>With this SDK you do not have to add a service reference to visual studio to talk to CRM but you can open the CRM context by using a connection string:</p>
+<pre class="brush: xml;">&lt;connectionStrings&gt;
+  &lt;add name="Crm" connectionString="Authentication Type=Passport;
+    Server=https://your-org-name.crm.dynamics.com/your-orgid;
+    User ID=your-windowslive-id; Password=your-wlid-password;
+    Device ID=your-device-id; Device Password=your-device-password"/&gt;
+&lt;/connectionStrings&gt;</pre>
+<p>And opening the datacontext with that connection string for example with:</p>
+<pre class="brush: csharp;">var crm = new Xrm.XrmDataContext("CRMOnline");</pre>
+<p>The SDK really makes it simple and easy to integration CRM with SharePoint or other .Net based web application.</p>
+<p>So if you want to integrate CRM with another application you really should take a look at the:</p>
+<p><a href="http://www.microsoft.com/downloads/en/details.aspx?FamilyID=82e632a7-faf9-41e0-8ec1-a2662aae9dfb&amp;displaylang=en">Microsoft Dynamics CRM 4.0 Software Development Kit (SDK)</a></p>
+</div>

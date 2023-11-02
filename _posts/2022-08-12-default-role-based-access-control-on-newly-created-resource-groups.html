@@ -1,0 +1,313 @@
+---
+layout: post
+title: Default Role Based Access Control on newly created resource groups
+date: 2022-08-12 09:22:05.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- Policy
+- RBAC
+meta:
+  _edit_last: '3'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '4'
+  _yoast_wpseo_wordproof_timestamp: ''
+  _oembed_4dffca3cf486ed26077076fe5fffd872: "{{unknown}}"
+  _yoast_wpseo_focuskw: Policy
+  _yoast_wpseo_metadesc: Deploying role based access control on newly created Azure
+    resource groups by using a policy
+  _yoast_wpseo_linkdex: '56'
+  _thumbnail_id: '6731'
+  _yoast_wpseo_primary_category: '323'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Policy
+  _wds_title: ''
+  _wds_metadesc: Deploying role based access control on newly created Azure resource
+    groups by using a policy
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2022/08/default-role-based-access-control-on-newly-created-resource-groups/"
+---
+<p><!-- wp:paragraph --></p>
+<p>Within our company, we have a sponsorship subscription we use for developing / testing purposes. As we heavily use this subscription, we often come into problems with access rights depending on the type of resource group.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In a larger environment, we would solve this by creating multiple subscriptions, but as we do not have multiple sponsorship subscriptions, we came up with another idea.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>We categorize resource groups by using tags and came up with the idea to set up access rights on the resource groups based on the tags that are supplied on newly created resource groups. To get this operational, a colleague and I thought out a new custom policy that he created that I am sharing with the community.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For this policy, we use the policy effect '<a href="https://docs.microsoft.com/en-us/azure/governance/policy/concepts/effects#deployifnotexists?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener">deployIfnotexists</a>'. By using this effect, we have the option to execute a deployment when a new resource group is created by using the below policy rule.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"css"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+                    },
+                    {
+                        "field": "[concat('tags[', parameters('tagName'), ']')]",
+                        "equals": "[parameters('tagValue')]"
+                    }
+                ]
+            }</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>This rule checks if the type of the resource is a resource group and if it contains a tag with a specific value. The tag and its value it needs to check up on are specified when assigning the policy to a specific scope.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The 'then' of the rule will then execute a deployment, which is just a general RBAC deployment via ARM.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">"then": {
+                "effect": "deployIfNotExists",
+                "details": {
+                    "EvaluationDelay": "AfterProvisioningSuccess",
+                    "roleDefinitionIds": [
+                        "/providers/microsoft.authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+                    ],
+                    "type": "Microsoft.Authorization/roleAssignments",
+                    "existenceCondition": {
+                        "allOf": [
+                            {
+                                "field": "Microsoft.Authorization/roleAssignments/roleDefinitionId",
+                                "equals": "[concat('/subscriptions/',subscription().subscriptionId ,parameters('roleId'))]"
+                            },
+                            {
+                                "field": "Microsoft.Authorization/roleAssignments/principalId",
+                                "equals": "[parameters('principalId')]"
+                            }
+                        ]
+                    },
+                    "deployment": {
+                        "properties": {
+                            "mode": "incremental",
+                            "parameters": {
+                                "principalType": {
+                                    "value": "[parameters('principalType')]"
+                                },
+                                "principalId": {
+                                    "value": "[parameters('principalId')]"
+                                },
+                                "roleId": {
+                                    "value": "[parameters('roleId')]"
+                                }
+                            },
+                            "template": {
+                                "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                                "contentVersion": "1.0.0.0",
+                                "parameters": {
+                                    "principalType": {
+                                        "type": "string"
+                                    },
+                                    "principalId": {
+                                        "type": "string"
+                                    },
+                                    "roleId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "variables": {},
+                                "resources": [
+                                    {
+                                        "name": "[guid(resourceGroup().id, deployment().name)]",
+                                        "type": "Microsoft.Authorization/roleAssignments",
+                                        "apiVersion": "2020-10-01-preview",
+                                        "properties": {
+                                            "principalId": "[parameters('principalId')]",
+                                            "roleDefinitionId": "[parameters('roleId')]",
+                                            "principalType": "[parameters('principalType')]"
+                                        }
+                                    }
+                                ],
+                                "outputs": {
+                                    "policy": {
+                                        "type": "string",
+                                        "value": "[concat('Added RBAC Rights')]"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>On the 'deployifnotexists', there is also an 'EvaluationDelay' specified. This specifies when the existence of the related resources should be evaluated. The delay is only used for evaluations that are a result of a create or update resource request. So the evaluation is done after the provisioning is succeeded.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The complete policy definitions then look like this.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"jscript"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">{
+    "properties": {
+        "displayName": "Add access rights based on tags",
+        "policyType": "Custom",
+        "mode": "All",
+        "description": "Policy to add access rights based on tags added to a resource group",
+        "metadata": {
+            "version": "1.0.0",
+            "category": "Custom"
+        },
+        "parameters": {
+            "tagName": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Tag Name",
+                    "description": "The Tag name to audit against (i.e. Environment CostCenter etc.)"
+                },
+                "defaultValue": "Environment"
+            },
+            "tagValue": {
+                "type": "String",
+                "metadata": {
+                    "displayName": "Tag Value",
+                    "description": "Value of the tag to audit against (i.e. Prod/UAT/TEST 12345 etc.)"
+                }
+            },
+            "roleId": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "roleId",
+                    "description": "roleId",
+                    "strongType": "Microsoft.Authorization/roleDefinitions"
+                }
+            },
+            "principalId": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "principalId",
+                    "description": "principalId"
+                }
+            },
+            "principalType": {
+                "type": "string",
+                "metadata": {
+                    "displayName": "principalType",
+                    "description": "principalType"
+                },
+                "allowedValues": [
+                    "Device",
+                    "ForeignGroup",
+                    "Group",
+                    "ServicePrincipal",
+                    "User"
+                ]
+            }
+        },
+        "policyRule": {
+            "if": {
+                "allOf": [
+                    {
+                        "field": "type",
+                        "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+                    },
+                    {
+                        "field": "[concat('tags[', parameters('tagName'), ']')]",
+                        "equals": "[parameters('tagValue')]"
+                    }
+                ]
+            },
+            "then": {
+                "effect": "deployIfNotExists",
+                "details": {
+                    "EvaluationDelay": "AfterProvisioningSuccess",
+                    "roleDefinitionIds": [
+                        "/providers/microsoft.authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+                    ],
+                    "type": "Microsoft.Authorization/roleAssignments",
+                    "existenceCondition": {
+                        "allOf": [
+                            {
+                                "field": "Microsoft.Authorization/roleAssignments/roleDefinitionId",
+                                "equals": "[concat('/subscriptions/',subscription().subscriptionId ,parameters('roleId'))]"
+                            },
+                            {
+                                "field": "Microsoft.Authorization/roleAssignments/principalId",
+                                "equals": "[parameters('principalId')]"
+                            }
+                        ]
+                    },
+                    "deployment": {
+                        "properties": {
+                            "mode": "incremental",
+                            "parameters": {
+                                "principalType": {
+                                    "value": "[parameters('principalType')]"
+                                },
+                                "principalId": {
+                                    "value": "[parameters('principalId')]"
+                                },
+                                "roleId": {
+                                    "value": "[parameters('roleId')]"
+                                }
+                            },
+                            "template": {
+                                "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                                "contentVersion": "1.0.0.0",
+                                "parameters": {
+                                    "principalType": {
+                                        "type": "string"
+                                    },
+                                    "principalId": {
+                                        "type": "string"
+                                    },
+                                    "roleId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "variables": {},
+                                "resources": [
+                                    {
+                                        "name": "[guid(resourceGroup().id, deployment().name)]",
+                                        "type": "Microsoft.Authorization/roleAssignments",
+                                        "apiVersion": "2020-10-01-preview",
+                                        "properties": {
+                                            "principalId": "[parameters('principalId')]",
+                                            "roleDefinitionId": "[parameters('roleId')]",
+                                            "principalType": "[parameters('principalType')]"
+                                        }
+                                    }
+                                ],
+                                "outputs": {
+                                    "policy": {
+                                        "type": "string",
+                                        "value": "[concat('Added RBAC Rights')]"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>GitHub</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Check out GitHub for the script files and the policy also supplied in <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview?tabs=bicep&amp;WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener">Bicep</a>:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><a href="https://github.com/maikvandergaag/msft-azureplatform/tree/main/policies/add_access">https://github.com/maikvandergaag/msft-azureplatform/tree/main/policies/add_access</a></p>
+<p><!-- /wp:paragraph --></p>

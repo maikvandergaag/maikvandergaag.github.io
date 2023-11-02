@@ -1,0 +1,71 @@
+---
+layout: post
+title: SharePoint Site Search Settings (Search Scope DropDown)
+date: 2010-09-13 05:38:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- SharePoint
+tags:
+- Search Drop Down
+- SharePoint
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '72'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463246941;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:846;}i:1;a:1:{s:2:"id";i:666;}i:2;a:1:{s:2:"id";i:822;}}}}
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2010/09/sharepoint-site-search-settings-search-scope-dropdown/"
+---
+<div class="ExternalClass1BF3E9D68B134FFDABAF3B430B49FC20">
+<p>Today I was working on some SharePoint master pages and I noticed that the search scopes dropdown was gone. After searching around in the site collection administration settings I found a setting under the 'search settings' link. </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/searchsetting.png"><img title="searchsetting" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="searchsetting" src="{{ site.baseurl }}/assets/archive/2010/09/searchsetting_thumb.png" width="441" height="164" /></a></p>
+<p>The property 'Site Collection Search Dropdown Mode' can be set to several options. Default this property is set to 'Do not show scopes dropdown, and default to contextual scope'. In this setting you have the following options: <strong>Do not show scopes dropdown, and default to contextual scope. </strong>You will get result of the 'All Sites' scope when you are at the top level. If you are in another level you will get results from your context. <strong>Do not show scopes dropdown, and default to target results page </strong>The search results will be displayed as described above. It will only use your target result page for displaying the results. <strong>Show scopes dropdown </strong>Display's the scopes that are defined in the scope display group of the site. <strong>Show, and default to ’s’ URL parameter </strong>Displays the scopes that are defined in the scope display group of the site. This option will add the scope to the query string using the 's' parameter. <strong>Show and default to contextual scope </strong>Displays the scope drop-down list and selects the "This site" and "This list" by default. <strong>Show, do not include contextual scopes </strong>This option will not display the contextual scopes. <strong>Show, do not include contextual scopes, and default to ’s’ URL parameter </strong>This option will not display the contextual scopes, and will also send the scope within the query string using the 's' parameter. These settings can all be set trough the UI but in most situations we as developers need to set these properties within a feature receiver. When you search through the object model you will not find a possibility off doing it through code. The next option is to look with reflector in the code behind of the page and you will find a way to accomplish this task. Each site or web has a property bag by setting the <span style="color: #a31515">"SRCH_ENH_FTR_URL" </span>you set the search site URL of the site collection. And by setting the <span>"SRCH_SITE_DROPDOWN_MODE" property you change the display mode of the search dropdown. Here below you can find an example in code: </span></p>
+<pre class="brush: csharp;"> private void ApplySearchSettings(SPWeb web)
+ {
+       if(web.IsRootWeb)
+       {
+            string searchCenterUrl = (new Uri(web.Url).GetLeftPart(UriPartial.Authority)) + "searchcenter";
+            web.AllProperties["SRCH_SITE_DROPDOWN_MODE"] = "ShowDD_DefaultContextual ";
+            web.AllProperties["SRCH_ENH_FTR_URL"] = searchCenterUrl;
+            web.Update();
+       }
+ }</pre>
+<p><span>The property<font size="1"> <span style="font-size: x-small; font-family: consolas; color: #a31515"><span style="font-size: x-small; font-family: consolas; color: #a31515"><span style="font-size: x-small; font-family: consolas; color: #a31515">"SRCH_SITE_DROPDOWN_MODE"</span></span></span></font> has several options you can fill in: </span></p>
+<ul>
+<li><strong>HideScopeDD </strong>– Do not show scopes dropdown, and default to contextual scope.
+</li>
+<li><strong>HideDD_NoScope -</strong> Do not show scopes dropdown, and default to target results page.
+</li>
+<li><strong>ShowDD </strong>– Show scopes dropdown.
+</li>
+<li><strong>ShowDD_DefaultURL</strong> – Show, and default to ‘s’ URL parameter.
+</li>
+<li><strong>ShowDD_DefaultContextual </strong>– Show and default to contextual scope.
+</li>
+<li><strong>ShowDD_NoContextual</strong> – Show, do not include contextual scopes.
+</li>
+<li><strong>ShowDD_NoContextual_DefaultURL</strong> – Show, do not include contextual scopes, and default to ‘s’ URL parameter</li>
+</ul>
+<p>For the scopes dropdown modes you can also look at the following URL in de SDK of Microsoft:</p>
+<p><a href="http://msdn.microsoft.com/en-us/library/microsoft.sharepoint.portal.webcontrols.dropdownmodes.aspx">http://msdn.microsoft.com/en-us/library/microsoft.sharepoint.portal.webcontrols.dropdownmodes.aspx</a></p>
+</div>

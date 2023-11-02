@@ -1,0 +1,195 @@
+---
+layout: post
+title: Securing applications with the Azure Key Vault and Azure DevOps
+date: 2019-02-14 12:02:20.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure DevOps
+tags:
+- Azure
+- Azure DevOps
+- Extensions
+- Key Vault
+meta:
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";s:3:"yes";s:2:"id";N;s:21:"follower_notification";s:3:"yes";s:7:"license";s:19:"all-rights-reserved";s:14:"publication_id";s:2:"-1";s:6:"status";s:6:"public";s:3:"url";N;}
+  _thumbnail_id: '5579'
+  _edit_last: '3'
+  slide_template: default
+  _yoast_wpseo_primary_category: '535'
+  _wpb_vc_js_status: 'false'
+  _dt_sidebar_position: right
+  _dt_sidebar_widgetarea_id: sidebar_1
+  _dt_sidebar_hide_on_mobile: '0'
+  _dt_footer_show: '1'
+  _dt_footer_widgetarea_id: sidebar_2
+  _dt_footer_hide_on_mobile: '0'
+  _dt_header_title: enabled
+  _dt_header_background: normal
+  _dt_header_background_below_slideshow: disabled
+  _dt_header_transparent_bg_color_scheme: light
+  _dt_header_transparent_top_bar_bg_color: "#ffffff"
+  _dt_header_transparent_top_bar_bg_opacity: '25'
+  _dt_header_transparent_bg_color: "#000000"
+  _dt_header_transparent_bg_opacity: '50'
+  _dt_header_disabled_background: normal
+  _dt_header_disabled_transparent_bg_color_scheme: light
+  _dt_header_disabled_transparent_top_bar_bg_color: "#ffffff"
+  _dt_header_disabled_transparent_top_bar_bg_opacity: '25'
+  _dt_header_disabled_transparent_bg_color: "#000000"
+  _dt_header_disabled_transparent_bg_opacity: '50'
+  _dt_page_overrides_top_margin: ''
+  _dt_page_overrides_bottom_margin: ''
+  _dt_post_options_back_button: ''
+  _dt_post_options_hide_thumbnail: '0'
+  _dt_post_options_related_mode: same
+  _dt_post_options_preview: normal
+  _yoast_wpseo_content_score: '30'
+  _oembed_7e86afb9560234d68c63cdfa62fb0411: "{{unknown}}"
+  _yoast_wpseo_focuskw: Key Vault
+  _yoast_wpseo_metadesc: Security is always one of the items you need to cross off
+    the list when developing. Azure Key Vault can help but how do you use it with
+    Azure DevOps.
+  _yoast_wpseo_linkdex: '41'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snap_isAutoPosted: '1550142159'
+  _nxs_slinks: a:1:{s:32:"b8191610c6d58415ca79986e70861d3a";s:21:"http://bit.ly/2NcT7K9";}
+  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2NcT7K9";s:1:"t";s:99:"https://msftplayground.com/2019/02/securing-applications-with-the-azure-key-vault-and-azure-devops/";s:1:"r";s:1:"B";}
+  snapLI: s:401:"a:1:{i:0;a:12:{s:2:"do";s:1:"0";s:9:"msgFormat";s:61:"New post has
+    been published on %SITENAME% - %TITLE% - %HCATS%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:0:"";s:7:"postURL";s:50:"www.linkedin.com/updates?topic=6501802239668080641";s:5:"pDate";s:19:"2019-02-14
+    13:20:51";}}";
+  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:50:"www.linkedin.com/updates?topic=6501802239668080641";s:2:"id";s:0:"";s:1:"d";s:19:"2019-02-14
+    13:20:51";s:1:"w";s:1:"a";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1096036571718078465";s:2:"id";s:19:"1096036571718078465";s:1:"d";s:19:"2019-02-14
+    13:20:56";s:1:"w";s:1:"a";}}}}
+  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"0";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HCATS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1096036571718078465";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1096036571718078465";s:5:"pDate";s:19:"2019-02-14
+    13:20:56";}}";
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Key Vault
+  _wds_title: ''
+  _wds_metadesc: Security is always one of the items you need to cross off the list
+    when developing. Azure Key Vault can help but how do you use it with Azure DevOps.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2019/02/securing-applications-with-the-azure-key-vault-and-azure-devops/"
+---
+<p><!-- wp:paragraph --></p>
+<p>When developing applications for Azure security it always one of the items you need to cross of your list. Many security requirements can be solved by embedding the Azure Key Vault within your application. The Azure Key Vault can help you solve the following problems:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Secrets Management</li>
+<li>Key Management</li>
+<li>Certificate Management</li>
+<li>Store secrets backed by Hardware Security Modules</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you centralize the secrets in a Key Vault it allows you to control the distribution of those secrets and also manage who is allowed to get, list (many more actions) these secrets. In the most perfect situation a team member of the DevOps team does not even know those secrets. He only deploys the Azure resources via an Azure Pipeline and the rest is managed by another team. The only thing that needs access to the Key Vault in this situation is the application used by the Azure Service Connection.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>To make the actions against the Azure Key Vault more easy I developed a extension called "Azure Key Vault actions" with this extension added to your build or release pipeline these actions can be performed:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Get Azure Key Vault secret value</li>
+<li>Add / Update Azure Key Vault secret</li>
+<li>Remove Azure Key Vault secret</li>
+<li>Add access policy</li>
+<li>Remove access policy</li>
+<li>Import Azure Key Vault certificate</li>
+<li>Get Azure Key Vault certificate Url</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>This extension solves a problem for maintaining and deploying large environments with Azure DevOps. For example an environment that you are deploying uses Azure App Services with a managed identity. This Identity may need automatic access to the Key Vault to retrieve secrets.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In Azure DevOps there is a default integration with the Azure Key Vault. I found that this integration does not offer all the actions that you may want to carry out.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Getting started</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>To get started with the extension follow the below steps.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<li>Go to the Azure DevOps market place:&nbsp;<a href="https://marketplace.visualstudio.com/azuredevops">https://marketplace.visualstudio.com/azuredevops</a></li>
+<li>Search for the extension: “Azure Key Vault actions” or use this direct link:&nbsp;<a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-azurekeyvault" target="_blank">https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-azurekeyvault</a></li>
+<li>Click on the “Get It Free” button and follow the installation instructions for the extension.</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"id":5585,"align":"center","linkDestination":"media"} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><a href="https://msftplayground.com/wp-content/uploads/2019/02/azurekeyvaultactions.png" target="_blank" rel="noreferrer noopener" /><img src="{{ site.baseurl }}/assets/archive/2019/02/azurekeyvaultactions-1024x143.png" alt="Azure Key Vault Actions" class="wp-image-5585" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading --></p>
+<h2>Azure Key Vault actions task</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>With the task installed it can be added to a Build or Release pipeline. Depending on the actions you choose you need to fill in the following properties:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><strong>Azure RM Subscription</strong>: The subscription / service connection to connect to.</li>
+<li><strong>Action</strong>: The specific action to perform on the specified Key Vault.</li>
+<li><strong>Key Vault name</strong>: The name of the key vault.</li>
+<li><strong>Secret name</strong>: The name for the secret.</li>
+<li><strong>Secret</strong>: The secret value, for this value you should use a secured variable within Azure DevOps Pipelines.</li>
+<li><strong>Certificate name</strong>: Name of the certificate to retrieve or import.</li>
+<li><strong>Certificate file</strong>: The certificate file to import.</li>
+<li><strong>Certificate password</strong>: The password of the certificate.</li>
+<li><strong>ObjectId</strong>: The objectId of the object in Azure Active Directory to give access to or remove from the access policies.</li>
+<li><strong>Permissions to keys</strong>: Permissions to the keys separated by ','</li>
+<li><strong>Permissions to secrets</strong>: Permissions to the secrets separated by ','</li>
+<li><strong>Permissions to certificates</strong>: Permissions to the certificates separated by ','</li>
+<li><strong>Permissions to storage</strong>: Permissions to the storage separated by ','</li>
+<li><strong>Variable name</strong>: The name of the variable to save the results to.</li>
+<li><strong>Overwrite</strong>: Overwrite the secret or certificate if it already present is in the Key Vault.</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>The task needs a Azure RM Subscription endpoint. The endpoint uses a Azure Active Directory application in the background. When using the task make sure this application has the appropriate role assignments on the Azure Key Vault (role assignment: owner).</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":5589,"align":"center","linkDestination":"media"} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><a href="https://msftplayground.com/wp-content/uploads/2019/02/azurekeyvaulttask.png" target="_blank" rel="noreferrer noopener" /><img src="{{ site.baseurl }}/assets/archive/2019/02/azurekeyvaulttask-1024x481.png" alt="Azure Key Vault task" class="wp-image-5589" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading --></p>
+<h2 id="user-content-documentation">Support</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>I maintain the extension in my free time and the sources of the extension can be found GitHub. If you encounter any issues or would like to see different features, please let me know by adding an issue to GitHub repository.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><a href="https://github.com/maikvandergaag/msft-extensions/issues">https://github.com/maikvandergaag/msft-extensions/issues</a></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading --></p>
+<h2>Extensions</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Besides this extension I created several others. More information about these extension can be found here:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:html --></p>
+<figure><iframe src="https://msftplayground.com/extensions/embed/#?secret=GvCUNjgAzt" width="600" height="255"></iframe></figure>
+<p><!-- /wp:html --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>

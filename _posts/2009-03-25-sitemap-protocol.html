@@ -1,0 +1,58 @@
+---
+layout: post
+title: Sitemap Protocol
+date: 2009-03-25 06:21:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- SEO
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Sitemap protocol
+  _yoast_wpseo_focuskw: Sitemap protocol
+  _yoast_wpseo_linkdex: '81'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Sitemap protocol
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/03/sitemap-protocol/"
+---
+<div class="ExternalClass7BE16F6C0D4A45638B7666FCBB368FD0">
+<p>When you are developing an internet facing SharePoint site you want search engines too completely and correctly crawl your site. A sitemap protocol (xml sitemap) can help you with that problem. A Sitemap Protocol allows you to inform a search engine about the available urls (pages) on your website that need to be crawled. In simple words it is an xml file with all the urls off your website. When you would like to implement this you have to make the file available in the root off your website. I hear you asking how a sitemap.xml looks like, so here is an example: </p>
+<pre class="brush: csharp;"> &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+ &lt;urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"&gt;
+    &lt;url&gt;
+     &lt;loc&gt;http://www.example.com/&lt;/loc&gt;
+    &lt;lastmod&gt;2005-01-01&lt;/lastmod&gt;
+     &lt;changefreq&gt;monthly&lt;/changefreq&gt;
+     &lt;priority&gt;0.8&lt;/priority&gt;
+    &lt;/url&gt;
+ &lt;/urlset&gt; </pre>
+<p>More information about a sitemap.xml file can be found here: </p>
+<ul>
+<li><a href="http://www.sitemaps.org/protocol.php">Sitemap.org</a></li>
+</ul>
+<p>But how can you implement this in SharePoint. I think that there are two integration possibilities (If you know more please let me know): </p>
+<ul>
+<li><strong>HttpHandler:</strong>That generates the xml file on request. An example of this implementation can be found here: <a href="http://www.codeplex.com/Release/ProjectReleases.aspx?ProjectName=imtech&amp;ReleaseId=14208">Solution</a>. With this solution you can have a sitemap.xml for each site collection you have in a web application
+</li>
+<li><strong>TimerJob:</strong>A custom timer job that generates a new sitemap.xml in the root folder of your web application.</li>
+</ul>
+<p>In a few weeks I will write a post, were in I will explain how to create a custom timerjob. So let me know if you are interested in that post. </p></div>

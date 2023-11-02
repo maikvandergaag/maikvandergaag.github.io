@@ -1,0 +1,105 @@
+---
+layout: post
+title: Inserting initial information in a site definition
+date: 2008-05-27 07:22:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Design
+tags:
+- Onet
+- Site definition
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Site definition
+  _yoast_wpseo_focuskw: Site definition
+  _yoast_wpseo_linkdex: '73'
+  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
+  _oembed_16b2e2e28504ccb6fcf14474279ceefa: "{{unknown}}"
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _oembed_0f033cbf9a27cb2672c795e767050e22: "{{unknown}}"
+  _oembed_cf0d2e42ddb4a051aed89e1f38330245: "{{unknown}}"
+  _oembed_d72a228e4109cd24d550c4d508d4b118: "{{unknown}}"
+  _oembed_16b84248cd3147463d9ebfb1e41bdf06: "{{unknown}}"
+  _oembed_19b074d63523135cb866aef2ff9e12fa: "{{unknown}}"
+  _oembed_79708d10fb00447f7d6519604c341f45: "{{unknown}}"
+  _oembed_842a77dd185e1f407fc8ac1b062a12cd: "{{unknown}}"
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Site definition
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2008/05/inserting-initial-information-in-a-site-definition/"
+---
+<div class="ExternalClassBE6D2CCC9F434663A4726291D574AE4A">
+<p>For a current project I had to figure out how to place information in a list in SharePoint when you are creating a new site from a site template and place documents in a document library.</p>
+<p>After a lot of searching on the internet I found some helpful stuff. Placing initial information in a list can also be found on the MSDN site.</p>
+<p>First step is to create a new site definition. This can be done by copying an out of the box Template and adjusting it the way you would like it to be. More information about creating a site definition you can find at:</p>
+<p>http://www.sharepointblogs.com/tbaginski/archive/2007/08/16/creating-a-custom-site-definition-in-wss-v3-moss.aspx</p>
+<p>This can also be a helpful link:</p>
+<p>http://blah.winsmarts.com/2006-12-Registering_your_custom_site_definitions_in_SharePoint_2007.aspx</p>
+<p>The way for placing initial information in a SharePoint list is done by finding the right list in the onet.xml were in you would like to place the information.</p>
+<p>For example you have to find a tag in your ONET.xml like the one below:</p>
+<pre class="brush: xml;"> &lt;!--List information--&gt;
+ &lt;List FeatureId=&quot;1BFC6CD6-4941-4964-A143-25E62AAEF642&quot; Type=&quot;107&quot; Title=&quot;Taken&quot; Url=&quot;Lists/Taken&quot; QuickLaunchUrl=&quot;Lists/Taken/AllItems.aspx&quot; &gt;&lt;/List&gt;</pre>
+<p>For placing information in that list you have to know the columns that that list uses and place it between the &lt;list&gt; and &lt;/list&gt; with the &lt;data&gt; tag.</p>
+<pre class="brush: xml;">&lt;!--Inserting initial information--&gt;
+ &lt;List FeatureId=&quot;1BFC6CD6-4941-4964-A143-25E62AAEF642&quot; Type=&quot;107&quot; Title=&quot;Taken&quot; Url=&quot;Lists/Taken&quot; QuickLaunchUrl=&quot;Lists/Taken/AllItems.aspx&quot; &gt;
+ &lt;Data&gt;
+  &lt;Rows&gt;
+   &lt;Row&gt;
+    &lt;Field Name=&quot;Title&quot;&gt;Task 1&lt;/Field&gt;
+   &lt;/Row&gt;
+   &lt;Row&gt;
+    &lt;Field Name=&quot;Title&quot;&gt;Task 2&lt;/Field&gt;
+   &lt;/Row&gt;
+   &lt;Row&gt;
+    &lt;Field Name=&quot;Title&quot;&gt;Task 3&lt;/Field&gt;
+   &lt;/Row&gt;
+   &lt;Row&gt;
+    &lt;Field Name=&quot;Title&quot;&gt;Task 4&lt;/Field&gt;
+   &lt;/Row&gt;
+   &lt;Row&gt;
+    &lt;Field Name=&quot;Title&quot;&gt;Task 5&lt;/Field&gt;
+   &lt;/Row&gt;
+  &lt;/Rows&gt;
+ &lt;/Data&gt;
+ &lt;/List&gt;</pre>
+<p>This example will place five new lines in the Task list with all different titles. If you would like to fill in more items for a task, you would just have to add more field items between a row tag. Placing documents into a site is done a little bit different.</p>
+<p>For placing these documents in the right document library you have to add a folder to you site definition with a name you are just thinking off. For this example I choice the folder name doctemp. To place the documents into a document library you have to make a module in the onet.xml file. And add it to the right configuration. </p>
+<p>WordDocuments is the name I created for my module. You have to specify the module at the end of the onet.xml between the &lt;modules&gt; tag just before the end tag of projects. The module you could enter there could be something like this:</p>
+<pre class="brush: xml;"> &lt;!--Inplementing module--&gt;
+ &lt;Module Name=&quot;WordDocuments&quot; List=&quot;101&quot; Url=&quot;Documents&quot; Path=&quot;docTemp&quot;&gt;
+ &lt;File Name=&quot;Test.doc&quot;  Url=&quot;Test.doc&quot; Type=&quot;GhostableInLibrary&quot; /&gt;
+ &lt;/Module&gt;</pre>
+<p>The explanation of the used properties: </p>
+<ul>
+<li><strong>Name:</strong> The name of the module.
+</li>
+<li><strong>List:</strong> The list type of the list were you would like to insert the documents.
+</li>
+<li><strong>Url: </strong>The URL to the list were you would like to insert the documents.
+</li>
+<li><strong>Path: </strong>The path to the files
+</li>
+<li><strong>File Name:</strong> The file name you would like to use.
+</li>
+<li><strong>File Url:</strong> The file name you would like to insert.
+</li>
+<li><strong>Type GhostableInLibrary: </strong>tells SharePoint to put an entry in the document library for this file, but this file will not be stored in the database it will stay on the file system.</li>
+</ul>
+<p>So now you are ready to make a site template with initial information.</p>
+</div>

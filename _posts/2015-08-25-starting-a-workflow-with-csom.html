@@ -1,0 +1,300 @@
+---
+layout: post
+title: Starting a Workflow with CSOM
+date: 2015-08-25 14:44:46.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Office 365
+- SharePoint
+tags:
+- C#
+- CSOM
+- SharePoint Online
+meta:
+  snap_isAutoPosted: '1'
+  _wpt_short_url: http://bit.ly/1IcxoWy
+  _wp_jd_target: http://msftplayground.com/2015/08/starting-a-workflow-with-csom/
+  _jd_wp_twitter: 'a:2:{i:0;s:61:"New post: Starting a Workflow with CSOM http://bit.ly/1IcxoWy";i:1;s:64:"Post
+    Edited: Starting a Workflow with CSOM http://bit.ly/1IcxoWy";}'
+  _wpt_status_message: Tweet sent successfully.
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: Workflow
+  _yoast_wpseo_metadesc: Starting a Workflow with CSOM for SharePoint Online
+  _jd_twitter: ''
+  _jd_tweet_this: 'yes'
+  _yoast_wpseo_linkdex: '78'
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _oembed_57cb4726ad58bf6378f7061532f33fa6: "{{unknown}}"
+  _yoast_wpseo_focuskw_text_input: Workflow
+  _snap_forceSURL: '2'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:395:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1617050618572265";s:5:"pDate";s:19:"2015-08-25
+    14:44:53";s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
+  snapLI: s:289:"a:1:{i:0;a:9:{s:11:"isPrePosted";s:1:"1";s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
+  snapTW: s:145:"a:1:{i:0;a:5:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:15:"%TITLE%
+    - %URL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";}}";
+  _jetpack_related_posts_cache: a:0:{}
+  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
+  _oembed_1ba82f062134c494a889e607d118caea: "{{unknown}}"
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Workflow
+  _wds_title: ''
+  _wds_metadesc: Starting a Workflow with CSOM for SharePoint Online
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2015/08/starting-a-workflow-with-csom/"
+---
+<p>There are situations were you would like to start a workflow by using  code. In one of my last projects there was that kind of situation, in that project we needed to start a workflow on every item in the SharePoint list. In the past I had done this kind of work many times with the server object model but since this was a SharePoint Online instance I was not able to use the server object model.</p>
+<p>As you are unable to use the server object model you need to use the Client Side Object Model (CSOM).  In the upcoming article I will walk you trough the code step by step. Make sure that before you start that you add the OfficeDevPpPCore16 nuget package to your application.</p>
+<p>&nbsp;</p>
+<p>First thing you need to do when using the client side object model is getting the client context for the site. The URL that you use for the context will need to be the absolute URL of the site on which you want to start the Workflow.  In order to build the client context you need the login name of the user, his password and the site URL.</p>
+<p>&nbsp;</p>
+<pre class="brush: csharp;">Console.WriteLine("Enter the Office 365 Login Name");
+string loginId = Console.ReadLine();
+string pwd = GetInput("Password", true);
+
+Console.WriteLine("Web Url:");
+string webUrl = Console.ReadLine();
+
+Console.WriteLine("List Name:");
+string listName = Console.ReadLine();
+
+Console.WriteLine("Workflow Name");
+string workflowName = Console.ReadLine();
+
+var passWord = new SecureString();
+foreach (char c in pwd.ToCharArray()) passWord.AppendChar(c);
+
+using (var ctx = new ClientContext(webUrl)) {
+    ctx.Credentials = new SharePointOnlineCredentials(loginId, passWord);
+}
+
+
+</pre>
+<p>In the above code the is a reference to a method called “GetInput” We use this method for getting the password of the user without seeing what the user is typing in the console window.</p>
+<p>&nbsp;</p>
+<pre class="brush: csharp;">private static string GetInput(string label, bool isPassword) {
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.Write("{0} : ", label);
+    Console.ForegroundColor = ConsoleColor.Gray;
+
+    string strPwd = "";
+
+    for (ConsoleKeyInfo keyInfo = Console.ReadKey(true); keyInfo.Key != ConsoleKey.Enter; keyInfo = Console.ReadKey(true)) {
+        if (keyInfo.Key == ConsoleKey.Backspace) {
+            if (strPwd.Length &gt; 0) {
+                strPwd = strPwd.Remove(strPwd.Length - 1);
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                Console.Write(" ");
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+            }
+        } else if (keyInfo.Key != ConsoleKey.Enter) {
+            if (isPassword) {
+                Console.Write("*");
+            } else {
+                Console.Write(keyInfo.KeyChar);
+            }
+            strPwd += keyInfo.KeyChar;
+
+        }
+
+    }
+    Console.WriteLine("");
+
+    return strPwd;
+}
+</pre>
+<p>When the client context is setup we can start with the actions we need to perform. The first action we will perform is getting a reference to all required workflow components.components</p>
+<pre class="brush: csharp;">var workflowServicesManager = new WorkflowServicesManager(ctx, ctx.Web);
+var workflowInteropService = workflowServicesManager.GetWorkflowInteropService();
+var workflowSubscriptionService = workflowServicesManager.GetWorkflowSubscriptionService();
+var workflowDeploymentService = workflowServicesManager.GetWorkflowDeploymentService();
+var workflowInstanceService = workflowServicesManager.GetWorkflowInstanceService();
+</pre>
+<p>&nbsp;</p>
+<p>This above components are all needed in order to start a workflow. The component we will use first is the deployment service, this service will be used to get all published workflow definitions on the site.</p>
+<pre class="brush: csharp;">var publishedWorkflowDefinitions = workflowDeploymentService.EnumerateDefinitions(true);
+ctx.Load(publishedWorkflowDefinitions);
+ctx.ExecuteQuery();
+
+var def = from defs in publishedWorkflowDefinitions
+          where defs.DisplayName == workflowName
+          select defs;
+
+WorkflowDefinition workflow = def.FirstOrDefault();
+
+if(workflow != null) {
+
+}
+</pre>
+<p>As you can see in the above code the workflow definitions are retrieved from the site. In this collection we try to find our workflow definition we need by using the workflow name.</p>
+<p>&nbsp;</p>
+<pre class="brush: csharp;">// get all workflow associations
+var workflowAssociations = workflowSubscriptionService.EnumerateSubscriptionsByDefinition(workflow.Id);
+ctx.Load(workflowAssociations);
+ctx.ExecuteQuery();
+
+// find the first association
+var firstWorkflowAssociation = workflowAssociations.First();
+
+// start the workflow
+var startParameters = new Dictionary&lt;string, object&gt;();
+
+if (ctx.Web.ListExists(listName)) {
+    List list = ctx.Web.GetListByTitle(listName);
+
+    CamlQuery query = CamlQuery.CreateAllItemsQuery();
+    ListItemCollection items = list.GetItems(query);
+
+    // Retrieve all items in the ListItemCollection from List.GetItems(Query).
+    ctx.Load(items);
+    ctx.ExecuteQuery();
+    foreach (ListItem listItem in items) {
+        Console.WriteLine("Starting workflow for item: " + listItem.Id);
+        workflowInstanceService.StartWorkflowOnListItem(firstWorkflowAssociation, listItem.Id, startParameters);
+        ctx.ExecuteQuery();
+    }
+}
+
+</pre>
+<p>When the correct definition is loaded we need to association  to be able to start the workflow. Together with the association you also need start parameters to start the workflow, because in our situation we do not have any start parameters we pass in a empty dictionary.  If the list exists we create a CAML query to retrieve all the items in the list.</p>
+<p>As last step we can iterate trough the list items and start the workflow for each item by calling the “StartWorkflowOnListItem” method.</p>
+<p>&nbsp;</p>
+<p>Below you can find the complete reference for the source code.</p>
+<p>&nbsp;</p>
+<pre class="brush: csharp;">using Microsoft.SharePoint.Client;
+using Microsoft.SharePoint.Client.WorkflowServices;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CSOMStartWorkflow {
+    class Program {
+        static void Main(string[] args) {
+
+            Console.WriteLine("Enter the Office 365 Login Name");
+            string loginId = Console.ReadLine();
+            string pwd = GetInput("Password", true);
+
+            Console.WriteLine("Web Url:");
+            string webUrl = Console.ReadLine();
+
+            Console.WriteLine("List Name:");
+            string listName = Console.ReadLine();
+
+            Console.WriteLine("Workflow Name");
+            string workflowName = Console.ReadLine();
+
+            var passWord = new SecureString();
+            foreach (char c in pwd.ToCharArray()) passWord.AppendChar(c);
+
+            using (var ctx = new ClientContext(webUrl)) {
+                ctx.Credentials = new SharePointOnlineCredentials(loginId, passWord);
+
+                var workflowServicesManager = new WorkflowServicesManager(ctx, ctx.Web);
+                var workflowInteropService = workflowServicesManager.GetWorkflowInteropService();
+                var workflowSubscriptionService = workflowServicesManager.GetWorkflowSubscriptionService();
+                var workflowDeploymentService = workflowServicesManager.GetWorkflowDeploymentService();
+                var workflowInstanceService = workflowServicesManager.GetWorkflowInstanceService();
+
+                var publishedWorkflowDefinitions = workflowDeploymentService.EnumerateDefinitions(true);
+                ctx.Load(publishedWorkflowDefinitions);
+                ctx.ExecuteQuery();
+
+                var def = from defs in publishedWorkflowDefinitions
+                          where defs.DisplayName == workflowName
+                          select defs;
+
+                WorkflowDefinition workflow = def.FirstOrDefault();
+
+                if(workflow != null) {
+
+
+                    // get all workflow associations
+                    var workflowAssociations = workflowSubscriptionService.EnumerateSubscriptionsByDefinition(workflow.Id);
+                    ctx.Load(workflowAssociations);
+                    ctx.ExecuteQuery();
+
+                    // find the first association
+                    var firstWorkflowAssociation = workflowAssociations.First();
+                    
+                    // start the workflow
+                    var startParameters = new Dictionary&lt;string, object&gt;();
+
+                    if (ctx.Web.ListExists(listName)) {
+                        List list = ctx.Web.GetListByTitle(listName);
+
+                        CamlQuery query = CamlQuery.CreateAllItemsQuery();
+                        ListItemCollection items = list.GetItems(query);
+
+                        // Retrieve all items in the ListItemCollection from List.GetItems(Query).
+                        ctx.Load(items);
+                        ctx.ExecuteQuery();
+                        foreach (ListItem listItem in items) {
+                            Console.WriteLine("Starting workflow for item: " + listItem.Id);
+                            workflowInstanceService.StartWorkflowOnListItem(firstWorkflowAssociation, listItem.Id, startParameters);
+                            ctx.ExecuteQuery();
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("Press any key to close....");
+            Console.ReadKey();
+        }
+
+        private static string GetInput(string label, bool isPassword) {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("{0} : ", label);
+            Console.ForegroundColor = ConsoleColor.Gray;
+
+            string strPwd = "";
+
+            for (ConsoleKeyInfo keyInfo = Console.ReadKey(true); keyInfo.Key != ConsoleKey.Enter; keyInfo = Console.ReadKey(true)) {
+                if (keyInfo.Key == ConsoleKey.Backspace) {
+                    if (strPwd.Length &gt; 0) {
+                        strPwd = strPwd.Remove(strPwd.Length - 1);
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                        Console.Write(" ");
+                        Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                    }
+                } else if (keyInfo.Key != ConsoleKey.Enter) {
+                    if (isPassword) {
+                        Console.Write("*");
+                    } else {
+                        Console.Write(keyInfo.KeyChar);
+                    }
+                    strPwd += keyInfo.KeyChar;
+
+                }
+
+            }
+            Console.WriteLine("");
+
+            return strPwd;
+        }
+    }
+}
+
+</pre>
+<p>The complete solution is also posted on: <a href="https://code.msdn.microsoft.com/">https://code.msdn.microsoft.com/</a> direct link to the sample:</p>
+<p><a href="https://code.msdn.microsoft.com/Starting-a-SharePoint-9bcf7c5d">https://code.msdn.microsoft.com/Starting-a-SharePoint-9bcf7c5d</a></p>
+<p>&nbsp;</p>

@@ -1,0 +1,244 @@
+---
+layout: post
+title: Virtual Earth WebPart
+date: 2009-01-27 06:46:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- Javascript
+- Virtual Earth
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Virtual Earth
+  _yoast_wpseo_focuskw: Virtual Earth
+  _yoast_wpseo_linkdex: '84'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Virtual Earth
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/01/virtual-earth-webpart/"
+---
+<div class="ExternalClassC44252D53BD44B6C9FDDF209FC1A4565">
+<p>After reading a post on the blog of Wesley Bakker I thought by myself maybe it is fun to create a webpart in which we can load a map from Virtual Earth.</p>
+<p>And so I did I began with creating a webpart with certain properties so that you can also add a location and a pushpin for that location.</p>
+<p>First you have to think off a way to get the virtual earth map in the webpart. I have done this by writing the JavaScript to the page in the render method off the webpart.</p>
+<pre class="brush: csharp;">[Guid("d2a82f7b-d32b-4154-8370-2a2bae4f7af7")]
+  public class VirtualEarthWebPart : System.Web.UI.WebControls.WebParts.WebPart
+  {
+         public VirtualEarthWebPart()
+         {
+         }
+
+         protected override void Render(HtmlTextWriter writer)
+         {
+             string javascript = null;
+
+             if (String.IsNullOrEmpty(strLocation))
+             {
+                 javascript = "This query has returned no items. To configure the query for this Web Part, &lt;a href=\"javascript:MSOTlPn_ShowToolPane2Wrapper('Edit', this, '" + this.ID + "')\"&gt;open tool pane&lt;/a&gt;.";
+             }
+             else
+             {
+                 //Create Java Script String
+                 javascript = CreateJavaScriptString();
+             }
+
+             writer.Write(javascript);
+         }
+
+         public string CreateJavaScriptString()
+         {
+             StringBuilder htmltext = new StringBuilder();
+
+             htmltext.Append("&lt;script src=\"http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2\"&gt;&lt;/script&gt;");
+             htmltext.Append("&lt;script type=\"text/javascript\"&gt;");
+
+             htmltext.Append(" var map = null; ");
+             htmltext.Append(" var points = null; ");
+             //Load Virtual Earth Map
+             htmltext.Append("  function GetMap() ");
+             htmltext.Append("  { ");
+             htmltext.Append("    map = new VEMap('myMap'); ");
+             htmltext.Append("    map.LoadMap(); ");
+             htmltext.Append("    map.Find(null, '" + strLocation + "', null, null, null, null, false, false, true, true, findAddressCallBack); ");
+             htmltext.Append("  }");
+
+             htmltext.Append(" function findAddressCallBack(thelayer, resultsArray, places, hasMore, veErrorMessage) ");
+             htmltext.Append(" { ");
+             htmltext.Append("   if(places != null &amp;&amp; places.length &gt;0) ");
+             htmltext.Append("   { ");
+             htmltext.Append("     var latitude = places[0].LatLong.Latitude; ");
+             htmltext.Append("     var longitude = places[0].LatLong.Longitude; ");
+             htmltext.Append("     points = new VELatLong(latitude, longitude); ");
+             htmltext.Append("     try ");
+             htmltext.Append("     { ");
+             htmltext.Append("       var shape = new VEShape(VEShapeType.Pushpin, points); ");
+
+             //Set Custom Image URL
+             if (!String.IsNullOrEmpty(customIconUrl))
+             {
+                 htmltext.Append(" shape.SetCustomIcon('" + customIconUrl + "'); ");
+             }
+
+             //Set Location Title
+             if (!String.IsNullOrEmpty(titleLocation))
+             {
+                 htmltext.Append(" shape.SetTitle('" + titleLocation + "'); ");
+             }
+
+             if (!String.IsNullOrEmpty(descriptionLocation))
+             {
+                 htmltext.Append(" shape.SetDescription('" + descriptionLocation + "'); ");
+             }
+
+             if (!String.IsNullOrEmpty(photoLocation))
+             {
+                 htmltext.Append(" shape.SetPhotoURL('" + photoLocation + "');    ");
+             }
+
+             if (!String.IsNullOrEmpty(moreLocation))
+             {
+                 htmltext.Append(" shape.SetMoreInfoURL('" + moreLocation + "'); ");
+             }
+
+             if (zoomLevel != 0 &amp;&amp; zoomLevel &lt;= 19)
+             {
+                 htmltext.Append("  map.SetZoomLevel(" + zoomLevel + "); ");
+             }
+
+             if (modeEnum == MapModeEnum.TwoDimensional)
+             {
+                 htmltext.Append("       map.SetMapMode(VEMapMode.Mode2D); ");
+             }
+             else
+             {
+                 htmltext.Append("       map.SetMapMode(VEMapMode.Mode3D); ");
+             }
+             htmltext.Append("       map.AddShape(shape); ");
+             htmltext.Append("      map.SetMapStyle(VEMapStyle." + mapEnum.ToString() + "); ");
+             htmltext.Append("     } ");
+             htmltext.Append("     catch(e) ");
+             htmltext.Append("     { ");
+             htmltext.Append("       alert(e.message); ");
+             htmltext.Append("     } ");
+             htmltext.Append("   } ");
+             htmltext.Append(" } ");
+
+             //Add Function GetMap to the LoadEvent
+             htmltext.Append("  function addLoadEvent(func) ");
+             htmltext.Append("  { ");
+             htmltext.Append("    var oldonload = window.onload; ");
+             htmltext.Append("    if(typeof window.onload != 'function') ");
+             htmltext.Append("    { ");
+             htmltext.Append("      window.onload = func; ");
+             htmltext.Append("    } ");
+             htmltext.Append("    else ");
+             htmltext.Append("    { ");
+             htmltext.Append("      window.onload = function()");
+             htmltext.Append("        { ");
+             htmltext.Append("          func(); ");
+             htmltext.Append("        } ");
+             htmltext.Append("    } ");
+             htmltext.Append("  } ");
+
+             htmltext.Append("  addLoadEvent(GetMap); ");
+
+             htmltext.Append("&lt;/script&gt; ");
+             htmltext.Append("&lt;div id='myMap' style=\"position:relative;\"&gt;&lt;/div&gt;");
+
+             return htmltext.ToString();
+         }
+
+     } </pre>
+<p>In the code displayed above I created a StringBuilder with the complete JavaScript and even a html section (div) for displaying the map. In the code above you can also see multiple checks for empty strings. This I have done for certain properties I have added to the webpart.</p>
+<p>The properties I have added to the webpart are written down at the end of this post. In the code section below I have added two examples off properties I created for the webpart.</p>
+<pre class="brush: csharp;"> public enum MapStyleEnum
+ {
+       Road, Shaded, Aerial, Hybrid, Oblique, Birdseye, BirdseyeHybrid
+ };
+
+ protected MapStyleEnum mapEnum;
+
+ /// &lt;summary&gt;
+ /// property for the Map Style
+ /// &lt;/summary&gt;
+ [WebBrowsable(true),
+ Personalizable(true),
+ Category("Virtual Earth Map Settings"),
+ DisplayName("Map Style"),
+ WebDisplayName("Map Style"),
+ Description("Please choose a Map Style.")]
+ public MapStyleEnum MyEnum
+ {
+      get
+      {
+         return mapEnum;
+      }
+      set
+      {
+          mapEnum = value;
+      }
+ }
+
+ //Custom icon
+ private string customIconUrl;
+
+ /// &lt;summary&gt;
+ /// property for the location title
+ /// &lt;/summary&gt;
+ [WebBrowsable(true),
+ Personalizable(true),
+ Category("Virtual Earth Location Settings"),
+ DisplayName("Custom Icon Url"),
+ WebDisplayName("Custom Icon Url"),
+ Description("Please enter the url off the custom icon.")]
+ public string CustomIconUrl
+ {
+   get
+   {
+       return customIconUrl;
+   }
+   set
+   {
+     customIconUrl = value;
+    }
+  }</pre>
+<p>In the code section above you can see the two examples off the properties I created. One of the properties is a enum because the Map style of a virtual earth map can only have a number of values (style). If you want to accomplish that you can create an enum with all the values. This will be displayed as a drop down box on the webpart properties screen. The other example is a string property where you can enter the URL in of a custom icon so that the pushpin will be replaced by that icon.</p>
+<p>In the final version off the webpart I created I added the following properties :</p>
+<ul>
+<li><strong>Location:</strong> The complete string off the location you want to view on the map. Example “Schiedam, the Netherlands” will display my home town
+</li>
+<li><strong>Location title:</strong> This will display when you hover over the location with your mouse.
+</li>
+<li><strong>Location description:</strong> This will also display when you hover over the location with your mouse.
+</li>
+<li><strong>Photo of the location:</strong> This is a URL of a photograph that will be displayed if you hover over the location with your mouse.
+</li>
+<li><strong>URL for more Information:</strong> This is the URL of a website for more information about the location.
+</li>
+<li><strong>Custom Icon URL:</strong> Normally it will display a pushpin. If you enter a URL of a icon it will display this icon instead of the pushpin.
+</li>
+<li><strong>Zoom level:</strong> This is the zoom level off the location.
+</li>
+<li><strong>Map Style:</strong> This represents the style off the map. Virtual earth has multiple map styles.
+</li>
+<li><strong>Map Mode:</strong> This represents the mode of the map. Virtual earth had two map modes (2d and 3d).</li>
+</ul>
+</div>

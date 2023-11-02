@@ -1,0 +1,70 @@
+---
+layout: post
+title: How to add and read properties from the feature.xml
+date: 2008-08-26 07:12:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- SharePoint
+tags:
+- Feature
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '49'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2008/08/how-to-add-and-read-properties-from-the-feature-xml/"
+---
+<div class="ExternalClass7DFD3C9EE8314D1B927152ED21D3BF54">
+<p>I knew it is was possible to provide features with properties but I never found a useful situation till a few days ago. </p>
+<p>So know is the question how do you add properties to your feature.xml? You can accomplish this by adding a properties tag to the feature.</p>
+<pre class="brush: xml;"> &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+ &lt;Feature Id="FeatureID"
+              Title="FeaturePropertiesExample"
+              Description="Example for working with feature properties"
+     Version="1.0.0.1"
+     Scope="Web"
+     Hidden="FALSE"
+     ReceiverAssembly="Assembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=Token"
+              ReceiverClass="The Receiver class"
+     xmlns="http://schemas.microsoft.com/sharepoint/"&gt;
+ &lt;ElementManifests /&gt;
+     &lt;Properties&gt;
+         &lt;Property Key ="Variation" Value="Dutch" /&gt;
+         &lt;Property Key ="VariationLabel" Value="nl-NL" /&gt;
+     &lt;/Properties&gt;
+ &lt;/Feature&gt;</pre>
+<p>In this example I saved the variation label I want to add to the variation.</p>
+<p>If you would Activate the feature you can read out the Property Variation and Variation Label like this:</p>
+<pre class="brush: csharp;">/// &lt;summary&gt;
+ /// Feature Activation
+ /// &lt;/summary&gt;
+ ///&lt;param name="properties"&gt;Feature properties&lt;/param&gt;
+ public override void FeatureActivated(SPFeatureReceiverProperties properties)
+ {
+    //Get property collection
+    SPFeaturePropertyCollection featureProperties = properties.Feature.Properties;
+
+    //Get seperate properties with the key
+    string variationDisplayName = feautureProperties[Variation].toString();
+    string variationLabel= feautureProperties[VariationLabel].toString();
+ } </pre>
+</div>

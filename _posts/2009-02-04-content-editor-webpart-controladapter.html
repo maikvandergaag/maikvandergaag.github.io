@@ -1,0 +1,149 @@
+---
+layout: post
+title: Content Editor WebPart ControlAdapter
+date: 2009-02-04 06:42:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- SharePoint
+tags:
+- Content Editor
+- ControlAdapter
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: ControlAdapter
+  _yoast_wpseo_focuskw: ControlAdapter
+  _yoast_wpseo_linkdex: '71'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: ControlAdapter
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/02/content-editor-webpart-controladapter/"
+---
+<div class="ExternalClass8104489C4BF4408C8CE5113756534CE0">
+<p>One of our clients had a internet facing website. With this website we had a number of problems because it was deployed to our Internet facing farm with Content Deployment. The problem we had was that the Content Editor Web Part (for the rest of this article I will name it CEWP) does not allow relative URLs but saves the complete URL. </p>
+<p>So the Internet site had many URLs in the content editor part the referenced to the internal address that you could not access from the internet. Till a few weeks ago we did not have a solution to this problem till i read a blog post (<a href="http://blogs.msdn.com/maximeb/archive/2008/12/23/fixing-absolute-urls-for-all-alternate-access-mappings-aam-of-content-editor-web-part-with-a-control-adapter.aspx">here</a>). They created a Control Adapter that is run when the content editor web part is on a certain page. I have chosen to write out my complete solution because I found that the other post could have been written with more details on how to create it and how to implement it. </p>
+<p>The Control Adapter replaces the URLs of the internal site in the CEWP with "/"&nbsp; so that it displays a relative URL so that you can use the link on the internet. So what do you need for this solution:</p>
+<ul>
+<li>A feature for adding a link to Central Administration and also places a browser file in the App_Browser Directory for a certain web application.  </li>
+<li>A application page for saving the URL that has to be saved in the web application properties.  </li>
+<li>A browser file to set the Control Adapter. </li>
+</ul>
+<p>First lets make the browser file to set the Control Adapter to the CEWP: </p>
+<pre class="brush: xml;">&lt;browsers&gt;
+    &lt;browser refID="Default"&gt;
+        &lt;controlAdapters&gt;
+            &lt;adapter controlType="Microsoft.SharePoint.WebPartPages.ContentEditorWebPart" adapterType="CEWPFIX.SharePoint.CEWPFIXAdapter, CEWPFIX.SharePoint, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1e8dcda25bf26f8e" /&gt;
+        &lt;/controlAdapters&gt;
+    &lt;/browser&gt;
+&lt;/browsers&gt;</pre>
+<p>What you do in the browser file is that you assign a Adapter to the Microsoft.SharePoint.WebPartPages.ContentEditorWebPart and that is the CEWPFIXAdapter in the example above. </p>
+<p>The next step is to make the Control Adapter. So we created a class file and inherit from the System.Web.UI.Adapters. </p>
+<pre class="brush: csharp;">using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.Adapters;
+using System.IO;
+using System.Text.RegularExpressions;
+using Microsoft.SharePoint.Administration;
+using System.Web.Caching;
+using Microsoft.SharePoint;
+namespace CEWPFIX.SharePoint
+{
+    /// &lt;summary&gt; 
+    /// ControlAdapter for the Content Editor WebPart 
+    /// &lt;/summary&gt; 
+ ControlAdapter
+    {
+        /// &lt;summary&gt; 
+        /// Constant string for the creation of the cache object 
+        /// &lt;/summary&gt; 
+        private const string AlternateUrls = "AlternateUrls";
+        /// &lt;summary&gt; 
+        /// Key for the webapplication property 
+        /// &lt;/summary&gt; 
+        private const string FilterUrl = "FilterUrls";
+        /// &lt;summary&gt; 
+        /// Override the render function off the CEWP 
+        /// &lt;/summary&gt; 
+        /// &lt;param name="writer"&gt;HtmlTextWriter write&lt;/param&gt; 
+        protected override void Render(HtmlTextWriter writer)
+        {
+            //Create a new stringbuilder 
+            StringBuilder sb = new StringBuilder();
+            //create a HtmlTextWriter 
+            HtmlTextWriter htw = new HtmlTextWriter(new StringWriter(sb));
+            //Preform the base Render Method 
+            base.Render(htw);
+            //Get the output string 
+            string output = sb.ToString();
+            //Create a list with the alternate access urls 
+            List&lt;Uri&gt; alternateUrls = GetAlternateUrls();
+            //Read out the list with alternate access urls 
+            foreach (Uri alternateUrl in alternateUrls)
+            {
+                //Replace the url's with / 
+                output = output.Replace(alternateUrl.ToString(), "/");
+            }
+            //write the output to the page 
+            writer.Write(output);
+        }
+        /// &lt;summary&gt; 
+        /// Method for retrieving the Alternate Access Urls of retrieving them from the Cache 
+        /// &lt;/summary&gt; 
+        /// &lt;returns&gt;&lt;/returns&gt; 
+        private List&lt;Uri&gt; GetAlternateUrls()
+        {
+            //Try to retrieve the list from the cache 
+            List&lt;Uri&gt; alternateUrls = (List&lt;Uri&gt;)HttpContext.Current.Cache[AlternateUrls];
+            //Make sure anonymous users can access the web application properties 
+            SPSecurity.RunWithElevatedPrivileges(delegate()
+            {
+                //If the list is null recreate the list en put it in the chache 
+                if (alternateUrls == null)
+                {
+                    //Create a new list object 
+                    alternateUrls = new List&lt;Uri&gt;();
+                    //Retrieve the WebApplication object 
+                    SPWebApplication webApp = SPWebApplication.Lookup(HttpContext.Current.Request.Url);
+                    if (webApp.Properties.ContainsKey(FilterUrl))
+                    {
+                        string[] urls = webApp.Properties[FilterUrl].ToString().Split(new char[] { ';' });
+                        foreach (string str in urls)
+                        {
+                            try
+                            {
+                                Uri url = new Uri(str);
+                                alternateUrls.Add(url);
+                            }
+                            catch (Exception ex)
+                            {
+                                new ExceptionHandler("Something went wrong while creating a uri in the CEWPFIXAdapter", ex);
+                            }
+                        }
+                    }
+                    //Add the list to the cache 
+                    HttpContext.Current.Cache.Add(AlternateUrls, alternateUrls, null, DateTime.Now.AddHours(12), Cache.NoSlidingExpiration, CacheItemPriority.Normal, null);
+                }
+            });
+            //return the list with the urls 
+            return alternateUrls;
+        }
+    }
+}</pre>
+<p>This code will make sure the URLs will get the right format.</p>
+</div>

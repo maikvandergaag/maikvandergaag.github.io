@@ -1,0 +1,133 @@
+---
+layout: post
+title: Enabling and Using site information in an ItemAdding event of a document library
+date: 2008-05-05 07:27:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- SharePoint
+tags:
+- Document Library
+- Events
+- ItemAdding
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: ItemAdding
+  _yoast_wpseo_focuskw: ItemAdding
+  _yoast_wpseo_linkdex: '74'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: ItemAdding
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2008/05/enabling-and-using-site-information-in-an-itemadding-event-of-a-document-library/"
+---
+<div class="ExternalClassFD7BAA4D39814506BFB69F75DB28CE72">In SharePoint 2007 you are able to write custom event handlers for a document library. Some of the different events you can rewrite are:
+<ul>
+<li>ItemAdding: Before an item is added to the list.  </li>
+<li>ItemAdded: When an item is added to the list.</li>
+</ul>
+<p>Besides these item events there are also field events. When you would like to use your own custom events you have to populate the document library with your custom event handler. But first we will try to write an itemAdding event with information from the session and put that information in a Lookup field. In visual studio you have to create a class file and name it however you like. In this example I have called it ItemEventReceiver. The class has to inherit from SPItemEventReceiver.</p>
+<pre class="brush: csharp;"> public class ItemEventReceiver : SPItemEventReceiver
+ {
+    private HttpContext hContext = null;
+
+    public ItemEventReceiver()
+         : base()
+    {
+       hContext = HttpContext.Current;
+    }
+ }</pre>
+<p>&nbsp;</p>
+<p>In the base class you have the hContext to retrieve the current HttpContext. This I have done so that you can retrieve information from the session. The next step is to create the event for the ItemAdding event like below.</p>
+<pre class="brush: csharp;"> //ItemAdding event
+ public override void ItemAdding(SPItemEventProperties properties)
+ {
+    try
+    {
+       //Retrieve the value from the Session and Convert it to an integer
+       int ID = Convert.ToInt32(hContext.Session["SessionValue"]);
+
+       //If the Value is 0 make the value 1
+       if (ID == 0)
+       {
+          ID = 1;
+       }
+
+       string InternalName = ““;
+       using (SPWeb web = properties.OpenWeb())
+       {
+          //Retrieve the internalname of you field were you would like to put the information in.
+          InternalName = web.Lists[properties.ListId].Fields["InternalFieldName"].InternalName;
+       }
+
+       //Create a new SPFieldLookupValue
+       SPFieldLookupValue Value = new SPFieldLookupValue(ID, ID.ToString());
+
+       //Save the SPFieldLookupValue.ToString() in the afterproperties
+       properties.AfterProperties[InternalName] = Value.ToString();
+       base.ItemAdding(properties);
+    }
+    catch(Exception x)
+    {
+        //Write to the EventLog with my own logging class
+        Logging.logmessage(x.Message, System.Diagnostics.EventLogEntryType.Error, “Sharepoint“);
+    }
+ }</pre>
+<p>Place you code in a try catch block like the code above. When something goes wrong the error is written to the EventLog. The integer ID is used to save the ID that is saved in the session under the name ‘SessionValue’. The value of ID is checked if it is not 0 if it is 0 the value is changed to 1. After that the field where you want to input an item is retrieved from the SPWeb. The next step is to make a new SPFieldLookupValue with the ID of the item you want to use and the String Value of that item. The field values for the list item are saved in the SPItemEventProperties.afterproperties.</p>
+<p>They are saved by the internal name of the columns. This means you have to use the Internal name of the field item were in you want to fill in the information and use the SPFieldLookupValue you made to fill this item. You only have to convert it to a string. After that you perform the base actions of the event.</p>
+<p>Now we have created the event you have to add the event to the document library. You can do this trough code and make it into a feature. To do this as a feature you will have to create a SPFeatureReceiver and override the FeatureActivated and FeatureDeactivating. Besides that you also have to implement the FeatureInstalled and FeatureDeinstalled and leave them empty.</p>
+<pre class="brush: csharp;"> //Feature activating and feature deactivating
+ public override void FeatureActivated(SPFeatureReceiverProperties properties)
+ {
+    SPSite siteCollection = SPContext.Current.Site;
+    SPWeb web = (SPWeb)properties.Feature.Parent;
+    SPList list = web.Lists["DocumentLibrary"];
+
+    //AssemblyName
+    string ReceiverAssembly = “AssemblyName, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e31c161dfa4a406af“;
+
+    //ClassName
+    string ReceiverClass = “ClassName“;
+
+    //Add the EventReceiver to the list
+    list.EventReceivers.Add(SPEventReceiverType.ItemAdding, ReceiverAssembly, ReceiverClass);
+
+    //Update the list
+    list.Update();
+ }
+
+ public override void FeatureDeactivating(SPFeatureReceiverProperties properties)
+ {
+    SPSite siteCollection = SPContext.Current.Site;
+    SPWeb web = (SPWeb)properties.Feature.Parent;
+    SPList list = web.Lists["DocumentList"];
+
+    //AssemblyName
+    string ReceiverAssembly =”AssemblyName, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e31c161dfa4a406af“;
+
+    //Loop trough the EventReceivers
+    for (int p = 0; p &lt; list.EventReceivers.Count; i++)
+    {
+        if (list.EventReceivers[p].Assembly.Equals(ReceiverAssembly))
+        {
+           //Delete EventReceiver
+           list.EventReceivers[p].Delete();
+        }
+    }
+ }</pre>
+<p>In the FeatureActivated you will get the web and retrieve the list were you would like to add the EventReceiver. After that you use the list.EventReceiver.Add(EventReceiverType, AssemblyName, ClassName). In the FeatureDeactivating event you would like to delete the event from the EventReceivers. Because you cannot do this by name you have to find the id of the receiver. This you can do by looping trough all the EventReceivers of the list and check if it is equal to the ReceiverAssembly you have created. If this is correct you can delete it from the EventReceivers.</p>
+</div>

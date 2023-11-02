@@ -1,0 +1,169 @@
+---
+layout: post
+title: Running bicep in GitHub Actions
+date: 2021-03-12 12:18:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- GitHub Actions
+tags:
+- bicep
+- GitHub Actions
+meta:
+  _edit_last: '3'
+  _yoast_wpseo_primary_category: '665'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _thumbnail_id: '6151'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _yoast_wpseo_focuskw: bicep
+  _yoast_wpseo_metadesc: Bicep isn't an experimental version anymore. This post explains
+    how to use bicep within GitHub Actions workflow to generate ARM templates.
+  _yoast_wpseo_linkdex: '40'
+  snap_MYSURL: a:3:{s:1:"s";s:67:"https://msftplayground.com/2021/03/running-bicep-in-github-actions/";s:1:"t";s:67:"https://msftplayground.com/2021/03/running-bicep-in-github-actions/";s:1:"r";s:1:"B";}
+  snapLI: s:447:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
+    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:32:"urn:li:share:6776098988400668672";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6776098988400668672";s:5:"pDate";s:19:"2021-03-12
+    11:18:12";}}";
+  snap_isAutoPosted: '1615547892'
+  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6776098988400668672";s:2:"id";s:32:"urn:li:share:6776098988400668672";s:1:"d";s:19:"2021-03-12
+    11:18:12";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1370333300464611329";s:2:"id";s:19:"1370333300464611329";s:1:"d";s:19:"2021-03-12
+    11:18:13";s:1:"w";s:1:"s";}}}}
+  snapTW: s:426:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
+    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1370333300464611329";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1370333300464611329";s:5:"pDate";s:19:"2021-03-12
+    11:18:13";}}";
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: bicep
+  _wds_title: ''
+  _wds_metadesc: Bicep isn't an experimental version anymore. This post explains how
+    to use bicep within GitHub Actions workflow to generate ARM templates.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2021/03/running-bicep-in-github-actions/"
+---
+<p><!-- wp:paragraph --></p>
+<p>Bicep is a language that is used to simplify the writing of ARM templates. Bicep is a so called DSL (Domain Specific Language) meaning that it is a specific language for a specific domains in this case ARM. The last couple of months I have written two more posts about bicep:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><a href="https://msftplayground.com/2020/10/getting-started-with-project-bicep-for-azure-arm/" target="_blank" rel="noreferrer noopener">Getting started with Project Bicep for Azure ARM</a></li>
+<li><a href="https://msftplayground.com/2021/03/running-bicep-within-azure-devops-pipelines/" target="_blank" rel="noreferrer noopener">Running bicep within Azure DevOps Pipelines</a></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>As mention in the second post Microsoft released bicep version <a href="https://github.com/Azure/bicep" target="_blank" rel="noreferrer noopener">0.3.1</a>. With this version the bicep language is not experimental any more. Some pointer about this version are:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Parity with ARM Templates</li>
+<li>Integration with Azure CLI (v2.20.0+) and Azure PowerShell (v5.6.0+)</li>
+<li>De-compiler</li>
+<li>Supported by Microsoft</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>The second post covers how bicep can be used within Azure DevOps Pipelines. From this post I also got some question to write down the same for GitHub Actions.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Support</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>At the time of writing this post there GitHub Actions also supports the Azure CLI option of running bicep. But for having a faster process the outline of this post will download and install the latest version of bicep. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Running bicep in GitHub Actions</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>So how do we run bicep then within GitHub Actions ? To get started the tooling needs to be installed on the agent. This brings us to the first task for the pipeline that will perform the install. To install bicep the following bash code is used.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+chmod +x ./bicep
+sudo mv ./bicep /usr/local/bin/bicep
+bicep --help</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>The script it self  needs to be performed on a Linux machine to install the bicep tooling and configure bicep into the PATH variable. Doing this in GitHub Actions is very easy by using the run action:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code"> - run: | 
+     curl -Lo bicepinstall https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+     chmod +x ./bicepinstall
+     sudo mv ./bicepinstall /usr/local/bin/bicep
+     bicep --help</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>With bicep installed the bicep commands can be executed this is validated by running the "bicep --help" at the end of the installation run. To run bicep against one of the bicep files we add a separate action.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code"> - run: bicep build ./bicep/storage.bicep</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the above action the bicep file in my repository is build and saved in the same location.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Completing the GitHub workflow</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>With the possibility to build the bicep files in the pipeline the GitHub workflow can be completed to copy the generated ARM templates to the workflow artifacts location. These last steps are included in the sample workflow file  below. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - run: | 
+          curl -Lo bicepinstall https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+          chmod +x ./bicepinstall
+          sudo mv ./bicepinstall /usr/local/bin/bicep
+          bicep --help
+      
+      - run:    bicep build ./bicep/storage.bicep
+      
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-without-markdown
+          path: ./**/*.json</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>The complete example can be found on GitHub:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><a href="https://github.com/maikvandergaag/githubactions">maikvandergaag/githubactions: Repository to check GitHub actions</a></li>
+</ul>
+<p><!-- /wp:list --></p>

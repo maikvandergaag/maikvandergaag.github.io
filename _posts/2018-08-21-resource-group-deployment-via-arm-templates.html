@@ -1,0 +1,203 @@
+---
+layout: post
+title: Resource Group deployment via ARM templates
+date: 2018-08-21 10:55:26.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure DevOps
+tags:
+- ARM
+- Azure
+- Resource Group
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '3'
+  _yoast_wpseo_content_score: '90'
+  _yoast_wpseo_primary_category: '323'
+  _oembed_7a3e8f2e05639ad3bf96818184bd712c: "{{unknown}}"
+  _oembed_3746431ead25ba21c1130c66bd1293ac: "{{unknown}}"
+  _yoast_wpseo_focuskw: ARM
+  _yoast_wpseo_linkdex: '77'
+  _thumbnail_id: '2182'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _nxs_slinks: a:1:{s:32:"0c16561c027c8fd03eeb4661f70f9869";s:21:"http://bit.ly/2nWemEc";}
+  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2nWemEc";s:1:"t";s:79:"https://msftplayground.com/2018/08/resource-group-deployment-via-arm-templates/";s:1:"r";s:1:"B";}
+  snapLI: s:381:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:0:"";s:7:"postURL";s:50:"www.linkedin.com/updates?topic=6437607964936269824";s:5:"pDate";s:19:"2018-08-21
+    09:55:44";}}";
+  snap_isAutoPosted: '1534845344'
+  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:50:"www.linkedin.com/updates?topic=6437607964936269824";s:2:"id";s:0:"";s:1:"d";s:19:"2018-08-21
+    09:55:44";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1031842277889662976";s:2:"id";s:19:"1031842277889662976";s:1:"d";s:19:"2018-08-21
+    09:55:44";s:1:"w";s:1:"s";}}}}
+  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1031842277889662976";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1031842277889662976";s:5:"pDate";s:19:"2018-08-21
+    09:55:44";}}";
+  _wpas_done_all: '1'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: ARM
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2018/08/resource-group-deployment-via-arm-templates/"
+---
+<p>When deploying an Azure Resource Manager (ARM) template you have to create a resource group within Azure. To deploy a template via script your script would look like the one below.</p>
+<pre class="brush: powershell;">Select-AzureRmSubscription -SubscriptionId [subscriptionid]
+New-AzureRmResourceGroup -Name [name] -Location [location] -Force
+
+New-AzureRmResourceGroupDeployment -ResourceGroupName [name] -TemplateFile [templatefile]</pre>
+<p>In this script you explicitly create a resource group and then deploy the template to that resource group. Depending on the content of the template because there is also cross resource group deployment.</p>
+<h2>Resource group in an ARM Template</h2>
+<p>Since a couple of weeks it isn't necessary anymore to create a resource group before you deploy a template. You are now able to add the resource group creation in the template.</p>
+<pre class="brush: powershell;">{
+  "type": "Microsoft.Resources/resourceGroups",
+  "apiVersion": "2018-05-01",
+  "location": "westeurope",
+  "name": "rp-ARM-Test",
+  "properties": {}
+}</pre>
+<p>The resource group is a resource that you can incorporate in a template, making it a subscription wide deployment via ARM.</p>
+<p>At the moment it is only possible to deploy subscription wide ARM templates via the Azure CLI, PowerShell compatibility will be added shortly.(the article will be updated when it is available).</p>
+<h2>Azure CLI</h2>
+<p>Make sure you use a new version of the Azure CLI. I have run the scripts with version 2.0.44.</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest" target="_blank" rel="noopener">Install Azure CLI 2.0</a></li>
+</ul>
+<p>The script used for the deployment is shown below. I'm not certain why the "-l" is required. Normally it stands for the location but in the template you also specify a location. That location is used as the location of the resource group.</p>
+<pre class="brush: powershell;">az deployment create -l [location] --template-file [template-file] --parameters @[parameters file]</pre>
+<h2>Deploying resources in the Resource group</h2>
+<p>Incorporating the resource group in the template also allows you to deploy resources in this group. The example below deploys a hosting plan and a website in the resource group.</p>
+<pre class="brush: js;">{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.1",
+  "parameters": {
+    "resourceGroupName": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "hostingPlanName": {
+      "type": "string"
+    },
+    "webApp": {
+      "type": "string"
+    },
+    "skuName": {
+      "type": "string",
+      "defaultValue": "F1",
+      "allowedValues": [ "F1", "D1", "B1", "B2", "B3", "S1", "S2", "S3", "P1", "P2", "P3", "P4" ]
+    },
+    "skuCapacity": {
+      "type": "int",
+      "defaultValue": 1,
+      "minValue": 1
+    }
+  },
+  "variables": {  
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "[parameters('location')]",
+      "name": "[parameters('resourceGroupName')]",
+      "properties": {}
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "resourcegroupdeployment",
+      "resourceGroup": "[parameters('resourceGroupName')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/', parameters('resourceGroupName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "template": {
+          "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+          "contentVersion": "1.0.0.0",
+          "parameters": {},
+          "variables": {},
+          "resources": [
+            {
+              "apiVersion": "2016-09-01",
+              "name": "[parameters('hostingPlanName')]",
+              "type": "Microsoft.Web/serverfarms",
+              "location": "[parameters('location')]",
+              "tags": {
+                "displayName": "HostingPlan"
+              },
+              "sku": {
+                "name": "[parameters('skuName')]",
+                "capacity": "[parameters('skuCapacity')]"
+              },
+              "properties": {
+                "name": "[parameters('hostingPlanName')]"
+              }
+            },
+            {
+              "apiVersion": "2016-08-01",
+              "name": "[parameters('webApp')]",
+              "kind": "app",
+              "type": "Microsoft.Web/sites",
+              "location": "[parameters('location')]",
+              "tags": {
+                "displayName": "Website"
+              },
+              "properties": {
+                "name": "[parameters('webApp')]",
+                "serverFarmId": "[parameters('hostingPlanName')]"
+              },
+              "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]"
+              ]
+            }
+          ],
+          "outputs": {}
+        }
+      }
+    }
+  ],
+  "outputs": {}
+}</pre>
+<p>The deployment uses the cross deployment group deployment method.</p>
+<p>For the complete sample I have also included a parameters file.</p>
+<pre class="brush: js;">{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "hostingPlanName": { "value": "gaag-web-plan-05" },
+    "webApp": { "value": "gaag-web-05" },
+    "resourceGroupName": { "value": "gaag-rg-armtest" },
+    "location": { "value": "westeurope" }
+  }
+}</pre>
+<p>Deploying the files is done like this.</p>
+<pre class="brush: js;">az deployment create -l westeurope --template-file 12-resourcegroup.json --parameters @12-resourcegroup.parameters.json</pre>
+<h2>Subscription wide deployment</h2>
+<p>Subscription wide deployment are now a possibility with the addition of resource groups in the ARM templates. Microsoft also added other subscription wide resources:</p>
+<ul>
+<li>Policies</li>
+<li>Role-based access control</li>
+<li>Azure Security Center</li>
+</ul>
+<p>More details about these resources and the deployment can be found here:</p>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/deploy-to-subscription" target="_blank" rel="noopener">Deploy resources to an Azure subscription</a></li>
+</ul>
+<p>&nbsp;</p>

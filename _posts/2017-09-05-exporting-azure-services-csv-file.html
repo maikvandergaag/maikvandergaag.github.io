@@ -1,0 +1,93 @@
+---
+layout: post
+title: Listing Azure Services within a CSV file
+date: 2017-09-05 10:57:42.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- Governance
+- Powershell
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  snap_isAutoPosted: '1'
+  _yoast_wpseo_focuskw_text_input: Azure
+  _yoast_wpseo_focuskw: Azure
+  _yoast_wpseo_linkdex: '48'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: ''
+  _wpas_done_all: '1'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:421:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:51:"New post (%TITLE%)
+    has been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1947592485518075";s:7:"postURL";s:61:"http://www.facebook.com/msftplayground/posts/1947592485518075";s:5:"pDate";s:19:"2017-09-05
+    09:57:53";}}";
+  snapLI: s:441:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6310772759605710848";s:7:"postURL";s:104:"https://www.linkedin.com/updates?discuss=&scope=22692038&stype=M&topic=6310772759605710848&type=U&a=RkNf";s:5:"pDate";s:19:"2017-09-05
+    09:57:54";}}";
+  snapTW: s:379:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"905007073410383872";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/905007073410383872";s:5:"pDate";s:19:"2017-09-05
+    09:57:55";}}";
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2017/09/exporting-azure-services-csv-file/"
+---
+<p>In some situations you will look into a current Azure Environment and the setup/governance of it and need to migrate or move resources around.</p>
+<p>The below script will help you with exporting the Azure resources into a CSV file, from that CSV file you can join the data within Excel to make plans.</p>
+<h2>Script</h2>
+<p>&nbsp;</p>
+<pre class="brush: powershell;">###################################################################################
+##
+## PowerShell script for exporting Azure Resources within a subscription.
+## Creator: Maik van der Gaag
+##
+###################################################################################
+
+
+Login-AzureRmAccount
+$path = Read-Host "Enter the full path to save the export file to"
+
+$subsciptions = Get-AzureRmSubscription
+
+Write-Host "Subscriptions"
+Write-Host "--------------"
+foreach($sub in $subsciptions){
+
+    Write-Host ($sub | Select -ExpandProperty "Name")
+}
+
+Write-Host ""
+
+$name = Read-Host "Please enter the subscription names for which you want to export the Azure Services devided by (,)"
+
+$names = $name.Split(",");
+
+foreach($subName in $names){
+    Write-Host "Exporting Subscription:" -ForegroundColor Green
+    Set-AzureRmContext -SubscriptionName $subName
+    Get-AzureRmResource | Select-Object Name, ResourceType, ResourceGroupName, SubscriptionId | Export-Csv -Path $path -Encoding ascii -NoTypeInformation -Append
+}
+</pre>
+<h2>Download</h2>
+<p>The script files can also be downloaded from GitHub.</p>
+<p><a href="https://github.com/MaikvanderGaag/MSFT-Scripts/tree/master/Export">https://github.com/MaikvanderGaag/MSFT-Scripts/tree/master/Export</a></p>

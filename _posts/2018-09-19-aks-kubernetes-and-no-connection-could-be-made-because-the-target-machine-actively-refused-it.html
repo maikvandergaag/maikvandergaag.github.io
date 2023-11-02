@@ -1,0 +1,67 @@
+---
+layout: post
+title: AKS (Kubernetes) and no connection could be made because the target machine
+  actively refused it
+date: 2018-09-19 11:28:37.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- kubectl
+- Kubernetes
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '3'
+  _yoast_wpseo_focuskw: AKS
+  _yoast_wpseo_linkdex: '59'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_primary_category: '523'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _nxs_slinks: a:1:{s:32:"92810ec3e914453d30bd62ec5b265588";s:21:"http://bit.ly/2OBkRrE";}
+  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2OBkRrE";s:1:"t";s:129:"https://msftplayground.com/2018/09/aks-kubernetes-and-no-connection-could-be-made-because-the-target-machine-actively-refused-it/";s:1:"r";s:1:"B";}
+  snapLI: s:381:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:0:"";s:7:"postURL";s:50:"www.linkedin.com/updates?topic=6448125612778352640";s:5:"pDate";s:19:"2018-09-19
+    10:29:06";}}";
+  snap_isAutoPosted: '1537352946'
+  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:50:"www.linkedin.com/updates?topic=6448125612778352640";s:2:"id";s:0:"";s:1:"d";s:19:"2018-09-19
+    10:29:06";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1042359926436376576";s:2:"id";s:19:"1042359926436376576";s:1:"d";s:19:"2018-09-19
+    10:29:07";s:1:"w";s:1:"s";}}}}
+  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1042359926436376576";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1042359926436376576";s:5:"pDate";s:19:"2018-09-19
+    10:29:07";}}";
+  _wpas_done_all: '1'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: AKS
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2018/09/aks-kubernetes-and-no-connection-could-be-made-because-the-target-machine-actively-refused-it/"
+---
+<p>A client of my had an error while connecting to different resources within their Kubernetes cluster in Azure (AKS).</p>
+<h2>Kubectl error</h2>
+<p>On the kubectl commands <code class="EnlighterJSRAW" data-enlighter-language="msdos">kubectl proxy</code> and <code class="EnlighterJSRAW" data-enlighter-language="msdos">kubectl get nodes</code> they got the error:</p>
+<blockquote><p>connectex: No connection could be made because the target machine actively refused it.</p></blockquote>
+<p>The complete message after visiting the dashboard (that wasn't loaded) on the command <code class="EnlighterJSRAW" data-enlighter-language="msdos">kubectl proxy</code> was:</p>
+<blockquote><p>http: proxy error: dial tcp 127.0.0.1:8080: connectex: No connection could be made because the target machine actively refused it.</p></blockquote>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/08/kubectlproxy.png"><img class="alignnone size-medium wp-image-4041" src="{{ site.baseurl }}/assets/archive/2018/09/kubectlproxy-300x41.png" alt="Kubectl Proxy" width="300" height="41" /></a></p>
+<p>The problem occurs because the command line isn't able to load the correct config file from the file system. The config file is saved within an environment variable that you can change or alter.</p>
+<h2>Solution</h2>
+<p>The solution to the problem was changing or setting the environment variable to the kubernetes config file name "KUBECONFIG". You can do this by performing the following PowerShell command.</p>
+<pre class="brush: powershell;">[Environment]::SetEnvironmentVariable("KUBECONFIG", $HOME + "\.kube\config", [EnvironmentVariableTarget]::Machine)</pre>
+<p>&nbsp;</p>

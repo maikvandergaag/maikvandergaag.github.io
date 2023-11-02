@@ -1,0 +1,271 @@
+---
+layout: post
+title: Adding Azure App Service Application Settings with PowerShell
+date: 2016-02-16 13:16:01.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- Azure
+- Azure App Services
+- Powershell
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _thumbnail_id: '1681'
+  snap_isAutoPosted: '1'
+  _yoast_wpseo_focuskw_text_input: Azure App Service
+  _yoast_wpseo_focuskw: Azure App Service
+  _yoast_wpseo_linkdex: '68'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:412:"a:1:{i:0;a:13:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1672695483007778";s:5:"pDate";s:19:"2016-02-16
+    13:16:14";s:2:"do";s:1:"1";}}";
+  _yoast_wpseo_primary_category: '20'
+  snapTW: s:299:"a:1:{i:0;a:10:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE%
+    - %HTAGS% - %URL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"709711007275479040";s:5:"pDate";s:19:"2016-03-15
+    12:01:04";s:2:"do";s:1:"1";}}";
+  snapLI: s:600:"a:1:{i:0;a:15:{s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:12:"liMsgFormatT";s:18:"New
+    Post - %TITLE%";s:2:"do";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6115476712781344769";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=6115476712781344769&amp;type=U&amp;a=Ehp8";s:5:"pDate";s:19:"2016-03-15
+    12:01:08";}}";
+  _jetpack_related_posts_cache: a:0:{}
+  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure App Service
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2016/02/adding-azure-app-service-application-settings-powershell/"
+---
+<p>Within Azure there is a option to change several configuration settings. When working with  Deployment Slots this means you have to click a lot within the Azure Portal and that can be a very time consuming operation.</p>
+<p>The configuration of the Azure App Service can be automated by using PowerShell, for this first example we will start configuring Application settings.</p>
+<p>To maintain the application settings values we start off by making a configuration file in which the key value pairs can be saved.</p>
+<pre class="brush: xml;">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;Azure SubscriptionName="Pay-As-You-Go"&gt;
+  &lt;AppService Name="api-app" ResourceGroup="Demo-Group"&gt;
+      &lt;AppSettings&gt;
+        &lt;AppSetting Key="Test" Value="Test"&gt;&lt;/AppSetting&gt;
+      &lt;/AppSettings&gt;    
+  &lt;/AppService&gt;
+  &lt;AppService Name="api-app" ResourceGroup="Demo-Group" Slot="acc"&gt;
+    &lt;AppSettings&gt;
+      &lt;AppSetting Key="Test" Value="Test"&gt;&lt;/AppSetting&gt;
+    &lt;/AppSettings&gt;
+  &lt;/AppService&gt;
+&lt;/Azure&gt;
+</pre>
+<p>If you look at the configuration file you will notice that there is one API application within Azure. This API Application also has a deployment slot called “acc”.</p>
+<p>With the use of PowerShell we can read out this configuration file and add the application settings to the right deployment slot.</p>
+<pre class="brush: powershell;">$fileName = "configuration.xml";
+
+Write-Host "Loading configuration file for Azure:" $fileName; 
+$config = [xml] (Get-Content $fileName)
+
+if ($config -eq $null) {
+    Write-Host "Error loading configuration file, make sure the file exists." -ForegroundColor Red
+    Exit
+}
+$subscription = $config.Azure.SubscriptionName
+
+Write-Host "Login to the Azure Environment:" -ForegroundColor Green
+
+#login to Azure
+Login-AzureRmAccount
+
+Write-Host "Setting the correct Subscription:" -ForegroundColor Green
+
+#get the Azure Subscription
+Get-AzureRmSubscription –SubscriptionName $subscription | Select-AzureRmSubscription
+
+foreach($webApp in $config.Azure.AppService){
+    
+    $appService = '';
+    $group = $webApp.ResourceGroup;
+    $name = $webApp.Name;
+    $slot = $webApp.Slot;
+
+    if(!$slot){
+        Write-Host "Applying settings for app service : " $name " in group: " $group -ForegroundColor Green
+       $appService = Get-AzureRmWebApp -Name $name -ResourceGroupName $group;
+    }else{
+      Write-Host "Applying settings for app service : " $name " in group: " $group "in slot: " $slot -ForegroundColor Green
+      $appService = Get-AzureRmWebAppSlot -Name $name -Slot $slot -ResourceGroupName $group;
+    }
+
+    $appSettings = $appService.SiteConfig.AppSettings
+
+    #setup the current app settings
+    $settings = @{}
+    ForEach ($setting in $appSettings) {
+        $settings[$setting.Name] = $setting.Value
+    }
+
+    #adding new settings to the app settigns
+    foreach($appSetting in $webApp.AppSettings.AppSetting){
+        $settings[$appSetting.Key] = $appSetting.Value;
+    }
+
+    if(!$slot){
+        $app = Set-AzureRMWebApp -Name $name -ResourceGroupName $group -AppSettings $settings
+    }else{
+        $app = Set-AzureRMWebAppSlot -Name $name -ResourceGroupName $group -AppSettings $settings -Slot $slot
+    }
+
+    Write-Host "Application settings applied to: " $appService.Name -ForegroundColor Green
+}
+</pre>
+<p>In the code snip-it above there are a lot of comments so I hope you understand what happens within the script. The main difference for updating the production environment in the slot is described in the following paragraph.</p>
+<p>By using “Set-AzureRMWebApp” you can set the the properties of the production version. By using “Set-AzureRMWebAppSlot” and specifying the “Slot” parameter you update the settings of the specified slot.</p>
+<p>Know I hear you think: What about the specific slot settings as within the picture below.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/02/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/02/image_thumb.png" alt="image" width="576" height="45" border="0" /></a></p>
+<p>Until know I haven’t found a solution other then doing this in the Azure Portal or by using Azure Classic scripts.</p>
+<p>In order to run the upcoming PowerShell a Azure subscription needs to be configured (https://www.opsgility.com/blog/windows-azure-powershell-reference-guide/getting-started-with-windows-azure-powershell/).</p>
+<p>With the use of “Select-AzureSubscription” the default Azure subscription will be set. The subscription that will be used is configured in the configuration file.</p>
+<p>After that the “Set-AzureWebsite” will be used to set the property “SlotStickyAppSettingNames”. This property needs to be set to a string array that contains all the key’s that need to be sticky slot settings.</p>
+<pre class="brush: powershell;">Set-AzureWebsite -Name "api-app" -SlotStickyAppSettingNames @("Test") 
+</pre>
+<p>To support this within the configuration file we alter the app settings. Besides that you must make sure that you set this property on the default (production) slot of your app service. Otherwise you will get the following exception.</p>
+<pre class="brush: powershell;">Set-AzureWebsite : &lt;string xmlns="http://schemas.microsoft.com/2003/10/Serialization/"&gt;{"Code":"BadRequest","Message":"The names 
+of the app settings and connection strings can be only set on a parent site level because they apply to all site's slots.","Exten
+dedCode":"04084","MessageTemplate":"The names of the app settings and connection strings can be only set on a parent site level b
+ecause they apply to all site's slots.","Parameters":[],"InnerErrors":null}&lt;/string&gt;
+At line:2 char:1
++ Set-AzureWebsite -Name "api-app" -SlotStickyAppSettingNames @("Test") -Slot "acc"
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : CloseError: (:) [Set-AzureWebsite], CloudException
+    + FullyQualifiedErrorId : Microsoft.WindowsAzure.Commands.Websites.SetAzureWebsiteCommand
+</pre>
+<p>With the extension the configuration file know looks liked the below code snip-it.</p>
+<pre class="brush: xml;">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;Azure SubscriptionName="Pay-As-You-Go"&gt;
+  &lt;AppService Name="api-app" ResourceGroup="Demo-Group"&gt;
+      &lt;AppSettings&gt;
+        &lt;AppSetting Key="Test" Value="Test" Slot="true"&gt;&lt;/AppSetting&gt;
+      &lt;/AppSettings&gt;    
+  &lt;/AppService&gt;
+  &lt;AppService Name="api-app" ResourceGroup="Demo-Group" Slot="acc"&gt;
+    &lt;AppSettings&gt;
+      &lt;AppSetting Key="Test" Value="Test"&gt;&lt;/AppSetting&gt;
+    &lt;/AppSettings&gt;
+  &lt;/AppService&gt;
+&lt;/Azure&gt;
+
+</pre>
+<p>With the configuration file altered the classic PowerShell code and the “Set-AzureWebsite” can be added to the PowerShell script that results in the following file.</p>
+<pre class="brush: powershell;">$fileName = "configuration.xml";
+
+Write-Host "Loading configuration file for Azure:" $fileName; 
+$config = [xml] (Get-Content $fileName)
+
+if ($config -eq $null) {
+    Write-Host "Error loading configuration file, make sure the file exists." -ForegroundColor Red
+    Exit
+}
+$subscription = $config.Azure.SubscriptionName
+
+Write-Host "Login to the Azure Environment:" -ForegroundColor Green
+
+#login to Azure
+Login-AzureRmAccount
+
+Write-Host "Setting the correct Subscription:" -ForegroundColor Green
+
+#get the Azure Subscription
+Get-AzureRmSubscription –SubscriptionName $subscription | Select-AzureRmSubscription
+Select-AzureSubscription -SubscriptionName $subscription
+
+foreach($webApp in $config.Azure.AppService){
+    
+    $appService = '';
+    $group = $webApp.ResourceGroup;
+    $name = $webApp.Name;
+    $slot = $webApp.Slot;
+
+    if(!$slot){
+        Write-Host "Applying settings for app service : " $name " in group: " $group -ForegroundColor Green
+       $appService = Get-AzureRmWebApp -Name $name -ResourceGroupName $group;
+       
+       if(!$slot){
+            if($appSetting.Slot -eq 'true' -or $appSetting.Slot -eq '1'){
+                $stickyslot += $appSetting.Key;
+            }
+        }
+       
+    }else{
+      Write-Host "Applying settings for app service : " $name " in group: " $group "in slot: " $slot -ForegroundColor Green
+      $appService = Get-AzureRmWebAppSlot -Name $name -Slot $slot -ResourceGroupName $group;
+    }
+
+    $appSettings = $appService.SiteConfig.AppSettings
+
+    #setup the current app settings
+    $settings = @{}
+    ForEach ($setting in $appSettings) {
+        $settings[$setting.Name] = $setting.Value
+    }
+
+    #adding new settings to the app settigns
+    foreach($appSetting in $webApp.AppSettings.AppSetting){
+        $settings[$appSetting.Key] = $appSetting.Value;
+    }
+
+    if(!$slot){
+        $app = Set-AzureRMWebApp -Name $name -ResourceGroupName $group -AppSettings $settings
+        
+        if($stickyslot.Count -lt 0){
+            Write-Host "Set Sticky Slot Settings" -ForegroundColor Yellow
+            Set-AzureWebsite -Name $name -SlotStickyAppSettingNames $stickyslot
+        }
+    }else{
+        $app = Set-AzureRMWebAppSlot -Name $name -ResourceGroupName $group -AppSettings $settings -Slot $slot
+    }
+
+    Write-Host "Application settings applied to: " $appService.Name -ForegroundColor Green
+}
+</pre>
+<p>It may occur that setting the parameter “SlotStickyAppSettingNames” results in the following error: “Requested value 'VS2015' was not found”</p>
+<p>This can be fixed by taking the following steps:</p>
+<ol>
+<li>Switch on remote debugging.</li>
+<li>Select VS2013 instead of VS2015</li>
+<li>Save</li>
+<li>Switch Off remote debugging</li>
+<li>Save</li>
+</ol>
+<p>I hope that the Resource Manager PowerShell will get an extension for setting the sticky slot settings. For know I will keep using the Azure Classic PowerShell. If there is another option that I totally missed  please inform me I would really appreciate it.</p>
+<p>Complete source can be downloaded <a href="https://msftplayground.com/wp-content/uploads/2016/02/Configuration-1.zip" target="_blank">here</a>.</p>
+<p><strong>Update: </strong>As Karl mentioned in the comments setting the sticky slot settings can be done with Azure Resource Management PowerShell. For this you need to use “Set-AzureRmResource”.</p>
+<pre class="brush: powershell;">//Get the current values
+$resourceName = $webappname + "/slotconfigname"
+$stickySlot = Get-AzureRmResource -ResourceName $resourceName -ResourceGroupName -ResourceType "Microsoft.Web/Sites/config" -ApiVersion "2015-08-01"
+
+//Check the AppSettings
+$stickySlot.Properties.AppSettingNames
+
+//If the existing items are empty, you need to create a new array with settings
+$settings = @("AppSetting1", "AppSetting2")
+$stickySlot.Properties.AppSettingNames = $settings
+
+$stickySlot.Properties.AppSettingNames += "AppSetting1"
+$stickySlot.Properties.AppSettingNames += "AppSetting2"
+
+//setting the sticky settings
+Set-AzureRmResource -ResourceName $resourceName -ResourceGroupName -ResourceType "Microsoft.Web/Sites/config" -Properties $stickySlot.Properties -ApiVersion "2015-08-01"
+</pre>

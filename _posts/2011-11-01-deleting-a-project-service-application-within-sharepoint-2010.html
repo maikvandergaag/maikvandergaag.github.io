@@ -1,0 +1,65 @@
+---
+layout: post
+title: Deleting a Project Service Application within SharePoint 2010
+date: 2011-11-01 06:00:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+tags:
+- Delete
+- Project server
+- SharePoint 2010
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Project Server
+  _yoast_wpseo_focuskw: Project Server
+  _yoast_wpseo_linkdex: '71'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463271827;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:666;}i:1;a:1:{s:2:"id";i:672;}i:2;a:1:{s:2:"id";i:415;}}}}
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Project Server
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2011/11/deleting-a-project-service-application-within-sharepoint-2010/"
+---
+<div class="ExternalClass4F9B175F69E04206A9469B63544C2D78">
+<p>A couple of days ago I deleted my Project Server Web application because I wanted to recreate it.</p>
+<p>When I tried to create a new Project Web App Site I got the following messages:</p>
+<ul>
+<li>The database specified is already used by another project server. Enter a different server or database name and try again.</li>
+</ul>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/projectserver.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="projectserver" src="{{ site.baseurl }}/assets/archive/2011/11/projectserver_thumb.png" alt="projectserver" width="491" height="156" border="0" /></a></p>
+<p>The first idea that I came up with was deleting the databases from the database server. After deleting the databases I retried my action but the problem was still there.</p>
+<p>The next thought that came up in my head was deleting the Project Service Application. I pressed delete on the Manage Service Application Page and got the following error message:</p>
+<ul>
+<li>Service application cannot be deleted due to existing project sites.</li>
+</ul>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/errordeleteprojectserviceapplication.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="errordeleteprojectserviceapplication" src="{{ site.baseurl }}/assets/archive/2011/11/errordeleteprojectserviceapplication_thumb.png" alt="errordeleteprojectserviceapplication" width="314" height="201" border="0" /></a></p>
+<p>The problem is with the Project Service Application. The Project service application remains a connection with a specific site collection even If you delete the web application or the specific site collection. The only thing you can do to delete the connected site collection (that does not exist anymore) from the Project Service Application by using PowerShell.</p>
+<p>First you will have to use PowerShell to retrieve a collection of the sites that are referenced with the service application. Get the ID of the reference you want to remove and than remove that reference .</p>
+<p>Let take the first step, get the service application and print the site collections.</p>
+<pre class="brush: powershell;">$svApp = Get-SPServiceApplication -Name "Project Web App Service Application"
+$svApp.SiteCollection 
+</pre>
+<p>This will get a complete list of all the associated site collections:</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/powershelloutcome.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="powershelloutcome" src="{{ site.baseurl }}/assets/archive/2011/11/powershelloutcome_thumb.png" alt="powershelloutcome" width="326" height="291" border="0" /></a></p>
+<p>Next you can copy the ID and remove it by using the following PowerShell command:</p>
+<pre class="brush: powershell;">$svApp.SiteCollection.Remove("a09c6964-efc2-4917-9448-ce86d0bc95d3")</pre>
+<p>And now you can remove the Service Application or recreate the site collection. To remove the service application by using powershell use the following command:</p>
+<pre class="brush: powershell;">Remove-SPServiceApplication $svApp -RemoveData</pre>
+</div>

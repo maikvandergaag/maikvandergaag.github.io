@@ -1,0 +1,90 @@
+---
+layout: post
+title: Retrieve the Friendly URL of a Publishing Page
+date: 2013-01-31 14:04:26.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- C#
+- Publishing
+- SharePoint 2013
+meta:
+  _wp_jd_bitly: http://bit.ly/W1iiy5
+  _wp_jd_target: http://msftplayground.com/2013/01/retrieve-the-friendly-url-of-a-publishing-page/
+  _jd_wp_twitter: 'a:2:{i:0;s:77:"New post: Retrieve the Friendly URL of a Publishing
+    Page http://bit.ly/W1iiy5";i:1;s:80:"Post Edited: Retrieve the Friendly URL of
+    a Publishing Page http://bit.ly/W1iiy5";}'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Friendly Url
+  _yoast_wpseo_focuskw: Friendly Url
+  _yoast_wpseo_linkdex: '75'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Friendly Url
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2013/01/retrieve-the-friendly-url-of-a-publishing-page/"
+---
+<p>One of my first projects with SharePoint 2013 is building a SharePoint website. For the website we had to build a functionality that display’s the URL of specific pages.</p>
+<p> For the website we are using Managed Navigation. Displaying URLs meant we wanted to display the friendly URLS. After searching for a while with <a href="http://ilspy.net/">ILSpy</a> and looking at some <a href="http://msdn.microsoft.com/en-us/library/sharepoint">MSDN</a> articles:</p>
+<ul>
+<li>&nbsp;<a href="http://msdn.microsoft.com/en-us/library/microsoft.sharepoint.publishing.navigation.navigationterm.aspx">NavigationTerm</a></li>
+<li>&nbsp;<a href="http://msdn.microsoft.com/en-us/library/sharepoint/microsoft.sharepoint.publishing.publishingpage.aspx">PublishingPage</a></li>
+</ul>
+<p>I found out that the friendly URL can be retrieved by first getting a list of NavigationTerm items from a SharePoint list item. When you have a NavigationTerm you can retrieve the display URL of that term using the method “GetResolvedDisplayUrl”.</p>
+<p>In short the code to retrieve the friendly URLs will look something like this.</p>
+<pre class="brush: csharp;">public List&lt;string&gt; GetPagesUrls() {
+    
+    //list for saving the urls
+    List&lt;string&gt; retVal = new List&lt;string&gt;();
+
+    //current web
+    SPWeb web = SPContext.Current.Web;
+
+    //check if the current web is a publishing weg
+    if (PublishingWeb.IsPublishingWeb(web)) {
+
+        //get the pages list id
+        Guid listId = PublishingWeb.GetPagesListId(web);
+
+        //retrieve the pages list
+        SPList pagesList = web.Lists[listId];
+
+        //itterate trough the pages
+        foreach (SPListItem item in pagesList.Items) {
+            //retrieve the terms used for the navigation (this can be multiple terms)
+            IList&lt;NavigationTerm&gt; terms = TaxonomyNavigation.GetFriendlyUrlsForListItem(item, false);
+
+            string url = string.Empty;
+
+            //check if the pages has terms associated with it
+            if (terms.Count &gt; 0) {
+                //use the GetResolvedDisplayUrl to retrieve the page friendly urls
+                url = terms[0].GetResolvedDisplayUrl(string.Empty);
+            } else {
+                //if the page does not have any terms get the normal url
+                url = item.File.Url;
+            }
+
+            retVal.Add(url);
+        }
+    }
+    return retVal;
+}
+</pre>

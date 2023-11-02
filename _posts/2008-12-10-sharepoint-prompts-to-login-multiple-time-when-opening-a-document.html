@@ -1,0 +1,50 @@
+---
+layout: post
+title: SharePoint prompts to login multiple time when opening a document
+date: 2008-12-10 06:52:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+- SharePoint
+tags:
+- Citrix
+- Login
+- SharePoint
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '68'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2008/12/sharepoint-prompts-to-login-multiple-time-when-opening-a-document/"
+---
+<div class="ExternalClass99DB6BCC71D94EC2BB02992829BEED16">One of our most annoying issues we came across in one of our projects was the problem that SharePoint kept prompting us to login when we were opening a document. This problem ruined the user experience, so we began a search for possible solutions. In our environment the user could access the portal trough two options locally from their desktop or laptop or trough Citrix Application Neighbourhood. We found out that we had to take three actions to make this work:
+<ul>
+<li>Insert the SharePoint portal site into the trusted sites of Internet Explorer.  </li>
+<li>Set your security level of Internet Explorer to login you in Automatically for intranet applications.</li>
+</ul>
+<p>How do you perform these actions I hear you thinking? The first you can perform in multiple ways because it is different for each version of Internet Explorer:
+<ul>
+<li><strong>IE6:</strong> Internet Options -&gt; Security -&gt; Trusted Site -&gt; Then add the URL of the portal to the trusted sites.  </li>
+<li><strong>IE7/IE8:</strong>Internet options -&gt; Security -&gt; Local intranet -&gt; Websites -&gt; Advanced -&gt; Then add the URL of the portal to the trusted sites.</li>
+</ul>
+<p>The next action you can perform by opening Internet Options -&gt; Security -&gt; Local intranet -&gt; Custom level -&gt; Scroll all the way down and select Automatic logon with current username and password. Now there is still the third step we have to make. But what is it? The third step is changing the Group Policies off all the users. This will make sure every user off the company will receive these changes. </p></div>

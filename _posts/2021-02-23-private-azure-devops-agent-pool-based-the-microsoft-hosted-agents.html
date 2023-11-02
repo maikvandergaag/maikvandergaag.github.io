@@ -1,0 +1,248 @@
+---
+layout: post
+title: Private Azure DevOps agent pool based the Microsoft Hosted Agents
+date: 2021-02-23 12:15:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure DevOps
+tags:
+- Azure
+- Azure DevOps
+meta:
+  _edit_last: '3'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '5'
+  _thumbnail_id: '6125'
+  _yoast_wpseo_primary_category: '535'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _yoast_wpseo_focuskw: Azure DevOps
+  _yoast_wpseo_metadesc: Use Azure DevOps agents like the Microsoft hosted build agents
+    within your privately hosted Azure Virtual Machine scales set Agent Pool
+  _yoast_wpseo_linkdex: '67'
+  snap_MYSURL: a:3:{s:1:"s";s:101:"https://msftplayground.com/2021/02/private-azure-devops-agent-pool-based-the-microsoft-hosted-agents/";s:1:"t";s:101:"https://msftplayground.com/2021/02/private-azure-devops-agent-pool-based-the-microsoft-hosted-agents/";s:1:"r";s:1:"B";}
+  snapLI: s:447:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
+    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:32:"urn:li:share:6769938064274923521";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6769938064274923521";s:5:"pDate";s:19:"2021-02-23
+    11:16:54";}}";
+  snap_isAutoPosted: '1614079014'
+  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6769938064274923521";s:2:"id";s:32:"urn:li:share:6769938064274923521";s:1:"d";s:19:"2021-02-23
+    11:16:54";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1364172376280301572";s:2:"id";s:19:"1364172376280301572";s:1:"d";s:19:"2021-02-23
+    11:16:54";s:1:"w";s:1:"s";}}}}
+  snapTW: s:426:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
+    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1364172376280301572";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1364172376280301572";s:5:"pDate";s:19:"2021-02-23
+    11:16:54";}}";
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure DevOps
+  _wds_title: ''
+  _wds_metadesc: Use Azure DevOps agents like the Microsoft hosted build agents within
+    your privately hosted Azure Virtual Machine scales set Agent Pool
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2021/02/private-azure-devops-agent-pool-based-the-microsoft-hosted-agents/"
+---
+<p><!-- wp:paragraph --></p>
+<p>In Azure DevOps it is possible to create a agent pool that references a Azure virtual machine scale set. This scale set can be based on one of the build in images but can also be based on a custom image.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The images that Microsoft uses for there build agents are made opensource. To be precise the code to make the images is opensource. Making very easy for us to build private agents with the same technology.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><a href="https://github.com/actions/virtual-environments" target="_blank" rel="noreferrer noopener">GitHub Actions virtual environments</a></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>With the information in this repository we can build up our own build agents and use those as the default image for a Azure virtual machine scale set.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Creating the image</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>To create the image we need a couple of tools installed:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><strong>Packer</strong>: HashiCorp Packer automates the creation of any type of machine image. It embraces modern configuration management by encouraging you to use automated scripts to install and configure the software within your Packer-made images. Packer brings machine images into the modern age, unlocking untapped potential and opening new opportunities. <a href="https://packer.io" target="_blank" rel="noreferrer noopener">https://packer.io</a></li>
+<li><strong>Azure CLI</strong>: The Azure command line interface: <a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&amp;tabs=azure-cli&amp;WT.mc_id=DT-MVP-5004255" target="_blank" rel="noreferrer noopener">https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&amp;tabs=azure-cli</a></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>To install packer I use a tool called Chocolately.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">choco install packer</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Chocolately also makes sure that the PATH variable to packer is configured.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>When the prerequisites are installed the first step is to clone the repository. The recommanded thing to do is to do this directly on the C:\ drive.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">git clone https://github.com/actions/virtual-environments.git</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Then import the helper module that is included with the virtual environment repository.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">Set-Location C:\virtual-environments
+Import-Module .\helpers\GenerateResourcesAndImage.ps1</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Then the PowerShell function 'GenerateResourcesandImage' can be executed. For this the following arguments need to be supplied:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><strong>SubscriptionId</strong>: The Id of the subscription were you want to create the image.</li>
+<li><strong>ResourceGroupName</strong>: The resource group were the image will be created .</li>
+<li><strong>ImageGenerationRepositoryRoot</strong>: The root path of the image generation repository source.</li>
+<li><code><strong>ImageType</strong></code>: The type of the image. In the repository the following types are supported:
+<ul>
+<li>Windows2016</li>
+<li>Windows2019</li>
+<li>Ubuntu1604</li>
+<li>Ubuntu1804</li>
+<li>Ubuntu2004</li>
+</ul>
+</li>
+<li><strong>AzureLocation</strong>: The location for the Azure Resources</li>
+<li><strong>GithubFeedToken</strong>: Token to retrieve sources from GitHub. You can generate this token at the following location: User --> Settings --> Developer Settings --> Personal Access Token</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">GenerateResourcesAndImage -SubscriptionId [Subscription ID] -ResourceGroupName "[Resourcegroup name]" -ImageGenerationRepositoryRoot "$pwd" -ImageType Windows2019 -AzureLocation "WestEurope" -GithubFeedToken "[GitHub Token]"</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>When running the script locally you are requested to sign-in to Azure. Make sure the account you are logging in with has the appropriate rights to create the resources.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><em><strong>Note: </strong>Executing this command will start up the generation of the image that can take about 6 till 7 hours, depending on the image you are building. Building the Windows 2019 image on my machine took 6 hours and 51 minutes.</em> The function will also create a resource group for a temporary VM so make sure that you do not have active policies that could interfere this process.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6113,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/02/image-7.png" /><img src="{{ site.baseurl }}/assets/archive/2021/02/image-7-1024x496.png" alt="" class="wp-image-6113" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the Azure subscription you will see resources appearing:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><strong>Azure Storage Account</strong>: In the specified resource group a storage account will be created to save the VHD of the image.</li>
+<li><strong>Resource Group</strong>: A resource group with a generated name will appear. In this resource group the VM will be created to generate the image.</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:image {"id":6115,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/02/image-8.png" /><img src="{{ site.baseurl }}/assets/archive/2021/02/image-8-1024x199.png" alt="Showing 1 to 5 of 5 records.<br />
+Name<br />
+pkripwb7fcdjh8c<br />
+pkrkvwb7fcdjh8c<br />
+pkrniwb7fcdjh8c<br />
+pkrvmwb7fcdjh8c<br />
+pkrvnwb7fcdjh8c<br />
+Shaw hidden types<br />
+O<br />
+Type<br />
+Public IP address<br />
+Key vault<br />
+Neüvark interface<br />
+Virtual machine<br />
+Virtual network<br />
+No grouping<br />
+Location<br />
+West Europe<br />
+West Europe<br />
+West Europe<br />
+West Europe<br />
+West Europe<br />
+v<br />
+List view " class="wp-image-6115" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>After a long time (in my situation 6 hours and 51 minutes later) the VHD is created and saved within the storage account.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6117,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/02/image-9.png" /><img src="{{ site.baseurl }}/assets/archive/2021/02/image-9-1024x645.png" alt="" class="wp-image-6117" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading --></p>
+<h2>Creating the Virtual Machine Scale Set</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>With the VHD saved within the storage account. We can create a image based on that disk. To do this I used the cloud shell. Open the cloud shell and perform this command:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code --></p>
+<pre class="wp-block-syntaxhighlighter-code">az image create -g rg-devops-image --os-type Windows --source [URI to VHD in storage] --name privatehostedimage</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><strong>-g: </strong>The name of the resource group</li>
+<li><strong>--os-type: </strong>The type of the operating system of the image</li>
+<li><strong>--source: </strong>The URI to the VHD in the storage account</li>
+<li><strong>--name: </strong>The name for the image</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>With the image in place we can create a Azure Virtual Machine Scale set that we can use within Azure DevOps. For this use the following command and run it within the Cloud Shell.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">az vmss create \
+--name [name for the scale set] \
+--resource-group [resource group name] \
+--image [name of the image] \
+--vm-sku Standard_D2_v3 \
+--storage-sku StandardSSD_LRS \
+--authentication-type password \
+--instance-count 2 \
+--disable-overprovision \
+--upgrade-policy-mode manual \
+--single-placement-group false \
+--platform-fault-domain-count 1 \
+--load-balancer ""</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Make sure that when u create the set the following things are configured:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Overprovisioning should be disabled.</li>
+<li>The upgrade policy should be set to manual.</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading --></p>
+<h2>Configuring the Agent Pool in Azure DevOps</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The last step is to configure the agent pool in Azure DevOps. The Agent Pool can be configured on two levels: Project or Organization. In this example we will create it on the organization level.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<li>Go to the settings page of the organization.</li>
+<li>Click on Agent Pools under the category Pipelines.</li>
+<li>Click on the top right button called "Add pool"</li>
+<li>Select: "Azure Virtual machine scale set" as the agent pool type</li>
+<li>Select the project that has the correct "Service Connection" to the subscription that contains the scale set or create a new service connection by clicking on the Authorize button.</li>
+<li>Select the correct scale set and configure the other options.</li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p><em><strong>Note:</strong> At the time of writing only Service Connections with Client ID, Client Secret credentials are supported.</em></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6121,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/02/image-10.png" /><img src="{{ site.baseurl }}/assets/archive/2021/02/image-10-457x1024.png" alt="" class="wp-image-6121" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now you can use agents that are privately hosted and make sure you have the capacity for additional demands.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>

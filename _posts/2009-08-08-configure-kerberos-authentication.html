@@ -1,0 +1,225 @@
+---
+layout: post
+title: Configure Kerberos authentication
+date: 2009-08-08 06:33:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+tags:
+- KDC
+- Kerberos
+- SharePoint
+- SPN
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Kerberos
+  _yoast_wpseo_focuskw: Kerberos
+  _yoast_wpseo_linkdex: '76'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463220288;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:666;}i:1;a:1:{s:2:"id";i:656;}i:2;a:1:{s:2:"id";i:825;}}}}
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Kerberos
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/08/configure-kerberos-authentication/"
+---
+<div class="ExternalClassDBFEB076CEA4490A9FAC031809EEC11C">
+<p>A few weeks ago I tried to set up a SharePoint farm that uses Kerberos authentication. I always thought it was just a setting in SharePoint but infect it is much more than that. </p>
+<p><strong>What is Kerberos <br /></strong></p>
+<p>Kerberos is a computer network authentication protocol, which allows nodes to communicate over a non secure network to prove their identity to one another. </p>
+<p>Kerberos makes use of a trusted third party for the authentication, termed a Key Distribution Center (KDC) which consists of two parts: an Authentication Server (AS) and a Ticket Granting Server (TGS). Kerberos works on the basis of tickets which serve to prove the identity. </p>
+<p>For communication between two entities, the KDC generates a session key which they can use to secure their interaction. A KDC runs on every domain controller as a function of the Active Directory Domain Services (AD KS). </p>
+<p><strong>Why use Kerberos <br /></strong></p>
+<p>There are many reasons why u should use Kerberos authentication rather than the default NTLM. The main reason is because it is more secure than NTML. Besides this reason you should also use it to get around the “double hop” (http://support.microsoft.com/kb/329986) authentication issue. The most common scenarios for the double hop issue with SharePoint are around Excel services and Data Connection. </p>
+<p><strong>Setting up Kerberos authentication <br /></strong></p>
+<p>To make use of Kerberos nothing needs to be changed if the domain controller is set-up correctly. Kerberos clients are configured to request ticket-granting tickets (TGT’s) of the Kerberos Key Distribution Center automatically. If the ticket is received successfully the Kerberos client saves the ticket on the locale machine. </p>
+<p>One of the first things you should consider when you want to use Kerberos authentication is which accounts you will be using for your services and web applications. Those accounts will have to get a Service Principal Name. The servers you will be using will have to allow delegation. </p>
+<p><strong>To trust a computer for delegation <br /></strong></p>
+<ol>
+<li>Click <strong>Start</strong>, point to <strong>Program Files</strong>, point to <strong>Administrative Tools</strong>, and then click <strong>Active Directory Users and Computers</strong>.  </li>
+<li>Navigate to the computer account that needs to be set, for example, Active Directory Users and Computers/&lt;<em>domain name</em>&gt;/Computers/<em>&lt;computer name&gt;.</em>  </li>
+<li>Double-click the computer name in the list on the right pane. On the <strong>Account</strong> tab, select the <strong>Account is trusted for delegation</strong> check box and then click <strong>OK</strong>.</li>
+</ol>
+<p>If every server in the farm is trusted for delegation you can start creating SPN’s (Service Principal Names) for the accounts you will be going to use for SQL Server and the SharePoint farm. </p>
+<p><strong>Service Principal Names <br /></strong></p>
+<p>Service principal names are associated with the security principal (user or groups) in whose security context the service executes. Service Principal Names are created with a specific Syntax. </p>
+<p><strong>Service Principal Name syntax: <br /></strong></p>
+<p>The basic syntax of service principal name is as follows:</p>
+<p><em>[service type]</em>/[<em>instance name]</em>:[<em>port number]</em>/[<em>service name]</em></p>
+<p>The elements of the syntax have the following meaning:</p>
+<ul>
+<li><strong>service type: </strong>Type of service, such as “http” for the http protocol.  </li>
+<li><strong>instance name:</strong> Name of the instance of the service. Depending upon the service type, it is either the name or IP address of the host running the service.  </li>
+<li><strong>port number: </strong>Number of the port used by the service on the host, if it is different from the default for the service type.  </li>
+<li><strong>service name:</strong> Name of the service. The name can be the DNS name of a host, of a replicated service, or of a domain; or it can be the distinguished name of a <strong>service connection point</strong> object or of an <strong>RPC service</strong> object.</li>
+</ul>
+<p><em><strong>Note:</strong> When you use Kerberos authentication with SharePoint you have to know that Internet Explorer does not send the port number with the service principal name. For example for this address https://intra.motion10.com:443 the SPN will be http/intra.motion10.com. <br /></em></p>
+<p><strong>How to create a SPN in Active Directory <br /></strong></p>
+<p>To create a SPN for an account you have to follow the following steps. </p>
+<h5>Create the SPNs for your SQL Server service account</h5>
+<ol>
+<li>Log on to your Active Directory domain controller using the credentials of a user that has domain administrative permissions.  </li>
+<li>In the <strong>Run</strong> dialog box, type <strong>ADSIEDIT.MSC</strong>.  </li>
+<li>In the management console dialog box, expand the domain container folder.  </li>
+<li>Expand the container folder containing user accounts, for example CN=Users.  </li>
+<li>Locate the container for the SQL Server Service account, for example CN=mosssqlsvc.  </li>
+<li>Right-click this <strong>account</strong>, and then click <strong>Properties</strong>.  </li>
+<li>Scroll down the list of properties in the <strong>SQL Server Service account</strong> dialog box until you find <strong>servicePrincipalName</strong>.  </li>
+<li>Select the <strong>servicePrincipalName</strong> property and click <strong>Edit</strong>.  </li>
+<li>In the <strong>Value to Add field</strong>, in the <strong>Multi-Valued String Editor</strong> dialog box, type the SPN for example <strong>MSSQLSvc/sqlserver:1433</strong> and click <strong>Add</strong>.  </li>
+<li>Click <strong>OK</strong> on the <strong>Multi-Valued String Editor</strong> dialog box, and then click <strong>OK</strong> on the properties dialog box for the SQL Server service account.</li>
+</ol>
+<p><em><strong>Important: </strong>You cannot give two accounts the same Service Principal Name. This will cause the authentication to fail or fall back on NTLM if it is possible. <br /></em></p>
+<p>After you created the Service Principal Names you have to trust the accounts for delegation: </p>
+<p><strong>Trust accounts for Delegation <br /></strong></p>
+<p><strong>Windows server 2003 Active Directory <br /></strong></p>
+<ol>
+<li>On the Domain controller, click <strong>Start</strong>, point to <strong>Programs</strong>, point to <strong>Administrative Tools</strong>, and click <strong>Active Directory Users and Computers</strong>.  </li>
+<li>Under your domain, click the <strong>Users</strong> folder.  </li>
+<li>Under your user account, click <strong>Properties</strong>.  </li>
+<li>Navigate to the “<strong>Delegation</strong>” tab.  </li>
+<li>Choose “<strong>Trust this user/computer for delegation to any service (Kerberos)</strong>“. </li>
+</ol>
+<p><strong>Windows server 2000 Active Directory <br /></strong></p>
+<ol>
+<li>On the Domain controller, click <strong>Start</strong>, point to <strong>Programs</strong>, point to <strong>Administrative Tools</strong>, and click <strong>Active Directory Users and Computers</strong>.  </li>
+<li>Under your domain, click the <strong>Users</strong> folder.  </li>
+<li>Under your user account, click <strong>Properties</strong>.  </li>
+<li>On the <strong>Account</strong> tab, select the <strong>Trusted for delegation</strong> check box.  </li>
+<li>Under the account that you are trying to delegate, clear the <strong>Account is sensitive cannot be delegated</strong> check box.</li>
+</ol>
+<p><em><strong>Note</strong>: If you do not have the delegation tab in the user properties you will have to use the steps of the Windows server 2000 Active Directory. This is because Windows 2003 Active Directory can run a in a 2000 mode. <br /></em></p>
+<p><strong>Configure Kerberos for SQL server <br /></strong></p>
+<p>Kerberos for SQL server has to be configured before you can install SharePoint Server 2007. This means we have to create a SPN for the SQL service account: </p>
+<ul>
+<li><strong>Service type:</strong> MSSQLSvc  </li>
+<li><strong>Instance name:</strong> SQLSERVER / SQLSERVER.mydomain.com  </li>
+<li><strong>Port number:</strong> 1433 (default SQL communication port) </li>
+</ul>
+<p>The SPN’s will be: </p>
+<ul>
+<li>MSSQLSvc\SQLServer:1433  </li>
+<li>MSSQLSvc\SQLServer.mydomain.com:1433 </li>
+</ul>
+<p><strong>Testing the Kerberos authentication for SQL Server <br /></strong></p>
+<p>If you have configured the SPN’s for the SQL service account you can test if it works by following the following steps. </p>
+<ol>
+<li>Run SQL Server Management Studio in <strong>another server in the domain.</strong>  </li>
+<li>Connect to you SQL Server.  </li>
+<li>Check if Kerberos authentication is used by running the event viewer on your SQL host server and examine the Security log. In this log you should have a Success Audit that has used the Kerberos protocol. </li>
+</ol>
+<p>If there isn’t a Success Audit that uses the Kerberos protocol you can check the following: </p>
+<ul>
+<li>Is the SPN in active directory correct?  </li>
+<li>Do I have two accounts in Active Directory that have the same SPN? </li>
+</ul>
+<p><strong>Configure Kerberos for your Web Applications <br /></strong></p>
+<p>If you want your web applications to make use of Kerberos you have to create Service Principal Names for the accounts that will used for running the web applications. </p>
+<p>If have written down a few examples of SPN’s of several addresses of web applications. </p>
+<table cellspacing="0" cellpadding="2" width="500" border="0">
+<tbody>
+<tr>
+<td valign="top" width="250"><strong>Internet address</strong></td>
+<td valign="top" width="250"><strong>Service Principal Name</strong></td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>http://intra.motion10.com</strong></td>
+<td valign="top" width="250">http/intra.motion10.com</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>https://intra.motion10.com</strong></td>
+<td valign="top" width="250">http/intra.motion10.com</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>http://mossadmin:43433</strong></td>
+<td valign="top" width="250">http/mossadmin</td>
+</tr>
+<tr>
+<td valign="top" width="250"><a href="http://mysites.intranet.com"><strong>http://mysites.intranet.com</strong></a></td>
+<td valign="top" width="250">http/mysites.intranet.com</td>
+</tr>
+</tbody>
+</table>
+<p><strong></strong></p>
+<p><strong>Testing the Kerberos authentication for the web application authentications <br /></strong></p>
+<p>If you have created SharePoint web applications that use Kerberos authentication, you are ready to test your configuration by following the following steps: </p>
+<ol>
+<li>Start internet explorer and navigate to the web application that has Kerberos authentication enables and login.  </li>
+<li>On the SharePoint server open the event viewer and examine the Security log. In this log you should have a Success Audit that has used the Kerberos protocol. </li>
+</ol>
+<p><strong>Configure the SSP Infrastructure for Kerberos <br /></strong></p>
+<p>For the SSP infrastructure to use Kerberos you have to follow the following steps: </p>
+<ol>
+<li>Register a new SPN for the SSP Service.  </li>
+<li>Configure the SSP infrastructure to use Kerberos </li>
+</ol>
+<p><strong>Register a new SPN for the SSP Service <br /></strong></p>
+<p>For the SSP infrastructure to use Kerberos a few new SPN’s need to be created. This is because the SSP infrastructure runs on every server in the SharePoint farm. It is also bound to the following ports TCP 56737 en TCP 56738 and the SPN also needs to include the name of the Shared Service Provider. </p>
+<p>So you have to create a separate SPN for each server in the farm. In the following table you will see a few examples. </p>
+<table cellspacing="0" cellpadding="2" width="500" border="0">
+<tbody>
+<tr>
+<td valign="top" width="250">
+<p><strong>Computer Name: <br /></strong></p>
+<p>MOSSQUERY </p>
+<p><strong>Name Shared Service Provider <br /></strong></p>
+<p>SSP</p>
+</td>
+<td valign="top" width="250">
+<p>MSSP/MOSSQUERY:56737/SSP </p>
+<p>MSSP/MOSSQUERY:56738/SSP</p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="250">
+<p><strong>Computer Name: <br /></strong></p>
+<p>MOSSQUERY </p>
+<p><strong>Name Shared Service Provider <br /></strong></p>
+<p>SharedServices4</p>
+</td>
+<td valign="top" width="250">
+<p>MSSP/MOSSQUERY:56737/SharedServices4 </p>
+<p>MSSP/MOSSQUERY:56738/SharedServices4</p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="250">
+<p><strong>Computer Name: <br /></strong></p>
+<p>MOSSCRAWL </p>
+<p><strong>Name Shared Service Provider <br /></strong></p>
+<p>SharedServices1</p>
+</td>
+<td valign="top" width="250">
+<p>MSSP/ MOSSCRAWL:56737/ SharedServices1 </p>
+<p>MSSP/ MOSSCRAWL:56738/SharedServices1</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><strong>Configure the SSP infrastructure to use Kerberos <br /></strong></p>
+<p>After you created the Service Principal Names for the SSP Infrastructure you have to inform the SSP infrastructure to use Kerberos. You can inform the SSP infrastructure by using the stsadm tool. </p>
+<p>To configure your SSP infrastructure to use Kerberos authentication, perform the following procedure:</p>
+<ol>
+<li>Log on to your Active Directory domain controller using the credentials of a user that has domain administrative permissions.  </li>
+<li>On one of your servers running Office SharePoint Server 2007, open a command prompt.  </li>
+<li>Change to the following directory: %COMMONPROGRAMFILES%\microsoft shared\web server extensions\12\bin.  </li>
+<li>Type the following command: <strong>stsadm –o setsharedwebserviceauthn –negotiate</strong>, and then press ENTER.</li>
+</ol>
+<p>After following all the steps you successfully configured your SharePoint farm to use Kerberos authentication.</p>
+</div>

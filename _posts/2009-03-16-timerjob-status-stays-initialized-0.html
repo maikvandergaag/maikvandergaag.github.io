@@ -1,0 +1,45 @@
+---
+layout: post
+title: TimerJob status stays Initialized 0%
+date: 2009-03-16 06:24:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- SharePoint
+tags:
+- TimerJob
+meta:
+  pplrpsts_post_views_count: '1'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Timerjob
+  _yoast_wpseo_focuskw: Timerjob
+  _yoast_wpseo_linkdex: '82'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Timerjob
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/03/timerjob-status-stays-initialized-0/"
+---
+<div class="ExternalClass114F1C5BD882451E862F40B80862F18F">
+<p>Last week I was developing a custom TimerJob for SharePoint. For the development of the TimerJob I used the MSDN documentation that is written by Andrew Connell:</p>
+<ul>
+<li><a href="http://msdn.microsoft.com/en-us/library/cc406686.aspx">http://msdn.microsoft.com/en-us/library/cc406686.aspx</a></li>
+</ul>
+<p>This article really points out everything when you are developing your first TimerJob. I followed the article and I almost read all the code sections so that I knew what to do and added my personal code so that the feature did what I wanted. <br />The only thing that I had changed was the scope of the feature because I wanted a WebApplication scoped feature. When I deployed the feature and activated it trough the GUI the feature added the TimerJob to SharePoint. The TimerJob also started but it stayed on the status Initialized with 0% complete.</p>
+<p>I found this really strange. Because I read the article from Andrew Connell real quick I went back and read it again. I know many developers and most of the time everything has to be done quickly and they forget to read the whole article (just like me) that’s why I wrote this post to point out a section of the article. Because I could not find a solution with Google because Andrew Connell just points it out in the article.</p>
+<p><em>“The Feature that handles the installation and uninstallation of a timer job should be a hidden Feature so that activation is only possible by using Stsadm.exe through the console. This is because when Features are activated through the Web interface, the application pool’s identity is used to execute the code in the Feature receiver. This account typically does not have permissions to install the timer job. Instead, use an account that is part of the farm administrators group to activate the Feature using Stsadm.exe.”</em></p>
+</div>

@@ -1,0 +1,88 @@
+---
+layout: post
+title: Running a Single Instance of a Azure Logic App
+date: 2016-11-30 23:59:26.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- Logic App
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '3'
+  _yoast_wpseo_focuskw_text_input: Logic App
+  _yoast_wpseo_focuskw: Logic App
+  _yoast_wpseo_linkdex: '70'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: '323'
+  snapFB: s:412:"a:1:{i:0;a:13:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doFB";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1803732956570696";s:5:"pDate";s:19:"2016-11-30
+    22:59:46";}}";
+  snap_isAutoPosted: '1'
+  _wpas_done_all: '1'
+  rop_post_url_twitter: https://msftplayground.com/2016/11/running-single-instance-azure-logic-app/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
+  rop_post_url_facebook: https://msftplayground.com/2016/11/running-single-instance-azure-logic-app/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
+  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapLI: s:616:"a:1:{i:0;a:15:{s:2:"do";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6209863314193944576";s:7:"postURL";s:104:"https://www.linkedin.com/updates?discuss=&scope=22692038&stype=M&topic=6209863314193944576&type=U&a=VdGm";s:5:"pDate";s:19:"2016-11-30
+    22:59:47";s:9:"msgFormat";s:61:"New post has been published on %SITENAME% - %TITLE%
+    - %HCATS%";}}";
+  snapTW: s:390:"a:1:{i:0;a:13:{s:2:"do";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE% -
+    %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:4:"doTW";i:0;s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"804097627063275521";s:5:"pDate";s:19:"2016-11-30
+    22:59:48";s:9:"msgFormat";s:25:"%TITLE% - %URL% - %HCATS%";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1576667365;s:7:"payload";a:0:{}}}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Logic App
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2016/11/running-single-instance-azure-logic-app/"
+---
+<p>In certain scenarios you want to run a Single Instance off a Azure Logic App every time. Scenarios were you need this is when containers are created within your flow and the other messages are also depending on the same containers.</p>
+<h2>Solution</h2>
+<p>Together with a colleague of mine we searched for a solution and finally found the answer after having contact with Microsoft. The trigger component within a Logic App has a property called “operationOptions”. This property can be set to “SingleInstance” this will make sure the Logic App will only be trigged per message.</p>
+<h2>Example</h2>
+<pre class="brush: powershell;">"triggers": {
+  "When_a_message_is_received_in_a_topic_subscription": {
+    "type": "ApiConnection",
+    "inputs": {
+      "host": {
+        "api": {
+          "runtimeUrl": "https://logic-apis-westeurope.azure-apim.net/apim/servicebus"
+        },
+        "connection": {
+          "name": "[name]"
+        }
+      },
+      "method": "get",
+      "path": "[path]"
+    },
+    "operationOptions": "SingleInstance",
+    "recurrence": {
+      "interval": 1,
+      "frequency": "Minute"
+    }
+  }
+}
+</pre>
+<p>The code snip-it above is a Service Bus trigger for new messages within a topic. By adding the “operationsOptions” this Logic App will only be triggered once per message.</p>
+<h2>Disadvantage</h2>
+<p>When using the “operationsOptions” property you have to keep in mind that only one instance will run within your interval. For example when there are 5 messages within the topic, and the Logic App is triggered once every minute it will get one message from the topic every minute and will not run a new flow if the preceding message is processed. In this example it will take about 5 minutes to process the 5 messages depending on how long your Logic Apps runs.</p>

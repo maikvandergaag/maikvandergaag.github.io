@@ -1,0 +1,269 @@
+---
+layout: post
+title: The new and shiny - Azure Template Specs
+date: 2021-02-11 11:30:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- ARM
+- Azure
+meta:
+  _thumbnail_id: '6099'
+  _edit_last: '3'
+  _yoast_wpseo_primary_category: '323'
+  _yoast_wpseo_focuskw: ARM
+  _yoast_wpseo_metadesc: What are Azure Template Specs, how can I create them and
+    what can I do with this new Azure resource that contains ARM templates.
+  _yoast_wpseo_linkdex: '61'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_estimated-reading-time-minutes: '5'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snap_MYSURL: a:3:{s:1:"s";s:74:"https://msftplayground.com/2021/02/the-new-and-shiny-azure-template-specs/";s:1:"t";s:74:"https://msftplayground.com/2021/02/the-new-and-shiny-azure-template-specs/";s:1:"r";s:1:"B";}
+  snapLI: s:447:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
+    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:32:"urn:li:share:6765577611499323392";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6765577611499323392";s:5:"pDate";s:19:"2021-02-11
+    10:30:01";}}";
+  snap_isAutoPosted: '1613039401'
+  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6765577611499323392";s:2:"id";s:32:"urn:li:share:6765577611499323392";s:1:"d";s:19:"2021-02-11
+    10:30:01";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1359811923458588672";s:2:"id";s:19:"1359811923458588672";s:1:"d";s:19:"2021-02-11
+    10:30:01";s:1:"w";s:1:"s";}}}}
+  snapTW: s:426:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
+    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1359811923458588672";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1359811923458588672";s:5:"pDate";s:19:"2021-02-11
+    10:30:01";}}";
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: ARM
+  _wds_title: ''
+  _wds_metadesc: What are Azure Template Specs, how can I create them and what can
+    I do with this new Azure resource that contains ARM templates.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2021/02/the-new-and-shiny-azure-template-specs/"
+---
+<p><!-- wp:paragraph --></p>
+<p>Azure Template specs is a new resource within Azure that is used for saving Azure Resource Manager Templates (ARM). With these template specifics you can later create resources based on the template within the specification.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Why use Azure Template Specs</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Azure Template Specs are really useful for situations where you or the organization would like to create resources based on a specific template. This can for example be a VM resources in a specific VNET configuration or a reference architecture created fully in ARM templates.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The specs can be shared within the Azure platform as they are kept within a Resource Group. The templates can then be deployed to any subscription you have access to as everything is based on RBAC.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Setting up your first template spec</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>During this guide we will make use of the following ARM template, it contains a small architecture that is often used together: Azure App Service, Hosting Plan and Application Insights.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "apiName": {
+      "type": "string"
+    },
+    "apiHostingPlan": {
+      "type": "string"
+    },
+    "apiSkuName": {
+      "type": "string",
+      "defaultValue": "S1",
+      "allowedValues": [
+        "F1",
+        "D1",
+        "B1",
+        "B2",
+        "B3",
+        "S1",
+        "S2",
+        "S3",
+        "P1",
+        "P2",
+        "P3",
+        "P4"
+      ]
+    },
+    "insightsname": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourcegroup().location]"
+    }
+  },
+  "variables": {
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-11-01",
+      "name": "[parameters('apiName')]",
+      "location": "[parameters('location')]",
+      "tags": {},
+
+      "dependsOn": [
+        "[resourceId('microsoft.insights/components/', parameters('insightsname'))]",
+        "[resourceId('Microsoft.Web/serverfarms/', parameters('apiHostingPlan'))]"
+      ],
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "kind": "web",
+      "resources": [],
+      "properties": {
+        "name": "[parameters('apiName')]",
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components/', parameters('insightsname')), '2015-05-01').InstrumentationKey]"
+            }
+          ]
+        },
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('apiHostingPlan'))]",
+        "clientAffinityEnabled": true
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2018-11-01",
+      "name": "[parameters('apiHostingPlan')]",
+      "location": "[parameters('location')]",
+      "tags": {
+      },
+      "sku": {
+        "name": "[parameters('apiSkuName')]"
+      },
+      "properties": {
+        "name": "[parameters('apiHostingPlan')]"
+      }
+    },
+    {
+      "type": "microsoft.insights/components",
+      "apiVersion": "2020-02-02-preview",
+      "name": "[parameters('insightsname')]",
+      "location": "[parameters('location')]",
+      "tags": {},
+
+      "properties": {
+        "ApplicationId": "[parameters('apiname')]",
+        "Request_Source": "IbizaWebAppExtensionCreate"
+      }
+    }
+  ],
+  "outputs": {
+  }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Getting started</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>To get started with Azure Template specs a resource group needs to be added to Azure for saving the specifications. From this resource group you will be able to share the Azure Template Spec by using the default Role Based Access Model of Azure.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Let’s create a new resource group by using the following command</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">New-AzResourceGroup -Name rg-templatespec -Location WestEurope</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>With the command “New-AzTemplateSpec” a template specification is added to Azure. Now lets use it with the template from the example. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>As the template specs are still in public preview we need to make sure we have the latest version of the “Az.Resources” module. Use the following command to install the latest prerelease version.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">Install-Module -Name Az.Resources -AllowPrerelease -Force -AllowClobber -SkipPublisherCheck</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p><em><strong>Note: </strong>At the time of writing this article Azure Templates Specs are in preview. To make use of PowerShell make sure to install version 5.0.0 or later. When using Azure CLI use version 2.14.2 or later.</em></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>With the correct version of the PowerShell module installed the function “New-AzTemplateSpec” can be used.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">New-AzTemplateSpec -Name "aztempwebsitespec" -Version 1.0 -ResourceGroupName rg-templatespec -Location WestEurope -TemplateFile ./azuredeploy.json</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:image {"id":6089,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-full"><a href="https://msftplayground.com/wp-content/uploads/2021/02/image-2.png" /><img src="{{ site.baseurl }}/assets/archive/2021/02/image-2.png" alt="New-AzTemplateSpec" class="wp-image-6089" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>The function includes a “Version” parameter. This parameter is a string value that specifies the version of the file. By running the command a second time you are able to deploy a new version (when you for example have done a bug fix). You off course then have to specify a different value for the version or you would override the existing version.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>The Azure Portal</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>After you have run the command the Azure Template Spec is created and visible via PowerShell, CLI and off course also the Azure Portal.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">Get-AzTemplateSpec</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:image {"id":6091,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/02/image-3.png" /><img src="{{ site.baseurl }}/assets/archive/2021/02/image-3.png" alt="Resource Group Template Spec" class="wp-image-6091" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Via the Azure portal you are able to deploy the template to any subscription you have access to. By selecting the deploy button.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6093,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/02/image-4.png" /><img src="{{ site.baseurl }}/assets/archive/2021/02/image-4.png" alt="Azure Template Spec" class="wp-image-6093" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Updating the Template Spec</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>As mentioned in the previous paragraph the template spec can be updated by running the exact same command as before and changing the version parameter to a different version.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6095,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/02/image-5.png" /><img src="{{ site.baseurl }}/assets/archive/2021/02/image-5.png" alt="Azure Template Spec Update" class="wp-image-6095" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the portal you are then also able to see the version and for example track the changes made to the template spec.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6097,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/02/image-6.png" /><img src="{{ site.baseurl }}/assets/archive/2021/02/image-6.png" alt="Azure Template Spec versions" class="wp-image-6097" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>Deploying via PowerShell</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>As you may also guess the template spec can also be used in PowerShell to deploy the resources. Microsoft has enhanced the “New-AzResourceGroupDeployment” function with the ability to deploy from a template specification. For this you will need to have a reference to the Azure Template Spec id as shown in the below script.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The parameters are asked during execution but the can also be added by using a parameters file and add that to the function parameter “TemplateParameterFile”.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"powershell"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">$id = (Get-AzTemplateSpec -Name aztempwebsitespec -Version 1.1 -ResourceGroupName rg-templatespec).Versions.Id
+
+New-AzResourceGroupDeployment -TemplateSpecId $id -ResourceGroupName template-test</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:heading --></p>
+<h2>Conclusion</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The Azure Template Spec offers you a great way of sharing default templates with you users. This can be in company but also for example service providers.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>By using the default Role Based Access model you are also able to restrict access to different kind of templates. So I would suggest that you check this new and shiny resource in Azure.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>For more information: <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-specs?tabs=azure-powershell&amp;WT.mc_id=AZ-MVP-5004255">Create &amp; deploy template specs - Azure Resource Manager | Microsoft Docs</a></p>
+<p><!-- /wp:paragraph --></p>

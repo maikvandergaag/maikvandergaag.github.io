@@ -1,0 +1,125 @@
+---
+layout: post
+title: Local Kubernetes cluster with Dashboard
+date: 2018-08-30 10:57:22.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+tags:
+- AKS
+- Docker
+- Kubernetes
+- Windows
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '3'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: '523'
+  _nxs_slinks: a:1:{s:32:"6b0e139a669ccc5dfe98a371a4c3ed3d";s:21:"http://bit.ly/2MUXZ5s";}
+  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2MUXZ5s";s:1:"t";s:75:"https://msftplayground.com/2018/08/local-kubernetes-cluster-with-dashboard/";s:1:"r";s:1:"B";}
+  snap_isAutoPosted: '1534665443'
+  _wpas_done_all: '1'
+  _yoast_wpseo_focuskw: Kubernetes
+  _yoast_wpseo_metadesc: When developing applications that need to be hosted on Kubernetes
+    it is handy to have a local Kubernetes cluster with the Kubernetes Dashboard
+  _yoast_wpseo_linkdex: '45'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapLI: s:381:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:0:"";s:7:"postURL";s:50:"www.linkedin.com/updates?topic=6440902123910635520";s:5:"pDate";s:19:"2018-08-30
+    12:05:32";}}";
+  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:50:"www.linkedin.com/updates?topic=6436853407318843392";s:2:"id";s:0:"";s:1:"d";s:19:"2018-08-19
+    07:57:23";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:2:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1031087719693410309";s:2:"id";s:19:"1031087719693410309";s:1:"d";s:19:"2018-08-19
+    07:57:23";s:1:"w";s:1:"s";}i:1;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1035136436377473024";s:2:"id";s:19:"1035136436377473024";s:1:"d";s:19:"2018-08-30
+    12:05:33";s:1:"w";s:1:"a";}}}}
+  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1035136436377473024";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1035136436377473024";s:5:"pDate";s:19:"2018-08-30
+    12:05:33";}}";
+  _oembed_246502d09fffc36a6f2f502d7712b998: "{{unknown}}"
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Kubernetes
+  _wds_title: ''
+  _wds_metadesc: When developing applications that need to be hosted on Kubernetes
+    it is handy to have a local Kubernetes cluster with the Kubernetes Dashboard
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2018/08/local-kubernetes-cluster-with-dashboard/"
+---
+<p>When developing containers or applications that need to be hosted on Kubernetes it is handy to have a local Kubernetes cluster.</p>
+<p>With the use of Docker you can easily create a local single node cluster.</p>
+<h2>Docker</h2>
+<p>Start by installing Docker for your operating system. In this guide I used Docker for Windows but the operating system does not really matter.</p>
+<ul>
+<li><a href="https://docs.docker.com/docker-for-windows/install/" target="_blank" rel="noopener">Install Docker for Windows</a></li>
+<li><a href="https://docs.docker.com/docker-for-mac/install/" target="_blank" rel="noopener">Install Docker for Mac</a></li>
+</ul>
+<p>Follow the setup guide and Docker will be started after the install.</p>
+<h2>Adding Kubernetes</h2>
+<p>When Docker is running you will see a Docker icon in the taskbar. Add Kubernetes can be via the settings page of Docker. To open the settings right click the icon and choose settings.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/08/docker-menu.png"><img class="alignnone size-medium wp-image-4005" src="{{ site.baseurl }}/assets/archive/2018/08/docker-menu-300x208.png" alt="Docker Menu" width="300" height="208" /></a></p>
+<p>In the settings there is a sub menu called "Kubernetes" on this page enable Kubernetes. If you want you can make the system containers visible.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/08/docker-kubernetes.png"><img class="alignnone size-medium wp-image-4007" src="{{ site.baseurl }}/assets/archive/2018/08/docker-kubernetes-300x206.png" alt="Docker Kubernetes" width="300" height="206" /></a></p>
+<p>Applying these settings will add Kubernetes within Docker.</p>
+<h2>Kubernetes Dashboard</h2>
+<p>Adding Kubernetes to Docker will not add the Kubernetes Dashboard. For adding the Kubernetes dashboard you have to do some additional steps.</p>
+<ol>
+<li>Install kubectl: <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/" target="_blank" rel="noopener">Install and Set Up kubectl</a>.</li>
+<li>Open a Command Prompt.</li>
+</ol>
+<blockquote><p>If you have more Kubernetes cluster make sure you are running within the right Kubernetes context. You can get your current context via: <code class="EnlighterJSRAW" data-enlighter-language="shell">kubectl config get-contexts</code> and set the right context via: <code class="EnlighterJSRAW" data-enlighter-language="shell">kubectl config use-context [context-name]</code></p>
+<p>&nbsp;</p></blockquote>
+<ol start="3">
+<li> Run the following kubectl command to add the dashboard to the cluster.</li>
+</ol>
+<pre class="brush: powershell;">kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/alternative/kubernetes-
+dashboard.yaml</pre>
+<blockquote><p>As this is a development environment I used the alternative setup. The alternative setup is not secured and should not be used in production scenario's.  <a href="https://github.com/kubernetes/dashboard/wiki/Installation" target="_blank" rel="noopener">Kubernetes dashboard installation</a></p></blockquote>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/09/add-kubernetes-dashboard-1.png"><img class="alignnone size-medium wp-image-4019" src="{{ site.baseurl }}/assets/archive/2018/08/add-kubernetes-dashboard-1-300x166.png" alt="Add Kubernetes dashboard alternative" width="300" height="166" /></a></p>
+<ol start="4">
+<li>To open the dashboard use the proxy option of kubectl.</li>
+</ol>
+<pre class="brush: powershell;">kubectl proxy</pre>
+<p>This will open a proxy to the dashboard. You can open the dashboard in the browser via the link.</p>
+<ul>
+<li>http://localhost:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/</li>
+</ul>
+<p>When you want to use the dashboard the proxy needs to be open by running the same  <code class="EnlighterJSRAW" data-enlighter-language="shell">kubectl proxy</code> command.</p>
+<h2>Permanently exposing the dashboard</h2>
+<p>You can also expose the dashboard permanently by adding a service to the cluster. Applying the below "yaml" file will add the service to the cluster.</p>
+<pre class="brush: js;">apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard-nodeport
+  namespace: kube-system
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 9090
+    nodePort: 30555
+  selector:
+    k8s-app: kubernetes-dashboard
+  sessionAffinity: None
+  type: NodePort</pre>
+<p>The service will expose the dashboard on port 30555. After applying you can open dashboard via this url: http://localhost:30555.</p>
+<h2>Reset Kubernetes</h2>
+<p>When testing and developing applications you sometimes want to reset the cluster in order to begin with a clean environment.</p>
+<p>Docker has a handy option for resetting the cluster. Within the settings open the "Reset" option and click on "Reset Kubernetes cluster".</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2018/08/docker-reset.png"><img class="alignnone size-medium wp-image-4009" src="{{ site.baseurl }}/assets/archive/2018/08/docker-reset-300x206.png" alt="Docker Reset" width="300" height="206" /></a></p>
+<p>If you choose to reset the Kubernetes cluster remember that you will remove the dashboard aswell.</p>
+<p>&nbsp;</p>

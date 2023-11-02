@@ -1,0 +1,100 @@
+---
+layout: post
+title: System.Web.UI.WebControls.WebParts.WebPart versus Microsoft.SharePoint.WebPartPages.WebPart
+date: 2009-04-07 06:18:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- ASP.net
+- SharePoint
+- Web Part
+meta:
+  pplrpsts_post_views_count: '1'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '52'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/04/system-web-ui-webcontrols-webparts-webpart-versus-microsoft-sharepoint-webpartpages-webpart/"
+---
+<div class="ExternalClassB13A17DC2DEC4E63A1AA4C17F91E25F2">
+<p>When I started developing for SharePoint two years ago I was thrown in a big black hole and started to develop webparts by hands on experience. <br />In the first couple of weeks I found out that your webpart could inherit from System.Web.UI.WebControls.WebParts.WebPart or Microsoft.SharePoint.WebPartPages.WebPart.</p>
+<p>I never found out the big difference between those two, also never found something on the internet about it besides that they have different serialization formats, besides that it also uses different attributes to give the developer some influence over how properties get displayed and how they are stored.</p>
+<p><strong>WSS Backward-Compatibility Comparison Table</strong></p>
+<table cellspacing="0" cellpadding="2" width="500" border="0">
+<tbody>
+<tr>
+<td valign="top" width="250"><strong>ASP.NET Web Parts</strong></td>
+<td valign="top" width="250"><strong>SharePoint Backwards Compatibility</strong></td>
+</tr>
+<tr>
+<td valign="top" width="250">WebBrowsableAttribute</td>
+<td valign="top" width="250">BrowsableAttribute</td>
+</tr>
+<tr>
+<td valign="top" width="250">WebDisplayName</td>
+<td valign="top" width="250">FriendlyName</td>
+</tr>
+<tr>
+<td valign="top" width="250">WebDescription</td>
+<td valign="top" width="250">Description</td>
+</tr>
+<tr>
+<td valign="top" width="250">Personalizable</td>
+<td valign="top" width="250">WebPartStorage</td>
+</tr>
+<tr>
+<td valign="top" width="250">PersonalizationScope</td>
+<td valign="top" width="250">Storage</td>
+</tr>
+<tr>
+<td valign="top" width="250">EditorPart</td>
+<td valign="top" width="250">ToolPart</td>
+</tr>
+<tr>
+<td valign="top" width="250">EditorPartCollection</td>
+<td valign="top" width="250">ToolPart[]</td>
+</tr>
+<tr>
+<td valign="top" width="250">CreateEditorParts()</td>
+<td valign="top" width="250">GetToolParts()</td>
+</tr>
+<tr>
+<td valign="top" width="250">RenderContents()</td>
+<td valign="top" width="250">RenderWebPart()</td>
+</tr>
+<tr>
+<td valign="top" width="250">SetPersonalizationDirty()</td>
+<td valign="top" width="250">SaveProperties</td>
+</tr>
+<tr>
+<td valign="top" width="250">Category</td>
+<td valign="top" width="250">Category</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p>The question still is: When do we use System.Web.UI.WebControls.WebParts.WebPart or Microsoft.SharePoint.WebPartPages.WebPart?</p>
+<p>Microsoft.SharePoint.WebPartPages.WebPart derives from the ASP.NET WebPart class and includes multiple compatibility layers to simplify code migration. This means you should use Microsoft.SharePoint.WebPartPages.WebPart when you are migrating existing code from WSS 2.0. When you are developing new webparts you should use System.Web.UI.WebControls.WebParts.WebPart.</p>
+<p>I could recommend you guys to read Inside Microsoft Windows SharePoint Services 3.0 because this information is coming from that book and it is really great book.</p>
+</div>

@@ -1,0 +1,258 @@
+---
+layout: post
+title: Combining SonarQube and Azure DevOps
+date: 2019-02-20 11:45:44.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure DevOps
+tags:
+- Azure DevOps
+- CI
+- SonarQube
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";s:3:"yes";s:2:"id";N;s:21:"follower_notification";s:3:"yes";s:7:"license";s:19:"all-rights-reserved";s:14:"publication_id";s:2:"-1";s:6:"status";s:6:"public";s:3:"url";N;}
+  _oembed_cac274230a743a85c3c9e23f92389121: "{{unknown}}"
+  _edit_last: '3'
+  _yoast_wpseo_primary_category: '535'
+  _yoast_wpseo_focuskw: Azure DevOps
+  _yoast_wpseo_metadesc: Code analysis is a best practice in a operating continious
+    integration pipeline. SonarQube can be used in combination with Azure DevOps.
+  _yoast_wpseo_linkdex: '79'
+  _yoast_wpseo_content_score: '60'
+  _thumbnail_id: '4987'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _nxs_slinks: a:1:{s:32:"109c8fefd2de7ec94ad9984c29355f29";s:21:"http://bit.ly/2NhVElX";}
+  snap_MYSURL: a:3:{s:1:"s";s:21:"http://bit.ly/2NhVElX";s:1:"t";s:72:"https://msftplayground.com/2019/02/combining-sonarqube-and-azure-devops/";s:1:"r";s:1:"B";}
+  snap_isAutoPosted: '1550659578'
+  snapTW: s:396:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HCATS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1098171983274098688";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1098171983274098688";s:5:"pDate";s:19:"2019-02-20
+    10:46:18";}}";
+  _snapPHST: a:2:{s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1098171983274098688";s:2:"id";s:19:"1098171983274098688";s:1:"d";s:19:"2019-02-20
+    10:46:18";s:1:"w";s:1:"s";}}}s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:50:"www.linkedin.com/updates?topic=6504248233378799616";s:2:"id";s:0:"";s:1:"d";s:19:"2019-02-21
+    07:20:22";s:1:"w";s:1:"a";}}}}
+  snapLI: s:401:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:61:"New post has
+    been published on %SITENAME% - %TITLE% - %HCATS%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:0:"";s:7:"postURL";s:50:"www.linkedin.com/updates?topic=6504248233378799616";s:5:"pDate";s:19:"2019-02-21
+    07:20:22";}}";
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1576667768;s:7:"payload";a:0:{}}}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure DevOps
+  _wds_title: ''
+  _wds_metadesc: Code analysis is a best practice in a operating continious integration
+    pipeline. SonarQube can be used in combination with Azure DevOps.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2019/02/combining-sonarqube-and-azure-devops/"
+---
+<p><!-- wp:paragraph --></p>
+<p>Code analysis is a best practice in a operating continuous integration pipeline. SonarQube can be used in combination with Azure DevOps. If you do not know SonarQube, it is tool that centralizes static code analysis and unit test coverage. It can be used across multiple languages and for a single project up to enterprise scale. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>SonarQube<br />
+can be used as a SaaS product or hosted on your own instance. SonarQube describes<br />
+the product as followed:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:quote --></p>
+<blockquote class="wp-block-quote"><p>SonarQube provides the capability to not only show health of an application but also to highlight issues newly introduced. With a Quality Gate in place, you can fix the leak and therefore improve code quality systematically.</p>
+</blockquote>
+<p><!-- /wp:quote --></p>
+<p><!-- wp:paragraph --></p>
+<p>This sound interesting and when useful for your situation it should be placed within a continuous integration pipeline, but how do we get started.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>SonarQube Deployment</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>To get<br />
+started with SonarQube I used the installation on an Azure App Service created<br />
+by a premium field engineer from Microsoft. The blog post below contains an ARM<br />
+template that really makes it a single click install.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>SonarQube<br />
+Hosted On Azure App Service - <a href="https://blogs.msdn.microsoft.com/premier_developer/2018/12/23/sonarqube-hosted-on-azure-app-service/">https://blogs.msdn.microsoft.com/premier_developer/2018/12/23/sonarqube-hosted-on-azure-app-service/</a></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>What you<br />
+might wonder is what the reason was why I used the Azure App Service<br />
+deployment:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>No<br />
+license needed</li>
+<li>You<br />
+do not have to create and manage a Virtual Machine.</li>
+<li>Setting<br />
+up SSL is easier.</li>
+<li>You<br />
+can easily integrate other Azure services like the Azure Key Vault.</li>
+<li>Other<br />
+features of the Azure App Service could be used like deployment slots.</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p><strong>Note: </strong>When using the “Deploy to Azure” button and you<br />
+are using a resource group naming policy you temporary disable it. The “Deploy<br />
+to Azure” method uses a test that creates a resource group with a GUID to<br />
+validate the template.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Deploying<br />
+the resource will not take long. Starting SonarQube is totally different<br />
+depending on the hosting platform it can take up to 15 minutes.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":4967,"align":"center"} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img src="{{ site.baseurl }}/assets/archive/2019/02/sonarqube-starting.png" alt="sonarqube starting" class="wp-image-4967" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>When the tooling<br />
+is started login with the admin credentials (admin/admin). Make sure you<br />
+change them after your first login.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>SonarQube Configuration</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>For sending information to SonarQube a token is needed. To generate a token, click on your name in the top right corner and select “My Account”.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":4969,"align":"center"} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img src="{{ site.baseurl }}/assets/archive/2019/02/sonarqube-settings.png" alt="sonarqube settings" class="wp-image-4969" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>On the “My<br />
+Account” screen select “Security”.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":4971,"align":"center"} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img src="{{ site.baseurl }}/assets/archive/2019/02/tokens.png" alt="tokens" class="wp-image-4971" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Fill in a<br />
+name for the token and click on generate. Copy the token for later use. The<br />
+next step is to create a new project within SonarQube. The project will be the<br />
+centralized storage for your analytics information of the code. To create a new<br />
+project, click on the “+” sign next to your name.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Fill in the<br />
+appropriate information and select the main language of your project.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":4973,"align":"center"} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img src="{{ site.baseurl }}/assets/archive/2019/02/analyse-project-1024x372.png" alt="analyse project" class="wp-image-4973" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>The project<br />
+is now ready, and we can start to configure Azure DevOps to send the analysis information<br />
+to your SonarQube environment.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Azure DevOps Extension</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>To make use<br />
+of SonarQube within Azure DevOps an extension needs to be installed. Here you<br />
+can find the links to the extensions for SonarQube:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>SonarCloud<br />
+(SaaS version SonarQube)- <a href="https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarcloud">https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarcloud</a></li>
+<li>SonarQube<br />
+(Hosted version. The version we will use in this blog post)- <a href="https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube">https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarqube</a></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading --></p>
+<h2>Build Pipeline</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>In your Azure<br />
+DevOps project create a new pipeline or open a pipeline that you want to extend.<br />
+Press the button to add a new task and search for Sonar you will see the<br />
+following available tasks. The three-task selected are for the hosted version<br />
+of SonarQube.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":4975,"align":"center"} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img src="{{ site.baseurl }}/assets/archive/2019/02/sonarqube-extensions-1024x484.png" alt="sonarqube extensions" class="wp-image-4975" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>We will<br />
+start with the “Prepare Analysis Configuration” then the “Run Code Analysis”<br />
+and then the “Publish Quality Gate Result”.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Prepare Analysis<br />
+Configuration</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The<br />
+“Prepare Analysis Configuration” is the most important task. With this task you<br />
+configure the agent job to work correctly with SonarQube.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":4977,"align":"center"} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img src="{{ site.baseurl }}/assets/archive/2019/02/prepare-1024x518.png" alt="prepare" class="wp-image-4977" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>To<br />
+establish the connection the tasks needs a SonarQube service endpoint. To<br />
+create a new service endpoint for SonarQube you can click on the “New” button. In<br />
+the configuration window for this endpoint fill in the correct information.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":4979,"align":"center"} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img src="{{ site.baseurl }}/assets/archive/2019/02/sonarqube-service-connection.png" alt="sonarqube service connection" class="wp-image-4979" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the task<br />
+itself fill in the key of the project and the name. The task is now configured this<br />
+means the other tasks can be added to the pipeline. The other task itself do<br />
+not have any additional configuration.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":4981,"align":"center"} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img src="{{ site.baseurl }}/assets/archive/2019/02/run-code-analysis-1024x500.png" alt="run code analysis" class="wp-image-4981" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>If you want<br />
+to include test result you need to make sure to add the “Run Code Analysis”<br />
+task after the “Test Assemblies” task like the screenshot above.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":4983,"align":"center"} --></p>
+<div class="wp-block-image">
+<figure class="aligncenter"><img src="{{ site.baseurl }}/assets/archive/2019/02/sonarqube-results-1024x728.png" alt="sonarqube results" class="wp-image-4983" /></figure>
+</div>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>In the<br />
+upcoming days and weeks, I will check more functionality and will share more information<br />
+on this blog.</p>
+<p><!-- /wp:paragraph --></p>

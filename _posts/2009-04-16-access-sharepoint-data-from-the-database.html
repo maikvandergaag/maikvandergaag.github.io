@@ -1,0 +1,155 @@
+---
+layout: post
+title: Access SharePoint Data from the Database
+date: 2009-04-16 06:15:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- Database
+- SharePoint Data
+meta:
+  _yoast_wpseo_title: Access SharePoint Data from the Database
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '65'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: Access SharePoint Data from the Database
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/04/access-sharepoint-data-from-the-database/"
+---
+<div class="ExternalClass06B31F5438394555B1FE5B0C4E2EE7EC">
+<p>When you are developing web parts or other kind of solutions for SharePoint it is possible you work yourself in a situation where you use the SharePoint API for your solutions but you do not want to use it because it is insufficient.</p>
+<p>When you are in a situation like this you can choose to connect to the content database of your site collection. When you choose to connect to the database you have to remember you should not alter the database directly but use the API for changing properties.</p>
+<p>A few days ago I was in a situation like this. One of my colleges asked me if there was a web part in SharePoint were in he could see all the alerts you are subscripted to. The answer was no so I started looking if I could develop a web part.</p>
+<p>I started with retrieving the alerts for the current user like this:</p>
+<pre class="brush: csharp;">SPAlertCollection alertCollection = SPContext.Current.Web.CurrentUser.Alerts; </pre>
+<p>I thought I would get all off the alerts off the current user for the entire farm but that wasn’t it. The CurrentUser.Alerts only retrieves the alerts for the user within the context you are in, so I received all off the user alerts that were made in that particular SPWeb.</p>
+<p>So I thought lets iterate trough all the site collections and then retrieve the alert like this:</p>
+<pre class="brush: csharp;"> List&lt;SPAlert&gt; Alerts = new List&lt;SPAlert&gt;();
+
+ SPWebApplication webApp = SPContext.Current.Site.WebApplication;
+
+ foreach (SPSite site in webApp.Sites)
+ {
+    using (site)
+    {
+       foreach (SPWeb web in site.AllWebs)
+       {
+          using (web)
+          {
+             SPAlertCollection alerts = web.CurrentUser.Alerts;
+
+             foreach (SPAlert alert in alerts)
+             {
+                Alerts.Add(alert);
+             }
+          }
+       }
+    }
+ }</pre>
+<p>The solution works but the problem with this solution is when you get to a site you don’t have access to you will get a access denied and besides that if you have a large collection of SPWebs or SPSites it will take forever to perform this piece of code.</p>
+<p>So my next solution was to retrieve the alerts from the database. You can do this by retrieving the content databases from your web application and connect to them. You can use a query like below to retrieve all the alerts for the user you want.</p>
+<pre class="brush: sql;">SELECT SchedSubscriptions.Id, SchedSubscriptions.NotifyFreq, SchedSubscriptions.WebId, SchedSubscriptions.SiteId, (SchedSubscriptions.SiteUrl+SchedSubscriptions.WebUrl) AS URL, SchedSubscriptions.ListTitle, SchedSubscriptions.AlertTitle, SchedSubscriptions.AlertType, SchedSubscriptions.Status
+ FROM  SchedSubscriptions
+ WITH  (NOLOCK)
+ Where  SchedSubscriptions.UserId = 1 AND  SchedSubscriptions.Deleted = 0
+ UNION 
+ SELECT  ImmedSubscriptions.Id, NotifyFreq = 0, ImmedSubscriptions.WebId, ImmedSubscriptions.SiteId, (ImmedSubscriptions.SiteUrl+ImmedSubscriptions.WebUrl) AS  URL, ImmedSubscriptions.ListTitle, ImmedSubscriptions.AlertTitle, ImmedSubscriptions.AlertType, ImmedSubscriptions.Status
+ FROM  ImmedSubscriptions
+ WITH  (NOLOCK)
+ Where  ImmedSubscriptions.UserId = 1 AND  ImmedSubscriptions.Deleted = 0</pre>
+<p>This is a simple query that queries the content database for all the alerts. The alerts are saved in two tables:</p>
+<ul>
+<li>ImmedSubscriptions
+</li>
+<li>SchedSubscriptions</li>
+</ul>
+<p>The WITH (NOLOCK) we use in the query is for making sure the tables will not get locked will retrieving the values.</p>
+<p>My code for retrieving all off the alerts for a user within a web application looked something like this:</p>
+<pre class="brush: csharp;"> private const string getAlertCommand = "SELECT SchedSubscriptions.Id, SchedSubscriptions.NotifyFreq, SchedSubscriptions.WebId, SchedSubscriptions.SiteId, (SchedSubscriptions.SiteUrl+SchedSubscriptions.WebUrl) AS URL, SchedSubscriptions.ListTitle, SchedSubscriptions.AlertTitle, SchedSubscriptions.AlertType, SchedSubscriptions.Status FROM SchedSubscriptions WITH (NOLOCK) Where SchedSubscriptions.UserId = {0} AND SchedSubscriptions.Deleted = 0 UNION SELECT ImmedSubscriptions.Id, NotifyFreq = 0, ImmedSubscriptions.WebId, ImmedSubscriptions.SiteId, (ImmedSubscriptions.SiteUrl+ImmedSubscriptions.WebUrl) AS URL, ImmedSubscriptions.ListTitle, ImmedSubscriptions.AlertTitle, ImmedSubscriptions.AlertType, ImmedSubscriptions.Status FROM ImmedSubscriptions WITH (NOLOCK) Where ImmedSubscriptions.UserId = {0} AND ImmedSubscriptions.Deleted = 0";
+
+ protected override void CreateChildControls()
+ {
+    base.CreateChildControls();
+
+    List&lt;SPContentDatabase&gt; contentdatabases = new List&lt;SPContentDatabase&gt;();
+
+    Guid siteID = SPContext.Current.Site.ID;
+    int UserID = SPContext.Current.Web.CurrentUser.ID;
+
+    SPSecurity.RunWithElevatedPrivileges(delegate()
+    {
+       SPWebApplication webAPP = null;
+
+       using (SPSite site = new SPSite(siteID))
+       {
+          webAPP = site.WebApplication;
+
+          if (webAPP != null)
+          {
+             contentdatabases = RetrieveContentDatabases(webAPP);
+
+             foreach (SPContentDatabase database in contentdatabases)
+             {
+
+                //use the sql connection so that it will be disposed when we are done
+                using (SqlConnection con = new SqlConnection(database.DatabaseConnectionString))
+                {
+                   //open the database connection
+                   con.Open();
+
+                   //Use the command. It will be disposed when we are done using it
+                   using (SqlCommand com = con.CreateCommand())
+                   {
+                      com.CommandText = string.Format(getAlertCommand, UserID.ToString());
+
+                      //read the informtion from the from the database                
+                      using (SqlDataReader reader = com.ExecuteReader())
+                      {
+                          while (reader.Read())
+                          {
+                             //do what you like to do with the information you retrieved
+                          }
+                       }
+                    }
+                 }
+              }
+           }
+        }
+     });
+ }
+
+ private List&lt;SPContentDatabase&gt; RetrieveContentDatabases(SPWebApplication webAPP)
+ {
+    //create a generic list for containing the databases
+    List&lt;SPContentDatabase&gt; databases = new List&lt;SPContentDatabase&gt;();
+
+    //read out all the databases for the webapplication
+    foreach (SPContentDatabase database in webAPP.ContentDatabases)
+    {
+       databases.Add(database);
+    }
+
+    //return the list with databases
+    return databases;
+ } </pre>
+</div>

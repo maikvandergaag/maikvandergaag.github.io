@@ -1,0 +1,198 @@
+---
+layout: post
+title: Google Maps Display Template &ndash; SharePoint 2013 &ndash; Part 1
+date: 2013-05-15 07:02:04.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- Javascript
+- SharePoint
+tags:
+- Display Tempaltes
+- Google
+- SharePoint 2013
+- SharePoint Designer
+meta:
+  _wp_jd_bitly: http://bit.ly/15LSpuC
+  _wp_jd_target: http://msftplayground.com/2013/05/google-maps-display-template-sharepoint-2013-part-1/
+  _jd_wp_twitter: 'a:1:{i:0;s:91:"New post: Google Maps Display Template – SharePoint
+    2013 – Part 1 http://bit.ly/15LSpuC";}'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Google Maps
+  _yoast_wpseo_focuskw: Google Maps
+  _yoast_wpseo_linkdex: '78'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Google Maps
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2013/05/google-maps-display-template-sharepoint-2013-part-1/"
+---
+<p>As the most of you will know by now is that SharePoint 2013 has a new web part called the “Content Search” web part. This web part display’s search result by using specific display templates.</p>
+<p>For one of our clients we were asked to display location/office information on a Google Maps card based on information they save in a list.&nbsp; We first had the idea of using the new Geo Location fields that are pretty awesome. But we had a hard requirement for using Google Maps because they already had a licence for using that.</p>
+<p>If you want more information about the Geo Location field you can read about here:</p>
+<ul>
+<li><a title="Display Location Maps within SharePoint Lists using Geolocation" href="http://blogs.msdn.com/b/mvpawardprogram/archive/2013/02/11/display-location-maps-within-sharepoint-lists-using-geolocation-column-in-sharepoint-2013.aspx">Display Location Maps within SharePoint Lists using Geolocation</a></li>
+</ul>
+<p>The easiest way to display this information is retrieving the results by its content type with the Content Search web part and using a Google Maps Display Template to display those results.</p>
+<p>There are two primary types of display templates:
+<ul>
+<li>
+<p>Control templates determine the overall structure of how the results are presented. Includes lists, lists with paging, and slide shows.</p>
+</li>
+<li>
+<p>Item templates determine how each result in the set is displayed. Includes images, text, video, and other items.</p>
+</li>
+</ul>
+<p>The control display template defines the HTML structure for the overall layout and the item template defines the HTML structure for the item.
+<p>If you want to read more information about display templates here is a good article:
+<p><a title="http://msdn.microsoft.com/en-us/library/jj945138.aspx" href="http://msdn.microsoft.com/en-us/library/jj945138.aspx">SharePoint 2013 Design Manager display templates</a>
+<p>In this Part we will be creating the item template. The easiest way to create a new item display template is using SharePoint Designer and create a copy of another display template.
+<p>The display templates can be found here:<br />
+<blockquote>
+<p>All Files - _catalogs – masterpage – Display Templates – Content Web Parts</p>
+</blockquote>
+<p>To get a new item display template you will need to copy an existing item template, for this example we will create a copy of the “Item_TwoLines.html” and rename it to “Item_GoogleMarker.html".
+<p>When you open the file in edit mode you will see that there is a Title attribute on the top of the page. Change this title to Google Maps Marker because the item we will retrieve will represent markers on the map.
+<p>The result we will be retrieving will have the following information:
+<ul>
+<li>Title  </li>
+<li>Longitude  </li>
+<li>Latitude  </li>
+<li>Description  </li>
+<li>Address  </li>
+<li>Site Url (Url to a SharePoint site)</li>
+</ul>
+<p>In order to get this information from search you will have to create managed properties for the specific field. In this post I will not tell you how to create those for more information you can read this post or look on MSDN for more information:</p>
+<ul>
+<li><a title="Permalink to Creating Metadata Properties through code &ndash; SharePoint 2010" href="http://msftplayground.com/2010/09/creating-metadata-properties-through-code-sharepoint-2010/">Creating Metadata Properties through code – SharePoint 2010</a></li>
+</ul>
+<p>If you look further in the display template you will see the property “ManagedPropertyMapping” this will map the properties to specific variables in the file. To which property they are mapped can be changed in the tool part of the web part</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/05/image.png"><img title="image" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2013/05/image_thumb.png" width="160" height="240" /></a> </p>
+<pre class="brush: xml;">&lt;mso:ManagedPropertyMapping msdt:dt="string"&gt;&amp;#39;Link URL&amp;#39;{Link URL}:&amp;#39;Path&amp;#39;,&amp;#39;Line 1&amp;#39;{Line 1}:&amp;#39;Title&amp;#39;,&amp;#39;Line 2&amp;#39;{Line 2}:&amp;#39;&amp;#39;,&amp;#39;FileExtension&amp;#39;,&amp;#39;SecondaryFileExtension&amp;#39;&lt;/mso:ManagedPropertyMapping&gt;
+</pre>
+<p>Each property mapping exists out of three variables separated by &amp;#39;,&amp;#39; and the complete properties are separated by ‘, ‘. </p>
+<p>For example “&amp;#39;Line 1&amp;#39;{Line 1}:&amp;#39;Title&amp;#39;”: </p>
+<ul>
+<li>The first “Line 1” will represents the value in the display template.
+</li>
+<li>The second “{Line 1}” represents the description and is displayed in the tool part. You can change this to each value you want.
+</li>
+<li>The third “Title” is the default managed property it is mapped to.</li>
+</ul>
+<p>For our item template we will extend the property with our own values we need to be able to retrieve the right values from the search engine.</p>
+<pre class="brush: xml;">&lt;mso:ManagedPropertyMapping msdt:dt="string"&gt;&amp;#39;Link URL&amp;#39;{Link URL}:&amp;#39;Path&amp;#39;,&amp;#39;Line 1&amp;#39;{Title}:&amp;#39;Title&amp;#39;,&amp;#39;Line 2&amp;#39;{Latitude}:&amp;#39;Title&amp;#39;,&amp;#39;Line 3&amp;#39;{Longtitude}:&amp;#39;Title&amp;#39;,&amp;#39;Line 4&amp;#39;{Description}:&amp;#39;Title&amp;#39;,&amp;#39;Line 5&amp;#39;{Address}:&amp;#39;Title&amp;#39;,&amp;#39;Line 6&amp;#39;{Site Url}:&amp;#39;Title&amp;#39;&lt;/mso:ManagedPropertyMapping&gt;
+</pre>
+<p>When this is done you can change the “MasterPageDescription” property to the value of your choice.</p>
+<p>When you go further down into the display template the values are retrieved within the div called “TwoLines”.</p>
+<pre class="brush: js;">&lt;!--#_
+var encodedId = $htmlEncode(ctx.ClientControl.get_nextUniqueId() + "_2lines_");
+
+var linkURL = $getItemValue(ctx, "Link URL");
+linkURL.overrideValueRenderer($urlHtmlEncode);
+var iconURL = Srch.ContentBySearch.getIconSourceFromItem(ctx.CurrentItem);
+
+var line1 = $getItemValue(ctx, "Line 1");
+var line2 = $getItemValue(ctx, "Line 2");
+line1.overrideValueRenderer($contentLineText);
+line2.overrideValueRenderer($contentLineText);
+
+var containerId = encodedId + "container";
+var pictureLinkId = encodedId + "pictureLink";
+var pictureId = encodedId + "picture";
+var dataContainerId = encodedId + "dataContainer";
+var line1LinkId = encodedId + "line1Link";
+var line1Id = encodedId + "line1";
+var line2Id = encodedId + "line2";
+_#--&gt;
+</pre>
+<p>Replace this by the following code in which we get all of the values from our properties and use basically the same code the was in the original template:</p>
+<pre class="brush: js;">&lt;!--#_
+  var encodedId = $htmlEncode(ctx.ClientControl.get_nextUniqueId() + "_2lines_");
+  var linkURL = $getItemValue(ctx, "Link URL");
+  linkURL.overrideValueRenderer($urlHtmlEncode);
+  var iconURL = Srch.ContentBySearch.getIconSourceFromItem(ctx.CurrentItem);
+       
+  var title = $getItemValue(ctx, "Line 1");
+  var latitude = $getItemValue(ctx, "Line 2");
+  var longtitude = $getItemValue(ctx, "Line 3");
+  var description = $getItemValue(ctx, "Line 4");
+  var address = $getItemValue(ctx, "Line 5");
+  var siteUrl = $getItemValue(ctx, "Line 6");
+  title.overrideValueRenderer($contentLineText);
+  latitude.overrideValueRenderer($contentLineText);
+  longtitude.overrideValueRenderer($contentLineText);
+  siteUrl.overrideValueRenderer($contentLineText);
+      
+  var itemId = ctx.CurrentItemIdx;
+_#--&gt;
+</pre>
+<p>Now that we have all of the values for a item. It is time to write the HTML we want for the display template. The easiest way is to place all of the information about the marker in a hidden input field. In the control template we will then retrieve the information and display it on the map.</p>
+<p>The complete display template will then look like this:</p>
+<pre class="brush: js;">&lt;html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"&gt; 
+&lt;head&gt;
+&lt;title&gt;Google Map Marker&lt;/title&gt;
+
+&lt;!--[if gte mso 9]&gt;&lt;xml&gt;
+&lt;mso:CustomDocumentProperties&gt;
+&lt;mso:TemplateHidden msdt:dt="string"&gt;0&lt;/mso:TemplateHidden&gt;
+&lt;mso:ManagedPropertyMapping msdt:dt="string"&gt;&amp;#39;Link URL&amp;#39;{Link URL}:&amp;#39;Path&amp;#39;,&amp;#39;Line 1&amp;#39;{Title}:&amp;#39;Title&amp;#39;,&amp;#39;Line 2&amp;#39;{Latitude}:&amp;#39;Title&amp;#39;,&amp;#39;Line 3&amp;#39;{Longtitude}:&amp;#39;Title&amp;#39;,&amp;#39;Line 4&amp;#39;{Description}:&amp;#39;Title&amp;#39;,&amp;#39;Line 5&amp;#39;{Address}:&amp;#39;Title&amp;#39;,&amp;#39;Line 6&amp;#39;{Site Url}:&amp;#39;Title&amp;#39;&lt;/mso:ManagedPropertyMapping&gt;
+&lt;mso:MasterPageDescription msdt:dt="string"&gt;This Item Display Template will show a marker when used with the the Google Maps control.&lt;/mso:MasterPageDescription&gt;
+&lt;mso:ContentTypeId msdt:dt="string"&gt;0x0101002039C03B61C64EC4A04F5361F385106603&lt;/mso:ContentTypeId&gt;
+&lt;mso:TargetControlType msdt:dt="string"&gt;;#Content Web Parts;#&lt;/mso:TargetControlType&gt;
+&lt;mso:HtmlDesignAssociated msdt:dt="string"&gt;1&lt;/mso:HtmlDesignAssociated&gt;
+&lt;mso:HtmlDesignConversionSucceeded msdt:dt="string"&gt;True&lt;/mso:HtmlDesignConversionSucceeded&gt;
+&lt;mso:HtmlDesignStatusAndPreview msdt:dt="string"&gt;&lt;/mso:HtmlDesignStatusAndPreview&gt;
+&lt;/mso:CustomDocumentProperties&gt;
+&lt;/xml&gt;&lt;![endif]--&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;script&gt;
+        $includeLanguageScript(this.url, "~sitecollection/_catalogs/masterpage/Display Templates/Language Files/{Locale}/CustomStrings.js");
+    &lt;/script&gt;
+
+    &lt;div id="TwoLines"&gt;
+        &lt;!--#_
+        var encodedId = $htmlEncode(ctx.ClientControl.get_nextUniqueId() + "_2lines_");
+        var linkURL = $getItemValue(ctx, "Link URL");
+        linkURL.overrideValueRenderer($urlHtmlEncode);
+        var iconURL = Srch.ContentBySearch.getIconSourceFromItem(ctx.CurrentItem);
+        
+        var title = $getItemValue(ctx, "Line 1");
+        var latitude = $getItemValue(ctx, "Line 2");
+        var longtitude = $getItemValue(ctx, "Line 3");
+        var description = $getItemValue(ctx, "Line 4");
+        var address = $getItemValue(ctx, "Line 5");
+        var siteUrl = $getItemValue(ctx, "Line 6");
+        title.overrideValueRenderer($contentLineText);
+        latitude.overrideValueRenderer($contentLineText);
+        longtitude.overrideValueRenderer($contentLineText);
+        siteUrl.overrideValueRenderer($contentLineText);
+        
+        var itemId = ctx.CurrentItemIdx;
+        _#--&gt;
+        &lt;input type="hidden" id="_#= itemId =#_-Location" value="_#= title =#_;_#= latitude =#_;_#= longtitude =#_;_#= description =#_;_#= address =#_;_#= siteUrl =#_"&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</pre>
+<p>One thing to notice is that we give the hidden input the ID of the result “var itemId = ctx.CurrentItemIdx;” so that we are able to retrieve all of the items in the control template by a specific ID.</p>
+<p>In part 2 of the series I will show you how you can finish the set by creating a control template that will result in to the following:</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/05/image1.png"><img title="Google Maps Card" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="Google Maps Card" src="{{ site.baseurl }}/assets/archive/2013/05/image_thumb1.png" width="315" height="226" /></a></p></p></p></p></p></p></p>

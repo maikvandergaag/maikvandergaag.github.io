@@ -1,0 +1,78 @@
+---
+layout: post
+title: User automatically removed from SharePoint Group
+date: 2014-05-07 10:42:30.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+tags:
+- Active Directory
+- SharePoint
+- SharePoint 2013
+- SID
+- Users
+meta:
+  _edit_last: '1'
+  snap_isAutoPosted: '1'
+  _nxs_snap_sh_LI0_1399459352: a:38:{s:2:"ii";i:0;s:4:"doLI";i:1;s:5:"nName";s:0:"";s:8:"liAPIKey";s:14:"77vtw9cpof5jtv";s:8:"liAPISec";s:16:"E2OiH5iT1hPoxHXv";s:7:"liAttch";i:1;s:8:"catSelEd";s:0:"";s:5:"grpID";s:0:"";s:11:"liMsgFormat";s:41:"New
+    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:10:"liMsgAFrmt";s:0:"";s:6:"rpstOn";i:0;s:8:"rpstDays";s:1:"0";s:7:"rpstHrs";s:1:"2";s:8:"rpstMins";s:1:"0";s:11:"rpstRndMins";s:2:"15";s:12:"rpstPostIncl";s:1:"0";s:10:"rpstNxTime";i:1386086230;s:8:"rpstType";s:1:"2";s:12:"rpstTimeType";s:1:"A";s:12:"rpstFromTime";s:0:"";s:10:"rpstToTime";s:0:"";s:10:"rpstOLDays";s:2:"30";s:10:"rpstNWDays";s:3:"365";s:11:"rpstOnlyPUP";i:0;s:10:"nxsCPTSeld";s:21:"a:1:{i:0;s:4:"post";}";s:11:"rpstBtwDays";a:0:{}s:12:"liOAuthToken";s:40:"75--b112ee4e-e8e4-49b9-899d-ca2afaa54977";s:18:"liOAuthTokenSecret";s:36:"9eca19b2-df06-42e1-bcfb-113eb32b59da";s:15:"liOAuthVerifier";s:5:"60975";s:13:"liAccessToken";s:36:"5643875e-34f6-48c5-8ed0-8d9a187331cb";s:19:"liAccessTokenSecret";s:36:"f059e50b-3d60-4424-a710-57d21b5dbe15";s:10:"liUserInfo";s:30:"N_tJVLVMK6
+    - Maik van der Gaag";s:6:"catSel";s:1:"0";s:8:"isPosted";s:0:"";s:8:"imgToUse";b:0;s:8:"urlToUse";b:0;s:9:"timeToRun";i:1399459352;}
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _jd_twitter: ''
+  _jd_tweet_this: 'yes'
+  _wp_jd_bitly: http://bit.ly/1kLlw2Q
+  _wp_jd_target: http://msftplayground.com/2014/05/user-automatically-removed-from-sharepoint-group/
+  _jd_wp_twitter: 'a:1:{i:0;s:80:"New post: User automatically removed from SharePoint
+    Group http://bit.ly/1kLlw2Q";}'
+  _wpt_status_message: Tweet sent successfully.
+  snapLI: s:286:"a:1:{i:0;a:9:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;s:11:"isPrePosted";s:1:"1";}}";
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '79'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
+  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2014/05/user-automatically-removed-from-sharepoint-group/"
+---
+<p>During my current project we received an access request from a user. We did what we normally do, we checked the request and added the user in the appropriate SharePoint Group and notified the user. </p>
+<p>After 15 minutes the user told us that it wasn’t working. We looked at the User Group and found out that the user was not in the group. So we added the user again because we thought that we forgot this step. After some time we received another mail from the user telling us that it still wasn’t working.</p>
+<p>We requested the account details from the user and tried it our self, we found out that the user was missing again and added the account again. We logged in with the user opened a document with Office Web Applications and took another look at the members of the specific SharePoint group. WTF the user was gone!</p>
+<p>After digging into the ULS files and looking in the Event log we did not found a clue of what was happening. After a small conversation with the user she told us that everything worked fine before and that she had several problems since see re-joined the company.</p>
+<p>What happened was the following the user was removed from the active directory and when she got back a new account was created with the same login name.</p>
+<p>When the user re-joined the account had the same login name but did not have the same SID. SharePoint saves information about an account by using the login name and the SID (Security Identifier) of a user. Because of the mismatch SharePoint was removing the applied security rights.</p>
+<p>This issue can be fixed by using different commands:</p>
+<ul>
+<li>Move-SPUser : <a title="http://technet.microsoft.com/en-us/library/ff607729(v=office.15).aspx" href="http://technet.microsoft.com/en-us/library/ff607729(v=office.15).aspx">http://technet.microsoft.com/en-us/library/ff607729(v=office.15).aspx</a>
+</li>
+<li>STSADM Migrate User: <a title="http://technet.microsoft.com/en-us/library/cc262141(v=office.12).aspx" href="http://technet.microsoft.com/en-us/library/cc262141(v=office.12).aspx">http://technet.microsoft.com/en-us/library/cc262141(v=office.12).aspx</a></li>
+</ul>
+<p>The commands look as followed:</p>
+<pre class="brush: powershell;">$user = Get-SPUser -Web [SiteUrl] -Identity [Login Name]
+Move-SPUser -Identity $user -NewAlias [Login Name] -IgnoreSID
+</pre>
+<p>For the PowerShell commando you will first need to retrieve the specific user.When retrieving the user and setting the new alias you should always use the claim login name: “i:0#.w|Domain\user”.</p>
+<pre class="brush: powershell;">stsadm -o migrateuser -oldlogin [Login Name] -newlogin [Login Name] -ignoresidhistory
+</pre>
+<p>The STSADM command looks almost the same as the PowerShell command if you also look at the parameters they both have something to Ignore the SID history. The parameter is included because if you do not include the parameter it will check the SID references and as we all know they do not match.</p>
+<p>“<strong>Possible Problem</strong>: When performing one of these options you can receive a “Object reference not set to an instance of an object”. The solution to this problem is pretty simple, When it happens your user does not have enough rights. Try it with another account or give your current user rights to the User Profile Service Application.”</p>

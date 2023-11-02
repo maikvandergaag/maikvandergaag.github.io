@@ -1,0 +1,53 @@
+---
+layout: post
+title: 'Team Foundation Server Installation Error: 28938'
+date: 2009-08-26 09:36:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- DevOps
+tags:
+- '28938'
+- Error
+- TFS
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Team Foundation Server
+  _yoast_wpseo_focuskw: Team Foundation Server
+  _yoast_wpseo_linkdex: '73'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Team Foundation Server
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/08/team-foundation-server-installation-error-28938/"
+---
+<div class="ExternalClassBEAE442A661444F7BEF9432A75355792">
+<p>For the last couple of days my colleague and I have been installing Team Foundation Server 2008 on Windows Server 2008 with a separate SQL 2008 and SharePoint 2007 server.</p>
+<p>The errors pops up like nothing I have ever seen before. One of the most annoying errors we came across was this one:</p>
+<p>“Error:28938.TFSServerStatusValidator: The tool could not call the Team Foundation Server Registration Web Service. The call failed with the following status: 401 HTTP Unauthorized. Verify that Internet Information Services (IIS), Windows SharePoint Services, and ASP.Net are configured correctly and that IIS allows ASP.Net 2.0 Web service extensions.”</p>
+<p>After days of research (even using Network Monitoring) to figure out what was going wrong we stumbled on something really small. When we installed IIS on the server it did not automatically install the Windows Authentication Role service as part of IIS. Because it did not install this service you cannot login. After the installation of it the Team Foundation Server Installation went like a charm.</p>
+<p>If you have already installed IIS you have to do the following to install the Windows Authentication Feature:</p>
+<ul>
+<li>Press start on the server were you would like to install the feature.  </li>
+<li>Administrative tools – Server manager  </li>
+<li>On the left side of the screen select roles and scroll down to Web Server IIS  </li>
+<li>Select add Role Services  </li>
+<li>In the setup screen select windows authentication and press next.  </li>
+<li>On the confirmation screen select install.</li>
+</ul>
+</div>

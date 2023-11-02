@@ -1,0 +1,58 @@
+---
+layout: post
+title: Integration Reporting Services with SharePoint 2007 in Native Mode
+date: 2008-12-14 06:50:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+tags:
+- Native Mode
+- Reporting Services
+- SharePoint 2007
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '69'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2008/12/integration-reporting-services-with-sharepoint-2007-in-native-mode/"
+---
+<div class="ExternalClassF090741CAA844C8AB01339D46A32BA9D">
+<p>It is possible to integrate SQL Reporting Services with SharePoint 2007, but know the question is how you integrate it with SharePoint. The easiest why is to install the SharePoint Reporting Web Parts on your server. This is also called the Integration in Native Mode.</p>
+<p>It isn’t more than installing the webpart and connect those webpart to an existing report that resist on you reporting server. But how do you install these webparts. <br />In the installation folder off SQL server there is a cab file with the two webparts. You can find this file (RSWebParts.cab) in the following folder:</p>
+<p>C:\Program Files\Microsoft SQL Server\80\Tools\Reporting Services\SharePoint\RSWebParts.cab</p>
+<p>After you found this file you can install it on your SharePoint Farm. To do this you have to navigate to the Application server of your SharePoint farm. Open a Command Prompt window and navigate to the folder that has the Stsadm.exe tool for SharePoint. Normally this path is C:\Program Files\Common Files\Microsoft Shared\web server extensions\12\BIN.</p>
+<p>Run the Stsadm.exe tool and run it with the following syntax:</p>
+<p>stsadm -o addwppack -filename “(Folder of the cab file)\RSWebParts.cab” -globalinstall</p>
+<p><strong>Adding web part and configuring the webpart</strong></p>
+<ul>
+<li>Open a Web Part page in your SharePoint Web Application  </li>
+<li>Set your page in edit mode: Site Action -&gt; Edit Page, and click ‘Add a Web Part’ in the zone where you would like to add the Web Part.  </li>
+<li>In the Add Web Parts dialog box, scroll down to Miscellaneous. Select Report Explorer or Report Viewer if you want to add both Web Parts, and then click Add.  </li>
+<li>Know modify the settings of the Report Web Part. In Report Manager URL, type your URL to a Report Manager instance. By default, a Report Manager URL has the following syntax: http:///reports. For this setting you can also set the Start Path.</li>
+</ul>
+<p>The Web Parts also allows you to connect the Report Explore to the Report Viewer. This connection can be set in the edit mode of the page:</p>
+<ul>
+<li>Click on the edit button of the title bar of the Report Explorer Web Part  </li>
+<li>Point to Connections and follow that up by pointing to ‘Show report in’, and then click ‘Report Viewer’</li>
+</ul>
+</div>

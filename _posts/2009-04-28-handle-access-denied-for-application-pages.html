@@ -1,0 +1,59 @@
+---
+layout: post
+title: Handle access denied for application pages
+date: 2009-04-28 09:53:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- SharePoint
+tags:
+- Acces denied
+- Application pages
+- Security
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Application pages
+  _yoast_wpseo_focuskw: Application pages
+  _yoast_wpseo_linkdex: '75'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Application pages
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/04/handle-access-denied-for-application-pages/"
+---
+<div class="ExternalClassF6E50C77C15140A7884BD4C52C3CF0C9">
+<p>Within SharePoint you have the ability to create custom application pages. Application pages remain in the layouts folder of SharePoint. Each user can access these pages by typing in the URL in the explorer bar.</p>
+<p>When you would navigate to one of these pages and you do not have enough rights, you would expect that you would be redirected to the access denied page. This is does not happen. </p>
+<p>You can try this with a user that has minimal rights and navigate to the following page /_layouts/srchvis.aspx (An out of the box application page for settings the search visibility). You will see that the page gets rendered.</p>
+<p>When you create a custom application page you can work around by doing the following:</p>
+<pre class="brush: csharp;">  protected override void OnLoad(EventArgs e) {
+  base.OnLoad(e);
+
+  if (SPContext.Current.Web.UserIsWebAdmin) {
+      if (!Page.IsPostBack) {
+         //perform your actions
+      }
+  }
+  else {
+       SPUtility.HandleAccessDenied(new Exception("You do not have access to this page."));
+    }
+  } </pre>
+<p>In the OnLoad of your page you can check whether the user has sufficient rights. In the example I perform this action by checking if the user is a site admin.</p>
+<p>When the user hasn’t sufficient rights you can redirect him to the access denied page of SharePoint by using the HandleAccessDenied() method of the SPUtility class.</p>
+</div>

@@ -1,0 +1,206 @@
+---
+layout: post
+title: Setting up SharePoint search
+date: 2008-10-15 07:01:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+- SharePoint
+tags:
+- Search
+- Setting up
+- SharePoint 2007
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '72'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2008/10/setting-up-sharepoint-search/"
+---
+<div class="ExternalClassC18C1F78920640B69795EBC045F0F221">
+<p>This is a walkthrough for the configuration of SharePoint Search.</p>
+<p><strong>Central Administration</strong> <br />Navigate to Central Administration</p>
+<p><strong>Shared Service Provider</strong> <br />Select you ‘Shared Service Provider’. They are listed at the left side of you screen in the middle.</p>
+<p><strong>Search Settings</strong> <br />In the main window of the Shared Service Provider select ‘Search Settings’</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/sharedserviceprovider1.png"><img title="sharedserviceprovider" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="sharedserviceprovider" src="{{ site.baseurl }}/assets/archive/2008/10/sharedserviceprovider_thumb1.png" width="419" height="171" /></a></p>
+<p><strong>Content Sources and Crawl Schedules</strong> <br />In the ‘Search Settings’ screen the main settings off SharePoint search can be changed or configured. We will continue by selecting ‘Content Sources and Crawl Schedules’</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/searchsettings.png"><img title="searchsettings" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="searchsettings" src="{{ site.baseurl }}/assets/archive/2008/10/searchsettings_thumb.png" width="383" height="260" /></a></p>
+<p>In the screen that follows content sources are defined. Standard there is one content source, this is the ‘Local Office SharePoint Sites’ content source.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/contentsources.png"><img title="contentsources" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="contentsources" src="{{ site.baseurl }}/assets/archive/2008/10/contentsources_thumb.png" width="565" height="54" /></a></p>
+<p>Select the content source or create a new content source for crawling your sites.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/propertiescontentsource.png"><img title="propertiescontentsource" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="propertiescontentsource" src="{{ site.baseurl }}/assets/archive/2008/10/propertiescontentsource_thumb.png" width="388" height="280" /></a></p>
+<p>In this screen the settings of the content sources have to be filled in. Besides that you have to schedule a crawl before items appear when you start searching.</p>
+<p>The information that can be filled in is described below:</p>
+<table cellspacing="0" cellpadding="2" width="557" border="0">
+<tbody>
+<tr>
+<td valign="top" width="250"><strong>Name</strong></td>
+<td valign="top" width="305">The name off the content source.</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>Content Source Details</strong></td>
+<td valign="top" width="305">The details off the content source are displayed here.</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>Start Addresses</strong></td>
+<td valign="top" width="305">Here you have to fill in the urls off you web applications that you want to crawl. Addresses can be filled in with the http:// prefix or the sps3:// prefix. When you use the sps3:// prefix your users will be crawled.</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>Crawl Settings</strong> </td>
+<td valign="top" width="305">
+<p>A choice field you can choose the following options: </p>
+<ul>
+<li>Crawl everything under de hostname for each start address.  </li>
+<li>Crawl only the SharePoint site of each start address. </li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>Crawl Schedules</strong></td>
+<td valign="top" width="305">The crawls can be scheduled here. You can schedule an incremental crawl or a Full crawl.</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>Start Full Crawl</strong></td>
+<td valign="top" width="305">Option for starting a full crawl.</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h4>Creating Search Scopes</h4>
+<p>On the ‘Search Settings’ screen select the option ‘View Scopes’.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/searchsettings-2.png"><img title="searchsettings 2" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="searchsettings 2" src="{{ site.baseurl }}/assets/archive/2008/10/searchsettings-2_thumb.png" width="322" height="251" /></a></p>
+<p>In the screen what appears select new scope:</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/searchscopes.png"><img title="searchscopes" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="searchscopes" src="{{ site.baseurl }}/assets/archive/2008/10/searchscopes_thumb.png" width="509" height="87" /></a></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/newscope.png"><img title="newscope" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="newscope" src="{{ site.baseurl }}/assets/archive/2008/10/newscope_thumb.png" width="493" height="154" /></a></p>
+<p>In the screen shown above you can fill in the information off the search scope:</p>
+<table cellspacing="0" cellpadding="2" width="500" border="0">
+<tbody>
+<tr>
+<td valign="top" width="250">
+<p><strong>Title and Description</strong></p>
+</td>
+<td valign="top" width="250">
+<p>The title and description you want to give to the search scope.</p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="250">
+<p><strong>Target Results Page</strong></p>
+</td>
+<td valign="top" width="250">
+<p>The target page where the search results have to be shown. You have two possibilities: </p>
+<ul>
+<li>Use The Default Search Results Page  </li>
+<li>Specify a different page for searching the scope (Custom Search Center) </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>When the scope is created you have to define a role for the scope. When you have clicked ok to save the scope you will return to the ‘View Scopes’ page were you new scope will be displayed. The scope only has an update status of ‘Empty – Add Rule’.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/scope.png"><img title="scope" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="scope" src="{{ site.baseurl }}/assets/archive/2008/10/scope_thumb.png" width="538" height="20" /></a></p>
+<p>Select ‘Add Rule’ to add a new rule to the scope. The rules have several settings and are all described below:</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/scoperule.png"><img title="scoperule" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="scoperule" src="{{ site.baseurl }}/assets/archive/2008/10/scoperule_thumb.png" width="555" height="88" /></a></p>
+<p><strong>All Content</strong> <br />This rule will crawl all content in the scope</p>
+<p><strong>Content source</strong></p>
+<table cellspacing="0" cellpadding="2" width="500" border="0">
+<tbody>
+<tr>
+<td valign="top" width="250"><strong>Scope content type</strong></td>
+<td valign="top" width="250">The type off the scope. Here it is Content Source</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>Content Source</strong></td>
+<td valign="top" width="250">The content source were the rule applies for.</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>Behaviour</strong></td>
+<td valign="top" width="250">
+<p>Decide what the rule should do with the content. There are three options: </p>
+<ul>
+<li>Include  </li>
+<li>Require  </li>
+<li>Exclude </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong></strong></p>
+<p><strong>Property Query</strong></p>
+<p><strong></strong></p>
+<table cellspacing="0" cellpadding="2" width="500" border="0">
+<tbody>
+<tr>
+<td valign="top" width="250"><strong>Scope content type</strong> </td>
+<td valign="top" width="250">The type off the scope. Here it is Property Query</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>Property Query</strong></td>
+<td valign="top" width="250">Looking if the crawled content applies to a restriction. An example of a restriction is: Author = Klaas</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>Behaviour</strong></td>
+<td valign="top" width="250">
+<p>Decide what the rule should do with the content. There are three options: </p>
+<ul>
+<li>Include  </li>
+<li>Require  </li>
+<li>Exclude </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong></strong></p>
+<p><strong>Web Address</strong></p>
+<table cellspacing="0" cellpadding="2" width="500" border="0">
+<tbody>
+<tr>
+<td valign="top" width="250"><strong>Scope content type</strong> </td>
+<td valign="top" width="250">The type off the scope. Here it is Web Address</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>Web Address</strong> </td>
+<td valign="top" width="250">
+<p>Rule for adding external and internal content. There are three options: </p>
+<ul>
+<li>Folder  </li>
+<li>Hostname  </li>
+<li>Domain or Sub domain</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top" width="250"><strong>Behavior</strong></td>
+<td valign="top" width="250">Decide what the rule should do with the content. There are three options:
+<ul>
+<li>Include  </li>
+<li>Require  </li>
+<li>Exclude </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>

@@ -1,0 +1,63 @@
+---
+layout: post
+title: Unable to start User Profile Synchronization Service
+date: 2014-02-04 14:02:28.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- SharePoint
+tags:
+- Administration
+- Error
+- Exception
+- SharePoint 2013
+- Userprofile Synchronization
+meta:
+  _edit_last: '1'
+  snap_isAutoPosted: '1'
+  nxs_snap_sh_LI0_1391522553: a:38:{s:2:"ii";i:0;s:4:"doLI";i:1;s:5:"nName";s:0:"";s:8:"liAPIKey";s:14:"77vtw9cpof5jtv";s:8:"liAPISec";s:16:"E2OiH5iT1hPoxHXv";s:7:"liAttch";i:1;s:8:"catSelEd";s:0:"";s:5:"grpID";s:0:"";s:11:"liMsgFormat";s:41:"New
+    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:10:"liMsgAFrmt";s:0:"";s:6:"rpstOn";i:0;s:8:"rpstDays";s:1:"0";s:7:"rpstHrs";s:1:"2";s:8:"rpstMins";s:1:"0";s:11:"rpstRndMins";s:2:"15";s:12:"rpstPostIncl";s:1:"0";s:10:"rpstNxTime";i:1386086230;s:8:"rpstType";s:1:"2";s:12:"rpstTimeType";s:1:"A";s:12:"rpstFromTime";s:0:"";s:10:"rpstToTime";s:0:"";s:10:"rpstOLDays";s:2:"30";s:10:"rpstNWDays";s:3:"365";s:11:"rpstOnlyPUP";i:0;s:10:"nxsCPTSeld";s:21:"a:1:{i:0;s:4:"post";}";s:11:"rpstBtwDays";a:0:{}s:12:"liOAuthToken";s:40:"75--b112ee4e-e8e4-49b9-899d-ca2afaa54977";s:18:"liOAuthTokenSecret";s:36:"9eca19b2-df06-42e1-bcfb-113eb32b59da";s:15:"liOAuthVerifier";s:5:"60975";s:13:"liAccessToken";s:36:"5643875e-34f6-48c5-8ed0-8d9a187331cb";s:19:"liAccessTokenSecret";s:36:"f059e50b-3d60-4424-a710-57d21b5dbe15";s:10:"liUserInfo";s:30:"N_tJVLVMK6
+    - Maik van der Gaag";s:6:"catSel";s:1:"0";s:8:"isPosted";s:0:"";s:8:"imgToUse";b:0;s:8:"urlToUse";b:0;s:9:"timeToRun";i:1391522553;}
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _jd_tweet_this: 'yes'
+  _wp_jd_bitly: http://bit.ly/1k7vfF5
+  _wp_jd_target: ''
+  _jd_wp_twitter: 'a:1:{i:0;s:84:"New post: Unable to start User Profile Synchronization
+    Service http://bit.ly/1k7vfF5";}'
+  snapLI: s:286:"a:1:{i:0;a:9:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;s:11:"isPrePosted";s:1:"1";}}";
+  pplrpsts_post_views_count: '1'
+  _yoast_wpseo_focuskw_text_input: User Profiel Synchronization
+  _yoast_wpseo_focuskw: User Profiel Synchronization
+  _yoast_wpseo_linkdex: '58'
+  _jetpack_related_posts_cache: a:0:{}
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: User Profiel Synchronization
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2014/02/unable-to-start-user-profile-synchronization-service/"
+---
+<p>A few days ago I wrote a post about loading modules in PowerShell by default: “<a href="http://msftplayground.com/2014/01/load-modules-by-default-when-openening-powershell/">Load modules by default when opening PowerShell</a>”. Today we had to setup a new SharePoint Farm and to perform some default operations we created the PowerShell profile described in that post.</p>
+<p>The complete configuration of the server went well until we wanted to start the “User Profile Synchronization Service”. The Service moves to starting and the timer job that configures the service also starts but after 5 seconds it already stops.</p>
+<p>Looking at the ULS log we found this error message:</p>
+<blockquote><p>“UserProfileApplication.SynchronizeMIIS: Failed to configure MIIS post database, will attempt during next rerun. Exception: System.Runtime.InteropServices.SEHException (0x80004005): External component has thrown an exception.<br />
+at Microsoft.Office.Server.UserProfiles.Synchronization.ILMPostSetupConfiguration.ConfigureMiisStage2()<br />
+at Microsoft.Office.Server.Administration.UserProfileApplication.SetupSynchronizationService(ProfileSynchronizationServiceInstance profileSyncInstance).”</p></blockquote>
+<p>This message did not gave us a clue at all. At the same time we were working on the PowerShell Profiles and had temporary removed our custom profile from the service.</p>
+<p>Provisioning the “User Profile Synchronization Service” without the custom profile resulted in success. So remember when you want to provision the “User Profile Synchronization Service” make sure you are not using a custom PowerShell profile.</p>

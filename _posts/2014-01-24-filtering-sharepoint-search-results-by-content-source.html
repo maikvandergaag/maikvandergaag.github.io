@@ -1,0 +1,73 @@
+---
+layout: post
+title: Filtering SharePoint Search Results by Content Source
+date: 2014-01-24 09:46:41.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- SharePoint
+tags:
+- Content Source
+- CRM
+- Result Source
+- Search
+- SharePoint 2013
+meta:
+  _wpas_done_all: '1'
+  snap_isAutoPosted: '1'
+  _wp_jd_bitly: http://bit.ly/1hRaquc
+  _wp_jd_target: ''
+  _jd_wp_twitter: 'a:1:{i:0;s:85:"New post: Filtering SharePoint Search Results by
+    Content Source http://bit.ly/1hRaquc";}'
+  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:85:"New post: Filtering SharePoint
+    Search Results by Content Source http://bit.ly/1hRaquc";s:5:"error";s:71:"This
+    tweet is identical to another Tweet recently sent to this account.";s:4:"code";i:403;s:9:"timestamp";i:1390556809;}'
+  _edit_last: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapLI: s:492:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:123:"http://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=5832417959846764544&amp;type=U&amp;a=n0id";s:5:"pDate";s:19:"2014-01-24
+    09:46:42";s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;}}";
+  _jd_twitter: ''
+  _jd_tweet_this: 'no'
+  pplrpsts_post_views_count: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint Search
+  _yoast_wpseo_focuskw: SharePoint Search
+  _yoast_wpseo_linkdex: '76'
+  _oembed_1ba82f062134c494a889e607d118caea: "{{unknown}}"
+  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint Search
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2014/01/filtering-sharepoint-search-results-by-content-source/"
+---
+<p>Working for one my projects we were looking for a solution to only retrieve search results for a specific Content Source. In our scenario we had a External Content Type that was linked to a “FilteredEMail” view of a CRM database.</p>
+<p>We connected CRM to SharePoint in this scenario because searching in CRM for a specific email was a big problem and slowed down the complete CRM system. </p>
+<p>What there was implemented on CRM was a small button to open a window&nbsp; / frame to a SharePoint Search page. On this SharePoint search page you could search for the specific Mail and then the result would link you back to CRM.</p>
+<p>Creating the External Content Type wasn’t that hard. The main thing here If you would also like to search trough your external content type is to define a field as a Timestamp field in order to enable incremental search.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/01/image.png"><img title="Timestamp field" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="Timestamp field" src="{{ site.baseurl }}/assets/archive/2014/01/image_thumb.png" width="368" height="210" /></a> </p>
+<p>For us this was very important because we were dealing with more than a million items. After we had the external content type in place and created the profile pages we crawled the complete set of emails. </p>
+<p>We than needed to create a result source in order to retrieve only the information from the external content type. On the Search Service Application page we clicked on the ‘Result Sources’ menu option and created a new Search Result Source. </p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/01/image1.png"><img title="New Result Source" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="New Result Source" src="{{ site.baseurl }}/assets/archive/2014/01/image_thumb1.png" width="291" height="179" /></a> </p>
+<p>After setting these properties we opened the Query Builder. Within the query builder you do not have a default option of some sort to start filtering the results by a specific content source. </p>
+<p>When I took a closer look at the property filter drop down after selecting “--- Show All Managed properties ---“ you have a property called “ContentSource”. We selected this and filled in the value of our content source.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/01/image2.png"><img title="Query Builder" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="Query Builder" src="{{ site.baseurl }}/assets/archive/2014/01/image_thumb2.png" width="281" height="191" /></a> </p>
+<p>After that we used the default options for the rest of the properties and saved the result source. Following this hunch resulted in a result source that only returns items of a specific content source.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/01/image3.png"><img title="New Result Source 2" style="border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px; display: inline" border="0" alt="New Result Source 2" src="{{ site.baseurl }}/assets/archive/2014/01/image_thumb3.png" width="341" height="111" /></a> </p>
+<p>After that we created a “Display Template” to refer back to CRM if you are curious on how we accomplished that please let me know.</p>

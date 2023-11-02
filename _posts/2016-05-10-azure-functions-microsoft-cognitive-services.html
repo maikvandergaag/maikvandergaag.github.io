@@ -1,0 +1,181 @@
+---
+layout: post
+title: Azure Functions and Microsoft Cognitive Services
+date: 2016-05-10 10:00:29.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- Azure Functions
+- Cognitive Service
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Cognitive Services
+  _yoast_wpseo_focuskw: Cognitive Services
+  _yoast_wpseo_linkdex: '77'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  _yoast_wpseo_primary_category: ''
+  snapFB: s:412:"a:1:{i:0;a:13:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:2:"do";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1709577752652884";s:5:"pDate";s:19:"2016-05-10
+    09:01:10";}}";
+  snapLI: s:555:"a:1:{i:0;a:14:{s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:12:"liMsgFormatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:2:"do";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6135725147623088129";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=6135725147623088129&amp;type=U&amp;a=6bda";s:5:"pDate";s:19:"2016-05-10
+    09:01:11";}}";
+  snap_isAutoPosted: '1'
+  snapTW: s:299:"a:1:{i:0;a:10:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:25:"%TITLE%
+    - %URL% - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:2:"do";s:1:"1";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"729959461784322049";s:5:"pDate";s:19:"2016-05-10
+    09:01:12";}}";
+  rop_post_url_twitter: https://msftplayground.com/2016/05/azure-functions-microsoft-cognitive-services/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
+  rop_post_url_facebook: https://msftplayground.com/2016/05/azure-functions-microsoft-cognitive-services/?utm_source=ReviveOldPost&utm_medium=social&utm_campaign=ReviveOldPost
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Cognitive Services
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2016/05/azure-functions-microsoft-cognitive-services/"
+---
+<p>Microsoft is releasing services in very fast pace. This means you really need to keep up with everything. A few weeks back I read about Azure Functions (explained in this blog <a href="https://msftplayground.com/2016/05/facts-azure-functions/" target="_blank">post</a>) and Microsoft Cognitive services.</p>
+<p><em>Cognitive Services are services that developers can use to easily add intelligent features – such as emotion and sentiment detection, vision and speech recognition, knowledge, search and language understanding – into their applications.</em></p>
+<p>With these services you can now easily build intelligent applications. Microsoft offers API’s in the following categories:</p>
+<ul>
+<li>Vision</li>
+<li>Speech</li>
+<li>Language</li>
+<li>Knowledge</li>
+<li>Search</li>
+</ul>
+<p>All these categories contain a lot of services if you want to see the full list of API’s click on the following URL:</p>
+<ul>
+<li><a href="https://www.microsoft.com/cognitive-services/en-us/apis" target="_blank">https://www.microsoft.com/cognitive-services/en-us/apis</a></li>
+</ul>
+<p>With some services it is possible to retrieve information about images that are uploaded on your website. The service can be that intelligent to recognize what is on the image.</p>
+<p>This can be handy in combination with for example Azure Functions. Azure Functions can be triggered by Blob (Image) and the function can then process the image and save what is on that image. This information can then be saved to a storage location of your choosing.</p>
+<p>To implement this you will have to Subscribe for Cognitive services. To subscribe go to this URL: <a title="https://www.microsoft.com/cognitive-services/" href="https://www.microsoft.com/cognitive-services/">https://www.microsoft.com/cognitive-services/</a> and click on “Get Started for Free”.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/05/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/05/image_thumb.png" alt="image" width="620" height="192" border="0" /></a></p>
+<p>You will be redirected to a information page, read the information on the page and click “Let’s go” and sign-in with your Live ID. You will be redirected again but this time to a page with your subscriptions. On this page you can retrieve and regenerate the keys that are needed for doing requests to the Cognitive services of your current subscription.</p>
+<p>To get a new subscription click “Request new trials”. Select the services you want to try out. In this example we will use the “Computer Vision – Preview”.</p>
+<p>Back on the subscription page click on “Show” to show one of your keys and save it for later because we will need it to implement the http call.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/05/image-1.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/05/image_thumb-1.png" alt="image" width="623" height="116" border="0" /></a></p>
+<p>Using the Cognitive services is basically doing a HTTP Post to a specific URL and supplying your key and image in the post. Documentation on how to use the different services work can also be found on the Cognitive Service site under “Documentation” (<a title="https://www.microsoft.com/cognitive-services/en-us/documentation" href="https://www.microsoft.com/cognitive-services/en-us/documentation">https://www.microsoft.com/cognitive-services/en-us/documentation</a>).</p>
+<p>With the subscription in place we can start with the Azure Function. Within your Azure Functions container create a new Azure Function and choose the BlobTrigger.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/05/image-2.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/05/image_thumb-2.png" alt="image" width="666" height="229" border="0" /></a></p>
+<p>Fill in the correct information and click on “Create”:</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/05/image-3.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/05/image_thumb-3.png" alt="image" width="664" height="368" border="0" /></a></p>
+<p>The Azure function will be created and you will be redirected to the development tab. On this tab add the following references. We will need these reference to create the Http Call and analyze the image.</p>
+<pre class="brush: csharp;">#r "System.Web"
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web;
+</pre>
+<p>The next step is to adjust the default Run method to have a Stream input parameter instead of the string input.</p>
+<pre class="brush: csharp;">public static void Run(Stream myBlob, TraceWriter log) {
+    //get byte array of the stream
+    byte[] image = ReadStream(myBlob);
+
+    //analyze image
+    string imageInfo = AnalyzeImage(image);
+
+    //write to the console window
+    log.Info(imageInfo);
+}
+</pre>
+<p>The we can create the method for analyzing the image.</p>
+<pre class="brush: csharp;">private static string AnalyzeImage(byte[] fileLocation) {
+    var client = new HttpClient();
+    var queryString = HttpUtility.ParseQueryString(string.Empty);
+
+    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "{subscription key}");
+
+    queryString["maxCandidates"] = "1";
+    var uri = "https://api.projectoxford.ai/vision/v1.0/describe?" + queryString;
+    HttpResponseMessage response;
+
+    using (var content = new ByteArrayContent(fileLocation)) {
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+        response = client.PostAsync(uri, content).Result;
+
+        string imageInfo = response.Content.ReadAsStringAsync().Result;
+
+        return imageInfo;
+    }
+}
+</pre>
+<p>In the method we create a Http Post to the Cognitive service URL: https://api.projectoxford.ai/vision/v1.0/describe? we also add a query string named “maxCandidates” that tells the service the maximum number of candidate descriptions to be returned. The default is value of this parameter is 1.</p>
+<p>In the header value “Ocp-Apim-Subscription-Key” the subscription key is placed. The file we would like to analyze is added to the post as a Byte Array.</p>
+<p>With this function we can start creating a new Azure Function.  The only method we still miss is a method to convert the stream into a byte array that is necessary to add in the HTTP Post (ReadStream).</p>
+<pre class="brush: csharp;">public static byte[] ReadFully(Stream input) {
+    byte[] buffer = new byte[16 * 1024];
+    using (MemoryStream ms = new MemoryStream()) {
+        int read;
+        while ((read = input.Read(buffer, 0, buffer.Length)) &gt; 0) {
+            ms.Write(buffer, 0, read);
+        }
+        return ms.ToArray();
+    }
+}
+</pre>
+<p>With all these methods in place the function can be tested by uploading a image into the blob account.</p>
+<p>In my test scenario’s I use a test image from Microsoft.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/05/cute_dog.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="cute_dog" src="{{ site.baseurl }}/assets/archive/2016/05/cute_dog_thumb.jpg" alt="cute_dog" width="326" height="291" border="0" /></a></p>
+<p>Analyzing this image will give the following result.</p>
+<pre class="brush: js;">{
+  "description": {
+    "tags": [
+      "grass",
+      "dog",
+      "outdoor",
+      "frisbee",
+      "animal",
+      "sitting",
+      "small",
+      "brown",
+      "field",
+      "laying",
+      "orange",
+      "white",
+      "yellow",
+      "green",
+      "mouth",
+      "playing",
+      "red",
+      "holding",
+      "park",
+      "blue",
+      "grassy"
+    ],
+    "captions": [
+      {
+        "text": "a dog sitting in the grass with a frisbee",
+        "confidence": 0.66584959582698122
+      }
+    ]
+  },
+  "requestId": "38e74ca2-b114-4ebb-b74d-457cc9a2adc2",
+  "metadata": {
+    "width": 300,
+    "height": 267,
+    "format": "Jpeg"
+  }
+}
+</pre>
+<p>Doing the request in my Azure Function by uploading the image to my blob container will get the same result.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/05/image-4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/05/image_thumb-4.png" alt="image" width="666" height="168" border="0" /></a></p>
+<p>This information can now be further processed into for example Azure Table Storage or a Azure SQL Database to be used as metadata for your image.</p>

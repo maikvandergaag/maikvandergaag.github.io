@@ -1,0 +1,93 @@
+---
+layout: post
+title: Active Directory Picture Synchronization
+date: 2013-05-01 14:15:41.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- SharePoint
+tags:
+- Active Directory
+- SharePoint 2010
+- SharePoint 2013
+meta:
+  _wp_jd_bitly: http://bit.ly/YdXyWK
+  _wp_jd_target: http://msftplayground.com/2013/05/active-directory-picture-synchronization/
+  _jd_wp_twitter: 'a:1:{i:0;s:71:"New post: Active Directory Picture Synchronization
+    http://bit.ly/YdXyWK";}'
+  _yoast_wpseo_title: Active Directory Picture Synchronization
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Active Directory
+  _yoast_wpseo_focuskw: Active Directory
+  _yoast_wpseo_linkdex: '83'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463218133;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:80;}i:1;a:1:{s:2:"id";i:656;}i:2;a:1:{s:2:"id";i:666;}}}}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Active Directory
+  _wds_title: Active Directory Picture Synchronization
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2013/05/active-directory-picture-synchronization/"
+---
+<p>When you have stored the pictures of employees in Active Directory you would like to have the option to synchronize these pictures to their SharePoint profile.</p>
+<p>This article describes the steps you need to take to import them into the SharePoint profiles.</p>
+<p>&nbsp;</p>
+<p>1. Change the mapping of the Picture profile field.</p>
+<p>Navigate to the User Profile Service Application and got to “Manage User Properties". Find the picture property and select the edit menu item. Add a new Mapping to the “thumbnailPhoto” attribute and select “Ok” when you are done.</p>
+<p><strong>Before:</strong></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/05/AD-Mapping.png"><img width="589" height="96" title="AD Mapping" style="border: 0px currentcolor; display: inline; background-image: none;" alt="AD Mapping" src="{{ site.baseurl }}/assets/archive/2013/05/AD-Mapping_thumb.png" border="0" /></a></p>
+<p><strong>After:</strong></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2013/05/AD-Mapping-After.png"><img width="585" height="134" title="AD Mapping After" style="border: 0px currentcolor; display: inline; background-image: none;" alt="AD Mapping After" src="{{ site.baseurl }}/assets/archive/2013/05/AD-Mapping-After_thumb.png" border="0" /></a></p>
+<p>2. Perform a Full Import</p>
+<p>On the User Profile Service Application select “Start Profile Synchronization” to start a Full Synchronization.</p>
+<p>3. Run the command Update-SPProfilePhotoStore</p>
+<p>This command let will create the profile pictures in the “User Photo” library in the Mysite host site collection. Run this command with the following options:</p>
+<pre class="brush: powershell;">Update-SPProfilePhotoStore -MySiteHostLocation [Your Mysite Host Location] -CreateThumbnailsForImportedPhotos 1
+</pre>
+<p>&nbsp;</p>
+<p>4. Check the profiles for their pictures.</p>
+<p>&nbsp;</p>
+<p>One downside to this is that you need to rerun the Update-SPProfilePhotoStore when you have a new Employee for example.</p>
+<p>&nbsp;</p>
+<p>When you would like to try this out on your environment you can use the following PowerShell script for importing a picture in Active Directory.</p>
+<pre class="brush: powershell;">#parameters
+$username = "tpicture"
+$picture = "C:\Pictures\msftplayground.png"
+
+#get the active directory information
+$dom = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+$root = $dom.GetDirectoryEntry()
+$search = [System.DirectoryServices.DirectorySearcher]$root
+$search.Filter = "(&amp;(objectclass=user)(objectcategory=person)(samAccountName=$username))"
+$result = $search.FindOne()
+
+#if the result not equal to null
+if ($result -ne $null){
+    $user = $result.GetDirectoryEntry()
+
+    #get the byte array of the picture
+    [byte[]]$jpg = Get-Content $picture -encoding byte
+ 
+    #change the active directory property
+    $user.put("thumbnailPhoto",  $jpg )
+    $user.setinfo()
+
+    Write-Host $user.displayname " updated" -ForegroundColor Green
+} else {
+    Write-Host $username " Does not exist" -ForegroundColor Red
+}
+
+</pre>
+<p>&nbsp;</p>
+<p>These steps work for SharePoint 2013 and SharePoint 2010 from CU December 2011.</p>

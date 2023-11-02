@@ -1,0 +1,54 @@
+---
+layout: post
+title: SSL and Send To Locations
+date: 2011-03-22 07:59:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- DMS
+- SharePoint
+tags:
+- Send To Locations
+- SSL
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SSL
+  _yoast_wpseo_focuskw: SSL
+  _yoast_wpseo_linkdex: '67'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SSL
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2011/03/ssl-and-send-to-locations/"
+---
+<div class="ExternalClassD18982AA33204D87A61D14B8CDE3CC89">
+<p>When you are using SharePoint in combination with SSL and Send To locations you have to register you certificate with SharePoint when you would like to register a Send To location that runs under a https address.</p>
+<p>When you try to add the location you will receive the following error:</p>
+<p><strong>Verification failed: URL is not a valid routing destination.</strong></p>
+<p>You will also find a entry within your event viewer which let you see what certificate you need to register: </p>
+<blockquote><p>Log Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Application <br />Source:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Microsoft-SharePoint Products-SharePoint Foundation <br />Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5/02/2011 16:83:51 PM <br />Event ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8311 <br />Task Category:&nbsp;&nbsp; Topology <br />Level:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Error <br />Keywords: <br />User:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Development\svc_spfarm <br />Computer:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Diablo.development.com&nbsp; <br />Description: <br />An operation failed because the following certificate has validation errors:\n\nSubject Name: CN=intra.development.com, OU=IT, O=Development, L=Diablo, S=NC, C=US\nIssuer Name: CN=Development-Diablo-CA, DC=Development, DC=com\nThumbprint: 3ACA9260547711E0B9C08CEADFD72085\n\nErrors:\n\n The root of the certificate chain is not a trusted root authority</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>This states that you will have to register your certificate you can register your certificate by using PowerShell:</p>
+<pre class="brush: powershell;">Add-PSSnapin Microsoft.SharePoint.PowerShell 
+
+$rootca = New-Object System.Security.Cryptography.x509Certificates.x509Certificate2("[Your Certificate]") 
+
+New-SPTrustedRootAuthority –Name "[Certificate Name]" –Certificate $rootca </pre>
+<p><font size="1">Tanx to: </font><font size="1">http://blogs.technet.com/b/blairb/archive/2010/08/18/using-ssl-with-sharepoint-2010-send-to-connections.aspx</font></p>
+</div>

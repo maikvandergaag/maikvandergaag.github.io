@@ -1,0 +1,66 @@
+---
+layout: post
+title: Using Windows Server as a Desktop Operating System
+date: 2009-10-05 06:32:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+tags:
+- Desktop
+- Windows Server 2008 R2
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Windows Server
+  _yoast_wpseo_focuskw: Windows Server
+  _yoast_wpseo_linkdex: '79'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Windows Server
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/10/using-windows-server-as-a-desktop-operating-system/"
+---
+<div class="ExternalClass5EABC3CCF9C94D4BB0E2704564356428">
+<p>On this planet there are a lot of geeks (Including me) that run Windows Server 2008 (R2) as their desktop operating system. <br />I installed my development laptop with a dual boot of Windows 7 and Windows Server 2008 R2. The Windows Server 2008 R2 install is really a virtual hard disk that I setup as a boot device.</p>
+<p>If there are some developers who would like to setup a Virtual hard disk as boot device I would recommend the following article:</p>
+<ul>
+<li><a href="http://ochoco.blogspot.com/2009/01/windows-7-boot-from-vhd-first.html">Boot from VHD First Impression</a></li>
+</ul>
+<p>I recommend an installation of a virtual hard disk on a hyper-v server. After the installation you can run ‘sysprep’ with the option ‘shutdown’ and copy the virtual hard disk to your computer. After that you can set it up as a boot device as explained in the article above.</p>
+<p>After you have followed the steps (or installed Windows Server) you have a server environment as your desktop operation system, but it still isn’t like a Windows 7 or Windows Vista environment. If you would like your windows server installation to look like windows Vista or Windows 7 you have to install the ‘Desktop Experience’ feature.</p>
+<p>The ‘Desktop experience’ feature includes programs like:</p>
+<ul>
+<li>Windows Media Player  </li>
+<li>Windows Aero and other desktop themes  </li>
+<li>Video for Windows (AVI support)  </li>
+<li>Windows Defender</li>
+</ul>
+<p>To install the ‘Desktop experience’ follow the following steps:</p>
+<ul>
+<li>Open Server Manager: click Start, point to Administrative Tools, and click Server Manager.  </li>
+<li>In the Features Summary section, click Add features.  </li>
+<li>Select the Desktop Experience check box, and then click ‘Next’ and then click ‘Install’.</li>
+</ul>
+<p>Now you are ready to get a real desktop experience from Windows Server, but the Aero theme still isn’t working. To get this working you will have to activate the “Themes” services from windows and set the start-up type to automatic. </p>
+<ul>
+<li>Click Start, click Run, type in services.msc, and then click OK.  </li>
+<li>In the list of installed services, right click Themes, and then click Properties.  </li>
+<li>In the start-up section click automatic, click apply and the click Start. And then click OK to close the window.</li>
+</ul>
+<p>After this configuration change your desktop needs to be restarted. After the reboot you can change the windows theme. By right clicking on the desktop and choosing ‘Personalize’ and selecting the Windows 7 Theme in case of windows server 2008 R2.</p>
+</div>

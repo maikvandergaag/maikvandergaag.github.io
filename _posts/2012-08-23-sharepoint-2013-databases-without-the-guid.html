@@ -1,0 +1,125 @@
+---
+layout: post
+title: SharePoint 2013 Databases without the GUID
+date: 2012-08-23 07:34:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- Database
+- SharePoint 2013
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '78'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2012/08/sharepoint-2013-databases-without-the-guid/"
+---
+<div class="ExternalClass2D63DC4EC881487CBA2A74FBF09A8C10">
+<p>When you configure SharePoint 2013 it will create the SharePoint_AdminContent database with a GUID at the end. To keep my database names clean I searched for a solution.</p>
+<p>To be able to set the name of the database you will have to perform the configuration with PowerShell.</p>
+<p>Take the following steps:</p>
+<blockquote><p>1. Open SharePoint 2013 Management Shell as Administrator.</p>
+<p>2. Type the following:</p>
+</blockquote>
+<pre class="brush: powershell;">New-SPConfigurationDatabase -DatabaseName BETA_SP2013_Config –AdministrationContentDatabaseName BETA_SP2013_AdminContent –DatabaseServer SP2013DB -FarmCredentials (get-credential)</pre>
+<blockquote>
+<p>3. You will get a pop-up to fill in the farm credentials. Fill in the account you want to use to run central administration under. When you filled in the account the management shell will also ask you to fill in the passphrase for joining servers to your farm.</p>
+<p>4. Install the help collection files by running the following script.</p>
+</blockquote>
+<pre class="brush: powershell;">Install-SPHelpCollection –All</pre>
+<blockquote>
+<p>5. Initialize the SharePoint Security by running the following script.</p>
+</blockquote>
+<pre class="brush: powershell;">Initialize-SPResourceSecurity</pre>
+<blockquote>
+<p>6. Register the SharePoint Services by running the following script.</p>
+</blockquote>
+<pre class="brush: powershell;">Install-SPService</pre>
+<blockquote>
+<p>7. Create central administration by running the following script.</p>
+</blockquote>
+<pre class="brush: powershell;">New-SPCentralAdministration -Port 5555 -WindowsAuthProvider “ntlm”</pre>
+<blockquote>
+<p>8. Install the application content by running the following script.</p>
+</blockquote>
+<pre class="brush: powershell;">Install-SPApplicationContent</pre>
+<blockquote>
+<p>9. When everything is done. You performed the steps the configuration wizard does for you. To be absolutely sure that everything is configured run the configuration wizard.</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>After these steps SharePoint is configured with a clean database name!</p>
+<p>Almost all other SharePoint databases can be named trough the UI only the Search Service Application and the Usage service create there own databases. The solution is to also create these services&nbsp; with PowerShell.</p>
+<p>In other for you to create the Search Service Application you can use the script below (You only have to change the arguments on the top).</p>
+<pre class="brush: powershell;">$databaseServer = "SP2013DB"
+$ServiceAppPool = "SharePoint Services Application Pool"
+$IndexLocation = "C:\SP2013_Search"
+$SearchServiceApplicationName = "Search Service Application"
+$server = "CLAY"
+
+Write-Host "Setting up Search"
+
+Start-SPEnterpriseSearchServiceInstance $server
+Start-SPEnterpriseSearchQueryAndSiteSettingsServiceInstance $server
+
+$searchApp = New-SPEnterpriseSearchServiceApplication -Name $SearchServiceApplicationName -ApplicationPool $ServiceAppPool -DatabaseServer $databaseServer -DatabaseName "BETA_SP2013_Search"
+$searchInstance = Get-SPEnterpriseSearchServiceInstance $server
+
+$ssa = Get-SPEnterpriseSearchServiceApplication 
+
+Write-Host "Setup Topology"
+$ssa.ActiveTopology
+$clone = $ssa.ActiveTopology.Clone()
+
+New-SPEnterpriseSearchAdminComponent –SearchTopology $clone -SearchServiceInstance $searchInstance
+New-SPEnterpriseSearchContentProcessingComponent –SearchTopology $clone -SearchServiceInstance $searchInstance
+New-SPEnterpriseSearchAnalyticsProcessingComponent –SearchTopology $clone -SearchServiceInstance $searchInstance 
+New-SPEnterpriseSearchCrawlComponent –SearchTopology $clone -SearchServiceInstance $searchInstance 
+New-SPEnterpriseSearchIndexComponent –SearchTopology $clone -SearchServiceInstance $searchInstance -RootDirectory $IndexLocation
+New-SPEnterpriseSearchQueryProcessingComponent –SearchTopology $clone -SearchServiceInstance $searchInstance
+
+$clone.Activate()
+
+$ssa | get-SPEnterpriseSearchAdministrationComponent |  set-SPEnterpriseSearchAdministrationComponent -SearchServiceInstance  $searchInstance
+
+
+Write-Host "Setup Proxy"
+$searchAppProxy = New-SPEnterpriseSearchServiceApplicationProxy -Name "$SearchServiceApplicationName Proxy" -SearchApplication $SearchServiceApplicationName &gt; $null
+
+Write-Host "Done"</pre>
+<p>&nbsp;</p>
+<p>You need to take the steps below to create the Usage Service Application:</p>
+<blockquote>
+<p>1. Get the Usage Service.</p>
+</blockquote>
+<pre class="brush: powershell;">$serviceInstance = Get-SPUsageService</pre>
+<blockquote>
+<p>2. Create the service application.</p>
+</blockquote>
+<pre class="brush: powershell;">New-SPUsageApplication -Name "Usage Service Application -DatabaseServer SP2013DB -DatabaseName "BETA_SP2013_UsageDB" -UsageService $serviceInstance &gt; $null</pre>
+<blockquote>
+<p>3.&nbsp; Get the proxy off the application and provision it.</p>
+</blockquote>
+<pre class="brush: powershell;">$usa = Get-SPServiceApplicationProxy | where {$_.TypeName -like "Usage*"} 
+$usa.Provision()</pre>
+</div>

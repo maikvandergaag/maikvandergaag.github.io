@@ -1,0 +1,111 @@
+---
+layout: post
+title: Host-Named Site Collections (Provisioning by Code and in Specific Content Database)
+date: 2013-10-11 07:50:30.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- C#
+- Host-Names site collection
+- SharePoint 2013
+meta:
+  _wpas_done_all: '1'
+  _wp_jd_bitly: http://bit.ly/19o8unD
+  _wp_jd_target: http://msftplayground.com/2013/10/host-named-site-collections-provisioning-by-code-and-in-specific-content-database/
+  _jd_wp_twitter: 'a:1:{i:0;s:115:"New post: Host-Named Site Collections (Provisioning
+    by Code and in Specific Content Database) http://bit.ly/19o8unD";}'
+  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:115:"New post: Host-Named Site
+    Collections (Provisioning by Code and in Specific Content Database) http://bit.ly/19o8unD";s:5:"error";s:71:"This
+    tweet is identical to another Tweet recently sent to this account.";s:4:"code";i:403;s:9:"timestamp";i:1381477836;}'
+  _edit_last: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapLI: s:259:"a:1:{i:0;a:8:{s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";b:0;s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";b:0;}}";
+  _jd_twitter: ''
+  _jd_tweet_this: 'no'
+  _yoast_wpseo_focuskw_text_input: Host-Named Site Collections
+  _yoast_wpseo_focuskw: Host-Named Site Collections
+  _yoast_wpseo_linkdex: '71'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Host-Named Site Collections
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2013/10/host-named-site-collections-provisioning-by-code-and-in-specific-content-database/"
+---
+<p>Host-named site collections are the preferred method to deploy sites in SharePoint 2013. </p>
+<p>Because the Office 365 environment uses host-named site collections, new features are optimized for these site collections and they are expected to be more reliable.</p>
+<p>Creating Host Named site collection in a on premise environment still needs to be done with the use of PowerShell. </p>
+<pre class="brush: powershell;">New-SPSite 'http://dev.sharepoint.local' -HostHeaderWebApplication 'http://webapplication.sharepoint.local’ -Name 'Host-Named Site Collection' -Description 'My First Host-Name Site Collection' -OwnerAlias 'SharePoint\spadmin' -language 1033 -Template 'STS#0'
+</pre>
+<p>When you would like to create the specific site collection in a separate content database you could use the following command.</p>
+<pre class="brush: powershell;">New-SPSite 'http://dev.sharepoint.local' -HostHeaderWebApplication 'http://webapplication.sharepoint.local’ -Name 'Host-Named Site Collection' -Description 'My First Host-Name Site Collection' -OwnerAlias 'SharePoint\spadmin' -language 1033 -Template 'STS#0' -ContentDatabase 'SP2013_Content_HostNamed'
+</pre>
+<p>For more information on the out of the box functionalities:</p>
+<ul>
+<li><a href="http://technet.microsoft.com/en-us/library/cc424952.aspx">Host-named site collection architecture and deployment (SharePoint 2013)</a></li>
+</ul>
+<p>If you work in a environment were site need to be provisioned&nbsp; you will have to create a solution to create host-named site collections.</p>
+<p>But how do you create host-named site collection by using code (C#).</p>
+<p>At first you will have to get a reference to the web application were in you would like to create the host-named site collection. After that you can just use the ‘Add’ method on the ‘Sites’ collection.</p>
+<pre class="brush: csharp;">SPWebApplication webApp = SPWebApplication.Lookup(new Uri("http://webapplication.sharepoint.local"));
+SPSite Site = webApp.Sites.Add("http://dev.sharepoint.local", "Host-Named Site Collection","My First Host-Name Site Collection", 1033, "STS#0", "SharePoint\spadmin", "SharePoint Administrator", "spadmin@sharepoint.local", "SharePoint\poweruser”,"Power User", "poweruser@sharepoint.local", true);
+</pre>
+<p>But what should you do if you would like to create a host-named site collection in a specific content database in C#.</p>
+<pre class="brush: csharp;">bool retVal = false;
+SPWebApplication webApp = SPWebApplication.Lookup(new Uri(hostheaderApplication));
+SPContentDatabase newDatabase = null;
+
+if (webApp != null) {
+
+    bool continueValue = false;
+    if (!string.IsNullOrEmpty(contentDatabase)) {
+        //check if database exists
+        var query = from SPContentDatabase database in webApp.ContentDatabases
+                    where database.Name == contentDatabase
+                    select database;
+
+        newDatabase = query.FirstOrDefault();
+        continueValue = newDatabase == null ? false : true;
+    } else {
+        continueValue = true;
+    }
+
+    if (continueValue) {
+        SPSite createdSite = webApp.Sites.Add(url, name, description, languageId, template, ownerAlias, string.Empty, string.Empty, ownerAlias, string.Empty, string.Empty, true);
+
+        SPContentDatabase database = createdSite.ContentDatabase;
+        if (database.Name != contentDatabase) {
+            Dictionary&lt;SPSite, string&gt; failed = new Dictionary&lt;SPSite, string&gt;();
+
+            database.Move(newDatabase, new List&lt;SPSite&gt;() { createdSite }, out failed);
+
+            if (failed.Count &gt; 0) {
+                createdSite.Delete();
+            } else {
+                retVal = true;
+            }
+        } else {
+            retVal = true;
+        }
+    }
+}
+</pre>
+<p>The above code first checks if the content database exists. If it does not exist the code will return a return value of false. When it does exists, it will create the site collection. After the site collection is created it checks if it is created in the right content database if it is not created in the right content database it will move it to the right one.</p>

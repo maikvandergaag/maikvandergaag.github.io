@@ -1,0 +1,90 @@
+---
+layout: post
+title: ASP.NET Checkbox with confirmation message
+date: 2009-10-27 09:30:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- ASP.net
+- Checkbox
+- Javascript
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: ASP.NET
+  _yoast_wpseo_focuskw: ASP.NET
+  _yoast_wpseo_linkdex: '76'
+  _jetpack_related_posts_cache: a:0:{}
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: ASP.NET
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/10/asp-net-checkbox-with-confirmation-message/"
+---
+<div class="ExternalClass199407A7D03A493FA35259B751C26ED0">
+<p>For one of my assignments I had to create a checkbox that displays a confirmation message when you uncheck a checkbox. I thought I would share my solution with you guys.</p>
+<p>&nbsp;</p>
+<p>First off al you will have to create a new class file that we will call ‘ConfirmationCheckbox’ the class will inherit from ‘System.Web.UI.WebControls.Checkbox’ (the normal checkbox). For our checkbox you have to override the ‘OnPreRender’ to add JavaScript to the page and the ‘AddAttributesToRender’ to add the onclick to the checkbox for the notification. Besides that you have to create a property for the confirmation text.</p>
+<pre class="brush: csharp;">using System;
+ using System.Collections.Generic;
+ using System.Linq;
+ using System.Text;
+ using System.Web.UI.WebControls;
+ using System.Web.UI;
+ using System.Globalization;
+
+ namespace Motion10.SharePoint.WebControls {
+     public class ConfirmationCheckBox : CheckBox {
+         public string ConfirmationText { get; set; }
+
+        protected override void OnPreRender(EventArgs e) {
+             base.OnPreRender(e);
+             this.Page.ClientScript.RegisterClientScriptResource(typeof(ConfirmationCheckBox), "Motion10.SharePoint.JavaScript.js");
+         }
+
+         protected override void AddAttributesToRender(HtmlTextWriter writer) {
+             this.Attributes["onclick"] += string.Format(CultureInfo.CurrentCulture, "Confirmation(this, '{0}');", this.ConfirmationText);
+             base.AddAttributesToRender(writer);
+        }
+    }
+}</pre>
+<p>In the code sample above you see the overridden methods, in the ‘AddAttributesToRender’ we add a call to the JavaScript method to the attribute ‘onclick’. The JavaScript that we will create later on in this article needs two parameters the object in this case the checkbox (this) and the text for the confirmation (this.ConfirmationText).</p>
+<p>The JavaScript will be added to the page in the OnPreRender method of the CheckBox. The JavaScript is a embedded resource in our dll. For that reason you have to use “Motion10.SharePoint.Notification.JavaScript.js”.</p>
+<p>If you want to create a JavaScript file as embedded resource you have to do the following:</p>
+<ol>
+<li>Create a JavaScript file within your project.
+</li>
+<li>Right click on the file and choose properties.
+</li>
+<li>In the properties window set the Build Action to embedded resource.</li>
+</ol>
+<p>After you have done this you can add the Resource to the ‘AssemblyInfo.cs’ file under the properties like this:</p>
+<pre class="brush: csharp;">[assembly: WebResource("Motion10.SharePoint.JavaScript.js", "text/javascript")]</pre>
+<p>Finally you will have to point to the file by using the full assembly name followed by the filename. If you place the file in a folder you will also have to add the folder to the name. </p>
+<p>&nbsp;</p>
+<p>Know we have got this out off the way we still have to create the JavaScript for the confirmation message. </p>
+<pre class="brush: js;">function Confirmation(el, message) {
+    if (!el.checked) {
+       el.checked = !confirm(message);
+    }
+}</pre>
+<p>As you can see we have one method in the JavaScript file called Confirmation that needs to parameters. The ‘el’ stands for the checkbox and ‘message’ for the message that needs to be displayed. In the method we check if the checkbox is unchecked because we only want to display a notification when the checkbox is unchecked.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Notification.png"><img title="Notification" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="Notification" src="{{ site.baseurl }}/assets/archive/2009/10/Notification_thumb.png" width="240" height="95" /></a></p>
+<p>So when a user uncheck the checkbox a confirmation message will be shown (The message we entered as property of the checkbox). If the users selects ‘Ok’ the checkbox stays unchecked and when the user selects ‘Cancel’ the checkbox will stay checked and the “OnCheckChange” event of the checkbox will not be called.</p>
+</div>

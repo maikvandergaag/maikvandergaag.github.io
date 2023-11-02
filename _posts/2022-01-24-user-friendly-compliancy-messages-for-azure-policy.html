@@ -1,0 +1,121 @@
+---
+layout: post
+title: User-friendly compliance messages for Azure Policy
+date: 2022-01-24 12:00:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- Compliance
+- Governance
+- Policy
+meta:
+  _edit_last: '3'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '3'
+  _yoast_wpseo_primary_category: '323'
+  _thumbnail_id: '5639'
+  _yoast_wpseo_focuskw: compliance
+  _yoast_wpseo_metadesc: When resource creation fails because of Azure Policies the
+    error is not always that descriptive. Non-compliance messages help solve this.
+  _yoast_wpseo_linkdex: '65'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapLI: a:1:{i:0;a:1:{s:2:"do";s:1:"1";}}
+  snap_isAutoPosted: '1643018456'
+  snap_MYSURL: a:3:{s:1:"s";s:86:"https://msftplayground.com/2022/01/user-friendly-compliancy-messages-for-azure-policy/";s:1:"t";s:86:"https://msftplayground.com/2022/01/user-friendly-compliancy-messages-for-azure-policy/";s:1:"r";s:1:"B";}
+  _snapPHST: a:1:{s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1485553195015458816";s:2:"id";s:19:"1485553195015458816";s:1:"d";s:19:"2022-01-24
+    10:00:56";s:1:"w";s:1:"s";}}}}
+  snapTW: s:397:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:26:"%TITLE% - %HTAGS%
+    - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1485553195015458816";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1485553195015458816";s:5:"pDate";s:19:"2022-01-24
+    10:00:56";}}";
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: compliance
+  _wds_title: ''
+  _wds_metadesc: When resource creation fails because of Azure Policies the error
+    is not always that descriptive. Non-compliance messages help solve this.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2022/01/user-friendly-compliancy-messages-for-azure-policy/"
+---
+<p><!-- wp:paragraph --></p>
+<p>When resource creation fails because of Azure Policies the error is not always that descriptive and you will have to search for the failure. If you look at the below example you see an error that arises when creating a resource group. The error only tells us that it is because of policy configuration but what could be the cause:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6489,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-full"><a href="https://msftplayground.com/wp-content/uploads/2022/01/image-1.png" /><img src="{{ site.baseurl }}/assets/archive/2022/01/image-1.png" alt="Error when creating resource group that does not comply with Azure Policy" class="wp-image-6489" /><br />
+<figcaption>To find the cause the raw error investigated to find the policy that is denying the creation. As shown below the creation is denied by the policy assignment called "Resource Group - Naming MVP".</figcaption>
+</figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"id":6491,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2022/01/image-2.png" /><img src="{{ site.baseurl }}/assets/archive/2022/01/image-2-602x1024.png" alt="" class="wp-image-6491" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading --></p>
+<h2>User-friendly none compliant messages</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Within Azure, it is possible to attach user-friendly non-compliant messages that the user will see when something is denied by policies when creating resources.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>These messages can be added to the platform when assigning policies in Azure. The message can be added in the "Non-compliancy message" tab of the policy assignment blade.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6495,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2022/01/image-4.png" /><img src="{{ site.baseurl }}/assets/archive/2022/01/image-4-1024x306.png" alt="" class="wp-image-6495" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>By adding this non-compliance message it becomes clearer when something fails because of policies. The only downside at this moment is that you still have to look at the raw error. The screenshot below shows that the non-compliance message is now included in the error giving much more insight on why the creation failed.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6497,"sizeSlug":"full","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-full"><a href="https://msftplayground.com/wp-content/uploads/2022/01/image-5.png" /><img src="{{ site.baseurl }}/assets/archive/2022/01/image-5.png" alt="" class="wp-image-6497" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading --></p>
+<h2>Assigning non-compliancy message via bicep</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>The non-compliance message can also be added when assigning policies through bicep or ARM. In the below snippet you can find the property called "nonComplianceMessages" that contains the possible non-compliance messages.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">resource policyAssignment'Microsoft.Authorization/policyAssignments@2021-06-01' = {
+  name: 'string'
+  location: 'string'
+  properties: {
+    description: 'string'
+    displayName: 'string'
+    enforcementMode: 'string'
+    metadata: any()
+    nonComplianceMessages: [
+      {
+        message: 'string'
+        policyDefinitionReferenceId: 'string'
+      }
+    ]
+    notScopes: [
+      'string'
+    ]
+    parameters: {}
+    policyDefinitionId: 'string'
+  }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:heading --></p>
+<h2>Conclusion</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>With the use of the non-compliance messages, it becomes easier to search for the policies that are denying the creation of resources. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>It would be great if these non-compliance messages can be added to the regular error summary blade.</p>
+<p><!-- /wp:paragraph --></p>

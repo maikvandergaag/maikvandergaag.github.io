@@ -1,0 +1,87 @@
+---
+layout: post
+title: SharePoint 2010 Content Organizer Feature
+date: 2011-01-21 07:46:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- DMS
+- SharePoint
+tags:
+- Content Organizer
+- SharePoint 2010
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '71'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463219256;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:372;}i:1;a:1:{s:2:"id";i:343;}i:2;a:1:{s:2:"id";i:25;}}}}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2011/01/sharepoint-2010-content-organizer-feature/"
+---
+<div class="ExternalClass8EA47687E5CD4190B4CEA50D050900B3">
+<p>Within SharePoint 2010 Microsoft has changed a lot of the content management features. One of those features is content routing which you can do with the Content Organizer Feature.</p>
+<p>When you activate the Content Organizer feature on your site (Web scoped feature). It will automatically create a Drop-off library for you.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/ContentOrganizerFeature.png"><img title="ContentOrganizerFeature" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="ContentOrganizerFeature" src="{{ site.baseurl }}/assets/archive/2011/01/ContentOrganizerFeature_thumb.png" width="565" height="16" /></a></p>
+<p>All the documents that you upload to the site will be uploaded to the Drop-off library and that library will then route you document to the correct library or folder.</p>
+<p><strong>Settings</strong></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Settings.png"><img title="Settings" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; float: left; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="Settings" align="left" src="{{ site.baseurl }}/assets/archive/2011/01/Settings_thumb.png" width="158" height="183" /></a>The settings for the content organizing can be changed by using two web settings features that can be found under the category “Site Administration” on the “Site Settings” screen.</p>
+<p>With the option “Content Organizer Rules” you can specify specific rules to route you content within the Site or outside your site collection.</p>
+<p>When you want your content to be routed outside your site collection the other site were you want the content to move to also has to have the “Content Organizer” feature enabled.</p>
+<p>Besides that you will have to enable the option “Sending to another site” within the “Content Organizer Settings”</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/image.png"><img title="image" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="image" src="{{ site.baseurl }}/assets/archive/2011/01/image_thumb.png" width="565" height="28" /></a></p>
+<p>After you have enabled this option you also have to specify the site were the content has to be routed to as a sent to location within central administration. This can be done by following these steps:</p>
+<ol>
+<li>Navigate to “Central Administration”  </li>
+<li>Click on “General Application Settings”  </li>
+<li>And then click on “Configure send to connections”</li>
+</ol>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Send-To-Locaiton.png"><img title="Send-To-Locaiton" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="Send-To-Locaiton" src="{{ site.baseurl }}/assets/archive/2011/01/Send-To-Locaiton_thumb.png" width="444" height="44" /></a></p>
+<p>On the screen that appears you can specify your sent to location.</p>
+<p>If you specify a rule that routes a document to another site collection the document will be placed into the drop-off library of the destination site collection.</p>
+<p>The document does get routed to a certain place directly but will be prosed by a Timer job. This timer job is scheduled ones a day. You can find this timer job by following these steps:</p>
+<ol>
+<li>Navigate to “Central Administration”  </li>
+<li>Click on “Monitoring”  </li>
+<li>Click on “Review Job Definitions” under the category “Timer Jobs”  </li>
+<li>Then find the “Content Organizer Processing” Job specified for you web application.</li>
+</ol>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Organizer.png"><img title="Organizer" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="Organizer" src="{{ site.baseurl }}/assets/archive/2011/01/Organizer_thumb.png" width="547" height="9" /></a></p>
+<p>By clicking the name of the job you can reschedule the job to run within another time frame. Besides that you can also click the “Run now” button.</p>
+<p><strong>Routing Documents and Workflows</strong></p>
+<p>When you route documents to a document library on which you have connected workflows, those workflows will not start automatically. If you take a look in the ULS log you will find a message like this:</p>
+<p>“Declarative workflows cannot automatically start if the triggering action was performed by System Account. Cancelling workflow auto-start.”</p>
+<p>It is said that Microsoft knows this bug so lets hope the will fix it in some kind of service pack.</p>
+<p>So what can you do about this issue. You will have to create a Item event receiver on the list that will start the workflow associations of the list item:</p>
+<pre class="brush: csharp;">public override void ItemAdded(SPItemEventProperties properties)
+{
+    SPListItem addedItem = properties.ListItem;
+    SPWorkflowManager manager = addedItem.ParentList.ParentWeb.Site.WorkflowManager;
+    SPWorkflowAssociationCollection assoCollection = addedItem.ContentType.WorkflowAssociations;
+
+    foreach (SPWorkflowAssociation asso in assoCollection)
+    {
+        manager.StartWorkflow(addedItem, asso, "");
+    }
+
+    base.ItemAdded(properties);
+}</pre>
+<p><strong>Custom routing</strong></p>
+<p>To be more flexible with the routing of your documents you can also create a custom router. I will discuss this option in a later post if there are enough people that will want to here about it. </p>
+</div>

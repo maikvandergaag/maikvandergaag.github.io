@@ -1,0 +1,148 @@
+---
+layout: post
+title: Azure Hybrid Connection
+date: 2016-01-18 13:27:19.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- Hybrid Connection
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _thumbnail_id: '1641'
+  _edit_last: '1'
+  snap_isAutoPosted: '1'
+  _yoast_wpseo_focuskw_text_input: Azure
+  _yoast_wpseo_focuskw: Azure
+  _yoast_wpseo_metadesc: Hybrid connection is a component of Azure BizTalk Services.
+    With a Hybrid connection you can easily connect Azure App Services with on-premise
+    services.
+  _yoast_wpseo_linkdex: '89'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:395:"a:1:{i:0;a:12:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1662174314059895";s:5:"pDate";s:19:"2016-01-18
+    13:27:35";}}";
+  snapLI: s:537:"a:1:{i:0;a:13:{s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6094842362352193536";s:7:"postURL";s:124:"https://www.linkedin.com/updates?discuss=&amp;scope=22692038&amp;stype=M&amp;topic=6094842362352193536&amp;type=U&amp;a=1yFo";s:5:"pDate";s:19:"2016-01-18
+    13:27:36";}}";
+  snapTW: s:271:"a:1:{i:0;a:9:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:15:"%TITLE%
+    - %URL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"689076675624173568";s:5:"pDate";s:19:"2016-01-18
+    13:27:36";}}";
+  _jetpack_related_posts_cache: a:0:{}
+  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
+  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure
+  _wds_title: ''
+  _wds_metadesc: Hybrid connection is a component of Azure BizTalk Services. With
+    a Hybrid connection you can easily connect Azure App Services with on-premise
+    services.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2016/01/azure-hybrid-connection/"
+---
+<p>Hybrid connection is a component of Azure BizTalk Services. With a Hybrid connection you can easily connect Azure App Services with on-premise services behind a firewall.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/clip_image002.jpg"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="clip_image002" src="{{ site.baseurl }}/assets/archive/2016/01/clip_image002_thumb.jpg" alt="clip_image002" width="581" height="313" border="0" hspace="12" /></a></p>
+<p>Hybrid connection is one of the possible solutions to connect to a on-premise environment. The Hybrid connection has the following advantages:</p>
+<ul>
+<li>Safely unlock on-premise data.</li>
+<li>Multiple Azure App Services can use the same hybrid connection.</li>
+<li>Minimal number of TCP ports needed for access to the locale network.</li>
+<li>Only access to specific on-premise resources, configured in the Hybrid Connection.</li>
+<li>Can connect to every on-premise source with a static TCP-port for example: SQL Server, MySQL, HTTP Web API’s and Web Services.</li>
+</ul>
+<p><em>Note:”TCP sources with a dynamic port are not supported at this moment”</em></p>
+<ul>
+<li>Hybrid connection can be used with every framework the Azure App Services Supports.</li>
+<li>Connection properties when Hybrid Connections are in place are exactly the same as when you setup the connection in a on-premise environment.</li>
+</ul>
+<p>Reading those advantages make you wonder on how the Hybrid Connection is secured. The connections are secured with a Shared Access Signature (SAS). This will make sure the connection between the Azure application and the on-premise Hybrid Connection Manager are secured.</p>
+<p>To setup a Hybrid Connection you do not require to have any inbound ports open. In a situation were you do not open any port the Hybrid Connection will use TCP-port 80 and 443 by default. This configuration is not preferred.</p>
+<p>If a preferred configuration is needed you will have to configure the following out bound http-traffic. For Hybrid Connections it is not needed to configure inbound traffic ports in the firewall.</p>
+<table border="0" width="455" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td valign="top" width="108"><strong>Port</strong></td>
+<td valign="top" width="237"><strong>Why</strong></td>
+<td valign="top" width="108"><strong>Outbound</strong></td>
+</tr>
+<tr>
+<td valign="top" width="108">9350-9354</td>
+<td valign="top" width="237">These ports will be used for data traffic. The Service Bus Relays manager uses port 9350 to determine if TCP traffic is available. If it is it will also presume 9352 is available. Data traffic will go over 9352</td>
+<td valign="top" width="108">yes</td>
+</tr>
+<tr>
+<td valign="top" width="108">5671</td>
+<td valign="top" width="237">If port 9352 is used for data traffic port 5671 will be used as control channel.</td>
+<td valign="top" width="108">yes</td>
+</tr>
+<tr>
+<td valign="top" width="108">80-443</td>
+<td valign="top" width="237">If port 9352 and 5671 are not available port 80 and 443 will be used for data traffic and control channel.</p>
+<p><strong>Note: This is not a preferred configuration.</strong></td>
+<td valign="top" width="108">yes</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h3>Setting up a Hybrid Connection</h3>
+<p>In order to setup a Hybrid Connection you can connect to the Azure Preview portal and navigate to the Azure App Service you would like to configure the Hybrid Connection for.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-12.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-12.png" alt="image" width="610" height="311" border="0" /></a></p>
+<p>Select “Settings”, “Networking”, “Configure your hybrid connection endpoint”. A screen will appear on the left side with your current Hybrid Connections. To add a new one click Add on the top of the screen.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-13.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-13.png" alt="image" width="611" height="354" border="0" /></a></p>
+<p>Every time the process goes on a new screen will appear at the left side. After selecting the Add button you will get a option to create a new hybrid connection or use a existing hybrid connection.</p>
+<p>Because this is the first time we do not have any hybrid connection we will select “New hybrid connection”.</p>
+<p>You will now have to fill in the following information:</p>
+<table border="0" width="400" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Name</strong></td>
+<td valign="top" width="200">Unique Azure name for the hybrid connection</td>
+</tr>
+<tr>
+<td valign="top" width="200"><strong>Hostname</strong></td>
+<td valign="top" width="200">The hostname of the on-premise you will connect to. This can also be the FQDN or the IP Address</td>
+</tr>
+<tr>
+<td valign="top" width="200"><strong>Port</strong></td>
+<td valign="top" width="200">The static TCP-port you will connect to.</td>
+</tr>
+</tbody>
+</table>
+<p>After the information is filled in a BizTalk Service needs to be configured that will handle the connection (Service Bus Relay). You will configure a new one with a appropriate name.</p>
+<p>By selecting Ok on both the BizTalk Service creation window and the New hybrid connection window the Hybrid Connection will be configured and created.</p>
+<p>When this is done the hybrid connection will be shown in the hybrid connections overview of the Azure App Service.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-14.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-14.png" alt="image" width="521" height="181" border="0" /></a></p>
+<p>As you can see in the picture the hybrid connection is not yet connected. You can connect the hybrid connection by taking the following steps.</p>
+<ol>
+<li>Login to the server were you would like to install the Hybrid Connection Manager.</li>
+<li>On the server navigate to the Azure Preview Portal.</li>
+<li>Within the Azure Preview Portal navigate to the Azure App Service were you configured  the Hybrid Connection.</li>
+<li>Open the Hybrid Connections overview by clicking: “Settings”, “Networking”, “Configure your hybrid connection endpoint”.</li>
+<li>Click on the hybrid connection that we created.</li>
+</ol>
+<p>In the window that appears you can see that it isn’t configured. To configure the connection click on “Listener Setup”.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-15.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-15.png" alt="image" width="292" height="382" border="0" /></a></p>
+<p>Clicking on “Listener Setup” will open a window were you get the option to configure the Hybrid Connection. This can be done manually by using the connection strings or by installing en configuring it directly.</p>
+<p>Let’s click “Install and Configure now”. This opens a new tab that will download an installation file.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-16.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-16.png" alt="image" width="402" height="225" border="0" /></a></p>
+<p>Run this application and it will make sure that the Hybrid Connection Manager will be installed and configured.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-17.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-17.png" alt="image" width="490" height="219" border="0" /></a></p>
+<p>After the installation is finished you will also notice that the configuration is successful within the azure preview portal.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/01/image-18.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2016/01/image_thumb-18.png" alt="image" width="456" height="159" border="0" /></a></p>
+<p>With the Hybrid Connection in place you can connect to your on-premise systems just like you would do when you deploy your service to a on-premise environment.</p>

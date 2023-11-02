@@ -1,0 +1,95 @@
+---
+layout: post
+title: Problems with the SharePoint 2010 Rest services ListData.svc
+date: 2011-01-11 07:36:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- ListData
+- Problems
+- Rest services
+meta:
+  _edit_last: '1'
+  _snap_forceSURL: '2'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:253:"a:1:{i:0;a:8:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
+  snapLI: s:262:"a:1:{i:0;a:8:{s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
+  _jd_twitter: ''
+  _jd_tweet_this: 'yes'
+  _wpt_short_url: http://bit.ly/1L1ncHJ
+  _wp_jd_target: http://msftplayground.com/2011/01/problems-with-the-sp2010-rest-services-listdata-svc/
+  _jd_wp_twitter: 'a:1:{i:0;s:86:"Post Edited: Problems with the SP2010 Rest services
+    ListData.svc http://bit.ly/1L1ncHJ";}'
+  _wpt_status_message: Tweet sent successfully.
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '65'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2011/01/problems-with-the-sp2010-rest-services-listdata-svc/"
+---
+<div class="ExternalClass1E8F575A4AE74240AA46E914C8A257F6">
+<p>On a current project I'm working on we found a strange behavior problem with the Rest services of SharePoint.</p>
+<p>When you create a normal list (custom list or whatever list you want) you can open the list by using the ListData service like this:</p>
+<p><a href="#">http://portal.development.com/_vti_bin/ListData.svc/TestList</a>/</p>
+<p>When you navigate to this page you will see a RSS like representation of the the list what actually is a XML response of the service:</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/DataService.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="DataService" src="{{ site.baseurl }}/assets/archive/2011/01/DataService_thumb.png" alt="DataService" width="398" height="282" border="0" /></a></p>
+<p>The problem occurs when we add a type of column to the list. Lets add a column of the type calculated field and call it test calculation. As data type we will take single line of text and add a calculation to calculate the length of the title like Len([Title]).</p>
+<p>If we navigate to the ListData service we will see that the page is still the same like the above screenshot. When we look at the XML we will see that the Test calculation field is available in the XML.</p>
+<pre class="brush: xml;">&lt;entry m:etag="W/&amp;quot;1&amp;quot;"&gt;
+    &lt;id&gt;http://portal.development.com/_vti_bin/ListData.svc/TestList(1)&lt;/id&gt;
+    &lt;title type="text"&gt;Test&lt;/title&gt;
+    &lt;updated&gt;2011-01-11T07:58:56+01:00&lt;/updated&gt;
+    &lt;author&gt;
+      &lt;name /&gt;
+    &lt;/author&gt;
+    &lt;link rel="edit" title="TestListItem" href="TestList(1)" /&gt;
+    &lt;link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/CreatedBy" type="application/atom+xml;type=entry" title="CreatedBy" href="TestList(1)/CreatedBy" /&gt;
+    &lt;link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/ModifiedBy" type="application/atom+xml;type=entry" title="ModifiedBy" href="TestList(1)/ModifiedBy" /&gt;
+    &lt;link rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/Attachments" type="application/atom+xml;type=feed" title="Attachments" href="TestList(1)/Attachments" /&gt;
+    &lt;category term="Microsoft.SharePoint.DataService.TestListItem" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /&gt;
+    &lt;content type="application/xml"&gt;
+      &lt;m:properties&gt;
+        &lt;d:ContentTypeID&gt;0x010005A0A71B03FA954DB854B647353C250C&lt;/d:ContentTypeID&gt;
+        &lt;d:Title&gt;Test&lt;/d:Title&gt;
+        &lt;d:TestCalculation&gt;4.00000000000000&lt;/d:TestCalculation&gt;
+        &lt;d:Id m:type="Edm.Int32"&gt;1&lt;/d:Id&gt;
+        &lt;d:ContentType&gt;Item&lt;/d:ContentType&gt;
+        &lt;d:Modified m:type="Edm.DateTime"&gt;2011-01-11T07:58:56&lt;/d:Modified&gt;
+        &lt;d:Created m:type="Edm.DateTime"&gt;2011-01-11T07:58:56&lt;/d:Created&gt;
+        &lt;d:CreatedById m:type="Edm.Int32"&gt;1&lt;/d:CreatedById&gt;
+        &lt;d:ModifiedById m:type="Edm.Int32"&gt;1&lt;/d:ModifiedById&gt;
+        &lt;d:Owshiddenversion m:type="Edm.Int32"&gt;1&lt;/d:Owshiddenversion&gt;
+        &lt;d:Version&gt;1.0&lt;/d:Version&gt;
+        &lt;d:Path&gt;/Lists/TestList&lt;/d:Path&gt;
+      &lt;/m:properties&gt;
+    &lt;/content&gt;
+  &lt;/entry&gt;</pre>
+<p>Now we change the formula of the calculation field to =LEN([TITLE]) = 5 and change the type to Yes/No. In the representation of the list we see that everything is working like it supposed to:</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/list.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="list" src="{{ site.baseurl }}/assets/archive/2011/01/list_thumb.png" alt="list" width="565" height="73" border="0" /></a></p>
+<p>Now lets open the ListData Service and you will notice what I meant with the problem within the ListData service. You will get a Internal Server error like below:</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/InternalServerError.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="InternalServerError" src="{{ site.baseurl }}/assets/archive/2011/01/InternalServerError_thumb.png" alt="InternalServerError" width="536" height="176" border="0" /></a></p>
+<p>Even if we change the formula to a very simple formula like =Yes the ListData service will still fail. I hope Microsoft will solve this problem in the first Service Package and till then we will just have to work around the problem.</p>
+</div>

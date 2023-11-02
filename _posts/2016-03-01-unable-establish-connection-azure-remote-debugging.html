@@ -1,0 +1,142 @@
+---
+layout: post
+title: Unable to Establish connection with Azure Remote Debugging
+date: 2016-03-01 09:39:41.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+- Troubleshooting
+tags:
+- Azure
+- Azure App Services
+- Debugging
+- Remote
+meta:
+  yuzo_related_post_metabox: a:3:{s:17:"yuzo_include_post";s:0:"";s:17:"yuzo_exclude_post";s:0:"";s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  snap_isAutoPosted: '1'
+  _yoast_wpseo_focuskw_text_input: Azure
+  _yoast_wpseo_focuskw: Azure
+  _yoast_wpseo_linkdex: '72'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:395:"a:1:{i:0;a:12:{s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1677780459165947";s:5:"pDate";s:19:"2016-03-01
+    09:39:58";}}";
+  snapLI: s:289:"a:1:{i:0;a:9:{s:4:"doLI";s:1:"1";s:8:"postType";s:1:"A";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:11:"isPrePosted";s:1:"1";}}";
+  snapTW: s:271:"a:1:{i:0;a:9:{s:4:"doTW";s:1:"1";s:10:"SNAPformat";s:15:"%TITLE%
+    - %URL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"704602075875975168";s:5:"pDate";s:19:"2016-03-01
+    09:40:00";}}";
+  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
+  _oembed_b7280214b74283d7a73b39f5e5331d80: "{{unknown}}"
+  _oembed_1ba82f062134c494a889e607d118caea: "{{unknown}}"
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2016/03/unable-establish-connection-azure-remote-debugging/"
+---
+<p>Within one of my projects we had problems with attaching the debugger to our Azure Instances. During the the process we would get a model stating that the operation is taking longer as expected and finally got the model dialog shown below.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2016/03/image.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Remote Debugging" src="{{ site.baseurl }}/assets/archive/2016/03/image_thumb.png" alt="Azure Remote Debugging" width="439" height="194" border="0" /></a></p>
+<p><em>“The following error occurred while launching remote debugging: Unable to connect to the Microsoft Visual Studio Remote Debugger named [debugger name]. The Visual Studio 2015 Remote Debugger (MSVSMON.EXE) does not appear to be running on the remote computer. This may be because a firewall is preventing communication to the remote computer. Please see Help for assistance en configuring remote debugging.”</em></p>
+<p>In the event log of the App Service we found a error stating that the connection could not be made, and that a instance of the remote debugger is already running.</p>
+<pre class="brush: xml;">&lt;Event&gt;
+    &lt;System&gt;
+        &lt;Provider Name="Visual Studio Remote Debugger"/&gt;
+        &lt;EventID&gt;1000&lt;/EventID&gt;
+        &lt;Level&gt;1&lt;/Level&gt;
+        &lt;Task&gt;0&lt;/Task&gt;
+        &lt;Keywords&gt;Keywords&lt;/Keywords&gt;
+        &lt;TimeCreated SystemTime="2016-02-17T11:21:39Z"/&gt;
+        &lt;EventRecordID&gt;1544228421&lt;/EventRecordID&gt;
+        &lt;Channel&gt;Application&lt;/Channel&gt;
+        &lt;Computer&gt;RD000D3A2303CA&lt;/Computer&gt;
+        &lt;Security/&gt;
+    &lt;/System&gt;
+    &lt;EventData&gt;
+        &lt;Data&gt;remdbguser connected.&lt;/Data&gt;
+    &lt;/EventData&gt;
+&lt;/Event&gt;
+&lt;Event&gt;
+    &lt;System&gt;
+        &lt;Provider Name="Visual Studio Remote Debugger"/&gt;
+        &lt;EventID&gt;1001&lt;/EventID&gt;
+        &lt;Level&gt;3&lt;/Level&gt;
+        &lt;Task&gt;0&lt;/Task&gt;
+        &lt;Keywords&gt;Keywords&lt;/Keywords&gt;
+        &lt;TimeCreated SystemTime="2016-02-17T11:21:41Z"/&gt;
+        &lt;EventRecordID&gt;1544230937&lt;/EventRecordID&gt;
+        &lt;Channel&gt;Application&lt;/Channel&gt;
+        &lt;Computer&gt;RD000D3A2303CA&lt;/Computer&gt;
+        &lt;Security/&gt;
+    &lt;/System&gt;
+    &lt;EventData&gt;
+        &lt;Data&gt;Msvsmon was unable to start a server named '127.0.0.1:51040'. The following error occurred: An instance of the remote debugger is already running on this computer, or another process is already bound to the specified TCP/IP port. View Msvsmon's help for more information.&lt;/Data&gt;
+        &lt;Binary&gt;08005E80&lt;/Binary&gt;
+    &lt;/EventData&gt;
+&lt;/Event&gt;
+</pre>
+<p>Since the remote debugger was activated on the Azure App Service it had to be a firewall configuration.</p>
+<p>After a lot of searching we found out that the following ports needs to be opened to be able to remote debug a Azure App Service:</p>
+<table border="0" cellpadding="0">
+<tbody>
+<tr>
+<td width="72"><strong>Ports</strong></td>
+<td width="156"><strong>Incoming/Outgoing</strong></td>
+<td><strong>Protocol</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr>
+<td width="72">3702</td>
+<td width="156">Outgoing</td>
+<td>UDP</td>
+<td>Remote debugger discovery</td>
+</tr>
+<tr>
+<td width="72">4020</td>
+<td width="156">Outgoing</td>
+<td>TCP</td>
+<td>Visual Studio 2015</td>
+</tr>
+<tr>
+<td width="72">4021</td>
+<td width="156">Outgoing</td>
+<td>TCP</td>
+<td>Visual Studio 2015</td>
+</tr>
+<tr>
+<td width="72">4016</td>
+<td width="156">Outgoing</td>
+<td>TCP</td>
+<td>Visual Studio 2012</td>
+</tr>
+<tr>
+<td width="72">4018</td>
+<td width="156">Outgoing</td>
+<td>TCP</td>
+<td>Visual Studio 2013</td>
+</tr>
+</tbody>
+</table>
+<p>The remote debugging port number is incremented by 2 for each Visual Studio version. You can open these ports for all or limit it to all Azure Datacenters IP’s that you can find here.</p>
+<ul>
+<li><a href="https://www.microsoft.com/en-us/download/details.aspx?id=41653" target="_blank">Microsoft Azure Datacenter IP Ranges</a></li>
+</ul>
+<p>Also make sure you enable NAT (Network Address Translation) for the firewall exclusion because without it it will not work.</p>
+<p><span style="font-size: xx-small;">Reference:</span><a title="https://msdn.microsoft.com/en-us/library/mt592019.aspx" href="https://msdn.microsoft.com/en-us/library/mt592019.aspx"><span style="font-size: xx-small;">https://msdn.microsoft.com/en-us/library/mt592019.aspx</span></a><span style="font-size: xx-small;"> and </span><a title="https://msdn.microsoft.com/en-us/library/mt592018.aspx" href="https://msdn.microsoft.com/en-us/library/mt592018.aspx"><span style="font-size: xx-small;">https://msdn.microsoft.com/en-us/library/mt592018.aspx</span></a></p>

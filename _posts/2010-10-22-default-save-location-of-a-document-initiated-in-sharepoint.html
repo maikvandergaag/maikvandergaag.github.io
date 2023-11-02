@@ -1,0 +1,53 @@
+---
+layout: post
+title: Default save location of a document initiated in SharePoint
+date: 2010-10-22 05:28:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Microsoft Office
+- SharePoint
+tags:
+- Office
+- SharePoint
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '45'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2010/10/default-save-location-of-a-document-initiated-in-sharepoint/"
+---
+<div class="ExternalClassD96B1391F4A64DCF95F1D93F18761705">For the last couple of day's I have been developing word templates. In these templates I had to get the url of the site in which the document was initiated. By default when you click the new button in a document library of SharePoint and create the document in word and you save the document the save dialog will open with the correct library were you clicked on new. In the available object you have with word development I could not find a solution for this problem. But then I thought word has had to be opened with a specific argument so I went looking in de command line arguments. So to find the default save location when you initiated a new document from word you have to do the following.
+<p>&nbsp;</p>
+<pre class="brush: csharp;">        public static string GetInitiationLocation()
+        {
+            string retVal = string.Empty;
+            string[] commandLineArgs = Environment.GetCommandLineArgs();
+            if (commandLineArgs.Count() &gt;= 3)
+            {
+                string[] fArgument = commandLineArgs[2].Split(new string[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
+                if (fArgument.Count() == 3)
+                {
+                    retVal = fArgument[2];
+                }
+            }
+            return retVal;
+        }</pre>
+</div>

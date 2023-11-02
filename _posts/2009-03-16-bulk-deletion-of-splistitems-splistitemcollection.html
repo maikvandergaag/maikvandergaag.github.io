@@ -1,0 +1,89 @@
+---
+layout: post
+title: Bulk deletion of SPListItems (SPListItemCollection)
+date: 2009-03-16 06:22:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+- SharePoint
+tags:
+- Delete
+- SharePoint
+- TimerJob
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Bulk
+  _yoast_wpseo_focuskw: Bulk
+  _yoast_wpseo_linkdex: '71'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463254928;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:249;}i:1;a:1:{s:2:"id";i:204;}i:2;a:1:{s:2:"id";i:372;}}}}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Bulk
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2009/03/bulk-deletion-of-splistitems-splistitemcollection/"
+---
+<div class="ExternalClass8A65E86C372B4E2BAA82ABFA500BD3F4">
+<p>A few days ago I had to develop a TimerJob that deletes a large number of items from a SharePoint list. My first idea was to iterate trough the list items and then call the delete method of the items that needed to be deleted. <br />Doing this was a major performance set back because it took too long to perform this action. </p>
+<p>I went searching for another solution and I found one on the blog of The kid.</p>
+<p>A SPWeb object has a method called: <a href="http://msdn.microsoft.com/en-us/library/microsoft.sharepoint.spweb.processbatchdata.aspx">ProcessBatchData()</a> that processes a specified batch string of commands for sending multiple requests to the server per transaction.</p>
+<p>You can build a batch string to delete all of the items from a SharePoint list like this:</p>
+<pre class="brush: csharp;"> //create new StringBuilder
+ StringBuilder batchString= new StringBuilder();
+
+ //add the main text to the stringbuilder
+ batchString.Append(&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&lt;Batch&gt;&quot;);
+
+ //add each item to the batch string and give it a command Delete
+ foreach (SPListItem item in itemCollection)
+ {
+    //create a new method section
+    batchString.Append(&quot;&lt;Method&gt;&quot;);
+    //insert the listid to know where to delete from
+    batchString.Append(&quot;&lt;SetList Scope=\&quot;Request\&quot;&gt;&quot; + Convert.ToString(item.ParentList.ID) + &quot;&lt;/SetList&gt;&quot;);
+    //the item to delete
+    batchString.Append(&quot;&lt;SetVar Name=\&quot;ID\&quot;&gt;&quot; + Convert.ToString(item.ID) + &quot;&lt;/SetVar&gt;&quot;);
+    //set the action you would like to preform 
+    batchString.Append(&quot;&lt;SetVar Name=\&quot;Cmd\&quot;&gt;Delete&lt;/SetVar&gt;&quot;);
+    //close the method section
+    batchString.Append(&quot;&lt;/Method&gt;&quot;);
+ }
+
+ //close the batch section
+ batchString.Append(&quot;&lt;/Batch&gt;&quot;);
+
+ //preform the batch
+ SPContext.Current.Web.ProcessBatchData(batchString.ToString()); </pre>
+<p>The only disadvantage that I can think of right know is that all the items you delete will be put in the recycle bin. So if you perform the deletion more than ones you have to be careful with your storage quota. </p>
+<p>You can get around that disadvantage by adding the following lines of code. The first section before the batch deletion and the other section after the deletion.</p>
+<pre class="brush: csharp;">//get the recyclebinenabled status
+ bool IsRecycleBinEnabled = SPContext.Current.Web.Site.WebApplication.RecycleBinEnabled;
+
+ if(IsRecycleBinEnabled)
+ {
+    //set the use off the recyclebin to false
+    SPContext.Current.Web.Site.WebApplication.RecycleBinEnabled = false;
+ }
+
+ //preform batch deletion
+
+ //set the use off the recyclebin to true
+ if(IsRecycleBinEnabled)
+ {
+    //set the use off the recyclebin to false
+    SPContext.Current.Web.Site.WebApplication.RecycleBinEnabled = true;
+ } </pre>
+</div>

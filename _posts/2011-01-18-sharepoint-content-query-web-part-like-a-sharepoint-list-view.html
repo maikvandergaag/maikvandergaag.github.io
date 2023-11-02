@@ -1,0 +1,150 @@
+---
+layout: post
+title: SharePoint Content Query web part like a SharePoint List View
+date: 2011-01-18 07:42:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- SharePoint
+tags:
+- Content Query
+- List View
+- XSLT
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint
+  _yoast_wpseo_focuskw: SharePoint
+  _yoast_wpseo_linkdex: '71'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2011/01/sharepoint-content-query-web-part-like-a-sharepoint-list-view/"
+---
+<div class="ExternalClass4B838609982B4B92A1F58871953E22C1">
+<p>I have been working on a solution to aggregate documents from sub sites to the top level site of SharePoint with the out of the box features. To accomplish this you will have to work with the Content Query web part of SharePoint.</p>
+<p>The Content Query web part works great but it doesn't look like a list view and that was the styling I wanted. So let’s get working and create the styling we want.</p>
+<p>To get the content query web part to look like a list view you have to get trough the following steps:</p>
+<p><strong>Step 1</strong></p>
+<p>Enable the “SharePoint Server Publication Infrastructure” feature if you haven’t already got the feature enabled. This feature makes sure you have the “Content Query” web part available within the web part gallery.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-Server-Publishing-Infrastructure.png"><img title="SharePoint-Server-Publishing-Infrastructure" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="SharePoint-Server-Publishing-Infrastructure" src="{{ site.baseurl }}/assets/archive/2011/01/SharePoint-Server-Publishing-Infrastructure_thumb.png" width="537" height="18" /></a> </p>
+<p><strong>Step 2</strong></p>
+<p>Go to the page were you would like to display the “Content Query” web part and place it on the page. The web part can be found under the “Content Rollup” category. </p>
+<p>Edit the web part and specify the query you would like to preform. If you have specified the query save the web part and export it.</p>
+<p><em><strong>Note: </strong>if you want to query a certain type of content and this content is available within the subsites but not on the root you can not use the UI to create the query. If you want to use the UI you have to make the type available within the root site.</em></p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Webpart-Export.png"><img title="Webpart-Export" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="Webpart-Export" src="{{ site.baseurl }}/assets/archive/2011/01/Webpart-Export_thumb.png" width="529" height="93" /></a></p>
+<p><strong>Step 3</strong></p>
+<p>You can add your custom columns to the query. This can be accomplish by editing the “CommonViewFields” property of the web part:</p>
+<pre class="brush: xml;">&lt;property name="CommonViewFields" type="string"&gt;LinkFilename,Text;Title,Text;&lt;/property&gt;</pre>
+<p>The value of the property must be in the following format [InternalName],[Type];[InternalName],[Type];</p>
+<p><strong>Step 4</strong></p>
+<p>If you would like to read out those properties by a more meaningful name you can change the “DataColumnRenames” property. This property will take care of the renaming for us.</p>
+<pre class="brush: xml;">&lt;property name="DataColumnRenames" type="string"&gt;Title,Title;LinkFilename,Name&lt;/property&gt;</pre>
+<p>The value of the property must be in the following format [InternalName],[New Name];[InternalName],[New Name];</p>
+<p><strong>Step 5</strong></p>
+<p>Now that we have defined our columns we will need to edit the xslt template to render the columns. We will have to open SharePoint Designer and open the Style Library of the site.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/SharePoint-Designer.png"><img title="SharePoint-Designer" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="SharePoint-Designer" src="{{ site.baseurl }}/assets/archive/2011/01/SharePoint-Designer_thumb.png" width="492" height="242" /></a></p>
+<p>First we will edit the “ContentQueryMain.xsl” file. Within the file find the following line (79):</p>
+<p>&lt;xsl:template name="OuterTemplate.Body"&gt;</p>
+<p>Within this template a call will be made the ItemTemplate. Within the call we will have to pass a new parameter called “LastRow” so that we know when we will have to close our grid.</p>
+<p>For this search for the following lines (128):</p>
+<pre class="brush: xml;">&lt;xsl:call-template name="OuterTemplate.CallItemTemplate"&gt;
+    &lt;xsl:with-param name="CurPosition" select="$CurPosition" /&gt;
+&lt;/xsl:call-template&gt;</pre>
+<p>And change it to:</p>
+<pre class="brush: xml;">&lt;xsl:call-template name="OuterTemplate.CallItemTemplate"&gt;
+    &lt;xsl:with-param name="CurPosition" select="$CurPosition" /&gt;
+    &lt;xsl:with-param name="LastRow" select="$LastRow" /&gt;
+&lt;/xsl:call-template&gt;</pre>
+<p>Now that we pass the parameter we also have to change the template to accept the parameter.</p>
+<p>Go to line 147 and you see the “CallItemTemplate”. Copy the second line and past it directly beneath it and make it look like this:</p>
+<pre class="brush: xml;">&lt;xsl:template name="OuterTemplate.CallItemTemplate"&gt;
+&lt;xsl:param name="CurPosition" /&gt;
+&lt;xsl:param name="LastRow" /&gt;</pre>
+<p>Because we want to use this within our custom item template we also have give the parameter through to the template by adding a when statement just before the &lt;xsl:otherwise&gt; within the CallItemTemplate:</p>
+<pre class="brush: xml;">&lt;xsl:when test="@Style='SPGrid'"&gt;
+ &lt;xsl:apply-templates select="." mode="itemstyle"&gt;
+  &lt;xsl:with-param name="CurPos" select="$CurPosition" /&gt;
+  &lt;xsl:with-param name="Last" select="$LastRow" /&gt;
+ &lt;/xsl:apply-templates&gt;
+&lt;/xsl:when&gt;</pre>
+<p>In this statement we specify that it only has to pass-through the parameter when the item template is SPGrid. So our custom template is going to be called “SPGrid”.</p>
+<p><strong>Step 5</strong></p>
+<p>Now it is&nbsp; time to edit the “ItemStyle.xsl” file. Within this file we add our custom xslt item template:</p>
+<pre class="brush: xml;">&lt;xsl:template name="SPGrid" match="Row[@Style='SPGrid']" mode="itemstyle"&gt;
+    &lt;xsl:param name="CurPos" /&gt;
+    &lt;xsl:param name="Last" /&gt;
+
+    &lt;xsl:variable name="SafeImageUrl"&gt;
+      &lt;xsl:call-template name="OuterTemplate.GetSafeStaticUrl"&gt;
+        &lt;xsl:with-param name="UrlColumnName" select="'ImageUrl'"/&gt;
+      &lt;/xsl:call-template&gt;
+    &lt;/xsl:variable&gt;
+    &lt;xsl:variable name="SafeLinkUrl"&gt;
+      &lt;xsl:call-template name="OuterTemplate.GetSafeLink"&gt;
+        &lt;xsl:with-param name="UrlColumnName" select="'LinkUrl'"/&gt;
+      &lt;/xsl:call-template&gt;
+    &lt;/xsl:variable&gt;
+    &lt;xsl:variable name="DisplayTitle"&gt;
+      &lt;xsl:call-template name="OuterTemplate.GetTitle"&gt;
+        &lt;xsl:with-param name="Title" select="@Title"/&gt;
+        &lt;xsl:with-param name="UrlColumnName" select="'LinkUrl'"/&gt;
+      &lt;/xsl:call-template&gt;
+    &lt;/xsl:variable&gt;
+    &lt;xsl:variable name="LinkTarget"&gt;
+      &lt;xsl:if test="@OpenInNewWindow = 'True'" &gt;_blank&lt;/xsl:if&gt;
+    &lt;/xsl:variable&gt;
+
+    &lt;xsl:variable name="tableStart"&gt;
+      &lt;xsl:if test="$CurPos = 1"&gt;
+       &lt;![CDATA[ 
+        &lt;table width="100%" class="ms-listviewtable" cellpadding="1" cellspacing="0" border="0"&gt;
+          &lt;tr class="ms-viewheadertr ms-vhltr"&gt;
+            &lt;th class="ms-vh-icon"&gt;&lt;/th&gt;
+            &lt;th class="ms-vh2"&gt;Name&lt;/th&gt;
+          &lt;/tr&gt;]]&gt;   
+      &lt;/xsl:if&gt;
+    &lt;/xsl:variable&gt;
+
+    &lt;xsl:variable name="tableEnd"&gt;
+      &lt;xsl:if test="$CurPos = $Last"&gt;
+        &lt;![CDATA[ &lt;/table&gt; ]]&gt;
+      &lt;/xsl:if&gt;
+    &lt;/xsl:variable&gt;
+
+    &lt;xsl:value-of select="$tableStart" disable-output-escaping="yes"/&gt;
+    &lt;tr class="ms-alternating ms-itmhover"&gt;
+      &lt;td class="ms-vb-icon"&gt;
+          &lt;xsl:if test="string-length(@DocumentIconImageUrl) != 0"&gt;
+            &lt;div class="image-area-left"&gt;
+              &lt;img class="image" src="{@DocumentIconImageUrl}" title="" /&gt;
+            &lt;/div&gt;
+        &lt;/xsl:if&gt;
+      &lt;/td&gt;
+      &lt;td class="ms-vb2"&gt;
+        &lt;a href="{$SafeLinkUrl}" title="{@LinkToolTip}"&gt;                  &lt;xsl:value-of select="$DisplayTitle"/&gt;
+        &lt;/a&gt;
+      &lt;/td&gt;
+      &lt;td&gt;
+        &lt;xsl:value-of select="@Title"/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;xsl:value-of select="$tableEnd" disable-output-escaping="yes"/&gt;
+  &lt;/xsl:template&gt;</pre>
+<p>The displayed xslt has to be placed just above the closing &lt;/xsl:stylesheet&gt; tag. This xsl creates a template for each item and will display the icon , the title link and the title of the document.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2012/10/Result.png"><img title="Result" style="border-top: 0px; border-right: 0px; background-image: none; border-bottom: 0px; padding-top: 0px; padding-left: 0px; border-left: 0px; display: inline; padding-right: 0px" border="0" alt="Result" src="{{ site.baseurl }}/assets/archive/2011/01/Result_thumb.png" width="557" height="116" /></a></div>

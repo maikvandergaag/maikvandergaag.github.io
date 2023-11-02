@@ -1,0 +1,42 @@
+---
+layout: post
+title: Testing Expiration Policy
+date: 2008-09-18 07:08:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Administration
+- SharePoint
+tags:
+- Expiration
+- Testing
+meta:
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: Expiration
+  _yoast_wpseo_focuskw: Expiration
+  _yoast_wpseo_linkdex: '45'
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Expiration
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2008/09/testing-expiration-policy/"
+---
+<div class="ExternalClass9591830617B042F5BCD8A692F5971EB9">
+<p>When you add an Expiration Policy to a library in SharePoint you can only test your policy once a day. This is because SharePoint only runs the TimerJob for the expiration policy only once a day. </p>
+<p>The TimerJob can’t be run with stsadm so the timer job has to be accessed trough the object model. For people who have problem running the expiration policy you can use my Console Application that I have created to make sure the Expiration Policy TimerJob runs when I want it too. </p>
+<p>&nbsp;</p>
+<p><a href="/wp-content/uploads/2012/10/RunExpirationPolicy.zip">Run Expiration Policy</a></p>
+</div>

@@ -1,0 +1,237 @@
+---
+layout: post
+title: Using private repositories for Bicep modules
+date: 2021-11-01 12:00:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+tags:
+- Azure
+- Azure Container Registry
+- Azure Template Specs
+- bicep
+- biceplang
+- IaC
+meta:
+  _edit_last: '3'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '5'
+  _thumbnail_id: '6441'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapLI: s:213:"a:1:{i:0;a:8:{s:2:"do";s:1:"1";s:9:"msgFormat";s:26:"%TITLE% - %HTAGS%
+    - %SURL%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;}}";
+  _yoast_wpseo_primary_category: '323'
+  _yoast_wpseo_focuskw: Bicep
+  _yoast_wpseo_metadesc: Sharing bicep modules by using private repositories. Bicep
+    now supports saving modules as Template Specs or Container Images.
+  _yoast_wpseo_linkdex: '73'
+  snap_MYSURL: a:3:{s:1:"s";s:80:"https://msftplayground.com/2021/11/using-private-repositories-for-bicep-modules/";s:1:"t";s:80:"https://msftplayground.com/2021/11/using-private-repositories-for-bicep-modules/";s:1:"r";s:1:"B";}
+  snap_isAutoPosted: '1635760882'
+  _snapPHST: a:1:{s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1455112725147815939";s:2:"id";s:19:"1455112725147815939";s:1:"d";s:19:"2021-11-01
+    10:01:23";s:1:"w";s:1:"s";}}}}
+  snapTW: s:397:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:26:"%TITLE% - %HTAGS%
+    - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1455112725147815939";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1455112725147815939";s:5:"pDate";s:19:"2021-11-01
+    10:01:23";}}";
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Bicep
+  _wds_title: ''
+  _wds_metadesc: Sharing bicep modules by using private repositories. Bicep now supports
+    saving modules as Template Specs or Container Images.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2021/11/using-private-repositories-for-bicep-modules/"
+---
+<p><!-- wp:paragraph --></p>
+<p>As of version <a href="https://github.com/Azure/bicep/releases" target="_blank" rel="noreferrer noopener">0.4.1008</a> bicep now supports repositories for saving bicep modules. Repositories that are supported at the time of writing this article are:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Azure Container Registry</li>
+<li>Azure Template Specs</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading --></p>
+<h2>Why should you use repositories</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p id="88c9">You should use repositories for reusability and modularization. This comes in handy when working with large and complex environment and maybe as well within enterprises with a lot of DevOps team were everyone can use the same modules. By using the repositories, you can easily reuse modules for different deployments and it supports role based access control so you are in control of who has access to the modules.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Personally I'm a big fan of Azure Template Specs and have been using them since the start so I immediately jumped in and tested it out. Modules specified in your Bicep file get downloaded on the bicep build command and included in your final ARM template.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Before you begin make sure you have the correct version of bicep installed on your local machine!</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Lets use a Template Spec </h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Make sure you have a template spec available within Azure. If you are new to Template Specs check a previous blog post of mine:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><a href="https://msftplayground.com/2021/02/the-new-and-shiny-azure-template-specs/">The new and shiny - Azure Template Specs - Microsoft Playground (msftplayground.com)</a></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>With a template spec available we start by creating a bicep configuration file at the root path to make it easy to leverage our repositories. In the configuration file when can specify short aliases to point to the specific repository. </p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Start by creating a file called '<a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-config?WT.mc_id=AZ-MVP-5004255" target="_blank" rel="noreferrer noopener">bicepconfig.json</a>'  and use the intellisense of Visual Studio Code to create a 'moduleAliases' section.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"java"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">{
+  "moduleAliases": {
+    "ts": {},
+    "br": {}
+  }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>The 'ts' abbreviation stands for template spec and 'br' for bicep registry. Add a new alias for 'ts' by creating a sub object with the name of your alias that has the following properties:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><strong>subscription</strong>: The subscription were the template specs are saved.</li>
+<li><strong>resourceGroup</strong>: The name of the resource group.</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"java"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">"ts": {
+          "TemplateSpecs": {
+            "subscription": "5b389701-0e47-4738-b4fe-ddb67ac3a036",
+            "resourceGroup": "gaag-rg-templates"
+          }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>In your bicep file specify a module like you have always done but make sure to do a specific implementation for the path to the module:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">ts/[template spec alias name]:[template spec name]:[template spec version]</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>An example of a module with a template spec looks like below</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">module automation 'ts/TemplateSpecs:az-tempspec-automationaccount:0.2' ={
+  name: 'automationSpecTempSpec'
+  params:{
+    automationaccountName: 'azautomationSpec'
+    logAnalyticsWorkspaceName: 'azlaworkspaceName'
+    location: location
+  }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>When opening a bicep file with a module from a repository the bicep extension tries to download the module to the local cache by using the command bicep restore in the background.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The linter within Visual Studio Code will show if the downloading does not succeed. To be able to download the file you must have access to the template spec.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Restoring / downloading the module from the private repository can also be done manually, by running the following command:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">build restore [bicep file]</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>When the file is downloaded to the local cache you will have intellisense within Visual Studio Code helping you configure the module.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6421,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/10/image.png" /><img src="{{ site.baseurl }}/assets/archive/2021/11/image-1024x395.png" alt="Intellisense for a module within a private repository" class="wp-image-6421" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading --></p>
+<h2>Azure Container Registry</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Like mentioned above the second option for saving and sharing modules is a Azure Container Registry. Once you have a Azure Container Registry it is very easy to start saving your modules.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>First we need to get a module within the Azure Container registry and this is were the new command 'publish' comes in. For this command you need to specify the source file and the target path within the container registry.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"bash"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">bicep publish .\.modules\004-vnet.bicep --target br:azcrbicepregistry.azurecr.io/bicep/modules/vnet:1.0</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Executing the command uploads the module to the registry.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6431,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/10/image-1.png" /><img src="{{ site.baseurl }}/assets/archive/2021/11/image-1-1024x597.png" alt="Module within a Azure Container Registry" class="wp-image-6431" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>For the bicep repository we will also make an alias as this makes it very ease to reference the container registry.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>Add a new alias within 'br' by creating a new object with the name of your alias that has the following property:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>registry: The URL of the container registry.</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"java"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">  "br": {
+      "SponsorRegistry": {
+        "registry": "azcrbicepregistry.azurecr.io"
+      }
+    }</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>In your bicep file register a module like you have always done but make sure and now use the specific implementation for a bicep repository:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code --></p>
+<pre class="wp-block-syntaxhighlighter-code">br/[repositry alias name] or [registry url]:[path to the module]:[version]</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>An example of a module with a bicep repository looks more or less the same as a regular one.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">module storageExternal 'br/SponsorRegistry:bicep/modules/storage-account:v1.0' ={
+  name: 'storageAccountExternal'
+  params:{
+    accountName:'azstrbiceptestingexternal'
+    location:location
+  }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Downloading the module works the same as with the template specs repository.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Good to know</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Like always there are a few things to be aware of:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Role based access applies to both repositories. This means when publishing modules to a registry or template spec you must have permissions. For the container registry you must have permissions to push an image. To be able to deploy a module from a Template spec you must have read permissions and for a container registry you must have permissions to pull an image.</li>
+<li>The bicep command uses credentials on the background from the Azure CLI or Azure PowerShell. There are situations were it is needed to make sure which credentials are used. This is configured in the bicepconfig.json. Sample for this is show in the following snippet.</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"java"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">  "cloud": {
+    "currentProfile": "AzureCloud",
+    "credentialPrecedence": [
+      "AzureCLI",
+      "AzurePowerShell"
+    ]
+  }</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>

@@ -1,0 +1,96 @@
+---
+layout: post
+title: Azure Function CI &ndash; 2. Create a CI Build for the Azure Function
+date: 2017-03-17 17:05:49.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- DevOps
+tags:
+- Azure
+- Azure Functions
+- CI
+- DevOps
+- VSTS
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _thumbnail_id: '2881'
+  _yoast_wpseo_focuskw_text_input: Azure Function
+  _yoast_wpseo_focuskw: Azure Function
+  _yoast_wpseo_linkdex: '76'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: '272'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:421:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:51:"New post (%TITLE%)
+    has been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1859488420995149";s:7:"postURL";s:61:"http://www.facebook.com/msftplayground/posts/1859488420995149";s:5:"pDate";s:19:"2017-03-17
+    16:06:14";}}";
+  snapLI: s:441:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6248534746180255744";s:7:"postURL";s:104:"https://www.linkedin.com/updates?discuss=&scope=22692038&stype=M&topic=6248534746180255744&type=U&a=fH5z";s:5:"pDate";s:19:"2017-03-17
+    16:06:15";}}";
+  snap_isAutoPosted: '1'
+  snapTW: s:379:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"842769060500770816";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/842769060500770816";s:5:"pDate";s:19:"2017-03-17
+    16:06:16";}}";
+  _wpas_done_all: '1'
+  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure Function
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2017/03/azure-function-ci-2-create-ci-build-azure-function/"
+---
+<p>This post is the second one in a series of three posts and will help you by creating a CI build for a Azure Function.</p>
+<h2>Prerequisites</h2>
+<p>This blog post is totally written using the Azure Function Visual Studio template. Information and the Azure Function tools download are listed below:</p>
+<ul>
+<li>Finished Part 1 - <a href="https://msftplayground.com/2017/03/azure-function-ci-1-creating-a-pre-compiled-azure-function">Creating a Pre-Compiled Azure Function</a></li>
+<li><a title="Install the updated version" href="https://aka.ms/azfunctiontools">Azure Function Tools</a></li>
+<li><a title="https://blogs.msdn.microsoft.com/webdev/2016/12/01/visual-studio-tools-for-azure-functions/" href="https://blogs.msdn.microsoft.com/webdev/2016/12/01/visual-studio-tools-for-azure-functions/">Information</a></li>
+<li><a href="https://www.visualstudio.com/team-services/">Visual Studio Team Services</a></li>
+</ul>
+<h2>Source Control</h2>
+<p>The solution created in the previous steps needs to be added and committed to Source Control. When it is added open Visual Studio Team Services in the browser and navigate to the build tab.</p>
+<p>&nbsp;</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb60.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border: 0px;" title="image_thumb60" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb60_thumb.png" alt="image_thumb60" width="797" height="442" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>When you do not have build within your project VSTS will show a large button to add a new build definition. Click this button (“New Definition” ) or use the smaller button within the top bar.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb68.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border: 0px;" title="image_thumb68" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb68_thumb.png" alt="image_thumb68" width="990" height="202" border="0" /></a></p>
+<p>Next up is the template selection for the build definition. Select the Visual Studio Template.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb77.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border: 0px;" title="image_thumb77" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb77_thumb.png" alt="image_thumb77" width="853" height="466" border="0" /></a></p>
+<p>This will create a Build definition with some default build steps. Save the the template as your build definition by clicking on “Save &amp; Queue”</p>
+<p>&nbsp;</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb93.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border: 0px;" title="image_thumb93" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb93_thumb.png" alt="image_thumb93" width="853" height="437" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>A queue build window will open with the default settings. Keep these settings to create a release build for every CPU type.</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb85.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border: 0px;" title="image_thumb85" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb85_thumb.png" alt="image_thumb85" width="349" height="305" border="0" /></a></p>
+<p>You will notice that this build will fail. This is because the “.funproj” is not known by the build agent (mainly because the template is still in preview). You can notice this by the following error.</p>
+<pre class="brush: bash;">MSFTPlayground Function\MSFT.Function\MSFT.Function.funproj(8,3): Error MSB4019: The imported project "C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v14.0\AzureFunctions\Microsoft.AzureFunctions.Props" was not found. Confirm that the path in the &lt;Import&gt; declaration is correct, and that the file exists on disk.
+</pre>
+<p>The “.funproj” itself does not need to be build so to make the Build server run correctly we can and will exclude the project from the build. In order to get this done perform the following steps.</p>
+<ol>
+<li>Open Visual Studio and right click the solution.</li>
+<li>In the menu click on “Configuration Manager”</li>
+<li>Deselect the build checkbox for your Functions project. Do this for the debug and release configuration.</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/03/image_thumb167.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border: 0px;" title="image_thumb167" src="{{ site.baseurl }}/assets/archive/2017/03/image_thumb167_thumb.png" alt="image_thumb167" width="397" height="250" border="0" /></a></p>
+<p>&nbsp;</p>
+<p>When the Function project is exclude from the build Commit the sources and queue the build again and you will see that this build will run successful.</p>
+<p>Next post will be on: <a href="https://msftplayground.com/2017/03/azure-function-ci-3-deploying-the-azure-function-from-the-build">Deploying the Azure Function from the Build within VSTS.</a></p>

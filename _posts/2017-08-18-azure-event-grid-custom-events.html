@@ -1,0 +1,233 @@
+---
+layout: post
+title: Azure Event Grid with Custom Events
+date: 2017-08-18 14:52:02.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- ASP.net
+- Azure
+- Event Grid
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: ''
+  snap_isAutoPosted: '1'
+  _yoast_wpseo_focuskw_text_input: Azure Event Grid
+  _yoast_wpseo_focuskw: Azure Event Grid
+  _yoast_wpseo_linkdex: '81'
+  _wpas_done_all: '1'
+  _oembed_7643b2ac54e4779a898d124a98bf3480: "{{unknown}}"
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:421:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:51:"New post (%TITLE%)
+    has been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1939959739614683";s:7:"postURL";s:61:"http://www.facebook.com/msftplayground/posts/1939959739614683";s:5:"pDate";s:19:"2017-08-18
+    13:52:17";}}";
+  snapLI: s:441:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6304308765529378816";s:7:"postURL";s:104:"https://www.linkedin.com/updates?discuss=&scope=22692038&stype=M&topic=6304308765529378816&type=U&a=hV5S";s:5:"pDate";s:19:"2017-08-18
+    13:52:18";}}";
+  snapTW: s:379:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"898543079271149568";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/898543079271149568";s:5:"pDate";s:19:"2017-08-18
+    13:52:19";}}";
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure Event Grid
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2017/08/azure-event-grid-custom-events/"
+---
+<p>As of yesterday (16-8-2017) the public preview of Azure Event Grid is live. <a href="https://azure.microsoft.com/en-us/services/event-grid/">Azure Event Grid</a> is a fully managed event routing service. Azure Event Grid greatly simplifies the development of event-based applications and simplifies serverless workflow creation. Using a single service, Azure Event Grid manages all routing of events from any source, to any destination, for any application.</p>
+<p>Microsoft explains Azure Event Grid as follows:</p>
+<p><em>“Azure Event Grid allows you to easily build applications with event-based architectures. You select the Azure resource you would like to subscribe to, and give the event handler or WebHook endpoint to send the event to. Event Grid has built-in support for events coming from Azure services, like storage blobs and resource groups. Event Grid also has custom support for application and third-party events, using custom topics and custom webhooks. </em>”</p>
+<p>As explained above there is support for custom topics and webhooks. Setting up custom events needs the following within Azure.</p>
+<p>&nbsp;</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/08/Azure-Event-Grid.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Event Grid" src="{{ site.baseurl }}/assets/archive/2017/08/Azure-Event-Grid_thumb.png" alt="Azure Event Grid" width="654" height="183" border="0" /></a></p>
+<p>The Event Grid Topic is the Azure Service were the events are sent to, and the Subscriptions are the applications that need to receive the events. So let's get this to work within Azure and Visual Studio.</p>
+<h2>Create the Event Grid Topic</h2>
+<p>First create the Event Grid Topic in Azure. With this topic we know were we need to send the events.</p>
+<ol>
+<li>Open the Azure Portal (<a href="https://portal.azure.com">https://portal.azure.com</a>)</li>
+<li>Click on the “+” icon and search for “Event Grid Topic”.</li>
+<li>Click on “Create” to create the topic.</li>
+<li>Fill in the correct information and click on “Create”</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/08/image-4.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Event Grid Topic" src="{{ site.baseurl }}/assets/archive/2017/08/image_thumb-4.png" alt="Azure Event Grid Topic" width="446" height="277" border="0" /></a></p>
+<p>You now have a Topic were events can be send too.</p>
+<h2>Sending Events to the Event Grid Topic</h2>
+<p>With the Topic in place the events can be send. In order to send events we need two things: the endpoint and the key from the topic. Both things are available on the Azure Event Grid Topic Blade.</p>
+<ol>
+<li>Open the Event Grid Topic Blade to find the Endpoint and Key of the Topic.</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/08/image-11.png"><img class="alignnone" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2017/08/image_thumb-11.png" alt="Event Grid Topic" width="1063" height="323" border="0" /></a></p>
+<p><span style="font-size: 0.95em;">The Endpoint </span>is used to P<span style="font-size: 0.95em;">ost a request to and The key as an authentication to the topic and is placed in the header with the key: </span><span style="font-size: 0.95em;">“aeg-sas-key”.</span></p>
+<ol start="2">
+<li>The event itself needs should be in the form of a json message with specific properties. On the documentation site of Azure Event Grid you will find information on the schema: <a title="https://docs.microsoft.com/en-us/azure/event-grid/event-schema" href="https://docs.microsoft.com/en-us/azure/event-grid/event-schema">Event Grid event schema</a>. Good to notice on the schema and the example provided is that the event is an array.</li>
+</ol>
+<pre class="brush: js;">[
+  {
+    "topic": "/subscriptions/{subscription-id}/resourceGroups/Storage/providers/Microsoft.EventGrid/topics/myeventgridtopic",
+    "subject": "/myapp/vehicles/motorcycles",    
+    "id": "b68529f3-68cd-4744-baa4-3c0498ec19e2",
+    "eventType": "recordInserted",
+    "eventTime": "2017-06-26T18:41:00.9584103Z",
+    "data":{
+      "make": "Ducati",
+      "model": "Monster"
+    }
+  }
+]</pre>
+<table border="0" width="100%" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td valign="top">subject</td>
+<td valign="top">string</td>
+<td valign="top">Path to the event subscription it is used for filtering and routing the requests</td>
+</tr>
+<tr>
+<td valign="top">eventType</td>
+<td valign="top">string</td>
+<td valign="top">The event type</td>
+</tr>
+<tr>
+<td valign="top">eventTime</td>
+<td valign="top">string</td>
+<td valign="top">The time the event is generated based on the provider's UTC time. During testing I  needed to give a date time offset.</td>
+</tr>
+<tr>
+<td valign="top">id</td>
+<td valign="top">string</td>
+<td valign="top">Unique identifier for the event. Can be a Guid provided as string value.</td>
+</tr>
+<tr>
+<td valign="top">data</td>
+<td valign="top">object</td>
+<td valign="top">Your specific event data.</td>
+</tr>
+</tbody>
+</table>
+<ol start="4">
+<li>Open Visual Studio and Create a new Console Application Project. In this project add the below code.</li>
+</ol>
+<pre class="brush: csharp;">static void Main(string[] args) {
+    var eventNew = MakeRequestEvent();
+    eventNew.Wait();            
+    Console.WriteLine(eventNew.Result.Content.ReadAsStringAsync().Result);
+
+    Console.ReadKey();
+}
+
+private static async Task&lt;HttpResponseMessage&gt; MakeRequestEvent() {
+    string topicEndpoint = "[endpoint]";
+    var httpClient = new HttpClient();
+    httpClient.DefaultRequestHeaders.Add("aeg-sas-key", "[key]");
+
+    List&lt;CustomEvent&lt;Account&gt;&gt; events = new List&lt;CustomEvent&lt;Account&gt;&gt;();
+    var customEvent = new CustomEvent&lt;Account&gt;();
+    customEvent.EventType = "eventgridtest";
+    customEvent.Subject = "/msft/test";
+    customEvent.Data = new Account() { Name = "Maik", Gender = "Male" };
+    events.Add(customEvent);
+
+    string jsonContent = JsonConvert.SerializeObject(events);
+    Console.WriteLine(jsonContent);
+
+    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+    return await httpClient.PostAsync(topicEndpoint, content);            
+}</pre>
+<p>The code above make an http post call to the topic endpoint with the key in the “aeg-sas-key” header.</p>
+<p>The event (json) is placed in the body which is a serialized version of the CustomEvent object I created myself. This object has the default properties for an event. For the data every object could be used as it based on generics. The Accounts class used is a basic class with only a Name and Gender property.</p>
+<pre class="brush: csharp;">public class CustomEvent&lt;T&gt; {
+
+    public string Id { get; private set; }
+
+    public string EventType { get; set; }
+
+    public string Subject { get; set; }
+
+    public string EventTime { get; private set; }
+
+    public T Data { get; set; }
+
+    public CustomEvent(){
+        Id = Guid.NewGuid().ToString();
+
+        DateTime localTime = DateTime.Now;
+        DateTime utcTime = DateTime.UtcNow;
+        DateTimeOffset localTimeAndOffset = new DateTimeOffset(localTime, TimeZoneInfo.Local.GetUtcOffset(localTime));
+        EventTime = localTimeAndOffset.ToString("o");
+     }
+}</pre>
+<p>If the event is posted successfully the response will be empty.</p>
+<h2>Subscribing application</h2>
+<p>The subscribing application will be a simple web application with one API method. This method will add a custom event in Application Insights.</p>
+<ol>
+<li>Create a new project within Visual Studio make this a ASP.Net Web application.</li>
+<li>Use a API project as the template for the application.</li>
+<li>Add the Application Insights nuget package.</li>
+<li>Add a EventsController and add the below code.</li>
+</ol>
+<pre class="brush: csharp;">public class EventsController : ApiController {
+    // POST api/events
+    public void Post([FromBody]List&lt;CustomEvent&lt;Account&gt;&gt; value) {
+        foreach(var eventValue in value) {
+            string data = JsonConvert.SerializeObject(eventValue);
+            Dictionary&lt;string, string&gt; allData = new Dictionary&lt;string, string&gt;();
+            allData.Add("event id", eventValue.Id);
+            allData.Add("eventdata", data);
+
+            TelemetryClient client = new TelemetryClient();
+            client.TrackEvent("Event Received", allData);
+        }
+    }
+}</pre>
+<p>This method reads the event from the body and places the data within Application Insights with the name Event Received.</p>
+<ol start="4">
+<li>Publish the application to Azure and remember the endpoint of the API method [url]/api/events.</li>
+</ol>
+<h2>Configure the Event Grid Subscriber</h2>
+<p>With all applications in place the Event Grid Topic needs to know were to send the events to. For this an Event Grid Subscriber needs to be configured.</p>
+<ol>
+<li>Open the Event Grid Blade and click on Event Subscription.</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/08/image-6.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Add Azure Event Grid Subscription" src="{{ site.baseurl }}/assets/archive/2017/08/image_thumb-6.png" alt="Add Azure Event Grid Subscription" width="693" height="210" border="0" /></a></p>
+<ol start="2">
+<li>Fill in the correct properties. The EventType property can be used to filter on the eventtype of the event. The prefix and suffix properties can be used to filter on the subject.</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/08/image-7.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Create Event Grid Subscription" src="{{ site.baseurl }}/assets/archive/2017/08/image_thumb-7.png" alt="Create Event Grid Subscription" width="209" height="240" border="0" /></a></p>
+<ol start="3">
+<li>Click on create to create the subscription.</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/08/image-8.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Azure Event Grid with Subscription" src="{{ site.baseurl }}/assets/archive/2017/08/image_thumb-8.png" alt="Azure Event Grid with Subscription" width="947" height="253" border="0" /></a></p>
+<h2>The Test</h2>
+<p>With everything in place we can start using the Event Grid.</p>
+<ol>
+<li>Fire up the console application the application will give you the json message as output. If something goes wrong during the event you will see the error message within the console window.</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/08/image-9.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="Console Application" src="{{ site.baseurl }}/assets/archive/2017/08/image_thumb-9.png" alt="Console Application" width="648" height="342" border="0" /></a></p>
+<ol start="2">
+<li>Soon after triggering the event the entry will be visible within Application Insights.</li>
+</ol>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/08/image-10.png"><img style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-width: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2017/08/image_thumb-10.png" alt="image" width="888" height="226" border="0" /></a></p>
+<h2>Sample Project</h2>
+<p>The sample project used is added to GitHub:</p>
+<p><a href="https://github.com/MaikvanderGaag/MSFT-AzureEventGrid">https://github.com/MaikvanderGaag/MSFT-AzureEventGrid</a></p>
+<h2>Conclusion</h2>
+<p>Because almost every solution uses hammer polling within Azure the Azure Event Grid is a really good addition to the Azure Stack. Be aware that in enterprise messages scenario you still keep using the Azure Service Bus because that support dead lettering, transactions sessions and other great capabilities.</p>
+<p>Hope to see a lot of steps forward the next weeks / months as this seems a great service.</p>

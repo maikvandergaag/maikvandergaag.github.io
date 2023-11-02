@@ -1,0 +1,369 @@
+---
+layout: post
+title: Azure Template Specs managed via Azure DevOps with bicep
+date: 2021-03-25 09:55:00.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Azure
+- Azure DevOps
+tags:
+- ARM
+- Azure
+- Azure DevOps
+- Azure Spring Clean
+- Azure Template Specs
+- bicep
+- biceplang
+- IaC
+meta:
+  _thumbnail_id: '6161'
+  _edit_last: '3'
+  _yoast_wpseo_primary_category: '323'
+  _yoast_wpseo_focuskw: Azure Template Spec
+  _yoast_wpseo_metadesc: Azure Template Spec is a resource in Azure to store ARM templates.
+    This article explain s what it is and how to manage it via Azure DevOps.
+  _yoast_wpseo_linkdex: '67'
+  _yoast_wpseo_content_score: '60'
+  _yoast_wpseo_estimated-reading-time-minutes: '7'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snap_MYSURL: a:3:{s:1:"s";s:81:"https://msftplayground.com/2021/03/azure-template-specs-managed-via-azure-devops/";s:1:"t";s:81:"https://msftplayground.com/2021/03/azure-template-specs-managed-via-azure-devops/";s:1:"r";s:1:"B";}
+  snapLI: s:447:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
+    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doLI";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:32:"urn:li:share:6780774135774629888";s:7:"postURL";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6780774135774629888";s:5:"pDate";s:19:"2021-03-25
+    08:55:34";}}";
+  snap_isAutoPosted: '1616662534'
+  _snapPHST: a:2:{s:2:"li";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:69:"https://www.linkedin.com/feed/update/urn:li:share:6780774135774629888";s:2:"id";s:32:"urn:li:share:6780774135774629888";s:1:"d";s:19:"2021-03-25
+    08:55:34";s:1:"w";s:1:"s";}}}s:2:"tw";a:1:{i:0;a:1:{i:0;a:4:{s:1:"l";s:61:"https://twitter.com/maikvandergaag/status/1375008447578697728";s:2:"id";s:19:"1375008447578697728";s:1:"d";s:19:"2021-03-25
+    08:55:35";s:1:"w";s:1:"s";}}}}
+  snapTW: s:426:"a:1:{i:0;a:12:{s:2:"do";s:1:"1";s:9:"msgFormat";s:55:"I published
+    a new blog post! %TITLE% - %HTAGS% - %SURL%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:4:"doTW";i:0;s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"1375008447578697728";s:7:"postURL";s:61:"https://twitter.com/maikvandergaag/status/1375008447578697728";s:5:"pDate";s:19:"2021-03-25
+    08:55:35";}}";
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Azure Template Spec
+  _wds_title: ''
+  _wds_metadesc: Azure Template Spec is a resource in Azure to store ARM templates.
+    This article explain s what it is and how to manage it via Azure DevOps.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2021/03/azure-template-specs-managed-via-azure-devops/"
+---
+<p><!-- wp:paragraph --></p>
+<p>Azure template spec is a resource type within Azure used for storing an Azure Resource Manager (ARM) template for later use. By using template specs you have the ability to share ARM templates with other users within the organization as they also make use of the role-based access control within the Azure platform.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:quote --></p>
+<blockquote class="wp-block-quote"><p><strong>Note: </strong>At the time of writing Azure Resource Manager template specs are in public preview.</p>
+</blockquote>
+<p><!-- /wp:quote --></p>
+<p><!-- wp:heading --></p>
+<h2>Why start using template specs</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Today there are not a lot of good ways of sharing ARM templates within a organization. Template specs are really useful in situations where you want to share the templates or if you would like to create resources based on a specific template. This can for example be a VM in a specific VNET configuration or a reference architecture created fully in ARM templates.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The specs can be shared within the Azure platform as they are kept within a Resource Group. The templates can then be deployed to any subscription you have access to as everything is based on RBAC.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>In one of my previous <a href="https://msftplayground.com/2021/02/the-new-and-shiny-azure-template-specs/" target="_blank" rel="noreferrer noopener">posts</a> I already mentioned some information on how to work with template specs and how to create them.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Template specs highlights</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>As mentioned before template specs are preview at the time I was writing this article so the highlights mentioned below can change over time:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Template specs can be managed via Azure PowerShell or Azure CLI.</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:quote --></p>
+<blockquote class="wp-block-quote"><p><strong>Note</strong>: To use it with Azure PowerShell, you must install&nbsp;<a href="https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?WT.mc_id=DT-MVP-5004255">version 5.0.0 or later</a>. To use it with Azure CLI, use&nbsp;<a href="https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?WT.mc_id=DT-MVP-5004255">version 2.14.2 or later</a>.</p>
+</blockquote>
+<p><!-- /wp:quote --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Template specs are Azure resources that contains a ARM template. This is not a specific ARM template but can be a template you created before.</li>
+<li>Template specs can be created by using the command "New-AzTemplateSpec" for PowerShell or "az ts create" for CLI</li>
+<li>Template specs can be retrieved by using the command "Get-AzTemplateSpec" for PowerShell or "az ts list" for CLI</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading --></p>
+<h2>Lifecycle Management</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>As template specs will really benefit your organizations therefor the lifecycle of these resources need to be managed in correct way. This is were Azure DevOps comes in by helping deploying and versioning the template specs. During the rest of this article we will go over the process of building an bicep file into a ARM template that will be used within a template spec.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Bicep</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>As you may know bicep is the new way of creating IaC against the Azure Platform as bicep is a DSL (Domain Specific Language) for ARM.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>This is why we build up our template spec from a bicep file. More information on how to get started or how to integrate bicep within Azure DevOps can you find in other articles of this blog.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><a href="https://msftplayground.com/2020/10/getting-started-with-project-bicep-for-azure-arm/" target="_blank" rel="noreferrer noopener">Getting started with Project Bicep for Azure ARM</a></li>
+<li><a href="https://msftplayground.com/2021/03/running-bicep-within-azure-devops-pipelines/" target="_blank" rel="noreferrer noopener">Running bicep within Azure DevOps Pipelines</a></li>
+<li><a href="https://msftplayground.com/2021/03/running-bicep-in-github-actions/">Running bicep in GitHub Actions</a></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>During this guide we use a small sample that deploys an Azure App Service, Application Insights, Log analytics and Hosting plan that are all connected. The below snippet shows the bicep file that will be used.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">param skuName string = 'S1'
+param skuCapacity int = 1
+param location string = resourceGroup().location
+param appServicePlanName string
+param websiteName string
+param appInsightsName string
+param logAnalyticsName string
+
+resource appServicePlan 'Microsoft.Web/serverfarms@2020-06-01' = {
+  name: appServicePlanName
+  location: location
+  sku: {
+    name: skuName
+    capacity: skuCapacity
+  }
+}
+
+resource appService 'Microsoft.Web/sites@2020-06-01' = {
+  name: websiteName
+  location: location
+  identity: {
+    type: 'SystemAssigned'
+  }
+  properties: {
+    serverFarmId: appServicePlan.id
+    httpsOnly: true
+    siteConfig: {
+      minTlsVersion: '1.2'
+    }
+  }
+}
+resource appServiceLogging 'Microsoft.Web/sites/config@2020-06-01' = {
+  name: '${appService.name}/logs'
+  properties: {
+    applicationLogs: {
+      fileSystem: {
+        level: 'Warning'
+      }
+    }
+    httpLogs: {
+      fileSystem: {
+        retentionInMb: 40
+        enabled: true
+      }
+    }
+    failedRequestsTracing: {
+      enabled: true
+    }
+    detailedErrorMessages: {
+      enabled: true
+    }
+  }
+}
+
+resource appServiceAppSettings 'Microsoft.Web/sites/config@2020-06-01' = {
+  name: '${appService.name}/appsettings'
+  properties: {
+    APPINSIGHTS_INSTRUMENTATIONKEY: appInsights.properties.InstrumentationKey
+  }
+  dependsOn: [
+    appInsights
+    appServiceSiteExtension
+  ]
+}
+resource appServiceSiteExtension 'Microsoft.Web/sites/siteextensions@2020-06-01' = {
+  name: '${appService.name}/Microsoft.ApplicationInsights.AzureWebsites'
+  dependsOn: [
+    appInsights
+  ]
+}
+resource appInsights 'microsoft.insights/components@2020-02-02-preview' = {
+  name: appInsightsName
+  location: location
+  kind: 'string'
+  properties: {
+    Application_Type: 'web'
+    WorkspaceResourceId: logAnalyticsWorkspace.id
+  }
+}
+
+resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2020-03-01-preview' = {
+  name: logAnalyticsName
+  location: location
+  properties: {
+    sku: {
+      name: 'PerGB2018'
+    }
+    retentionInDays: 120
+  }
+}</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>The bicep file is used to construct the ARM template in Azure DevOps in order to use the ARM file as a definition for the template spec.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Setting up the pipeline</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>To manage the lifecycle a Azure DevOps pipeline will be used that will perform severals tasks:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list {"ordered":true} --></p>
+<ol>
+<li>Build the ARM template from the bicep file.</li>
+<li>Check if the resource groups for the template specs exists or other wise create it. </li>
+<li>Deploy or update the template spec</li>
+<li>Update the semantic version for the template spec by using the extension: <a href="https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-versioncounter" target="_blank" rel="noreferrer noopener">Version number counter</a></li>
+</ol>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading --></p>
+<h2>Build the ARM template from the bicep file.</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>To build the ARM template from the bicep file the same principle is used that is available in the article "<a href="https://msftplayground.com/2021/03/running-bicep-within-azure-devops-pipelines/">Running bicep within Azure DevOps Pipelines</a>" with some small exceptions because the pipeline we will be using now will run on a windows agent.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">steps:
+- task: PowerShell@2
+  displayName: "Install bicep"
+  inputs:
+    targetType: 'inline'
+    script: |
+      $installDir = New-Item -ItemType Directory -Path $(installPath) -Force
+      $installDir.Attributes += 'Hidden'
+      (New-Object Net.WebClient).DownloadFile("https://github.com/Azure/bicep/releases/latest/download/bicep-win-x64.exe", "$(installPath)\bicep.exe")
+    pwsh: true
+- task: PowerShell@2
+  displayName: "Build bicep file"
+  inputs:
+    targetType: 'inline'
+    script: |
+      $(bicep) build $(System.DefaultWorkingDirectory)/$(filepath)
+    pwsh: true</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>The above snippets shows the process of installing bicep on the agent and running the build process for a specified ARM template.  As you may notice the other settings of the pipeline are omitted for clarity. The result of the second task will be the arm template that can be used for the template spec.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Resource group</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>As template specs are regular Azure resources they are also created within a resource group. For this reason we check during the execution of the pipeline if the resource group we want to use is available or needs to be created. This action will be done by using the Azure PowerShell task and running that runs a small PowerShell script.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">- task: AzurePowerShell@5
+  displayName: "Check resource group"
+  inputs:
+    azureSubscription: 'Subscription MPN Sandbox'
+    ScriptType: 'InlineScript'
+    Inline: |
+      if (!(Get-AzResourceGroup "$(resourcegroupname)" -ErrorAction SilentlyContinue)){ 
+          New-AzResourceGroup -Name "$(resourcegroupname)" -Location "$(location)"
+      }else{
+          Write-Output "The resource group already exists"
+      }
+    azurePowerShellVersion: 'LatestVersion'
+    pwsh: true</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>This inline script will retrieve the resource group. If it is not present it will create it otherwise it prints out a message that the resource group already exists.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Deploying and updating the template spec</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Now that the prerequisites for template spec is ready the deployment of it can be added to the pipeline. You may have read in the article "<a href="https://msftplayground.com/2021/02/the-new-and-shiny-azure-template-specs/" target="_blank" rel="noreferrer noopener">The new and shiny – Azure Template Specs</a>" that this is done via the command "New-AzTemplateSpec". This command needs the following arguments:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><strong>Name:</strong> The name of the template spec. This will also be the name of the resource in azure.</li>
+<li><strong>Version: </strong>The version of the template spec.</li>
+<li><strong>ResourceGroupName: </strong>The name of the resource group to deploy the template spec to.</li>
+<li><strong>Location: </strong>The location for the template spec resource.</li>
+<li><strong>TemplateFile</strong>: The ARM template for the template spec.</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>Filling this in results in an additional PowerShell task for the pipeline that creates the template spec.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">- task: AzurePowerShell@5
+  displayName: "Deploy template spec"
+  inputs:
+    azureSubscription: 'Subscription MPN Sandbox(b27ac091-3de5-46d1-8f61-add3171f6e52)'
+    ScriptType: 'InlineScript'
+    Inline: |
+      New-AzTemplateSpec -Name "$(templateSpecName)" -Version 1.0 -ResourceGroupName "$(resourcegroupname)" -Location "$(location)" -TemplateFile "$(System.DefaultWorkingDirectory)/$(filepathArm)"
+    azurePowerShellVersion: 'LatestVersion'
+    pwsh: true</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>Executing this task will result into a template spec resource in Azure within the specified resource group.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6169,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/03/image.png" /><img src="{{ site.baseurl }}/assets/archive/2021/03/image-1024x313.png" alt="Azure template spec" class="wp-image-6169" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>Updating the template spec can be done by just rerunning the pipeline. This will override the current version with the new ARM template.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>Template versioning</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>This is were the task "<a href="https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-versioncounter" target="_blank" rel="noreferrer noopener">Version number counter</a>" comes in. This task can be used to automatically update the semantic version number on each run based on the configuration. For this it needs a specified variable with the existing version number and a Personal Access token to update the version number. More information about this task can be found here:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-versioncounter" target="_blank" rel="noreferrer noopener">Version number counter</a></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:syntaxhighlighter/code {"language":"yaml"} --></p>
+<pre class="wp-block-syntaxhighlighter-code">- task: versioncounter@1
+  displayName: "Update version number"
+  inputs:
+    VersionVariable: 'versionnumber'
+    UpdateMinorVersion: true
+    MaxValuePatchVersion: '9'
+    DevOpsPat: '$(pipeline-pat)'</pre>
+<p><!-- /wp:syntaxhighlighter/code --></p>
+<p><!-- wp:paragraph --></p>
+<p>With this configuration the version number is saved in a variable called "versionnumber". This means that the task that deploys the template spec needs to be updated to also leverage the version number. Running the pipeline multiple time will make sure that the specified versions are saved within the template spec.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":6173,"sizeSlug":"large","linkDestination":"media"} --></p>
+<figure class="wp-block-image size-large"><a href="https://msftplayground.com/wp-content/uploads/2021/03/image-1.png" /><img src="{{ site.baseurl }}/assets/archive/2021/03/image-1.png" alt="" class="wp-image-6173" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:heading --></p>
+<h2>Conclusion</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Combining tooling and services like bicep, ARM, template specs and Azure DevOps is very useful for maintaining your resources and keeping them up-to-date.</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>The complete files used to write this article can be found on my personal GitHub:</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li><a href="https://github.com/maikvandergaag/bicep">maikvandergaag/bicep: Project for bicep files (github.com)</a></li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p><!-- /wp:paragraph --></p>

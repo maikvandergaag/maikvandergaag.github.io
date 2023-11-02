@@ -1,0 +1,73 @@
+---
+layout: post
+title: Deploy SharePoint Solutions with Release Management
+date: 2014-10-14 09:40:51.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- DevOps
+tags:
+- ALM
+- Powershell
+- Release Management
+- TFS
+meta:
+  snap_isAutoPosted: '1'
+  _wp_jd_bitly: http://bit.ly/1tZnDVo
+  _wp_jd_target: http://msftplayground.com/2014/10/deploy-sharepoint-solutions-with-release-management/
+  _jd_wp_twitter: 'a:2:{i:0;s:83:"New post: Deploy SharePoint Solutions with Release
+    Management http://bit.ly/1tZnDVo";i:1;s:86:"Post Edited: Deploy SharePoint Solutions
+    with Release Management http://bit.ly/1tZnDVo";}'
+  _wpt_status_message: Tweet sent successfully.
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: Release Management
+  _yoast_wpseo_title: Deploy SharePoint solutions with Release Management
+  _yoast_wpseo_metadesc: In a series of posts I will show how you can deploy SharePoint
+    solutions in combination with Team Foundation Server and Release Management
+  _jd_twitter: ''
+  _jd_tweet_this: 'no'
+  _yoast_wpseo_linkdex: '79'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:395:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1478926082384720";s:5:"pDate";s:19:"2014-10-14
+    09:41:00";s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
+  snapLI: s:292:"a:1:{i:0;a:9:{s:11:"isPrePosted";s:1:"1";s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
+  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Release Management
+  _wds_title: Deploy SharePoint solutions with Release Management
+  _wds_metadesc: In a series of posts I will show how you can deploy SharePoint solutions
+    in combination with Team Foundation Server and Release Management
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2014/10/deploy-sharepoint-solutions-with-release-management/"
+---
+<p>In one of my previous post (<a href="http://msftplayground.com/2014/09/configuring-web-site-binding-with-release-management/">Configuring Web Site Binding with Release Management</a>) I showed how you can make a custom action for Release Management to configure web bindings.</p>
+<p>As described in that post Release Management is a tool that provides a continuous deployment solution that makes release cycles repeatable, visible, and more efficient by automating deployments through every environment from test to production.</p>
+<p>When you want to make use of Release Management in a scenario were you will deploy your SharePoint solutions within your DTAP environment you have to make some custom actions / components in order to facilitate this functionality.</p>
+<p>In a upcoming series of posts I will work you trough the process of making and adjusting the TFS Build template in order to build your SharePoint solutions and how to make a custom PowerShell component for Release Management to deploy your SharePoint solutions.</p>
+<ol>
+<li><a href="http://msftplayground.com/2014/10/customize-the-release-management-build-template-part-1/">Part 1 – Customize the Release Management Build template.</a></li>
+<li><a href="http://msftplayground.com/2015/01/create-custom-component-deploy-sharepoint-solutions-part-2/">Part 2 – Create a custom component to deploy the SharePoint Solutions.</a></li>
+<li><a href="http://msftplayground.com/2015/01/creating-the-release-template-that-runs-after-the-build-part-3/">Part 3 – Creating the Release Template that runs after the Build.</a></li>
+</ol>
+<p>In this series of posts I assume that you have setup your build server in order to build SharePoint solutions. If not read this article on MSDN:</p>
+<ul>
+<li><a title="http://msdn.microsoft.com/en-us/library/ff622991.aspx" href="http://msdn.microsoft.com/en-us/library/ff622991.aspx">How to Build Office Developer Tools Projects with TFS Team Build 2012</a></li>
+</ul>
+<p>The individual parts will be written down in the upcoming weeks. I will try to write a Part a week but I also have to attend to the TechEd in Barcelona so I don’t know If I will be able to write down a post in that week.</p>

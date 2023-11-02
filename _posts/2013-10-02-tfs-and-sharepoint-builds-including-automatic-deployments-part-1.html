@@ -1,0 +1,184 @@
+---
+layout: post
+title: TFS and SharePoint Builds including Automatic deployments &ndash; Part 1
+date: 2013-10-02 13:09:49.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Development
+tags:
+- Deployment
+- SharePoint
+- Team Foundation Server
+- TFS
+meta:
+  _wpas_done_all: '1'
+  _wp_jd_bitly: http://bit.ly/1g3kTCs
+  _wp_jd_target: http://msftplayground.com/2013/10/tfs-and-sharepoint-builds-including-automatic-deployments-part-1/
+  _jd_wp_twitter: 'a:1:{i:0;s:100:"New post: TFS and SharePoint Builds including Automatic
+    deployments – Part 1 http://bit.ly/1g3kTCs";}'
+  _wpt_failed: 'a:5:{s:6:"author";b:0;s:8:"sentence";s:100:"New post: TFS and SharePoint
+    Builds including Automatic deployments – Part 1 http://bit.ly/1g3kTCs";s:5:"error";s:71:"This
+    tweet is identical to another Tweet recently sent to this account.";s:4:"code";i:403;s:9:"timestamp";i:1380719393;}'
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: SharePoint Builds
+  _yoast_wpseo_focuskw: SharePoint Builds
+  _yoast_wpseo_linkdex: '65'
+  _jetpack_related_posts_cache: a:1:{s:32:"8f6677c9d6b0f903e98ad32ec61f8deb";a:2:{s:7:"expires";i:1463265503;s:7:"payload";a:3:{i:0;a:1:{s:2:"id";i:776;}i:1;a:1:{s:2:"id";i:180;}i:2;a:1:{s:2:"id";i:656;}}}}
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: SharePoint Builds
+  _wds_title: ''
+  _wds_metadesc: ''
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2013/10/tfs-and-sharepoint-builds-including-automatic-deployments-part-1/"
+---
+<p>Part 1 of this series will instruct how to configure your build server for building SharePoint projects. In Part 2 we will discuss the automatic deploy options. Part 1 of this series is based on the following MSDN article <a href="http://msdn.microsoft.com/en-us/library/ff622991.aspx">How to Build Office Developer Tools Projects with TFS Team Build 2012</a>. In this article there are some mistakes and are corrected here.</p>
+<p>When user are using Frameworks like SCRUM you also have to look into automatic builds and automatic deployments to your test and acceptance environments in order to not lose a lot of times with you deployments.</p>
+<p>Setting this up is quite some work. First off all you need to configure your build server in order to even be ready to build SharePoint projects. In this article we will go trough each step to configure your build server to build your SharePoint projects.</p>
+<ol>
+<li><strong>Install TFS Team Build</strong><br />If your build system already has TFS Team Build installed on it, you can skip this step. Otherwise, install and configure Team Build on your build system.  </li>
+<li><strong>Install Windows SDK</strong><br />The Windows SDK must be installed on your build system because it includes the GACUtil tool. GACUtil is used to install the SharePoint Tool assemblies on the build system. You can download the Windows SDK from this location: <a href="http://msdn.microsoft.com/en-us/windows/bb980924.aspx">http://msdn.microsoft.com/en-us/windows/bb980924.aspx</a>. After you download the Windows SDK, install it. </li>
+</ol>
+<p>When installing the Windows SDK you can encounter the following error:</p>
+<p><em>Installation of the “Microsoft Windows SDK for Windows 7″ product has reported the following error: Please refer to Samples\Setup\HTML\ConfigDetails.htm document for further information</em></p>
+<p>Looking at the log files you will see these two entries:</p>
+<pre class="brush: bash;">DDSet_Error: Patch Hooks: Missing required property 'ProductFamily': Setup cannot continue. 
+DDSet_Warning: Setup failed while calling 'getDLLName'. System error: Cannot create a file
+</pre>
+<p>This is because the Windows SDK installer is having problems with a currently installed component. Remove this component and it will work fine:</p>
+<ul>
+<li>Visual C++ 2010 runtime</li>
+</ul>
+<p>After that you can also install the <a href="http://www.microsoft.com/download/en/details.aspx?id=4422">Visual C++ 2010 Service Pack 1 Compiler Update</a></p>
+<ol start="3">
+<li><strong>Install Build Support for Apps for Office and Apps for SharePoint</strong><br />To build apps for Office and apps for SharePoint projects, several components must be installed on your system.</li>
+</ol>
+<ul>
+<li><a href="http://www.microsoft.com/en-us/download/details.aspx?id=17331">Install Windows Identity Foundation (WIF)</a>
+<ul>
+<ul>
+<ul>
+<ul>
+<li>Install WIF Extensions <a href="http://download.microsoft.com/download/0/1/D/01D06854-CA0C-46F1-ADBA-EBF86010DCC6/MicrosoftIdentityExtensions-64.msi">x64</a> or <a href="http://download.microsoft.com/download/0/1/D/01D06854-CA0C-46F1-ADBA-EBF86010DCC6/MicrosoftIdentityExtensions-32.msi">x86</a> </li>
+</ul>
+<li><a href="http://www.microsoft.com/en-us/download/details.aspx?id=35585">Install SharePoint Client Component SDK</a>
+</li>
+<li>Install Workflow Client 1.0 and Workflow Manager 1.0 by using the Web Platform Installer. </li>
+</ul>
+</ul>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li><strong>Install SharePoint Farm and Sandboxed Solution Build Support</strong><br />Since SharePoint farm and sandboxed solution projects reference SharePoint Server assemblies, those SharePoint assemblies must be present on the build system. <br />One way to do this is to install the full version of SharePoint Server 2013 on your build system. An advantage of having SharePoint installed is that you can use it to deploy and test your SharePoint application immediately after generating the WSP file. Note, however, that SharePoint Server 2013 can degrade your system performance, and it has increased system requirements (such as requiring a 64-bit CPU). <br />As an alternative, you can download the required SharePoint assemblies onto your build system. For either method, you will need the proper license of SharePoint on the build system. Copy the following assemblies from the development system to the build system and put them in a Reference Assembly folder: </li>
+</ol>
+<ul>
+<li>Microsoft.SharePoint.dll
+</li>
+<li>Microsoft.SharePoint.Security.dll
+</li>
+<li>Microsoft.SharePoint.WorkflowActions.dll
+</li>
+<li>Microsoft.Office.Server.dll
+</li>
+<li>Microsoft.Office.Server.UserProfiles.dll
+</li>
+<li>Microsoft.SharePoint.Client.dll
+</li>
+<li>Microsoft.SharePoint.Client.Runtime.dll
+</li>
+<li>Microsoft.SharePoint.Client.ServerRuntime.dll
+</li>
+<li>Microsoft.SharePoint.Linq.dll
+</li>
+<li>Microsoft.SharePoint.Portal.dll
+</li>
+<li>Microsoft.SharePoint.Publishing.dll
+</li>
+<li>Microsoft.SharePoint.Taxonomy.dll
+</li>
+<li>Microsoft.Office.SharePoint.Tools.dll
+</li>
+<li>Microsoft.SharePoint.WorkflowActions.dll
+</li>
+<li>Microsoft.Web.CommandUI.dll</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; These files are located in the following folder on the development system: <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C:\Program Files\Common Files\Microsoft Shared\Web Server Extensions\15\ISAPI<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; It is recommended that you copy the SharePoint Server assemblies to the folder:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .. \Program Files\Reference Assemblies\SharePoint\<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; And then add one of the following registry entries: </p>
+<p>The Microsoft articles tells you to place the following registery key but it should be the one below. </p>
+<ul>
+<li><strong>Wrong</strong>:<br />HKEY_LOCAL_SYSTEM\SOFTWARE\Microsoft\Wow6432Node\.NETFramework\v4.0.30319\AssemblyFoldersEx\SharePoint15]@="&lt;AssemblyFolderLocation&gt;"
+</li>
+<li><strong>Good</strong>:<br />HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v2.0.50727\AssemblyFoldersEx\SharePoint14]@="&lt;AssemblyFolderLocation&gt;"</li>
+</ul>
+<p>You could also use the following “reg” file to import the setting to the following location: "C:\\Program Files\\Reference Assemblies\\SharePoint\\".</p>
+<ul>
+<li><a href="http://msftplayground.com/?attachment_id=797">SharePoint Registry</a></li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If your SharePoint Projects refer to other SharePoint Server assemblies, copy them to the build system as well. </p>
+<ol start="5">
+<li><strong>Install Office Developer Tools Assemblies to the GAC</strong></li>
+</ol>
+<p>In order accomplish this step you can do two things. When you already have Visual Studio 2012 installed install de developer tools or add all the right assemblies to the system.</p>
+<p><strong>Install developer tools</strong></p>
+<p>Open the Web Platform Installer and install the Microsoft Office Developer Tools for Visual Studio 2012. You will need to make sure you have installed the Service Bus 1.0 Cumulative Update before installing the developer tools.</p>
+<p><strong>Right Assemblies for the system</strong></p>
+<p>If you do not have Visual Studio Installed on the system you should follow the following steps:</p>
+<p>The following assemblies must be copied to the GAC of the build system:</p>
+<ul>
+<li>Microsoft.VisualStudio.SharePoint.Designers.Models.dll
+</li>
+<li>Microsoft.VisualStudio.SharePoint.Designers.Models.Features.dll
+</li>
+<li>Microsoft.VisualStudio.SharePoint.Designers.Models.Packages.dll
+</li>
+<li>Microsoft.VisualStudio.SharePoint.dll</li>
+</ul>
+<p>These files are located in the following folder on the development system:<br />C:\Windows\Microsoft.NET\assembly\GAC_MSIL\ <br />If you also need localized versions of the files, you should also copy and install the corresponding resource DLLs to the GAC of the build system: </p>
+<ul>
+<li>Microsoft.VisualStudio.SharePoint.Designers.Models.Features.resources.dll
+</li>
+<li>Microsoft.VisualStudio.SharePoint.Designers.Models.Packages.resources.dll
+</li>
+<li>Microsoft.VisualStudio.SharePoint.Designers.Models.resources.dll
+</li>
+<li>Microsoft.VisualStudio.SharePoint.resources.dll</li>
+</ul>
+<p>Next up is installing the required MSBuild dependencies. Copy and install the following custom targets and tasks folders to the corresponding folders on the build machine: </p>
+<ul>
+<li>.. \Program Files\MSBuild\Microsoft\VisualStudio\v11.0\SharePointTools
+</li>
+<li>.. \Program Files\MSBuild\Microsoft\VisualStudio\v11.0\WebApplications
+</li>
+<li>.. \Program Files\MSBuild\Microsoft\VisualStudio\v11.0\Web
+</li>
+<li>.. \Program Files\MSBuild\Microsoft\Workflow Manager\1.0</li>
+</ul>
+<p>(For 64-bit systems, use "\Program Files (x86)" in the path above.) </p>
+<p>As last Install Workflow Dependencies to the GAC</p>
+<ul>
+<li>Microsoft.Activities.Design.dll</li>
+</ul>
+<p>The file is located in the following folder on the development system: <br />C:\Windows\Microsoft.NET\assembly\GAC_MSIL\ </p>
+<ol start="6">
+<li>
+<h5>Create a package for the Office Developer Tools Project</h5>
+</li>
+</ol>
+<p>When you also want your project to be packages you need to supply the following MSBuild argument to your build Definition:</p>
+<ul>
+<li><strong>/p:IsPackaging=true</strong> </li>
+</ul></p></p></p>

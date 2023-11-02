@@ -1,0 +1,80 @@
+---
+layout: post
+title: My first public VSTS Extension
+date: 2017-09-19 09:24:23.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- DevOps
+tags:
+- ALM
+- Extension
+- VSTS
+meta:
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  _edit_last: '1'
+  _yoast_wpseo_focuskw_text_input: VSTS
+  _yoast_wpseo_focuskw: VSTS
+  _yoast_wpseo_metadesc: A couple of days ago I created my first Visual Studio Team
+    Services (VSTS) extension. This extension I wanted to make public and hope you
+    all like it.
+  _yoast_wpseo_linkdex: '68'
+  _yoast_wpseo_content_score: '30'
+  _yoast_wpseo_primary_category: ''
+  snap_isAutoPosted: '1'
+  _snap_forceSURL: '1'
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:421:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:51:"New post (%TITLE%)
+    has been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1953726771571313";s:7:"postURL";s:61:"http://www.facebook.com/msftplayground/posts/1953726771571313";s:5:"pDate";s:19:"2017-09-19
+    08:24:45";}}";
+  snapLI: s:441:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:41:"New post has
+    been published on %SITENAME%";s:8:"postType";s:1:"A";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:19:"6315822749923229696";s:7:"postURL";s:104:"https://www.linkedin.com/updates?discuss=&scope=22692038&stype=M&topic=6315822749923229696&type=U&a=dxq3";s:5:"pDate";s:19:"2017-09-19
+    08:24:46";}}";
+  snapTW: s:379:"a:1:{i:0;a:11:{s:2:"do";s:1:"1";s:9:"msgFormat";s:25:"%TITLE% - %URL%
+    - %HTAGS%";s:8:"attchImg";s:1:"0";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";s:8:"isPosted";s:1:"1";s:4:"pgID";s:18:"910057063534989313";s:7:"postURL";s:60:"https://twitter.com/maikvandergaag/status/910057063534989313";s:5:"pDate";s:19:"2017-09-19
+    08:24:46";}}";
+  _wpas_done_all: '1'
+  _oembed_d70f55b4f7063f453dedf5304c97828d: "{{unknown}}"
+  _oembed_1ba82f062134c494a889e607d118caea: "{{unknown}}"
+  _oembed_b4acb7614547bffc4d48d9a200502a53: "{{unknown}}"
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: VSTS
+  _wds_title: ''
+  _wds_metadesc: A couple of days ago I created my first Visual Studio Team Services
+    (VSTS) extension. This extension I wanted to make public and hope you all like
+    it.
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2017/09/my-first-public-vsts-extension/"
+---
+<p>A couple of days ago I started developing extensions for Build and Release pipelines of Visual Studio Team Services (VSTS). One of these extensions is finished and I wanted to share it with the community.</p>
+<p>&nbsp;</p>
+<h2>VSTS Extension</h2>
+<p>The extension that I created is a build or release tasks that can be used to extract the raw file content and place that content within a variable. The task itself only needs two properties:</p>
+<ul>
+<li>File path: Path to the file from which you want to extract the file content.</li>
+<li>Variable Name: The name of the variable wherein you want to place the file content.</li>
+</ul>
+<p>&nbsp;</p>
+<p><a href="https://msftplayground.com/wp-content/uploads/2017/09/image.png"><img class="alignnone" style="background-image: none; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border: 0px;" title="File Content to Variable" src="{{ site.baseurl }}/assets/archive/2017/09/image_thumb.png" alt="VSTS - File Content to Variable" width="661" height="231" border="0" /></a></p>
+<p>&nbsp;</p>
+<h2>Use Case</h2>
+<p>An example use case for this extension is saving the content of a query (during a project we extracted the query from a “.asaql” file) into a variable and used that variable to override a parameter within our Azure Resource Management Template. With this setup we configured a Release Pipeline for our Stream Analytics service.</p>
+<h2>Links</h2>
+<p>&nbsp;</p>
+<p><strong>GitHub</strong>: <a href="https://github.com/MaikvanderGaag/msft-vsts-extensions">https://github.com/MaikvanderGaag/msft-vsts-extensions</a></p>
+<p><strong>Marketplace</strong>: <a href="https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-file-to-variable">https://marketplace.visualstudio.com/items?itemName=maikvandergaag.maikvandergaag-file-to-variable</a></p>
+<p><strong>Issues</strong>: <a href="https://github.com/MaikvanderGaag/msft-vsts-extensions/issues">https://github.com/MaikvanderGaag/msft-vsts-extensions/issues</a></p>

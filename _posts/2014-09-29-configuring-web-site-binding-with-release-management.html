@@ -1,0 +1,107 @@
+---
+layout: post
+title: Configuring Web Site Binding with Release Management
+date: 2014-09-29 14:43:00.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- DevOps
+tags:
+- ALM
+- Binding
+- Powershell
+- Release Management
+meta:
+  snap_isAutoPosted: '1'
+  _wp_jd_bitly: http://bit.ly/1oq2DoR
+  _wp_jd_target: http://msftplayground.com/2014/09/configuring-web-site-binding-with-release-management/
+  _jd_wp_twitter: 'a:1:{i:0;s:84:"New post: Configuring Web Site Binding with Release
+    Management http://bit.ly/1oq2DoR";}'
+  _wpt_status_message: Tweet sent successfully.
+  _edit_last: '1'
+  _yoast_wpseo_focuskw: Release Management
+  _yoast_wpseo_title: Configuring Web Site Binding with Release Management
+  _yoast_wpseo_metadesc: Configure the IIS Web Site Binding with Release Management
+  snap_MYURL: ''
+  snapEdIT: '1'
+  snapFB: s:395:"a:1:{i:0;a:12:{s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:33:"1428116197465709_1472518433025485";s:5:"pDate";s:19:"2014-09-29
+    14:43:09";s:4:"doFB";s:1:"1";s:8:"postType";s:1:"A";s:10:"AttachPost";s:1:"2";s:10:"SNAPformat";s:51:"New
+    post (%TITLE%) has been published on %SITENAME%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
+  snapLI: s:292:"a:1:{i:0;a:9:{s:11:"isPrePosted";s:1:"1";s:4:"doLI";s:1:"1";s:10:"AttachPost";s:1:"1";s:10:"SNAPformat";s:41:"New
+    post has been published on %SITENAME%";s:11:"SNAPformatT";s:18:"New Post - %TITLE%";s:9:"isAutoImg";s:1:"A";s:8:"imgToUse";s:0:"";s:9:"isAutoURL";s:1:"A";s:8:"urlToUse";s:0:"";}}";
+  _jd_twitter: ''
+  _jd_tweet_this: 'no'
+  _yoast_wpseo_linkdex: '80'
+  yuzo_related_post_metabox: a:1:{s:21:"yuzo_disabled_related";N;}
+  medium_post: O:11:"Medium_Post":11:{s:16:"author_image_url";N;s:10:"author_url";N;s:11:"byline_name";N;s:12:"byline_email";N;s:10:"cross_link";N;s:2:"id";N;s:21:"follower_notification";N;s:7:"license";N;s:14:"publication_id";N;s:6:"status";N;s:3:"url";N;}
+  _wds_opengraph: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_twitter: a:3:{s:5:"title";s:0:"";s:11:"description";s:0:"";s:6:"images";a:1:{i:0;s:0:"";}}
+  _wds_focus-keywords: Release Management
+  _wds_title: Configuring Web Site Binding with Release Management
+  _wds_metadesc: Configure the IIS Web Site Binding with Release Management
+  _wds_meta-robots-adv: ''
+  _wds_meta-robots-nofollow: ''
+  _wds_canonical: ''
+author:
+  login: maik@familie-vandergaag.nl
+  email: maik@familie-vandergaag.nl
+  display_name: Maik van der Gaag
+  first_name: Maik
+  last_name: van der Gaag
+permalink: "/2014/09/configuring-web-site-binding-with-release-management/"
+---
+<p>Release Management provides a continuous deployment solution that makes release cycles repeatable, visible, and more efficient by automating deployments through every environment from test to production.</p>
+<p>Within Release Management you have al large set of default Actions and Components to configure a release cycle. On MSDN you can find a list with some common actions that are available within Release Management:</p>
+<ul>
+<li><a title="http://msdn.microsoft.com/en-us/library/ff425471.aspx" href="http://msdn.microsoft.com/en-us/library/ff425471.aspx">Release actions to deploy an app for Release Management</a></li>
+</ul>
+<p>In this list you will find a action for creating a web site “Create Web Site”  and configure a web site “Configure Web Site”. By using the create web site action you will create a web site with default bindings and you would expect to be able to change the bindings by using the “Configure Web Site” action but this is not the case. If you would like to configure the binding on the web site you will have to create a custom action.</p>
+<p>You can create a custom action by navigating to the “Inventory” tab and in the action window selecting new.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/09/image.png"><img style="display: inline; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/09/image_thumb.png" alt="image" width="240" height="151" border="0" /></a></p>
+<p>Selecting new will open up a new window in which you are able to configure a new action. In this new action we will start PowerShell and make use of the “WebAdministration” module to add a new binding.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/09/image1.png"><img style="display: inline; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/09/image_thumb1.png" alt="image" width="240" height="114" border="0" /></a></p>
+<p>As you can see in the image above everything in the “General Information” section speaks for it self. In the example we choose to add the action to the already existing category “IIS” because it is a “IIS” action.</p>
+<p>In the “Execution” section specify what the action should execute. In the “Command” field specify the command for execution. For PowerShell specify “powershell” and in the “Arguments” field specify the argument for the command:</p>
+<pre class="brush: powershell;">-Command "&amp; { Import-Module WebAdministration; New-WebBinding -Name '__SiteName__' -IPAddress '__IPAddress__' -Port '__Port__' -HostHeader '__HostHeader__' -Protocol '__Protocol__'}" 
+</pre>
+<p>As you can see in the code we Import the “WebAdministration” module and use the “New-WebBinding” function for adding a new binding with the following parameters:</p>
+<table border="0" width="400" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td valign="top" width="200"><strong>Parameter</strong></td>
+<td valign="top" width="200"><strong>Value</strong></td>
+</tr>
+<tr>
+<td valign="top" width="200">Name</td>
+<td valign="top" width="200">__SiteName__</td>
+</tr>
+<tr>
+<td valign="top" width="200">Protocol</td>
+<td valign="top" width="200">__Protocol__</td>
+</tr>
+<tr>
+<td valign="top" width="200">IPAdress</td>
+<td valign="top" width="200">__IPAdress__</td>
+</tr>
+<tr>
+<td valign="top" width="200">Port</td>
+<td valign="top" width="200">__Port__</td>
+</tr>
+<tr>
+<td valign="top" width="200">Hostheader</td>
+<td valign="top" width="200">__HostHeader__</td>
+</tr>
+</tbody>
+</table>
+<p>By using the format __[Name]__ (before and after 2 underscores) Release Management knows that these values can be used as parameters in order to make the action reusable.</p>
+<p>When you save this action it will become available to add in your release template.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/09/image2.png"><img style="display: inline; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/09/image_thumb2.png" alt="image" width="240" height="113" border="0" /></a></p>
+<p>You can drag and drop the action within your release flow and configure it by double clicking the action.</p>
+<p><a href="http://msftplayground.com/wp-content/uploads/2014/09/image3.png"><img style="display: inline; border: 0px;" title="image" src="{{ site.baseurl }}/assets/archive/2014/09/image_thumb3.png" alt="image" width="240" height="114" border="0" /></a></p>
+<p>When you add a new Binding you will probably also want to be able to remove a binding. You can do this by creating a new action and adding the following argument.</p>
+<pre class="brush: powershell;">-Command "&amp; { Import-Module WebAdministration; Remove-WebBinding -Name '__SiteName__' -IPAddress '__IPAddress__' -Port '__Port__' -HostHeader '__HostHeader__'}"
+</pre>
+<p><em><strong>Note:</strong>When using the create web site action it will create a web site with the default binding. If you add a new binding to the web site you will also have to remove the default binding or else it could be in conflict with other web sites.</em></p>
