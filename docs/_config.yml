@@ -18,6 +18,7 @@ whitelist:
   - jekyll-redirect-from
 
 minimal_mistakes_skin: "dark" 
+
 # Site Settings
 locale: "en-US"
 title: "MSFTPlayground"
