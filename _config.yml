@@ -15,7 +15,6 @@ whitelist:
   - jekyll-include-cache
   - jekyll-redirect-from
 minimal_mistakes_skin: "dark" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
-# Site Settings
 locale: "en-US"
 title: "Microsoft Playground"
 title_separator: "-"
