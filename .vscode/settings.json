@@ -10,5 +10,17 @@
         "snyk",
         "terrascan",
         "Tfsec"
+    ],
+    "grammarly.selectors": [
+        {
+            "language": "markdown",
+            "scheme": "file",
+            "pattern": "_posts/2023-12-09-verified-git-commits.md"
+        },
+        {
+            "language": "markdown",
+            "scheme": "file",
+            "pattern": "_posts/2023/2023-12-09-verified-git-commits.md"
+        }
     ]
 }
