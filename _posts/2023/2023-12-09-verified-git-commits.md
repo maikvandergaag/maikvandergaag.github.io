@@ -15,7 +15,7 @@ status: draft
 
 Git commits can be signed by using a GPG key. With this GPG key, you can prove that a specific commit comes from you. Doing this will also add a 'Verified' badge next to your commit.
 
-![Verfified Commit]({{ site.baseurl }}assets/images/2023/github-verified.png)
+![Verfified Commit](/assets/images/2023/github-verified.png)
 
 By signing your commit, you prove that the commit came from you, as it is straightforward to add anyone as an author by adding the '--author' flag. By following the steps below, we will ensure we sign our commitments.
 After setting up git commit signing in GitHub, we will also look into setting up git configuration files for different folders. It will help you use different configurations like other user names for your commit, such as automatic commit signing in GitHub.
@@ -31,7 +31,7 @@ gpg --full-generate-key
 
 Choose option 4 (RSA Only) and pick the keysize 4096, then fill in the rest of the questions based on your requirements, and fill in a passphrase at the end.
 
-![Generated Key]({{ site.baseurl }}assets/images/2023/github-generated-key.png)
+![Generated Key](/assets/images/2023/github-generated-key.png)
 
 ## Adding the key to GitHub
 Now that we have a key on our working station, it needs to be exported and added to GitHub to verify your commits. Go back to your terminal and perform the following command.
@@ -50,7 +50,7 @@ Copy the key that is exported, beginning with -----BEGIN PGP PUBLIC KEY BLOCK---
 
 Open up your GitHub Settings page and choose the option 'SSH and GPG Keys'
 
-![GitHub settings]({{ site.baseurl }}assets/images/2023/github-settings.png)
+![GitHub settings](/assets/images/2023/github-settings.png)
 
 Next to the GPG Keys header, click 'New GPG Key' and fill in the correct information. The copied GPG key must be passed into the 'Key' field. Then click the add GPG key button to add it.
 
