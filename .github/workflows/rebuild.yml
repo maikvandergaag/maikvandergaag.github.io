@@ -1,4 +1,4 @@
-name: Rebuild
+name: refresh-github-pages
 
 on:
   schedule:
@@ -12,7 +12,7 @@ jobs:
       - name: Call GitHub pages build endpoint
         run: |
           curl --fail --request POST \
-            --url https://api.github.com/repos/maikvandergaag/maikvandergaag.github.io/pages/builds \
+            --url https://api.github.com/repos/${{ github.repository }}/pages/builds \
             --header "Authorization: Bearer $GH_TOKEN"          
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
