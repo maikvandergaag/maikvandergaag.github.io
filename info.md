@@ -6,6 +6,12 @@
 bundle exec jekyll serve
 ```
 
+## Build Jeckyll with future posts
+
+```Shell
+bundle exec jekyll serve --future
+```
+
 ## Force Passphrase in WSL terminal windows to be able to sign commit
 ```Shell
 export GPG_TTY=$(tty)

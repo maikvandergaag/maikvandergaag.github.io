@@ -25,7 +25,7 @@ url: "https://msftplayground.com"
 baseurl: "/"
 repository: "maikvandergaag/maikvandergaag.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 breadcrumbs: false
-future: true
+future: false
 words_per_minute: 150
 atom_feed:
   path: # blank (default) uses feed.xml
