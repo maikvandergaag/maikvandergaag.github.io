@@ -15,4 +15,4 @@ jobs:
             --url https://api.github.com/repos/maikvandergaag/maikvandergaag.github.io/pages/builds \
             --header "Authorization: Bearer $GH_TOKEN"          
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}{% endraw %}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
