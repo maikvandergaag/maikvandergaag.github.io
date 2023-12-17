@@ -3,6 +3,7 @@ name: Rebuild
 on:
   schedule:
     - cron:  '0 5 * * *' # Runs every day at 6am
+  workflow_dispatch:
 
 jobs:
   refresh:
