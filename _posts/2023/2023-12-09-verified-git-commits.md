@@ -10,7 +10,7 @@ permalink: /2023/12/verified-commits-in-github/
 categories:
 - Git
 - Development
-status: draft
+status: publish
 ---
 
 Git commits can be signed by using a GPG key. With this GPG key, you can prove that a specific commit comes from you. Doing this will also add a 'Verified' badge next to your commit.
