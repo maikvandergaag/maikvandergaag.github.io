@@ -42,7 +42,7 @@ social:
   type: Person
   name: Maik van der Gaag
   links: # An array of links to social media profiles
-    - https://twitter.com/maikvandergaag
+    - https://bsky.app/profile/maikvandergaag.online
     - https://github.com/maikvandergaag
 # Site Author
 author:
@@ -51,9 +51,9 @@ author:
   bio: "I am **Microsoft Azure MVP**, **Speaker** and **Father**."
   location: "Schiedam, The Netherlands"
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/maikvandergaag"
+    - label: "BlueSky"
+      icon: "fab fa-fw fa-bluesky"
+      url: "https://bsky.app/profile/maikvandergaag.online"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/maikvandergaag"
@@ -63,9 +63,9 @@ author:
 # Site Footer
 footer:
   links:
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: "https://twitter.com/maikvandergaag"
+    - label: "BlueSky"
+      icon: "fab fa-fw fa-bluesky"
+      url: "https://bsky.app/profile/maikvandergaag.online"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/maikvandergaag"
