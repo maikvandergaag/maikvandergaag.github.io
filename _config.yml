@@ -50,7 +50,7 @@ author:
   location: "Schiedam, The Netherlands"
   links:
     - label: "BlueSky"
-      icon: "fab fa-fw fa-bluesky-square"
+      icon: "fab fa-fw fa-bluesky"
       url: "https://bsky.app/profile/maikvandergaag.online"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
@@ -62,7 +62,7 @@ author:
 footer:
   links:
     - label: "BlueSky"
-      icon: "fab fa-fw fa-bluesky-square"
+      icon: "fab fa-fw fa-bluesky"
       url: "https://bsky.app/profile/maikvandergaag.online"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
