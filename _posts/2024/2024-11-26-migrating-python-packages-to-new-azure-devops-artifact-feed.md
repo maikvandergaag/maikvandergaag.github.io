@@ -7,7 +7,7 @@ tags:
 - 
 - PowerShell
 date: 2024-11-26 01:00:00.000000000 +01:00
-permalink: /2024/11/migrating-python-packages-to-new -azure-devops-artifact-feed
+permalink: /2024/11/migrating-python-packages-to-new-azure-devops-artifact-feed
 categories:
 - Azure DevOps
 status: publish
