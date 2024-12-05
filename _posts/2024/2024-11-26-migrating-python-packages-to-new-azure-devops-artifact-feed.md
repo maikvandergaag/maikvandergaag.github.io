@@ -39,9 +39,13 @@ The script automates the process of:
 ## Key points of the script  
 
 - Supports **Python package feeds**.  
-- Facilitates migration from a **project feed** to an **organizational feed**.  
+- Facilitates migration from a **project feed** to an **organizational feed**. Within the same Azure DevOps organization 
 - Transfers packages along with all their versions.  
 
+## Priviledges
+
+Make sure the PAT you are using has the following permissions scoped to your organization: 
+- Packaging: Read & Write
 
 **Note:** Metadata is not preserved during the migration process; only the packages, their versions are moved and all information saved in the package itself. 
 
