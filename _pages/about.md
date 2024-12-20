@@ -31,11 +31,12 @@ cert-badges:
 
 Microsoft Playground is a blog that I created in 2011. Before 2011 Maik had several other blogs.
 
-Maik van der Gaag is the CTO of 3fifty, an experienced consultancy company with a strong focus on the Microsoft Cloud. He has over 15 years of experience providing architecture, development, training, and design expertise. During his work, he works on a variety of projects ranging from Cloud Transformations to DevOps implementations.
+Maik van der Gaag is the CTO of 3fifty, an experienced consultancy company with a strong focus on Microsoft Cloud. He has years of experience providing architecture, development, training, and design expertise. During his work, he works on a variety of projects ranging from Cloud Transformations to DevOps implementations.
 
-He loves to share his knowledge which was also one of the reasons why he founded the Dutch Cloud Meetup. Maik is a public speaker, who writes blogs, and organizes events. Microsoft has recognized him as Microsoft Azure MVP.
+He loves to share his knowledge, which is also one of the reasons why he founded the Dutch Cloud Meetup. Maik is a public speaker, blogger, and organizer of events. Microsoft has recognized him as a Microsoft MVP.
 
 <div class="sponsor-frame"><iframe src="https://github.com/sponsors/maikvandergaag/card" title="Sponsor maikvandergaag" height="225" width="600" style="border: 0;"></iframe></div>
 
-{% include gallery id="cert-badges" caption="A small set of my certifications." %}
+A small set of my certifications:
 
+{% include gallery id="cert-badges" caption="" %}

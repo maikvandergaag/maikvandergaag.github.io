@@ -9,3 +9,15 @@
 .page {
     padding-right:0px !important;
 }
+
+.page__content p, .page__content li {
+    font-size:0.8em;
+}
+
+figure img {
+    width:auto;
+}
+
+.visible-links a{
+    font-size:15px;
+}

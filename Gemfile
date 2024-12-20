@@ -37,5 +37,4 @@ gem "wdm", :platforms => [:mingw, :x64_mingw, :mswin]
 gem "http_parser.rb", :platforms => [:jruby]
 gem "webrick"
 
-gem "hpricot"
 gem "open_uri_redirections"
