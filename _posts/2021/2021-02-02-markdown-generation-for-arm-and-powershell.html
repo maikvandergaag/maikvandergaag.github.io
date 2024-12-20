@@ -44,7 +44,7 @@ status: publish
     The folder were to safe the markdown files
 
 .PARAMETER ExcludeFolders
-    Exclude folder for generation. This is a comma seperated list
+    Exclude folder for generation. This is a comma separated list
 
 .PARAMETER KeepStructure
     Specified to keep the structure of the subfolders
@@ -149,7 +149,7 @@ PROCESS {
                         Write-Warning -Message ("Syntax not defined in file $($script.fullname)")
                     }
 
-                    #notes (seperated by (name): and (value);)
+                    #notes (separated by (name): and (value);)
                     if ($help.alertSet) {
                         ("## Information") | Out-File -FilePath $outputFile -Append
                         $text = $help.alertSet.alert.Text.Split(';', $option)

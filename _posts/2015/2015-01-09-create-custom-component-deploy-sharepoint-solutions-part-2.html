@@ -111,7 +111,7 @@ if ((Test-Path $fileName) -eq $true) {
         Deploy-Solutions
     }catch{
         Write-Host $_.Exception.Message -ForegroundColor Red
-        throw "Exception occured while deploying solutions"
+        throw "Exception occurred while deploying solutions"
     }
 }else {
     throw "Error loading configuration file, exiting the deployment"
@@ -233,7 +233,7 @@ Write-Host "#### End deploying solutions ####"
             }
             else{
                Write-Host " &gt; Solution $solutionName could not be installed correctly." -ForeGroundColor Green
-               throw "Error occured while installing solution $solutionName"
+               throw "Error occurred while installing solution $solutionName"
             }
     }                          
 }
