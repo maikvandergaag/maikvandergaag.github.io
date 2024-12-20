@@ -56,7 +56,7 @@ status: publish
  'email message success
  Const strSucceededMessage = "The SharePoint Backup Process completed without errors."
 
- 'backup enviroment
+ 'backup environment
  Const strEnviroment = "Intranet"
 
  'url off the mail server
@@ -173,13 +173,13 @@ status: publish
  ''Mehtod for sending the e-mail
  ''&lt;subject&gt;The subject off the email&lt;/subject&gt;
  ''&lt;body&gt;The Body text off the e-mail&lt;/body&gt;
- Sub SendEmail (subject, body, enviroment)
+ Sub SendEmail (subject, body, environment)
 
  'create message
  Set objEmail = CreateObject("CDO.Message")
  objEmail.From = strFrom
  objEmail.To = strTo
- objEmail.Subject = subject &amp; " (" &amp; strBackUpMethod &amp; ") " &amp; "- " &amp; enviroment
+ objEmail.Subject = subject &amp; " (" &amp; strBackUpMethod &amp; ") " &amp; "- " &amp; environment
  objEmail.Textbody = body
 
  'Mail configuration

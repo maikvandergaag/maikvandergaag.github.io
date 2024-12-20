@@ -32,13 +32,13 @@ status: publish
 <p>When the steps within Azure Active Directory are completed the API also needs some small code changes. To secure the application it self a couple of configuration need to be saved and we will save these in the web.config file.</p>
 <pre class="highlight">&lt;add key="auth:Tenant" value="[Tenant name, example.onmicrosoft.com]" /&gt;
 &lt;add key="auth:APPIDURI" value="[App ID URI of your API Application]" /&gt;
-&lt;add key="auth:TrustedCallerClientIds" value="[Trusted Callers ClientIds seperated by ';']" /&gt;
+&lt;add key="auth:TrustedCallerClientIds" value="[Trusted Callers ClientIds separated by ';']" /&gt;
 </pre>
 <p>&nbsp;</p>
 <ul>
 <li><strong>APPIDURI: </strong>APP ID URI of your application.</li>
 <li><strong>Tenant</strong>:The name of the Azure AD tenant in which you registered the application ([tenant].onmicrosoft.com)</li>
-<li><strong>TrustedCallerIds</strong>:The Client Id’s of the clients that are authorized to access the application seperated by ‘;’.</li>
+<li><strong>TrustedCallerIds</strong>:The Client Id’s of the clients that are authorized to access the application separated by ‘;’.</li>
 </ul>
 <p>In the “Startup” class register the Windows Azure Authentication mechanism.</p>
 <pre class="highlight">public void ConfigureAuth(IAppBuilder app) {
