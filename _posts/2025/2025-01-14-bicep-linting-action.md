@@ -129,8 +129,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+{% raw %}
 env:
-  allFiles: ${{ github.event_name != 'pull_request' && true || ( github.base_ref == 'main' && true || false) }}
+ allFiles: ${{ github.event_name == 'pull_request' || ( github.base_ref == 'main') }}
+{% endraw %}
 
 jobs:
   lint:
@@ -138,7 +140,7 @@ jobs:
     steps:
       - uses: maikvandergaag/action-biceplint@main
         with:
-          allfiles: ${{ env.allFiles }}
+          {% raw %}allfiles: ${{ env.allFiles }}{% endraw %}
           create-sarif: true
           markdown-report: false
           sarif-output-path: bicep-lint.sarif
