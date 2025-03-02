@@ -35,7 +35,6 @@ search_provider: "lunr"
 lunr:
   search_within_pages: true
 # Social Sharing
-og_image: "/assets/profile/profile.png"
 social:
   type: Person
   name: Maik van der Gaag
