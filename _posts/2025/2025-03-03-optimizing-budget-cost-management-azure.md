@@ -14,6 +14,11 @@ categories:
 status: publish
 ---
 
+This is my involvement in Azure Spring Clean 2025, organized by Thomas Thornton, which I`m excited to be part of! For those unaware, the event promotes and encourages well-managed Azure tenants. It is held yearly in March, and over a couple of days, best practices and information are shared.
+You can find more information [here](https://www.azurespringclean.com/).
+
+![Azure Spring Clean](/assets/images/2025/spring-clean.png)
+
 Cost management is crucial for maintaining a cost-effective cloud platform. Without proper cost management, you can face unexpected charges. Azure contains a couple of possibilities for efficient cost management.
 
 Almost every scope within Azure (Management groups, subscriptions, and resources groups) has a 'cost management' section within the menu. All of these can also be managed from the 'Cost Management' blade within the Azure Portal.
