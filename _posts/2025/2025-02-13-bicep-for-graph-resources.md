@@ -13,7 +13,8 @@ permalink: /2025/01/bicep-for-graph-resources
 categories:
 - Bicep
 status: publish
-og_image: /assets/images/2025/graph-extension.png
+header:
+  og_image: /assets/images/2025/graph-extension.png
 ---
 
 For the Bicep language, an extensibility framework exists that adds capabilities to extend Infrastructure as Code deployments to other resources and providers. The extensibility framework is still an experimental feature, so it is subject to change and needs to be enabled separately.
