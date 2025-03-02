@@ -12,6 +12,8 @@ permalink: /2025/03/optimizing-budget-cost-management-azure
 categories:
 - Azure
 status: publish
+header:
+  og_image: /assets/images/2025/spring-clean.png
 ---
 
 This is my involvement in Azure Spring Clean 2025, organized by Thomas Thornton, which I`m excited to be part of! For those unaware, the event promotes and encourages well-managed Azure tenants. It is held yearly in March, and over a couple of days, best practices and information are shared.
