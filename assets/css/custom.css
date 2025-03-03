@@ -25,3 +25,8 @@ figure img {
 div.highlighter-rouge{
     font-size:0.6em;
 }
+
+.author__avatar img {
+    max-width: 200px;
+    border-color: white;
+}

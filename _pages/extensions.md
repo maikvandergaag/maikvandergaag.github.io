@@ -9,6 +9,20 @@ In my free time, I'm on a mission to supercharge the tools I rely on every day. 
 
 Join me in this journey and fuel the future of extension development. You can  [Buy me a Coffee](https://www.buymeacoffee.com/maikvandergaag) or dive into the code with me on GitHub. Together, we'll create magic that transforms the ordinary into the extraordinary!
 
+
+# GitHub Action: Bicep Linting
+
+The Github Action Bicep Linting supports people who write Bicep in linting capabilities for their GitHub Workflows. Supported features for this aciton are:
+
+- Build Bicep files
+- Output to the GitHub Summary
+- Output to Sarif
+- Output to a combined Sarif file for all your linted Bicep files.
+
+**Find more information on:**
+- [GitHub](https://github.com/maikvandergaag/action-biceplint)
+- [GitHub Marketplace](https://github.com/marketplace/actions/bicep-linting)
+
 # Power BI Actions
 Power BI Actions is one of my most used extensions. With this extension, you can manage the complete lifecycle of your Power BI dashboards within powerbi.com. A list of operations that are supported are:
 

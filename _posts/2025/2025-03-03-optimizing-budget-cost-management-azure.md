@@ -58,6 +58,7 @@ These alert rules can be created in the portal by performing the following steps
 
 ![Cost Management Alert Rules](/assets/images/2025/cost-management-alert-rules.png)
 
+{:start="3"}
 3. Click on 'Add' to create a new alert rule.
 4. Set the alert type to 'Anomaly' and fill in the other information.
 
@@ -124,7 +125,8 @@ resource sa 'Microsoft.CostManagement/scheduledActions@2024-08-01' = {
   }
 }
 ```
-The above template creates an anomaly alert on a subscription scope. The parameters allow you to adjust the naming and information in your mail. 
+
+The above template creates an anomaly alert on a subscription scope. The parameters allow you to adjust the naming and information in your mail.
 Using this Bicep in your subscription vending process will help your team members spot any anomalies in the costs of their subscriptions.
 
 ## Budget Alerting
@@ -146,16 +148,19 @@ Setting up these alerts is easy and can be done quickly. These steps can be perf
 
 ![Budget Scoping](/assets/images/2025/budget-scoping.png)
 
+{:start="3"}
 3. Fill in the budget details and amount. The system will alert you against this amount. Also, watch the suggestions the platform gives you.
 
 ![Budget Details](/assets/images/2025/budget-details.png)
 
+{:start="4"}
 4. Now, the alert conditions can be specified. The alert conditions specify when alerts will be sent. Here you can select if you want to alert on actual costs or on forecasted costs. Alerts are sent based on a percentage of your costs on the specified scope. An action group can be selected for the rule as a last option. This gives the possibility to notify specific people on specific thresholds.
 
 > **Note**: You can notify people with a specific RBAC role on the scope using the action group capability. This way, you can directly inform people who can take action!
 
 ![Budget Alert configuration](/assets/images/2025/budget-alert-config.png)
 
+{:start="5"}
 5. Click Create to save the budget alert
 
 ### Bicep Budget Alert
