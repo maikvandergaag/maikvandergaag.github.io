@@ -1,0 +1,14 @@
+https://jekyllrb.com/docs/
+
+gem install jekyll bundler
+
+## Install the required bundles
+bundle install 
+ridk install
+
+
+## Open the jekyll server with the current items
+bundle exec jekyll serve
+
+# Open the jekyll server with the future items
+bundle exec jekyll serve --future

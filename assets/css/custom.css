@@ -30,3 +30,7 @@ div.highlighter-rouge{
     max-width: 200px;
     border-color: white;
 }
+
+.layout--home .archive__subtitle{ 
+    display:none;
+}

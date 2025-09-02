@@ -35,7 +35,7 @@ search_provider: "lunr"
 lunr:
   search_within_pages: true
 # Social Sharing
-og_image: "/assets/profile/profile-2.jpg"
+og_image: "/assets/profile/profile_3.jpg"
 social:
   type: Person
   name: Maik van der Gaag
@@ -45,7 +45,7 @@ social:
 # Site Author
 author:
   name: "Maik van der Gaag"
-  avatar: "/assets/profile/profile-2.jpg"
+  avatar: "/assets/profile/profile_3.jpg"
   bio: "I am a **Microsoft MVP**, a **speaker**, and the **father** of three."
   location: "Schiedam, The Netherlands"
   links:
