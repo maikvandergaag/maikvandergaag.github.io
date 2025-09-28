@@ -8,7 +8,7 @@ tags:
 date: 2025-09-26 01:00:00.000000000 +01:00
 permalink: /2025/09/bicep-pattern-paramater
 categories:
-- Azure
+- IaC
 status: publish
 header:
   og_image: /assets/images/2025/bicep-pattern.png
