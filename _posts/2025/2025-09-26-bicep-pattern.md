@@ -1,12 +1,12 @@
 ---
-title: Bicep pattern paramter
+title: Bicep pattern parameter
 type: post
 tags:
 - Bicep
 - Parameter
 - pattern
 date: 2025-09-26 01:00:00.000000000 +01:00
-permalink: /2025/09/bicep-pattern-paramater
+permalink: /2025/09/bicep-pattern-parameter
 categories:
 - IaC
 status: publish
