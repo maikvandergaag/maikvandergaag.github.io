@@ -47,7 +47,7 @@ As you can imagine, and as you may have seen on the list of extensions, you can 
 
 * [Creating a Local Extension with .Net](https://github.com/Azure/bicep/blob/main/docs/experimental/local-deploy-dotnet-quickstart.md)
 
-## Start Testing Bicep Local deployments.
+## Start Testing Bicep Local deployments
 
 To get started deploying with local deployments, a few steps need to be taken. For these steps, we use the repository below as a reference.
 
