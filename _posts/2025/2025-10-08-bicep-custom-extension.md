@@ -244,7 +244,7 @@ Next step is to update the 'bicepconfig.json' file to be able to use the extensi
 
 Now your defined resource type can be used in bicep.
 
-```bicep
+```yaml
 targetScope = 'local'
 extension http
 
