@@ -8,7 +8,7 @@ date: 2025-12-26 01:00:00.000000000 +01:00
 permalink: /2025/12/a-festive-tale-the-mystery-of-hidden-tags
 categories:
 - Azure
-status: draft
+status: publish
 header:
   og_image: /assets/images/2025/azure-tags.png
 ---
