@@ -9,6 +9,12 @@ In my free time, I'm on a mission to supercharge the tools I rely on every day. 
 
 Join me in this journey and fuel the future of extension development. You can  [Buy me a Coffee](https://www.buymeacoffee.com/maikvandergaag) or dive into the code with me on GitHub. Together, we'll create magic that transforms the ordinary into the extraordinary!
 
+# Bicep Extension repository
+
+With the Bicep Local feature Bicep has the capability to include extensibility. As extensions are build by the community I try to maintain a registry with all extensions that are beign developed.
+
+[Bicep Extension Registry](https://msftplayground.com/bicep-extensions/)
+
 
 # GitHub Action: Bicep Linting
 
