@@ -30,7 +30,7 @@ cert-badges:
 
 👋 Hi, I’m Maik van der Gaag – a technology leader, community builder, and passionate advocate for the Microsoft Cloud.
 
-I currently work at [Databalance](https://databalance.eu) as the Microsoft Team Lead, where I help organizations succeed with modern cloud adoption and digital transformation. With more than 20 years of experience in architecture, software development, and DevOps, I specialize in bridging strategy with hands-on technology.
+I currently work at [Databalance](https://databalance.eu) as Microsoft Team Lead and Microsoft evangalist, where I help organizations succeed with modern cloud adoption and digital transformation. With more than 20 years of experience in architecture, software development, and DevOps, I specialize in bridging strategy with hands-on technology.
 
 Over the years, I’ve been fortunate to work on a wide range of projects, from designing secure and scalable Azure environments to implementing Infrastructure as Code with Bicep and advancing DevOps practices.
 
