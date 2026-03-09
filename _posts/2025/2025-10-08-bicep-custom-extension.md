@@ -43,7 +43,7 @@ The extension provides a new resource type HttpCall that can perform HTTP reques
 
 When creating your own extension based on the article I shared earlier, there are a few important considerations and steps to keep in mind. To make this more practical, I’ll walk you through the process using the source code of my own extension as an example.
 
-In my example, I followed specific coding guidelines, which is why my extension differs slightly from the one described in the article. One of the main things that I have changed is the seperation of the code files.
+In my example, I followed specific coding guidelines, which is why my extension differs slightly from the one described in the article. One of the main things that I have changed is the separation of the code files.
 
 ### Program
 
