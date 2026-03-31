@@ -7,6 +7,8 @@
 .jekyll-metadata
 _site
 Gemfile.lock
+vendor/bundle
+.bundle
 
 # User-specific files
 *.rsuser
