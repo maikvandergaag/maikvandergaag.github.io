@@ -156,18 +156,6 @@ compress_html:
   clippings: all
   ignore:
     envs: development
-
-# Comments
-comments:
-  provider: "giscus"
-  giscus:
-    repo_id           : "R_kgDOKoNoBw"
-    category_name     : "General"
-    category_id       : "DIC_kwDOKoNoB84C5r2n"
-    discussion_term   : "pathname"
-    reactions_enabled : "1"
-    theme             : "dark"
-
 defaults:
   # _posts
   - scope:
@@ -179,7 +167,6 @@ defaults:
       read_time: true
       share: true
       related: true
-      comments: true
   # _pages
   - scope:
       path: "_pages"
