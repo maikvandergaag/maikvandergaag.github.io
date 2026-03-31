@@ -18,3 +18,4 @@ gem "wdm", :platforms => [:windows]
 gem "http_parser.rb", :platforms => [:jruby]
 gem "webrick"
 gem "fiddle"
+gem "faraday-retry"
