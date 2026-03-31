@@ -34,3 +34,35 @@ div.highlighter-rouge{
 .layout--home .archive__subtitle{ 
     display:none;
 }
+
+/* Sponsor section */
+.sponsor-box {
+    margin: 1.5em 0;
+    padding: 1.25em 1.5em;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+}
+
+.sponsor-box p {
+    margin: 0 0 1em 0;
+}
+
+.sponsor-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5em 1.2em;
+    background: #21262d;
+    color: #f0f6fc !important;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    font-size: 0.875em;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.sponsor-button:hover {
+    background: #30363d;
+    border-color: #8b949e;
+}

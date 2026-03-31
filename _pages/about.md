@@ -45,7 +45,15 @@ Over the years, I’ve been fortunate to work on a wide range of projects, from 
 
 I believe knowledge should be shared, not kept. That’s why I founded Microsoft Playground in 2011 – a blog dedicated to Azure, DevOps, architecture, and hands-on guidance. I also contribute to open-source projects and publish reusable modules and extensions to help others build more effectively in the cloud.
 
-<div class="sponsor-frame"><iframe src="https://github.com/sponsors/maikvandergaag/card" title="Sponsor maikvandergaag" height="225" width="600" style="border: 0;"></iframe></div>
+<div class="sponsor-box">
+  <p>If you find my content helpful, consider sponsoring me on GitHub. Your support helps me keep creating free content, open-source tools, and reusable modules for the community. 💙</p>
+  <a class="sponsor-button" href="https://github.com/sponsors/maikvandergaag" target="_blank" rel="noopener">
+    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" style="vertical-align:middle;margin-right:6px;fill:#ea4aaa;">
+      <path d="M4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.565 20.565 0 008 13.393a20.561 20.561 0 003.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.75.75 0 01-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5z"/>
+    </svg>
+    Sponsor me on GitHub
+  </a>
+</div>
 
 
 A small set of my certifications:
