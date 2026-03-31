@@ -51,4 +51,10 @@ if ($Future) {
     Write-Host "Starting Jekyll server..." -ForegroundColor Green
 }
 
+# Open browser after a short delay to allow Jekyll to start
+Start-Job -ScriptBlock {
+    Start-Sleep -Seconds 8
+    Start-Process "http://localhost:4000"
+} | Out-Null
+
 bundle exec jekyll serve @serveArgs
