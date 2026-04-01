@@ -51,10 +51,24 @@ if ($Future) {
     Write-Host "Starting Jekyll server..." -ForegroundColor Green
 }
 
-# Open browser after a short delay to allow Jekyll to start
+# Open browser once Jekyll is ready by polling port 4000
 Start-Job -ScriptBlock {
-    Start-Sleep -Seconds 8
-    Start-Process "http://localhost:4000"
+    $timeout = 120
+    $elapsed = 0
+    while ($elapsed -lt $timeout) {
+        try {
+            $tcp = New-Object System.Net.Sockets.TcpClient
+            $tcp.Connect("localhost", 4000)
+            if ($tcp.Connected) {
+                $tcp.Dispose()
+                Start-Process "http://localhost:4000"
+                break
+            }
+            $tcp.Dispose()
+        } catch { }
+        Start-Sleep -Seconds 1
+        $elapsed++
+    }
 } | Out-Null
 
 bundle exec jekyll serve @serveArgs
