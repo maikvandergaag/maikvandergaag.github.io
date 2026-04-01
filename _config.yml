@@ -156,6 +156,16 @@ compress_html:
   clippings: all
   ignore:
     envs: development
+comments:
+  provider: "giscus"
+  giscus:
+    repo_id: "R_kgDOKoNoBw"
+    category_name: "Blog Comments"
+    category_id: "YOUR_CATEGORY_ID" # Replace: https://giscus.app → select repo → copy category_id
+    discussion_term: "pathname"
+    reactions_enabled: "1"
+    theme: "dark_dimmed"
+
 defaults:
   # _posts
   - scope:
@@ -167,6 +177,7 @@ defaults:
       read_time: true
       share: true
       related: true
+      comments: true
   # _pages
   - scope:
       path: "_pages"
