@@ -22,7 +22,7 @@ subtitle: "debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps')
 name: "Maik van der Gaag"
 description: ""
 url: "https://msftplayground.com"
-baseurl: "/"
+baseurl: ""
 repository: "maikvandergaag/maikvandergaag.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 breadcrumbs: false
 future: false
