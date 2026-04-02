@@ -9,8 +9,14 @@ param(
     [switch]$SkipInstall
 )
 
-# Kill any stale Jekyll/Ruby processes to free port 4000
-(Get-Process ruby -ErrorAction SilentlyContinue).Id | ForEach-Object { Stop-Process -Id $_ -Force }
+# Kill any stale Jekyll Ruby processes (only those running `jekyll serve`) to free port 4000
+$jekyllRubyProcesses = Get-CimInstance Win32_Process -Filter "Name='ruby.exe'" -ErrorAction SilentlyContinue |
+    Where-Object { $_.CommandLine -match 'jekyll\s+serve' }
+if ($jekyllRubyProcesses) {
+    $jekyllRubyProcesses | ForEach-Object {
+        Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue
+    }
+}
 
 # Check if bundler is available
 if (-not (Get-Command bundle -ErrorAction SilentlyContinue)) {
