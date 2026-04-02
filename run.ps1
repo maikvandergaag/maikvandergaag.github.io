@@ -53,4 +53,7 @@ Start-Job -ScriptBlock {
     Start-Process "http://localhost:4000"
 } | Out-Null
 
+# Set production environment so comments and other production-only features are visible locally
+$env:JEKYLL_ENV = "production"
+
 bundle exec jekyll serve @serveArgs
