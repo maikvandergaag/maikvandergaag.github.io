@@ -1,54 +1,51 @@
 ---
 permalink: /terms/
 title: "Terms and Privacy Policy"
-last_modified_at: 2016-06-06
+last_modified_at: 2026-04-02
 toc: true
 ---
 
 ## Privacy Policy
 
-The privacy of my visitors is extremely important. This Privacy Policy outlines the types of personal information that is received and collected and how it is used.
+The privacy of my visitors is important to me. This Privacy Policy outlines what information is collected when you visit this website and how it is used.
 
-First and foremost, I will never share your email address or any other personal information to anyone without your direct consent.
+I will never share your personal information with third parties without your direct consent.
 
-### Log Files
+### Hosting
 
-Like many other websites, this site uses log files to help learn about when, from where, and how often traffic flows to this site. The information in these log files include:
+This website is hosted on [GitHub Pages](https://pages.github.com/). GitHub may collect basic technical data such as IP addresses as part of their hosting infrastructure. Please refer to [GitHub's Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement) for details.
 
-* Internet Protocol addresses (IP)
-* Types of browser
-* Internet Service Provider (ISP)
-* Date and time stamp
-* Referring and exit pages
-* Number of clicks
+### Cookies
 
-All of this information is not linked to anything that is personally identifiable.
+This website does not use tracking cookies or advertising cookies. The only cookies that may be set are functional cookies required by third-party services listed below.
 
-### Cookies and Web Beacons
+### Comments (Giscus)
 
-Third-party advertisers may also place and read cookies on your browser and/or use web beacons to collect information. This site has no access or control over these cookies. You should review the respective privacy policies on any and all third-party ad servers for more information regarding their practices and how to opt-out.
+This website uses [Giscus](https://giscus.app/) for comments, which is powered by [GitHub Discussions](https://docs.github.com/en/discussions). To leave a comment, you must sign in with a GitHub account. Comments are stored as GitHub Discussions in the public repository. Please refer to [GitHub's Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement) for details on how GitHub handles your data.
 
-If you wish to disable cookies, you may do so through your web browser options. Instructions for doing so can be found on the specific web browsers' websites.
+### Search
 
-#### Google Analytics
+Search functionality on this website is powered by [Lunr.js](https://lunrjs.com/), a fully client-side search library. No search queries are sent to any external server.
 
-Google Analytics is a web analytics tool I use to help understand how visitors engage with this website. It reports website trends using cookies and web beacons without identifying individual visitors. You can read [Google Analytics Privacy Policy](http://www.google.com/analytics/learn/privacy.html).
+### External Links
 
-#### Google Adsense
+This website may contain links to external websites. I have no control over the content or privacy practices of those sites and am not responsible for their policies.
 
-Google Adsense, a third party affiliate marketing network, uses cookies to help make sure I get a commission when you buy a product after clicking on a link or ad banner that takes you to the site of one of their merchants. You can read [Google Adsense Privacy Policy](http://support.google.com/adsense/bin/answer.py?hl=en&answer=48182).
+## Your Rights (GDPR)
 
-## Disclosure Policy
+If you are a resident of the European Economic Area (EEA), you have the following rights regarding your personal data:
 
-I make money on this website through affiliate programs. If you click an affiliate link or ad banner and buy the product, you help support this website because I'll get a percentage of that sale.
+- **Right of access** — you can request a copy of the personal data held about you
+- **Right to rectification** — you can request correction of inaccurate data
+- **Right to erasure** — you can request deletion of your personal data
+- **Right to object** — you can object to the processing of your personal data
 
-Currently I'm an affiliate for Amazon and Google Adsense.
+This website does not directly collect or store personal data beyond what is described above. For data held by GitHub (hosting and comments), please refer to GitHub's privacy controls and contact options.
 
-What this means for you:
+For any privacy-related questions, please contact me via [GitHub](https://github.com/maikvandergaag).
 
-* I became an affiliate to earn revenue towards the costs of running and maintaining this website. Where I have direct control over which ads are served on this website I offer only products that are directly related to the topic of this website and products that a reader/subscriber would have a genuine interest in or need of.
-* I do not and will not recommend a product just for the sake of making money.
-* I do not let the compensation I receive influence the content, topics, posts, or opinions expressed on this website.
-* I respect and value my readers too much to write anything other than my own genuine and objective opinions and advice.
+## Disclaimer
 
-Just like this website, my Disclosure Policy is a work in progress. As the revenue streams evolve, so will this page.
+All content on this website is provided for informational and educational purposes only. The views and opinions expressed are my own and do not represent those of any employer or organisation I am affiliated with.
+
+While I strive to keep content accurate and up to date, I make no warranties about the completeness, accuracy, or reliability of any information published here.
