@@ -60,6 +60,16 @@ Start-Job -ScriptBlock {
 } | Out-Null
 
 # Set production environment so comments and other production-only features are visible locally
-$env:JEKYLL_ENV = "production"
-
-bundle exec jekyll serve @serveArgs
+$previousJekyllEnv = $env:JEKYLL_ENV
+try {
+    $env:JEKYLL_ENV = "production"
+    bundle exec jekyll serve @serveArgs
+}
+finally {
+    if ($null -ne $previousJekyllEnv) {
+        $env:JEKYLL_ENV = $previousJekyllEnv
+    }
+    else {
+        Remove-Item Env:JEKYLL_ENV -ErrorAction SilentlyContinue
+    }
+}
