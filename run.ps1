@@ -9,6 +9,9 @@ param(
     [switch]$SkipInstall
 )
 
+# Kill any stale Jekyll/Ruby processes to free port 4000
+(Get-Process ruby -ErrorAction SilentlyContinue).Id | ForEach-Object { Stop-Process -Id $_ -Force }
+
 # Check if bundler is available
 if (-not (Get-Command bundle -ErrorAction SilentlyContinue)) {
     Write-Host "Bundler not found. Installing Jekyll and Bundler..." -ForegroundColor Yellow
@@ -24,13 +27,6 @@ $needsInstall = $true
 if ($SkipInstall) {
     $needsInstall = $false
     Write-Host "Skipping bundle install (-SkipInstall)." -ForegroundColor DarkGray
-} elseif ((Test-Path $stampFile) -and (Test-Path $gemfilePath)) {
-    $gemfileTime = (Get-Item $gemfilePath).LastWriteTime
-    $stampTime   = (Get-Item $stampFile).LastWriteTime
-    if ($stampTime -gt $gemfileTime) {
-        $needsInstall = $false
-        Write-Host "Gemfile unchanged, skipping bundle install." -ForegroundColor DarkGray
-    }
 }
 
 if ($needsInstall) {
