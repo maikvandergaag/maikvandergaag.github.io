@@ -22,7 +22,7 @@ subtitle: "debug.write('Architecture, Azure, Azure DevOps, Git, GitHub, DevOps')
 name: "Maik van der Gaag"
 description: ""
 url: "https://msftplayground.com"
-baseurl: "/"
+baseurl: ""
 repository: "maikvandergaag/maikvandergaag.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 breadcrumbs: false
 future: false
@@ -156,6 +156,16 @@ compress_html:
   clippings: all
   ignore:
     envs: development
+comments:
+  provider: "giscus"
+  giscus:
+    repo_id: "R_kgDOKoNoBw"
+    category_name: "Blog Comments"
+    category_id: "DIC_kwDOKoNoB84C5wkj"
+    discussion_term: "pathname"
+    reactions_enabled: "1"
+    theme: "dark_dimmed"
+
 defaults:
   # _posts
   - scope:
@@ -167,6 +177,7 @@ defaults:
       read_time: true
       share: true
       related: true
+      comments: true
   # _pages
   - scope:
       path: "_pages"

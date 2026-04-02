@@ -9,6 +9,15 @@ param(
     [switch]$SkipInstall
 )
 
+# Kill any stale Jekyll Ruby processes (only those running `jekyll serve`) to free port 4000
+$jekyllRubyProcesses = Get-CimInstance Win32_Process -Filter "Name='ruby.exe'" -ErrorAction SilentlyContinue |
+    Where-Object { $_.CommandLine -match 'jekyll\s+serve' }
+if ($jekyllRubyProcesses) {
+    $jekyllRubyProcesses | ForEach-Object {
+        Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue
+    }
+}
+
 # Check if bundler is available
 if (-not (Get-Command bundle -ErrorAction SilentlyContinue)) {
     Write-Host "Bundler not found. Installing Jekyll and Bundler..." -ForegroundColor Yellow
@@ -24,13 +33,6 @@ $needsInstall = $true
 if ($SkipInstall) {
     $needsInstall = $false
     Write-Host "Skipping bundle install (-SkipInstall)." -ForegroundColor DarkGray
-} elseif ((Test-Path $stampFile) -and (Test-Path $gemfilePath)) {
-    $gemfileTime = (Get-Item $gemfilePath).LastWriteTime
-    $stampTime   = (Get-Item $stampFile).LastWriteTime
-    if ($stampTime -gt $gemfileTime) {
-        $needsInstall = $false
-        Write-Host "Gemfile unchanged, skipping bundle install." -ForegroundColor DarkGray
-    }
 }
 
 if ($needsInstall) {
@@ -71,4 +73,17 @@ Start-Job -ScriptBlock {
     }
 } | Out-Null
 
-bundle exec jekyll serve @serveArgs
+# Set production environment so comments and other production-only features are visible locally
+$previousJekyllEnv = $env:JEKYLL_ENV
+try {
+    $env:JEKYLL_ENV = "production"
+    bundle exec jekyll serve @serveArgs
+}
+finally {
+    if ($null -ne $previousJekyllEnv) {
+        $env:JEKYLL_ENV = $previousJekyllEnv
+    }
+    else {
+        Remove-Item Env:JEKYLL_ENV -ErrorAction SilentlyContinue
+    }
+}
