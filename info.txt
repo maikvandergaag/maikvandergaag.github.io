@@ -12,3 +12,5 @@ bundle exec jekyll serve
 
 # Open the jekyll server with the future items
 bundle exec jekyll serve --future
+
+#check to be able to run this on a MAC
